@@ -1,0 +1,32 @@
+|LF_MIME_TYPES|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_MIME_TYPES?DOMAIN=`domain`">`LANG_MIME_TYPES`</a> &raquo; <a class=tree href="/CMD_MIME_TYPES?action=system&domain=`domain`">`LANG_SYSTEM_MIME_TYPES`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#mime|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SYSTEM_MIME_TYPES|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<style type="text/css">
+<!--
+td.list, td.list2 {  font-size: 10px ! important;}
+td.list2 {  background-color: #f5f5f5 ! important;}
+-->
+</style>
+|MIMETYPES|
+<br />
+<a href="/CMD_MIME_TYPES?DOMAIN=|domain|">|LANG_LIST_USER_MIMES|</a><br /><br />
+
+|HTM_USER_BOTTOM|

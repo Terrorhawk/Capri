@@ -1,0 +1,55 @@
+|LF_STANDARD|
+|LF_FTP|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_FTP?DOMAIN=`DOMAIN`">`LANG_FTP_SETUP`</a> &raquo; <a class=tree href="/CMD_FTP_SHOW?DOMAIN=`DOMAIN`&user=`user`">`LANG_MODIFY` `user`</a>|
+|?HELP_SECTION=`USER_HELPER`/ftp.html#mod|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_FTP?DOMAIN=|DOMAIN|"><img src="/IMG_IC_FTP"><br />|LANG_FTP_SETUP|</a>
+        <div class="cf cleft"></div>
+      </div>
+  |HTM_BOX_USER_STATS|
+</div>
+<div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MODIFY_FTP| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form name=info action="CMD_FTP" method="post">
+<input type=hidden name=action value=modify>
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=user value="|USER|">
+|SYSTEMUSERHIDDEN|
+<table class="config" cellspacing=0>
+  <thead>
+    <tr><td colspan=3>|LANG_MODIFY_FTP|</td></tr>
+  </thead>
+  <tbody>
+    <tr><th>|LANG_FTP_USERNAME|</th><td colspan=2>|FULLUSER|</td></tr>
+    <tr><th>|LANG_ENTER_PASS|:</th><td colspan=2><input type=password name=passwd size=19 class="combot"> <input type=button class="boton small randpass" value="|LANG_RANDOM|"></td></tr>
+    <tr><th>|LANG_RE-ENTER_PASS|:</th><td colspan=2><input type=password name=passwd2 size=19 class="combot"></td></tr>
+    <tr><th>|LANG_DOMAIN|:</th><td align=center><input type=radio name=type value="domain" |DOMAINCHECKED|></td><td>|LANG_DOMAIN_USER|</td></tr>
+    <tr><th>|LANG_FTP|:</th><td align=center><input type=radio name=type value="ftp" |FTPCHECKED|></td><td>|LANG_FTP_USER|</td></tr>
+    <tr><th>|LANG_USER|:</th><td align=center><input type=radio name=type value="user" |USERCHECKED|></td><td>|LANG_USER_USER|</td></tr>
+    <tr><th>|LANG_CUSTOM|:</th><td align=center><input type=radio name=type value="custom" |CUSTOMCHECKED|></td><td><input type=text size=82 class="combot" name=custom_val value="|CUSTOM_PATH|"></td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan=3><input type=submit name=create value="|LANG_MODIFY|"></td></tr>
+  </tfoot>
+</table>
+</form>
+</div>
+|HTM_FOOTER|

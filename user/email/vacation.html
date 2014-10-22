@@ -1,0 +1,34 @@
+|LF_STANDARD|
+|LF_EMAIL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_VACATION?DOMAIN=`DOMAIN`">`LANG_VAC_MESS`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#vacation|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_EMAIL_VACATION_CREATE?DOMAIN=|DOMAIN|"><img src="/IMG_IC_ADD_VACATION"><br />|LANG_SET_VAC|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_VAC_MESS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<div class="table100">|VACATIONS|</div>
+|HTM_USER_BOTTOM|

@@ -1,0 +1,42 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_LOG_VIEWER">`LANG_LOG_VIEWER`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="centerPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_LOG_VIEWER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_LOG_VIEWER');
+
+?>
+DONE|
+<form action="/CMD_LOG_VIEWER" method="GET">
+  <table class="config" cellspacing="0" style="margin-bottom: 10px;">
+    <thead>
+    <tr><td colspan=2>|LANG_SELECT_LOG|</td></tr>
+    </thead>
+    <tbody>
+    <tr><th>|LANG_LOG_FILE|</th><td>|FILES|</td></tr>
+    <tr><th>|LANG_NUM_LINES|</th><td><input type=text name=lines value="50" class="combot" size=7> |LANG_ZERO_FOR_ENTIRE|</td></tr>
+    <tr><th>|LANG_OUTPUT_TYPE|</th><td><input type=radio name=type value=textarea checked>|LANG_TEXT_AREA|<br /><input type=radio name=type value=raw>|LANG_RAW|</td></tr>
+    <tr><td class=list2 align=right>Grep</td><td class=list2><input type=text size=32 class="combot" value="|GREPVAL|" name=grep> <input type=checkbox name=invert_grep value="yes" |INVERTCHECKED|>Invert &nbsp;<input type=checkbox name=ignore_case value="yes" |CASECHECKED|>Ignore Case</td>
+    </tbody>
+    <tfoot>
+    <tr><td colspan=2 align=right><input type=submit value="|LANG_SHOW_LOG|"</td></tr>
+    </tfoot>
+  </table>
+</form>
+
+<textarea style="width:100%" rows=25 wrap=off>|LOGDATA|</textarea>
+</div>
+|HTM_FOOTER|
+

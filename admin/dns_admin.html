@@ -1,0 +1,68 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_DNS_ADMIN">`LANG_DNS_ADMIN`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/dnsadmin.html|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_DNS_ADMIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_DNS_ADMIN');
+
+?>
+DONE|
+<div class="table75">
+
+  <b>|LANG_SELECT_DNS|</b><br /><br />
+  <form action="" method="GET">
+  <input type=hidden name=sort1 value="1">
+  <input type=hidden name=sort1dir value="1">
+  <input type=hidden name=ipp value="50">
+  <table class=config cellspacing=0>
+    <tbody>
+    <tr><td>
+      |LANG_SHOW_DOMAINS_THAT|
+      <select class=selectclass name=comparison1 class="combot">
+      <option value="none">--</option >
+      <option value="equals">|LANG_EQUAL|</option >
+      <option value="contains">|LANG_CONTAIN|</option >
+      <option selected value="startswith">|LANG_START_WITH|</option >
+      </select>
+      <input type=text size=20 name=value1 class="combot">
+      <input type=submit value="|LANG_SEARCH|" class="boton small"></td>
+    </tr>
+    </tbody>
+  </table>
+  </form>
+  
+  <div style="margin: 12px 0;">
+    |TABLE|
+  </div>
+  
+  <form action="/CMD_DNS_ADMIN" method="post">
+  <input type=hidden name=action value="create">
+    <table class=config cellspacing=0>
+    <thead>
+      <tr><td colspan=2>|LANG_ADD_ZONE|</td></tr>
+    </thead>
+    <tbody>
+      <tr><th align=right>|LANG_DOMAIN_NAME|</th><td><input type=text name=domain class="combot"></td></tr>
+      <tr><th align=right>|LANG_IP_ADDRESS|</th><td><input type=text name=ip class="combot"></td></tr>
+      <tr><th align=right>|LANG_NAME_SERVER_1|</th><td><input type=text name=ns1 class="combot"></td></tr>
+      <tr><th align=right>|LANG_NAME_SERVER_2|</th><td><input type=text name=ns2 class="combot"></td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td colspan=2><input type=checkbox name=reverse value="yes">|LANG_REVERSE|&nbsp;&nbsp;&nbsp;<input type=submit value="|LANG_ADD|" class="boton"></td></tr>
+    </tfoot>
+    </table>
+  </form>
+
+</div>
+
+|HTM_ADMIN_BOTTOM|

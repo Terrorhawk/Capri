@@ -1,0 +1,21 @@
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_USER_STATS?domain=`domain`">`LANG_USER_STATS_FOR` `USERNAME`</a> &raquo; <a class=tree href="/CMD_SHOW_LOG?domain=`domain`&type=`type`">`LANG_APACHE_LOGS`</a>|
+|?HELP_SECTION=`USER_HELPER`/stats.html#logs|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_APACHE_LOGS| (<span style="color: #003dd7;">|domain|</span>)
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form><textarea wrap=off style="font-family: courier new; width: 620px;" rows=24>|LOG|</textarea></form>
+|HTM_USER_BOTTOM|

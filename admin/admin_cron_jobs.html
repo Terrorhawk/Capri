@@ -1,0 +1,34 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADMIN_CRON_JOBS">`LANG_ALL_USERS_CRON`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_ALL_USERS_CRON|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_ADMIN_CRON_JOBS');
+
+?>
+<div class="table100">
+|CRONJOBS|
+
+<?php
+$table = <<<EOF
+|CRONJOBS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+?>
+</div>
+DONE|
+|HTM_ADMIN_BOTTOM|
+

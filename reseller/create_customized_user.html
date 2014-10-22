@@ -1,0 +1,127 @@
+|LF_STANDARD|
+|LF_CREATE|
+|LF_JS|
+|?TREE=&raquo; <a class=tree href="/CMD_USER_SHOW">`LANG_SHOW_USERS`</a> &raquo; <a class=tree href="/HTM_ACCOUNT_USER_CREATE">`LANG_CREATE_USER`</a> &raquo; `LANG_CUSTOMIZE_USER` `NEWUSERNAME`|
+|?HELP_SECTION=`RESELLER_HELPER`/create.html|
+|HTM_RESELLER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_CREATE_USER|: |LANG_CUSTOMIZE_USER| |NEWUSERNAME|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<script language="Javascript">
+<!--
+
+function setText(inputid,checkbx)
+{
+  var textfld = document.getElementById(inputid);
+  if (checkbx.checked)
+    textfld.disabled = true;
+  if (!checkbx.checked)
+    textfld.disabled = false;
+}
+
+function showUserMessage()
+{
+  var message = window.open("CMD_EDIT_USER_MESSAGE","message","width=740,height=480,scrollbars=no,resizable=yes");
+}
+
+// -->
+</script>
+<div class="table75">
+  <form name=package action="CMD_ACCOUNT_USER" method="post">
+  <input type=hidden name=action value=create>
+  <table class="config" cellspacing="0">
+    <thead>
+    <tr><td nowraptitle colspan=3>|LANG_CREATE_USER|</td ></tr >
+    </thead>
+    <tbody>
+    <tr><td nowrap>|LANG_USERNAME|:</td><td nowrap><input type=text class="combot" name=username value="|NEWUSERNAME|" tabindex="1"></td><td nowrap></td></tr>
+    <tr><td nowrap>|LANG_EMAIL|:</td><td nowrap><input type=text class="combot" name=email value="|EMAIL|" tabindex="2"></td><td nowrap></td></tr>
+    <tr><td nowrap>|LANG_ENTER_PASS|</td><td nowrap><input class="combot" type=password name=passwd value="|PASSWD|" tabindex="3"></td><td nowrap></td></tr>
+    <tr><td nowrap>|LANG_RE-ENTER_PASS|:</td><td nowrap><input class="combot" type=password name=passwd2 value="|PASSWD2|" tabindex="4"><td nowrap></td></td></tr>
+    <tr><td nowrap>|LANG_DOMAIN|:</td><td nowrap><input type=text class="combot" name=domain value="|DOMAIN|" tabindex="5"></td><td nowrap></td></tr>
+
+    <tr ><td nowrap>|LANG_BANDWIDTH|</td ><td nowrap><input type=text class="combot" id="bandwidth" name=bandwidth value="|BANDWIDTH|"></td ><td nowrap style="width: 65%"><input type="checkbox" name="ubandwidth" value="ON" onclick='setText("bandwidth",this)' |BANDWIDTHCHECKED|>|LANG_UNLIMITED|</td></tr>
+    <tr ><td nowrap>|LANG_DISK_SPACE|</td ><td nowrap><input type=text class="combot" id="quota" name=quota value="|QUOTA|"></td ><td nowrap><input type="checkbox" name="uquota" value="ON" onclick='setText("quota",this)' |QUOTACHECKED|>|LANG_UNLIMITED|</td></tr >
+    <tr ><td nowrap>|LANG_INODES|</td ><td nowrap><input type=text class="combot" id="inode" name=inode value="|INODE|"></td ><td nowrap><input type="checkbox" name="uinode" value="ON" onclick='setText("inode",this)' |INODECHECKED|>|LANG_UNLIMITED|</td></tr >
+
+    <tr ><td nowrap>|LANG_DOMAINS|</td ><td nowrap><input type=text class="combot" id="vdomains" name=vdomains value="|VDOMAINS|"></td ><td nowrap><input type="checkbox" name="uvdomains" value="ON" onclick='setText("vdomains",this)' |VDOMAINSCHECKED|>|LANG_UNLIMITED|</td></tr >
+    <tr ><td nowrap>|LANG_SUBDOMAINS|</td ><td nowrap><input type=text class="combot" id="nsubdomains" name=nsubdomains value="|NSUBDOMAINS|"></td ><td nowrap><input type="checkbox" name="unsubdomains" value="ON" onclick='setText("nsubdomains",this)' |NSUBDOMAINSCHECKED|>|LANG_UNLIMITED|</td></tr >
+    <tr ><td nowrap>|LANG_EMAIL_ACCOUNTS|</td ><td nowrap><input type=text class="combot" id="nemails" name=nemails value="|NEMAILS|"></td ><td nowrap><input type="checkbox" name="unemails" value="ON" onclick='setText("nemails",this)' |NEMAILSCHECKED|>|LANG_UNLIMITED|</td></tr >
+    <tr ><td nowrap>|LANG_EMAIL_FORWARDERS|</td ><td nowrap><input type=text class="combot" id="nemailf" name=nemailf value="|NEMAILF|"></td ><td nowrap><input type="checkbox" name="unemailf" value="ON" onclick='setText("nemailf",this)' |NEMAILFCHECKED|>|LANG_UNLIMITED|</td></tr >
+    <tr ><td nowrap>|LANG_MAILING_LISTS|</td ><td nowrap><input type=text class="combot" id="nemailml" name=nemailml value="|NEMAILML|"></td ><td nowrap><input type="checkbox" name="unemailml" value="ON" onclick='setText("nemailml",this)' |NEMAILMLCHECKED|>|LANG_UNLIMITED|</td></tr >
+    <tr ><td nowrap>|LANG_AUTO_RESPONDERS|</td ><td nowrap><input type=text class="combot" id="nemailr" name=nemailr value="|NEMAILR|"></td ><td nowrap><input type="checkbox" name="unemailr" value="ON" onclick='setText("nemailr",this)' |NEMAILRCHECKED|>|LANG_UNLIMITED|</td></tr >
+
+    <tr ><td nowrap>|LANG_MYSQL_DBS|</td ><td nowrap><input type=text class="combot" id="mysql" name=mysql value="|MYSQL|"></td ><td nowrap><input type="checkbox" name="umysql" value="ON" onclick='setText("mysql",this)' |MYSQLCHECKED|>|LANG_UNLIMITED|</td></tr >
+
+    <tr ><td nowrap>|LANG_DOMAIN_PTRS|</td ><td nowrap><input type=text class="combot" id="domainptr" name=domainptr value="|DOMAINPTR|"></td><td nowrap><input type="checkbox" name="udomainptr" value="ON" onclick='setText("domainptr",this)' |DOMAINPTRCHECKED|>|LANG_UNLIMITED|</td></tr >
+
+    <tr ><td nowrap>|LANG_FTP_ACCOUNTS|</td ><td nowrap><input type=text class="combot" id="ftp" name=ftp value="|FTP|"></td ><td nowrap><input type="checkbox" name="uftp" value="ON" onclick='setText("ftp",this)' |FTPCHECKED|>|LANG_UNLIMITED|</td></tr >
+|*if RESELLERAFTP="ON"|
+    <tr ><td nowrap>|LANG_ANON_FTP_ACCOUNTS|</td ><td nowrap align=center><input type=checkbox name=aftp value="ON" |AFTPCHECKED|></td ><td nowrap></td></tr >
+|*endif|
+|*if RESELLERCGI="ON"|
+    <tr><td nowrap>|LANG_CGI| |LANG_ACCESS|</td><td nowrap align=center><input type=checkbox name=cgi value="ON" |CGICHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERPHP="ON"|
+    <tr><td nowrap>|LANG_PHP| |LANG_ACCESS|</td><td nowrap align=center><input type=checkbox name=php value="ON" |PHPCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERSPAM="ON"|
+    <tr><td nowrap>|LANG_SPAM|</td><td nowrap align=center><input type=checkbox name=spam value="ON" |SPAMCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERCATCHALL="ON"|
+    <tr><td nowrap>|LANG_CATCHALL|</td><td nowrap align=center><input type=checkbox name=catchall value="ON" |CATCHALLCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERSSL="ON"|
+    <tr><td nowrap>|LANG_SSL| |LANG_ACCESS|</td><td nowrap align=center><input type=checkbox name=ssl value="ON" |SSLCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERUSERSSH="ON"|
+    <tr><td nowrap>|LANG_SSH| |LANG_ACCESS|</td><td nowrap align=center><input type=checkbox name=ssh value="ON" |SSHCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERCRON="ON"|    
+    <tr><td nowrap>|LANG_CRON_JOBS|</td><td nowrap align=center><input type=checkbox name=cron value="ON" |CRONCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERSYSINFO="ON"|
+    <tr><td nowrap>|LANG_SYSTEM_INFO|</td><td nowrap align=center><input type=checkbox name=sysinfo value="ON" |SYSINFOCHECKED|></td><td nowrap></td></tr>
+|*endif|
+|*if RESELLERDNSCONTROL="ON"|
+    <tr><td nowrap>|LANG_DNS_CONTROL|</td><td nowrap align=center><input type=checkbox name=dnscontrol value="ON" |DNSCONTROLCHECKED|></td><td nowrap></td></tr>
+|*endif|
+    <tr><td nowrap>|LANG_SUSPEND_AT_LIMIT|</td><td nowrap align=center><input type=checkbox name=suspend_at_limit value="ON" |SUSPENDATLIMITCHECKED|></td><td nowrap></td></tr>
+
+    <tr><td nowrap>|LANG_SKIN|</td><td nowrap align=center>|SKINS|</td><td nowrap></td></tr>
+    <tr><td nowrap>|LANG_LANGUAGE|</td><td align=center>|LANGUAGESELECT|</td><td></td></tr>
+    <tr><td nowrap>|LANG_IP|</td><td nowrap align=center>|IPSELECT|</td><td nowrap></td></tr>
+    <tr><td nowrap>|LANG_EMAIL_NOTIFY|</td><td nowrap><input type=checkbox name=notify value="yes" |NOTIFY|> <a href="javascript:showUserMessage();">|LANG_EDIT_USER_MESS|</a></td><td nowrap></td></tr>
+
+|*if CUSTOM_ITEM_1|
+    <tr><td nowrap>|CUSTOM_ITEM_1_STR|</td><td nowrap align=center>|CUSTOM_ITEM_1|</td><td nowrap>|CUSTOM_ITEM_1_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_2|
+    <tr><td nowrap>|CUSTOM_ITEM_2_STR|</td><td nowrap align=center>|CUSTOM_ITEM_2|</td><td nowrap>|CUSTOM_ITEM_2_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_3|
+    <tr><td nowrap>|CUSTOM_ITEM_3_STR|</td><td nowrap align=center>|CUSTOM_ITEM_3|</td><td nowrap>|CUSTOM_ITEM_3_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_4|
+    <tr><td nowrap>|CUSTOM_ITEM_4_STR|</td><td nowrap align=center>|CUSTOM_ITEM_4|</td><td nowrap>|CUSTOM_ITEM_4_DESC|</td></tr>
+|*endif|
+      </tbody>
+      <tfoot>
+        <tr><td nowrap title colspan=2 align=right><input type=submit name=add value="|LANG_SUBMIT|"></td></tr>
+      </tfoot>
+    </table>
+  </form>
+</div>
+|HTM_RESELLER_BOTTOM|

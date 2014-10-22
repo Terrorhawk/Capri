@@ -1,0 +1,51 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_MIME_TYPES?DOMAIN=`DOMAIN`">`LANG_MIME_TYPES`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#mime|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MIME_TYPES| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<div class="table50">
+<form action="/CMD_MIME_TYPES" method="post">
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=action value="add">
+<table class="config" cellspacing="0">
+  <thead>
+    <tr><td colspan=4>|LANG_ADD_MIME_TYPE|</td></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td >|LANG_MIME_TYPE|:</td>
+      <td><input type=text name=name class=combot></td>
+      <td>|LANG_EXTENSION|:</td>
+      <td><input type=text name=extension class=combot size=5></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan=4><input type=submit value="|LANG_ADD|" class=boton></td></tr>
+  </tfoot>
+</table>
+</form>
+</div>
+
+<div class="table75" style="margin-top:25px;">
+<b>|LANG_USER_MIME_TYPES|</b><br />
+|MIMETYPES|
+<br />
+<a href="/CMD_MIME_TYPES?action=system&domain=|DOMAIN|">|LANG_LIST_SYSTEM_MIMES|</a><br /><br />
+</div>
+
+|HTM_USER_BOTTOM|

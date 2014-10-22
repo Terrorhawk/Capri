@@ -1,0 +1,58 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_DOMAIN_POINTER?DOMAIN=`DOMAIN`">`LANG_DOMAIN_POINTERS`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#pointers|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_DOMAIN_POINTERS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form name=info action='/CMD_DOMAIN_POINTER' method='POST'>
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=action value="add">
+<table class=list cellpadding=3 cellspacing=1>
+<table class="config" cellspacing=0 style="margin-bottom:10px;">
+  <thead>
+    <tr><td colspan=2>|LANG_ADD_NEW_DOMAIN_POINTER|</td></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>|LANG_SOURCE_DOMAIN|:</th>
+      <td>http://www.<input type=text name=from class="combot" size="30"> --> |DOMAIN| &nbsp;&nbsp;|LANG_EG|</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr><td><input type=checkbox name=alias value="yes" checked><label>|LANG_CREATE_ALIAS| </label></td>
+      <td align=right><input type=submit value="|LANG_ADD|"></td>
+    </tr>
+  </tfoot>
+</table>
+</form>
+
+<div class="table100">
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$table = <<<EOF
+|DOMAINPOINTERS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+DONE|
+</div>
+|HTM_USER_BOTTOM|

@@ -1,0 +1,23 @@
+|LF_STATS|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_USER_STATS?domain=`domain`">`LANG_STATS_FOR` `USERNAME`</a> &raquo; <a class=tree href="/CMD_USER_HISTORY?domain=`domain`">`LANG_USER_HISTORY`</a>|
+|?HELP_SECTION=`USER_HELPER`/stats.html#logs|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_USER_HISTORY|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+|HISTORY|
+|HTM_USER_BOTTOM|

@@ -1,0 +1,15 @@
+      <div class="panelBox">
+        <div class="title search"><span>|LANG_USER_SEARCH|</span></div>
+        <div style="margin-bottom: 10px;" align="center">
+          <form id="formus" name="formus" method="get" action="/CMD_USER_SHOW">
+            <input type="hidden" name="comparison1" value="contains" /><input type="hidden" name="sort1" value="1" />
+            <input type="text" name="value1" id="searchval1" value="|LANG_USERNAME|..." class="input" /><img src="IMG_GO_SEARCH" title="|LANG_USER_SEARCH|" id="searchByUser">
+          </form>
+        </div>
+        <div style="margin-bottom: 5px;" align="center">
+          <form id="formds" name="formds" method="get" action="/CMD_USER_SHOW">
+            <input type="hidden" name="comparison7" value="contains" /><input type="hidden" name="sort1" value="7" />
+            <input type="text" name="value7" id="searchval7" value="|LANG_DOMAIN|..." class="input domss" /><img src="IMG_GO_SEARCH" title="|LANG_DOMAIN_SEARCH|" id="searchByDomain">
+          </form>
+        </div>
+      </div>

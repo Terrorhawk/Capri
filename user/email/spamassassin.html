@@ -1,0 +1,110 @@
+|LF_STANDARD|
+|LF_EMAIL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_SPAMASSASSIN?domain=`DOMAIN`">`LANG_SPAM_SETUP`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#spamassassin|
+|HTM_HEADER|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+|*if SA_ENABLED="yes"|
+          <a href="javascript:;" onclick="javascript:$('#desable_sa').trigger('submit');"><img src="/IMG_IC_SPAM_DISABLE"><br />|LANG_DISABLE| Spamassassin</a>
+|*endif|
+          <a href="/CMD_FILE_MANAGER/.spamassassin/user_prefs?action=edit"><img src="/IMG_IC_SA_MANUAL_SETUP"><br />|LANG_MANUALLY_EDIT|</a>
+
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SPAM_SETUP|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+
+?>
+|*if SA_ENABLED="yes"|
+<div style="margin-bottom: 20px;padding:10px;border:1px solid #127500;color:#127500;background:#f0ffcc;">|LANG_SA_ENABLED|</div>
+|*else|
+<div style="margin-bottom: 20px;padding:10px;border:1px solid #b00;color:#a00;background:#ffeae6;">|LANG_SA_DISABLED|</div>
+|*endif|
+
+<form action="/CMD_SPAMASSASSIN" method="post" id="da_enable">
+<input type=hidden name=action value="save">
+<input type=hidden name=domain value="|domain|">
+
+<table class="config" cellspacing="0" width="100%">
+<tbody>
+<tr><td><strong>|LANG_WHERE_TO_GO|</strong></td></tr>
+<tr><td><input type=radio name=where value="inbox" |WHERE_INBOX| id=opt1><label for="opt1">|LANG_TO_RECIPIENT|</label></td></tr>
+<tr><td><input type=radio name=where value="spamfolder" |WHERE_FOLDER| id=opt2><label for="opt2">|LANG_TO_FOLDER|</label></td></tr>
+<tr><td><input type=radio name=where value="userspamfolder" |WHERE_USERFOLDER| id=opt3><label for="opt3">|LANG_TO_USER_FOLDER|</label></td></tr>
+<tr><td><input type=radio name=where value="delete" |WHERE_DELETE| id=opt4><label for="opt4">|LANG_DELETE_SPAM|</label></td></tr>
+
+<tr class="clear"><td>&nbsp;</td></tr>
+<tr><td><strong>|LANG_SCORE_THRESH|</strong></td></tr>
+<tr><td><input type=radio name=required_hits value="5.0" |required_hits_5.0| id=opt5><label for="opt5">|LANG_LOW_THRESH| (5.0)</label></td></tr>
+<tr><td><input type=radio name=required_hits value="7.5" |required_hits_7.5| id=opt6><label for="opt6">|LANG_MED_THRESH| (7.5)</label></td></tr>
+<tr><td><input type=radio name=required_hits value="10.0" |required_hits_10.0| id=opt7><label for="opt7">|LANG_HIGH_THRESH| (10.0)</label></td></tr>
+<tr><td><input type=radio name=required_hits value="custom" |required_hits_custom| id=opt8><label for="opt8">|LANG_CUSTOM_THRESH|: </label><input type=text name=required_hits_custom size=4 value="|required_hits|" class="combot" style="vertical-align: 3px;"></td></tr>
+<tr class="clear"><td><div class="tip">|LANG_LOW_THRESH_DESC||LANG_HIGH_THRESH_DESC|</td></tr>
+
+
+<tr class="clear"><td>&nbsp;</td></tr>
+<tr><td><b>|LANG_DELETE_HS_SPAM|</b></td></tr>
+<tr><td><input type=radio name=high_score_block value="yes" |high_score_block_yes| id=opt9><label for="opt9">|LANG_YES_HS|: </label><input type=text name=high_score value="|high_score|" maxlength=4 size=2 class="combot" style="vertical-align: 3px;"><label for="opt9">|LANG_HS_HELP|</label></td></tr>
+<tr><td><input type=radio name=high_score_block value="no" |high_score_block_no| id=opt0><label for="opt0">|LANG_NO_HS|</label></td></tr>
+
+<tr class="clear"><td>&nbsp;</td></tr>
+<tr><td><strong>|LANG_REWRITE_SUBJECT|</strong></td></tr>
+<tr><td><input type=radio name=rewrite_subject value="1" |rewrite_subject_1| id=optq><label for="optq">|LANG_YES_SET_SUBJECT|:</label><input type=text name=subject_tag value="|subject_tag|" class="combot" style="vertical-align: 3px;"></td></tr>
+<tr><td><input type=radio name=rewrite_subject value="0" |rewrite_subject_0| id=optw><label for="optw">|LANG_NO_LEAVE_SUBJECT|</label></td></tr>
+
+<tr class="clear"><td>&nbsp;</td></tr>
+<tr><td><strong>|LANG_HOW_DELIV|</strong></td></tr>
+<tr><td><input type=radio name=report_safe value="0" |report_safe_0| id=opte><label for="opte">|LANG_ATTACH_1|</label></td></tr>
+<tr><td><input type=radio name=report_safe value="1" |report_safe_1| id=optr><label for="optr">|LANG_ATTACH_2|</label></td></tr>
+<tr><td><input type=radio name=report_safe value="2" |report_safe_2| id=optt><label for="optt">|LANG_ATTACH_3|</label></td></tr>
+<tr class="clear"><td><div class="tip">|LANG_DELIV_1|</div></td></tr>
+
+<tr class="clear"><td>&nbsp;</td></tr>
+<tr><td><b>|LANG_EMAIL_BL|</b></td></tr>
+<tr><td><textarea name=blacklist_from style="width:99%" class="combo" rows=8>|blacklist_from|</textarea></td></tr>
+<tr class="clear"><td><div class="tip">|LANG_LIST_OF_BLOCKED||LANG_TAGGED_AS_SPAM||LANG_ONE_EMAIL||LANG_EG_DOMAIN|</div></td></tr>
+
+<tr><td><b>|LANG_EMAIL_WL|</b></td></tr>
+<tr><td><textarea name=whitelist_from style="width:99%" class="combo" rows=8>|whitelist_from|</textarea></td></tr>
+<tr class="clear"><td><div class="tip">|LANG_THROUGH|</div></td></tr>
+</tbody>
+<tfoot>
+<tr><td>
+|*if SA_ENABLED="yes"|
+<input type=submit value="    ::  |LANG_SA_SAVE|  ::    " class="boton">
+|*else|
+<input type=submit value="   |LANG_SA_SAVE_ENABLE|   " class="boton">
+|*endif|
+</td></tr>
+</tfoot>
+</table>
+</form>
+DONE|
+<form action="/CMD_SPAMASSASSIN" method="post" id="desable_sa">
+<input type=hidden name=action value="disable">
+<input type=hidden name=domain value="|domain|">
+</form>
+    </div>
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){$(".config").find("input:radio").bind("change click", function(){$("label.opt_selected").removeClass("opt_selected");$("input:radio:checked").parent().find("label").addClass("opt_selected");});$("input:radio:checked").parent().find("label").addClass("opt_selected");$("input:radio, label").hover(function(){$(this).parent().find("label").addClass("opt_hover");},function(){$(this).parent().find("label").removeClass("opt_hover");});});
+//-->
+</script>
+|HTM_FOOTER|

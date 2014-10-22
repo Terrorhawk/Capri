@@ -1,0 +1,45 @@
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php  include |SK_ROOT| . "inc/functions.php";
+$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
+
+if($doms = $sk->api_get("/CMD_API_SHOW_DOMAINS")) {
+
+
+
+$doms = str_replace('list[]=',';',$doms);
+$doms = str_replace('&','',$doms);
+$domains = explode(';',$doms);
+if($domains[0]=='not' || strpos($doms, "username")) {unset($domains);}
+if(is_array($domains)) {
+?>
+      <div class="panelBox">
+        <div class="title"><span>|LANG_DOMAINS|</span></div>
+        <ul>
+<?php  
+foreach($domains as $domain) {
+  if(trim($domain)!=''){
+    echo '<li onClick="javascript:window.location=\'/CMD_SHOW_DOMAIN?domain='.$domain.'\';" style="cursor:pointer;">';
+		
+    if($domain=="|domain|") echo '<b>'.$domain.'</b>';
+    else echo $domain;
+		
+    echo '</li>';
+  }
+ } 
+?>
+         </ul>
+      </div>
+<?php  }
+
+} else { // si no se puede usar el API, muestro el default
+?>
+      <div class="panelBox">
+        <div class="title"><span>|LANG_DOMAINS|</span></div>
+|domain|
+      </div>
+
+<?php }
+
+?>
+DONE|

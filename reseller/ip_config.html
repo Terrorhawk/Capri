@@ -1,0 +1,26 @@
+|?TREE=&raquo; <a class=tree href="/CMD_IP_CONFIG">`LANG_IP_CONFIG`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/ip.html|
+|HTM_RESELLER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_IP_CONFIG|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_CONFIG');
+
+?>
+DONE|
+|TEXT|<br />
+|TABLE|
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+ <tr>
+  <td class="td_tip">|LANG_IP_FREE_IF|</td>
+ </tr>
+</table>
+|HTM_RESELLER_BOTTOM|

@@ -1,0 +1,70 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_LICENSE">`LANG_LICE_UP`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/license.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_LICENSE?update=license"><img src="/IMG_IC_UPDATE"><br />|LANG_UP_LICE|</a>
+        <a href="/CMD_LICENSE?update=program"><img src="/IMG_IC_UPDATE"><br />|LANG_UPDATE_DA|</a>
+        <div class="cf cleft"></div>
+      </div>
+|HTM_BOX_SERVER_STATS|
+    </div>
+    <div id="rightPanel" class="table75">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+$pagetit = <<<EOF
+|LANG_LICE_UP|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+echo pagetit($pagetit, $tree);
+
+?>
+DONE|
+    <table class="config" cellpadding="0" style="width: 580px;margin-bottom: 15px;">
+      <thead>
+        <tr><td colspan="2">|LANG_LICE_VALS|</td></tr>
+      </thead>
+      <tbody>
+        <tr><th nowrap>|LANG_LICE_IP|</th><td>|ip|</td></tr>
+        <tr><th nowrap>|LANG_LICE_NAME|</th><td>|name|</td></tr>
+        <tr><th nowrap>|LANG_LID|</th><td>|lid|</td></tr>
+        <tr><th nowrap>|LANG_CID|</th><td>|uid|</td></tr>
+        <tr><th nowrap>|LANG_VALID_AFTER|</th><td>|start_string|</td></tr>
+        <tr><th nowrap>|LANG_VALID_UNTIL|</th><td>|expiry_string|</td></tr>
+        <tr><th nowrap>|LANG_CURRENT_TIME|</th><td>|TIME|</td></tr>
+        <tr><th nowrap>|LANG_TIME_REM|</th><td>|remaining|</td></tr>
+        <tr><th nowrap>|LANG_LAST_UP|</th><td>|license_change|</td></tr>
+|*if internal="Y"|
+        <tr><th nowrap>License Type</th><td><b>INTERNAL LICENSE.</b> To be included only with a dedicated server / VPS product. Not for resale, not transferrable. Please contact server provider for all DirectAdmin-related support.  See <a href="http://www.directadmin.com/reselling">directadmin.com/reselling</a> for more information.</td></tr>
+|*endif|
+|*if internal="N"|
+        <tr><th nowrap>License Type</th><td>External license</td></tr>
+|*endif|
+      </tbody>
+    </table>
+
+    <table class="config" cellpadding="0" style="width: 580px;">
+      <thead>
+        <tr><td colspan="2">|LANG_DA_VALS|</td></tr>
+      </thead>
+      <tbody>
+        <tr><th nowrap>|LANG_COMPILED_FOR|</th><td>|OS_NAME|</td></tr>
+        <tr><td nowrap>Compile Date</td><td nowrap>|compile_time|</td></tr>
+        <tr><th nowrap>|LANG_SERVER_VER|</th><td>|version|</td></tr>
+        <tr><th nowrap>|LANG_CURRENT_VER|</th><td>|currentversion|</td></tr>
+        <tr><th nowrap>|LANG_LAST_UP|</th><td>|software_change|</td></tr>
+      </tbody>
+    </table>
+
+    </div>
+|HTM_FOOTER|

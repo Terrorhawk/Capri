@@ -1,0 +1,40 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_LOGIN_KEYS">`LANG_LOGIN_KEYS`</a>|
+|?HELP_SECTION=`USER_HELPER`|
+|HTM_CONFIG|
+|HTM_HEADER|
+<style type="text/css">
+<!--
+select.selectclass {width: 210px ! important; font-size: 9px!important; font-family: tahoma; border: 1px solid #888;}
+-->
+</style>
+
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_LOGIN_KEYS?action=show_create"><img src="/IMG_IC_LOGINKEYS_ADD"><br />|LANG_CREATE_NEW_LOGIN_KEY|</a>
+          <div class="cf cleft"></div>
+        </div>
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_LOGIN_KEYS|
+EOF;
+$tree = <<<EOF
+|LANG_LOGIN_KEYS|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<div class="table100">|KEYS|</div>
+
+<div class="tip" style="margin: 10px 0;">|LANG_LOGIN_KEY_EXPLANATION|</div>
+
+|HTM_USER_BOTTOM|

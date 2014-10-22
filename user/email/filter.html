@@ -1,0 +1,93 @@
+|LF_EMAIL|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_FILTER?DOMAIN=`DOMAIN`">`LANG_EMAIL_FILTERS`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#filters|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php 
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_EMAIL_FILTERS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+<div>
+<table class="config" cellspacing="0">
+<thead>
+<tr><td nowrap colspan=3><b>|LANG_EMAIL_FILTERS|</b></td nowrap></tr>
+</thead>
+<tbody>
+<form action='/CMD_EMAIL_FILTER' method='POST'>
+  <input type=hidden name=action value=add>
+  <input type=hidden name=domain value="|DOMAIN|">
+  <input type=hidden name=type value="email">
+  <tr><td nowrap>|LANG_BLOCK_EMAIL|</td nowrap><td nowrap><input type=text class="combot" name=value size=30></td nowrap>
+  <td nowrap><input type=submit class="boton" name=add value="|LANG_BLOCK|" ></td nowrap></tr>
+</form>
+
+<form action='/CMD_EMAIL_FILTER' method='POST'>
+  <input type=hidden name=action value=add>
+  <input type=hidden name=domain value="|DOMAIN|">
+  <input type=hidden name=type value="domain">
+  <tr><td nowrap>|LANG_BLOCK_DOMAIN|</td nowrap><td nowrap><input type=text class="combot" name=value size=20></td nowrap>
+  <td nowrap><input type=submit name=add value="|LANG_BLOCK|" class="boton" ></td nowrap></tr>
+</form>
+
+<form action='/CMD_EMAIL_FILTER' method='POST'>
+  <input type=hidden name=action value=add>
+  <input type=hidden name=domain value="|DOMAIN|">
+  <input type=hidden name=type value="word">
+  <tr><td nowrap>|LANG_BLOCK_WORD|</td nowrap><td nowrap><input type=text class="combot" name=value size=20></td nowrap>
+  <td nowrap><input type=submit name=add value="|LANG_BLOCK|" class="boton" ></td nowrap></tr>
+</form>
+
+<form action='/CMD_EMAIL_FILTER' method='POST'>
+  <input type=hidden name=action value=add>
+  <input type=hidden name=domain value="|DOMAIN|">
+  <input type=hidden name=type value="size">
+  <tr><td nowrap>|LANG_BLOCK_SIZE|</td nowrap><td nowrap><input type=text class="combot" name=value size=6> Kb</td nowrap>
+  <td nowrap><input type=submit name=add value="|LANG_BLOCK|" class="boton" ></td nowrap></tr>
+</form>
+
+<form action='/CMD_EMAIL_FILTER' method='POST'>
+  <input type=hidden name=action value=adult>
+  <input type=hidden name=domain value="|DOMAIN|">
+  <tr><td nowrap colspan=2>|LANG_BLOCK_ADULT| <b>|STATE|</b></td nowrap>
+  <td nowrap><input type=submit name=add value="|ADULT|" class="boton" ></td nowrap></tr>
+</form>
+
+<form action='/CMD_EMAIL_FILTER' method='POST'>
+  <input type=hidden name=action value=action>
+  <input type=hidden name=domain value="|DOMAIN|">
+  <tr><td nowrap>|LANG_ACTION_FILTER|</td nowrap><td nowrap><input type=radio name=value value="drop" |DROP_CHECKED|><label>|LANG_ACTION_DROP|</label>
+    <input style="margin-left: 25px;" type=radio name=value value="email" |EMAIL_CHECKED|><label>|LANG_ACTION_TO_SPAM|</label>
+  </td nowrap>
+  <td nowrap><input type=submit name=add value="|LANG_SAVE|" class="boton" ></td nowrap></tr>
+</form>
+</tbody>
+</table>
+</div>
+<div style="margin:15px 0;" class="table75">
+<?php
+
+$table = <<<EOF
+|FILTERS|
+EOF;
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+?>
+DONE|
+|FILTERS|
+</div>
+<div class="tip">|LANG_WORD_WARNING|</div>
+
+
+|HTM_USER_BOTTOM|

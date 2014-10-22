@@ -1,0 +1,101 @@
+|LF_STANDARD|
+|LF_JS|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; &raquo; <a class=tree href="/CMD_RESELLER_SHOW">`LANG_SHOW_RESELLER`</a> &raquo; <a class=tree href="/HTM_ACCOUNT_RESELLER_CREATE">`LANG_CREATE_RES`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/creater.html|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_CREATE_RES|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+echo pagetit($pagetit, $tree);
+
+?>
+
+|*if AJAX="1"|
+	|?CHECK_NAME=ajax_checkName()|
+	|?CHECK_PASS=onChange="ajax_checkPass()"|
+	|?RANDOM_PASS=ajax_randomPass('')|
+
+	<script type="text/javascript" src="JS_CREATION_CHECK"></script>
+|*endif|
+
+DONE|
+<script language="Javascript">
+<!--
+
+|HTM_JAVASCRIPT|
+
+function setText( textfld, checkbx)
+{
+  if (checkbx.checked)
+    textfld.disabled = true;
+  if (!checkbx.checked)
+    textfld.disabled = false;
+}
+
+function setTexts()
+{
+  with (document.reseller)
+  {
+    if (sharedip.checked) ip.disabled = true;
+    if (uquota.checked) quota.disabled = true;
+    if (ubandwidth.checked) bandwidth.disabled = true;
+    if (undomains.checked) ndomains.disabled = true;
+    if (unsqldbs.checked) nsqldbs.disabled = true;
+  }
+}
+
+function formOK()
+{
+  with (document.reseller)
+  {
+    if (checkName() && checkPass() && checkDomain() && checkEmail())
+      return true;
+  }
+  return false;
+}
+
+function showResellerMessage()
+{
+  var message = window.open("CMD_EDIT_RESELLER_MESSAGE","message","width=740,height=480,scrollbars=no,resizable=yes");
+}
+
+// -->
+</script>
+  <form name=reseller action="CMD_ACCOUNT_RESELLER" method="post" onSubmit="return formOK()">
+  <input type=hidden name=action value=create>
+    <table class="config" cellpadding="0" style="width: 580px;">
+      <thead>
+        <tr><td colspan="2">|LANG_CREATE_RES|</td></tr>
+      </thead>
+      <tbody>
+        <tr><th>|LANG_USERNAME|:</th><td><input type=text name=username id=username size=32 maxlength=|MAX_USERNAME_LENGTH| onChange="checkName()" class="combot" tabindex="1"><div id=username_result class=warning></div></td></tr>
+        <tr><th>|LANG_EMAIL|:</th><td><input type=text name=email size=32 onChange="checkEmail()" class="combot" tabindex="2"></td></tr>
+        <tr><th>|LANG_ENTER_PASS|:</th><td><input type=password name=passwd id=passwd size=32 class="combot" tabindex="3"> <input type=button value="|LANG_RANDOM|" onclick="randomPass()" class="boton"><div id=passwd_result class=warning></div></td></tr>
+        <tr><th>|LANG_RE-ENTER_PASS|:</th><td><input type=password name=passwd2 id=passwd2 size=32 onChange="checkPass()" class="combot" tabindex="4"></td></tr>
+        <tr><th>|LANG_DOMAIN|:</th><td><input type=text name=domain id=domain size=32 onChange="checkDomain()" class="combot" tabindex="5"><div id=domain_result class=warning></div></td></tr>
+        <tr><th>|LANG_USE_RES_PACK|:</th><td>|PACKAGES| &nbsp;&nbsp;&nbsp;|FREEIPS| |LANG_FREE_IPS|</td></tr>
+        <tr><th>|LANG_DOMAIN| |LANG_IP|:</th><td><select class="selectclass" name="ip">
+            <option value="shared" selected="selected">|LANG_SHARED_SERVER|</option>
+            <option value="sharedreseller">|LANG_SHARED_RES|</option>
+            <option value="assign">|LANG_ASSIGNED|</option>
+          </select ></td></tr>
+        <tr><th>|LANG_EMAIL_NOTIFY|:</th><td><input type=checkbox name=notify value="yes" checked> <a href="javascript:showResellerMessage();">|LANG_EDIT_RES_MESS|</a></td></tr>
+
+      </tbody>
+      <tfoot>
+        <tr><td colspan="2"> <input type=submit name=customize value="|LANG_CUSTOMIZE|"> <input type=submit name=add value="|LANG_SUBMIT|"></td></tr>
+      </tfoot>
+    </table>
+  </form>
+|HTM_ADMIN_BOTTOM|

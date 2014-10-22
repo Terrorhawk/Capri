@@ -1,0 +1,38 @@
+|LF_STANDARD|
+|LF_SSL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_SSL?DOMAIN=`domain`">`LANG_SSL`</a> &raquo; `LANG_CREATE_CSR`|
+|?HELP_SECTION=`USER_HELPER`/ssl.html#install|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_CREATE_CSR| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<table class=config cellspacing=0>
+  <thead>
+    <tr><td>|LANG_SSL_CSR|</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>|LANG_HERE_IS_CSR|</td></tr>
+    <tr><td><textarea style="font-family: courier new; width: 610px;" class="combot" name=request rows=16>|REQUEST|</textarea></td></tr>
+  </tbody>
+  </table>
+
+|*if USERTYPE="admin"|
+<div class="tip" style="margin-top:15px;">|LANG_ADMIN_SAVE_KEY|</div>
+|*endif|
+
+|HTM_USER_BOTTOM|
+
+

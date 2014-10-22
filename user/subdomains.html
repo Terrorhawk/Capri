@@ -1,0 +1,52 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_SUBDOMAIN?domain=`domain`">`LANG_SUBDOMAINS`</a>|
+|?HELP_SECTION=`USER_HELPER`/subdomains.html|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SUBDOMAINS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+
+
+<form name=info action="CMD_SUBDOMAIN" method="post">
+<input type=hidden name=action value="create">
+<input type=hidden name=domain value="|DOMAIN|">
+<table class="config" cellspacing=0 style="margin-bottom:10px;">
+  <thead>
+  <tr><td>|LANG_ADD_SUB|</td></tr>
+  </thead>
+  <tbody>
+  <tr><td><input type=text name=subdomain size=16 class=combot>.|DOMAIN|</td></tr>
+  </tbody>
+  <tfoot>
+  <tr><td><input type=submit value="|LANG_CREATE|" class=boton></td></tr>
+  </tfoot>
+</table>
+</form>
+
+
+<div class="table100">
+<?php
+$table = <<<EOF
+|SUBDOMAINS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+</div>
+DONE|
+|HTM_USER_BOTTOM|

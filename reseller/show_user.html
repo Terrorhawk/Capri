@@ -1,0 +1,76 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_USER_SHOW">`LANG_SHOW_USERS`</a> &raquo; <a class=tree href="/CMD_SHOW_USER?user=`user`">`LANG_USER` `user`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/modify.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="javascript:;" onclick="javascript:$('#loginas').trigger('submit');"><img src="/IMG_IC_USER_LOGIN"><br />|LANG_LOGIN_AS| |user|</a>
+        <a href="/CMD_MODIFY_USER?user=|user|"><img src="/IMG_IC_EDIT_USER"><br />|LANG_MODIFY_USER| |user|</a>
+        <a href="/CMD_SELECT_USERS?select0=|user|&delete=1"><img src="/IMG_IC_DEL_USER"><br />|LANG_DELETE_USER| |user|</a>
+        <div class="cf cleft"></div>
+      </div>
+      |HTM_BOX_RESELLER_SEARCH|
+      |HTM_BOX_RESELLER_STATS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SHOW_USERS|: |LANG_USER| |user|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+$user = '|user|';
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+<form action="CMD_LOGIN" method="post" id="loginas" style="margin: 0;padding:0;">
+<input type=hidden name=username value="|LOGIN_AS_MASTER_NAME|||user|">
+</form>
+DONE|
+|DOMAINS|
+|STATS|
+
+<form action="/CMD_RESEND_EMAIL" method="post" style="margin: 0;padding:0;"><input type=hidden name=user value=|user|>
+<table class="config" cellspacing="0" style="margin: 12px 0;">
+  <thead>
+  <tr>
+    <td colspan="5" style="padding-right: 20px;">|LANG_RESEND_WELCOME_EMAIL|.</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td align="left" style="padding-right: 6px;">|LANG_SEND_TO|:</td>
+    <td align="left" style="padding-right: 20px;"><input class="combot" type="text" name="email" value="|USER_EMAIL|"></td>
+    <td align="left" style="padding-right: 2px;"><input type="checkbox" name="newpass" value="yes" id="np"></td>
+    <td align="left" style="padding-right: 20px;"><label for="np">|LANG_RESET_PASS|</label></td>
+    <td align="left"><input class="boton" type="submit" value="|LANG_SEND|"></td>
+  </tr>
+  </tbody>
+</table>
+</form>
+
+<form action="CMD_COMMENTS" method="post">
+<input type=hidden name=user value="|user|">
+<input type=hidden name=location value="CMD_SHOW_USER">
+<table class="config" cellspacing="0">
+  <thead>
+  <tr><td>|LANG_USER_COMMENTS|</td></tr>
+  </thead>
+  <tbody>
+  <tr><td align=center><textarea class="combot" rows=15 style="width:100%" name=comments>|COMMENTS|</textarea></td></tr>
+  </tbody>
+  <tfoot>
+  <tr><td><input class="boton" type=submit value="|LANG_SAVE_COMMENTS|"></td></tr>
+  </tfoot>
+</table>
+</form>
+
+  </div>
+|HTM_FOOTER|

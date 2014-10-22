@@ -1,0 +1,15 @@
+|?TREE=&raquo; Invalid license|
+|LF_STANDARD|
+|HTM_HEADER|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+parse_str($_SERVER["QUERY_STRING"]);
+			
+$urlStatus = base64_decode(urldecode($status));
+list($status, $message, $adminmsg) = explode('|||', $urlStatus);
+
+?>
+<div style="margin:40px 0 100px 0;text-align:center;"><strong>There are a problem with the skin license.</strong><br><br>Please check the status <a href="/CMD_SKINS">here</a></div>
+DONE|
+|HTM_FOOTER|

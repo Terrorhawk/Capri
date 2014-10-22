@@ -1,0 +1,47 @@
+|LF_EMAIL|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_CATCH_ALL?DOMAIN=`DOMAIN`">`LANG_SET_CATCH`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#catchall|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SET_CATCH| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+|*if USERCATCHALL="OFF"|
+<div style="margin-top: 40px;padding:10px;border:1px solid #b00;color:d00;background:#ffeae6;">|LANG_CATCH_ALL_DISABLED|</div>
+|*else|
+<div style="width:640px;">
+  <form name=info action="CMD_EMAIL_CATCH_ALL" method="post">
+  <input type=hidden name=domain value="|DOMAIN|">
+  <table class="config" cellspacing=0 width="100%">
+    <thead>
+    <tr><td colspan=3>|LANG_SET_CATCH|</td></tr>
+    </thead>
+    <tbody>
+    <tr title="|LANG_FAIL_EXPLANATION|"><th>|LANG_FAIL|</th><td align=center><input type=radio name=catch value=":fail:" |FAILCHECKED|></td><td>|LANG_SENDER|</td></tr>
+    <tr title="|LANG_DROPPED_EXPLANATION|"><th>|LANG_IGNORE|</th><td align=center><input type=radio name=catch value=":blackhole:" |BHCHECKED|></td><td>|LANG_DROPPED|</td></tr>
+    <tr><th>|LANG_ADDR|</th><td align=center><input type=radio name=catch value="address" |ADDRESSCHECKED|></td><td>|POPLIST|</td></tr>
+    </tbody>
+    <tfoot>
+    <tr><td colspan=3><input type=submit name=update value="|LANG_UPDATE|" class="boton"></td></tr>
+    </tfoot>
+  </table>
+  </form>
+  <div class="tip" style="margin-top:18px;">|LANG_THIS_EMAIL|</div>
+  <div class="tip" style="margin-top:18px;">|LANG_DROPPED_EXPLANATION|</div>
+</div>
+|*endif|
+
+|HTM_USER_BOTTOM|

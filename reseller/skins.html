@@ -1,0 +1,321 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SKINS">`LANG_MANAGE_SKINS`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/skins.html|
+|HTM_CONFIG|
+|HTM_VERSION|
+|HTM_RESELLER_TOP|
+|$|SK_PHP|
+<?php  
+$pagetit = <<<EOF
+|LANG_MANAGE_SKINS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree);
+
+$arrPath = getpath();
+$ownerType=$arrPath['owner'];
+$path=$arrPath['path'];
+
+if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
+if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
+if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
+
+if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
+
+?>
+<style type="text/css">
+<!--
+.serverskin { font-size: 11px; }
+.serverskin input { vertical-align: -3px; }
+-->
+</style>
+
+<div class="table75">
+  |SKINS|
+  
+  <form name=uploadform action="CMD_SKINS" enctype="multipart/form-data" method="post">
+  <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+  <input type="hidden" name="action" value="upload">
+    <table class="config" cellspacing="0" style="margin: 12px 0;">
+      <thead>
+      <tr><td colspan=2>|LANG_UPLOAD_SKIN|</td></tr>
+      </thead>
+      <tbody>
+      <tr><td>|LANG_FILE|:</td><td><input type="file" class="combot" name="file" size=40></td></tr>
+      <tr><td>|LANG_SKIN_NAME|:</td><td><input type=text name="name" class="combot" size=30></td></tr>
+      </tbody>
+      <tfoot>
+      <tr><td colspan=2><span class="serverskin">|SERVERSKIN|</span><input type=submit class="boton" name=save value="|LANG_UPLOAD|" style="margin-left:20px;"></td></tr>
+      </tfoot>
+    </table>
+  </form>
+<?php  if($show_warn==true) {
+  echo '<div style="margin: 10px 0;border: 1px solid #f00000;background-color:#ffecec;font-weight: bold;padding:10px;">Your user creator is not "root". Please read this <a href="http://www.outservices.net/clients/index.php?_m=knowledgebase&_a=viewarticle&kbarticleid=6&nav=0,1">http://www.outservices.net/clien...nav=0,1</a></div>';
+} ?>
+<?php  if($show_options==true) { 
+
+  /**** mensaje ****/
+  $msg = openfile($path."results");
+  /**** mensaje ****/
+	
+  if($_SERVER["QUERY_STRING"]) {
+    parse_str($_SERVER["QUERY_STRING"]);
+  } else {
+    parse_str(getenv("QUERY_STRING"));
+  }
+  
+  
+  // chequeo de errores
+  $status=array();
+  $troubles = '<span style="color:#127500;">Everything sesms to be ok</span>';
+  $troubles1 = '';
+  if(!is_writeable($path)) { $troubles1 .= '<span style="color:#f00;">'.$path.' is not writeable</span><br>'; }
+  if(!is_writeable($path."data")) { $troubles1 .= '<span style="color:#f00;">'.$path.'data is not writeable</span><br>'; }
+  if(!is_writeable($path."license")) { $troubles1 .= '<span style="color:#f00;">'.$path.'key.php is not writeable</span><br>'; }
+
+  if($path=="/usr/local/directadmin/data/skin_data/capri/") {
+    if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
+  }
+  
+  // actualizador *****************************************************************************************************
+  /*
+  if($colorset && ($colorset==1 || $colorset==2)) {
+    if($path) {
+      whitefile($colorset, $path."color");
+      $upgrade=1;
+    }
+  }
+  */
+  // cambio logo ******************************************************************************************************
+  if($imagelogo && $imagelogo!='' && urldecode($imagelogo!='http://')) {
+    if($img = @file_get_contents(urldecode($imagelogo))) {
+      whitefile(1, $path."changeimagelogo");
+      whitefile($img, $path."imagelogo");
+      $msg = "|LANG_LOGO_DONE|";
+    } else {
+      $error = "|LANG_FETCH_URL_ERROR|";
+    }
+  }
+  
+  // alloresellerslogo ******************************************************************************************************
+  if($resellerslogo && $resellerslogo==1) {
+    if($allow==1) {
+      whitefile(1, $path."allowcustomlogo");
+      if(!file_exists($path."allowcustomlogo")) { $troubles1 .= '<span style="color:#f00;">Unable to create files in '.$path.'</span><br>'; }
+    } else {
+      @unlink($path."allowcustomlogo");
+    }
+  }
+ 
+  // restorelogo ******************************************************************************************************
+  if($restorelogo==1) {
+    whitefile(1, $path."restoreimagelogo");
+    $msg = "|LANG_LOGO_RESTORED|";
+  }
+  
+  // actualizador *****************************************************************************************************
+
+/*
+  if($upgrade && $upgrade==1) {
+    if($path) {
+      whitefile("1", $path."upgrade");
+      $doupgrade=true;
+      if(!file_exists($path."upgrade")) { 
+        $troubles1 .= '<span style="color:#f00;">Unable to create files in '.$path.'</span><br>'; 
+      } else {
+        if($msg && $msg!='') $msg .= "\n|LANG_REQUEST_PENDING|";
+        else $msg = "|LANG_REQUEST_PENDING|";
+      }
+    }
+  }
+  */
+  // guardo nueva key (licencia)
+  
+  
+    $lstatus='<span style="color: green;"><strong>Activated by Terrorhawk & Dj Paul</strong></span>';
+  
+  
+  if($versions = @file_get_contents("https://localserver.flaxe.eu/Capri/versions/capri.txt")) {
+    list($ava_version, $da_version) = explode('-', $versions);
+  } else {
+    $ava_version = 'n/a';
+    $da_version = 'n/a';
+  }
+  if ($da_version < "VERSION") {$da_version = '<span style="color:#f00;">'.$da_version.'</span>';}
+  if ("|SVERSION|" < $ava_version ) {$ava_version = '<span style="color:#f00;">'.$ava_version.'</span>';}
+  
+  /**** mensaje ****/
+  if($msg && $msg!='') { 
+    echo '<div class="smsg">'.nl2br(htmlspecialchars($msg)).'</div>';
+    @unlink($path."results");  
+  }
+  /**** mensaje ****/
+  
+  
+  $color = openfile($path."color");
+
+?>
+
+<table cellspacing="0" class="config">
+<thead>
+  <tr>
+    <td colspan="2">Skin manager</td>
+  </tr>
+</thead>
+<tbody>
+ 
+  <tr>
+    <th>License status: </th>
+    <td><?php  echo  $lstatus?></td>
+  </tr>
+
+  <tr>
+    <td nowrap width="20%">Logo image URL:</td>
+    <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
+      <input type class="combot" id="imagelogo" name="imagelogo" value="http://" style="width: 160px;" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?>>
+      <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?> /> 
+      <?php  if(file_exists("/usr/local/directadmin/data/skin_data/capri/imagelogo")) { ?>
+        <input name="restore" type="button" class="boton small" value="Restore" oncClick="javascript:window.location='/CMD_SKINS?restorelogo=1';" /> 
+      <?php  } ?>
+      <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
+    </form></td>
+  </tr>
+  <tr>
+    <td nowrap width="20%">Resellers custom logo:</td>
+    <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS" onsubmit="javascript:return customLogoForm(<?php  if(file_exists($path."allowcustomlogo")) { echo "1"; } ?>);">
+      <input type="hidden" name="resellerslogo" value="1">
+      <input type="checkbox" id="resellerslogo" name="allow" value="1" <?php  if(file_exists($path."allowcustomlogo")) { echo "checked"; } ?>>
+      <input name="Submit" type="submit" class="boton small" value="|LANG_SAVE|" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?> /> 
+      <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_RES_LOGO_HELP|">?</span>
+    </form></td>
+  </tr>
+  <tr>
+    <td nowrap width="20%">Installed skin build:</td>
+    <td>|SVERSION|</td>
+  </tr>
+  <tr>
+    <td nowrap>Lastest skin build:</td>
+    <td><?php  echo  $ava_version?> <?php  if($path=="/usr/local/directadmin/data/skin_data/capri/") { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Upgrade"  style="margin-left:40px;" /><?php  } ?></td>
+  </tr>
+  <tr>
+    <td nowrap>Lastest version is Valid for DirectAdmin:</td>
+    <td><?php  echo  $da_version?></td>
+  </tr>
+  <tr>
+    <td nowrap>Current DirectAdmin version:</td>
+    <td>|VERSION|</td>
+  </tr>
+  <tr>
+    <th colspan=2 style="padding-top: 12px !important;">Troubleshooter</th>
+  </tr>
+  <tr>
+    <td colspan="2"><?php  if($troubles1!=''){echo $troubles1;}else{echo $troubles;}?></td>
+  </tr>
+</tbody>
+</table>
+<?php  } elseif(file_exists($path."allowcustomlogo")) {
+
+  /**** mensaje ****/
+  $msg = openfile($path."results_|USERNAME|");
+  /**** mensaje ****/
+  
+  parse_str($_ENV["QUERY_STRING"]);
+
+  // cambio logo reseller *********************************************************************************************
+  if($resellerlogo && $resellerlogo!='' && urldecode($resellerlogo!='http://')) {
+    if($img = @file_get_contents(urldecode($resellerlogo))) {
+      whitefile($img, $path."_newlogo");
+      if(file_exists($path."_newlogo")) {
+        if(function_exists('getimagesize')) {
+          list($w, $h, $t, $x, $m) = getimagesize($path."_newlogo");
+          if(($t==1 || $t==IMAGETYPE_JPEG || $t==2 || $t==IMAGETYPE_GIF) && $w<=300 && $h<=60) {
+            whitefile("|USERNAME|", $path."_logodata");
+            $msg = "|LANG_LOGO_DONE|";
+          } else {
+            $error = "|LANG_IMAGE_ERROR|";
+          }
+        } else {
+          $ext = strtolower(substr(urldecode($resellerlogo), -4, 4));
+          if($ext=='.gif' || $ext=='.jpeg' || $ext=='jpeg') {
+            whitefile("|USERNAME|", $path."_logodata");
+            $msg = "|LANG_LOGO_DONE|";
+          } else {
+            $error = "|LANG_IMAGE_ERROR|";
+          }
+        }
+
+      } else {
+        $error = "|LANG_IMG_UPLOAD_ERROR|";
+      }
+    } else {
+      $error = "|LANG_FETCH_URL_ERROR|";
+    }
+  }
+  
+  /**** mensaje ****/
+  if($msg && $msg!='') { 
+    echo '<div class="smsg">'.nl2br(htmlspecialchars($msg)).'</div>';
+    @unlink($path."results");  
+  }
+
+  if($error && $error!='') { 
+    echo '<div style="border: 1px solid #e00; padding: 3px 8px;font-size: 11px;color:#a00;margin-bottom:10px;background-color:#ffeae6;">'.nl2br(htmlspecialchars($error)).'</div>';
+    @unlink($path."results");  
+  }
+  /**** mensaje ****/
+
+?>
+<table cellspacing="0" class="config">
+<thead>
+  <tr>
+    <td colspan="2">|LANG_SKIN_MANAGER|</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="2" class="clear">|LANG_LOGO_HELP|</td>
+  </tr>
+  <tr>
+    <td nowrap width="20%">|LANG_LOGO_URL|:</td>
+    <td><form id="form1" name="form1" method="GET" action="">
+      <input type class="combot" id="resellerlogo" name="resellerlogo" value="http://" style="width: 160px;" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?>>
+      <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?> /> 
+      <?php  if(file_exists("/usr/local/directadmin/data/skin_data/capri/imagelogo")) { ?>
+        <input name="restore" type="button" class="boton small" value="Restore" oncClick="javascript:window.location='/CMD_SKINS?restorereslogo=1';" /> 
+      <?php  } ?>
+    </form></td>
+  </tr>
+</tbody>
+</table>
+<?php  } ?>
+DONE|
+</div>
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){
+  $('span').ToolTip({className:'tooltip',position:'mouse',delay: 200});
+  $("#colorset").bind("change",function(){window.location='/CMD_SKINS?colorset='+$(this).val();});
+  $("#imagelogo, #resellerlogo").hover(function(){
+    $("#top_logo").addClass("highlight");
+  },function(){
+    $("#top_logo").removeClass("highlight");
+  });
+});
+function customLogoForm(e){
+  if(e==1 && $("#resellerslogo").attr("checked")==false) {
+    if(confirm("|LANG_DID_LOGO_WARN|")) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+}
+//-->
+</script>
+|HTM_RESELLER_BOTTOM|

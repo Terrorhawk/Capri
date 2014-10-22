@@ -1,0 +1,47 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/HTM_PASSWD">`LANG_CHANGE_YOUR_PASS`</a>|
+|?HELP_SECTION=`USER_HELPER`/gettingstarted.html#password|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_CHANGE_YOUR_PASS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<center>
+<form action="CMD_PASSWD" method="post">
+<input type=hidden name="options" value="yes">
+<table class="config" cellspacing="0">
+  <thead>
+      <tr><td colspan=2>|LANG_CHANGE_YOUR_PASS|</td></tr>
+  </thead>
+  <tbody>
+      <tr><td>|LANG_ENTER_OLD_PASS|:</td><td><input class="combot" type=password name=oldpass tabindex="1"></td></tr>
+      <tr><td>|LANG_ENTER_NEW_PASS|:</td><td><input class="combot" type=password name=passwd tabindex="2"> <input class="boton small randpass" type="button" value="|LANG_RANDOM|"><input type="text" id="visiblepass" class="visiblepass" value="" readonly /></td></tr>
+      <tr><td>|LANG_RE-ENTER_PASS|:</td><td><input class="combot" type=password name=passwd2 tabindex="3"></td></tr>
+      <tr><td colspan="2"><input type=checkbox name="system" value="yes" checked id=sd1 tabindex="4"><label for="sd1">|LANG_CHANGE_CONTROL_PANEL|</label></td></tr>
+      <tr><td colspan="2"><input type=checkbox name="ftp" value="yes" checked id=sd2 tabindex="5"><label for="sd2">|LANG_CHANGE_MAIN_FTP|</label></td></tr>
+      <tr><td colspan="2"><input type=checkbox name="database" value="yes" checked id=sd3 tabindex="6"><label for="sd3">|LANG_CHANGE_MAIN_DB| (|USERNAME|)</label></td></tr>
+  </tbody>
+  <tfoot>
+      <tr><td colspan=2><input type=submit value="|LANG_SUBMIT|" class="boton"></td></tr>
+  </tfoot>
+</table>
+|*if HAVE_SECURITY_QUESTIONS="yes"|
+<br>
+<a href="CMD_SECURITY_QUESTIONS">Manage Security Questions</a>
+|*endif|
+</form>
+</center>
+<br /><br /><br />
+|HTM_USER_BOTTOM|

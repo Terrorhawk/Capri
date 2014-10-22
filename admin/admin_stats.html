@@ -1,0 +1,93 @@
+|?TREE=&raquo; <a class=tree href="/CMD_ADMIN_STATS">`LANG_SERVER_STATS`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/ausage.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="centerPanel">
+|$|SK_PHP|
+<?php  
+$pagetit = <<<EOF
+|LANG_SERVER_STATS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+echo pagetit($pagetit, $tree);
+
+?>
+DONE|
+  <div style="display:block;float:left;width:400px;margin:10px 10px 10px 10px;" class="table100 evenodd">
+    |STATS|
+    
+    <table class="list" cellspacing="0" style="margin-top: 10px;">
+      <tr><td class="listtitle" colspan="2">|LANG_STATS_FOR| |DEVICE|</td></tr>
+      <tr><td class="list">|LANG_REC|</td><td class="list">|RX|</td></tr>
+      <tr><td class="list2">|LANG_TX|</td><td class="list2">|TX|</td></tr>
+    </table>
+  </div>
+  <div style="display:block;float:left;margin:10px 0 10px 0;width:550px;" class="table100">
+    |DF|
+|$|SK_PHP|
+<?php 
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
+
+$admistats=$sk->api_get("/CMD_API_ADMIN_STATS");
+$admistats = urldecode($admistats);
+parse_str($admistats, $statsArr);
+
+for($i=1;$i<7;$i++) {
+ if($statsArr['disk'.$i]) {
+   list($dname, $bytesTotal, $bytesUsed, $bytesFree, $usedPer, $mountPoint) = explode(':', $statsArr['disk'.$i]);
+   $name = $dname;
+   $used = $bytesUsed;
+   $free = $bytesFree;
+   ?>
+    <div id="Pie2D<?php  echo  $i?>Div" style="float:left;width:170px;margin: 10px 5px;">Chart here</div>
+    <script type="text/javascript" >
+      var chart_Pie2D<?php  echo  $i?> = new FusionCharts("IMG_FLASH_CHART_PIE2D", "Pie2D<?php  echo  $i?>", "170", "175", "0", "0", "","noScale","EN"); 
+      //Provide entire XML data using dataXML method
+      chart_Pie2D<?php  echo  $i?>.setDataXML("<graph caption='Disk usage' subCaption='<?php  echo  $name?>' showValues='0' decimalPrecision='0' formatNumberScale='0' showPercentageValues='1' pieBorderThickness='1' shadowXShift='3' shadowYShift='3' shadowColor='999999'>"
+      +"<set  value='<?php  echo  $free?>' name='Free' color='#60ce00'  /><set  value='<?php  echo  $used?>' name='Used' color='#fa003c' isSliced='1'  /></graph>");
+      chart_Pie2D<?php  echo  $i?>.render("Pie2D<?php  echo  $i?>Div");
+    </script>
+   <?php
+ }
+}
+
+?>
+    
+    <!--
+    <div id="Pie2D2Div" style="float:left;width:170px;margin: 10px 5px;">Chart here</div>
+    <script type="text/javascript" >
+      var chart_Pie2D2 = new FusionCharts("IMG_FLASH_CHART_PIE2D", "Pie2D2", "170", "175", "0", "0", "","noScale","EN"); 
+      //Provide entire XML data using dataXML method
+      chart_Pie2D2.setDataXML("<graph caption='Disk usage' subCaption='/boot on /dev/sda1' showValues='0' decimalPrecision='0' formatNumberScale='0' showPercentageValues='1' pieBorderThickness='1' shadowXShift='3' shadowYShift='3' shadowColor='999999'>"
+      +"<set  value='1560' name='Free' color='#60ce00'  /><set  value='891' name='Used' color='#fa003c' isSliced='1'  /></graph>");
+      chart_Pie2D2.render("Pie2D2Div");
+    </script>
+    
+    <div id="Pie2D3Div" style="float:left;width:170px;margin: 10px 5px;">Chart here</div>
+    <script type="text/javascript" >
+      var chart_Pie2D3 = new FusionCharts("IMG_FLASH_CHART_PIE2D", "Pie2D3", "170", "175", "0", "0", "","noScale","EN"); 
+      //Provide entire XML data using dataXML method
+      chart_Pie2D3.setDataXML("<graph caption='Disk usage' subCaption='swap on /dev/sda3' showValues='0' decimalPrecision='0' formatNumberScale='0' showPercentageValues='1' pieBorderThickness='1' shadowXShift='3' shadowYShift='3' shadowColor='999999'>"
+      +"<set  value='160' name='Free' color='#60ce00'  /><set  value='891' name='Used' color='#fa003c' isSliced='1'  /></graph>");
+      chart_Pie2D3.render("Pie2D3Div");
+    </script>
+    -->
+    
+    <br class="cf">
+    
+    
+  </div>
+</div>
+DONE|
+|HTM_FOOTER|
+

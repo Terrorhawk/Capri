@@ -1,0 +1,105 @@
+|LF_STANDARD|
+|LF_EMAIL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_LIST?DOMAIN=`DOMAIN`">`LANG_LISTS`</a> &raquo; <a class=tree href="/CMD_EMAIL_LIST?action=view&name=`name`&DOMAIN=`DOMAIN`">`LANG_VIEW_LIST`</a> &raquo; <a class=tree href="/CMD_EMAIL_LIST?action=modify&name=`name`&DOMAIN=`DOMAIN`">`LANG_MOD_LIST`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#majordomo|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_EMAIL_LIST?DOMAIN=|DOMAIN|"><img src="/IMG_IC_MAILING"><br />|LANG_LISTS|</a>
+          <a href="/CMD_EMAIL_LIST?action=view&name=|name|&DOMAIN=|DOMAIN|"><img src="/IMG_IC_MAILING"><br />|LANG_VIEW_LIST|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MOD_LIST| - |name|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form name=info action="CMD_EMAIL_LIST" method="post">
+<input type=hidden name=action value=save>
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=name value="|name|">
+<table class="config" cellspacing="0" width="600">
+  <thead>
+    <tr><td colspan=5>|LANG_MOD_LIST|: <b>|name|@|DOMAIN|</b></td></tr>
+  </thead>
+  <tbody>
+    <tr><td>|LANG_ADMIN_PASS|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=admin_passwd value="|admin_passwd|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_APP_PASS|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=approve_passwd value="|approve_passwd|"></td></tr>
+    <tr><td>|LANG_REPLY_TO|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=reply_to value="|reply_to|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_ADMINISTRIVIA|</td><td>|administrivia|</td></tr>
+    <tr><td>|LANG_DESC|</td><td colspan=4><input type=text class="combot" style="width:100%;" class="combo" name=description maxlength=50 value="|description|"></td></tr>
+
+    <tr><td>|LANG_D_ISSUE|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=digest_issue value="|digest_issue|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_D_VOLUME|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=digest_volume value="|digest_volume|"></td></tr>
+
+    <tr><td>|LANG_D_MAXDAYS|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=digest_maxdays value="|digest_maxdays|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_D_MAXLINES|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=digest_maxlines value="|digest_maxlines|"></td></tr>
+
+    <tr><td>|LANG_GET_A|</td><td>|get_access|</td>
+            <td>&nbsp;</td>
+            <td>|LANG_INDEX_A|</td><td>|index_access|</td></tr>
+    <tr><td>|LANG_INFO_A|</td><td>|info_access|</td>
+            <td>&nbsp;</td>
+            <td>|LANG_INTRO_A|</td><td>|intro_access|</td></tr>
+    <tr><td>|LANG_WHICH_A|</td><td>|which_access|</td>
+            <td>&nbsp;</td>
+            <td>|LANG_WHO_A|</td><td>|who_access|</td></tr>
+
+    <tr><td>|LANG_WELCOME|</td><td>|welcome|</td>
+            <td>&nbsp;</td>
+            <td>|LANG_MUNG|</td><td>|mungedomain|</td></tr>
+
+    <tr><td>|LANG_MODERATE|</td><td>|moderate|</td>
+            <td>&nbsp;</td>
+            <td>|LANG_MODERATOR|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=moderator value="|moderator|"></td></tr>
+
+
+    <tr><td>|LANG_PREC|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=precedence value="|precedence|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_PURGE|</td><td>|purge_received|</td></tr>
+    <tr><td>|LANG_RESTRICT_POST|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=restrict_post value="|restrict_post|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_STRIP|</td><td>|strip|</td></tr>
+
+    <tr><td>|LANG_SUB_PRE|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=subject_prefix value="|subject_prefix|"></td>
+            <td>&nbsp;</td>
+            <td>|LANG_MAX_L|</td><td><input type=text class="combot" style="width:100%;" class="combo" name=maxlength value="|maxlength|"></td></tr>
+
+    <tr><td>|LANG_SUB_POL|</td><td>|subscribe_policy|</td>
+            <td>&nbsp;</td>
+            <td>|LANG_UNSUB_POL|</td><td>|unsubscribe_policy|</td></tr>
+
+    <tr><td colspan=5 align=left>|LANG_LIST_INFO|<br /><textarea rows=5 style="width:100%;" class="combo" name=info>|info|</textarea></td></tr>
+    <tr><td colspan=5 align=left>|LANG_TABOO_BODY|<br /><textarea rows=5 style="width:100%;" class="combo" name=taboo_body>|taboo_body|</textarea></td></tr>
+    <tr><td colspan=5 align=left>|LANG_TABOO_HEAD|<br /><textarea rows=5 style="width:100%;" class="combo" name=taboo_headers>|taboo_headers|</textarea></td></tr>
+    <tr><td colspan=5 align=left>|LANG_MESS_FOOT|<br /><textarea rows=5 style="width:100%;" class="combo" name=message_footer>|message_footer|</textarea></td></tr>
+    <tr><td colspan=5 align=left>|LANG_MESS_FRONT|<br /><textarea rows=5 style="width:100%;" class="combo" name=message_fronter>|message_fronter|</textarea></td></tr>
+    <tr><td colspan=5 align=left>|LANG_MESS_HEAD|<br /><textarea rows=5 style="width:100%;" class="combo" name=message_headers>|message_headers|</textarea></td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan=5><input type=submit value="|LANG_SAVE|" class="boton"></td></tr>
+  </tfoot>
+</table>
+</form>
+    </div>
+|HTM_FOOTER|

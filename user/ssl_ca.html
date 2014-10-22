@@ -1,0 +1,50 @@
+|LF_STANDARD|
+|LF_SSL|
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_SSL?DOMAIN=`DOMAIN`">`LANG_SSL`</a> &raquo; <a class=tree href="/CMD_SSL?DOMAIN=`DOMAIN`&view=cacert">`LANG_CA_SSL`</a>|
+|?HELP_SECTION=`USER_HELPER`/ssl.html|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_CA_SSL| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<b>|RESULT|</b><br />
+
+<form name=info action="CMD_SSL" method="post">
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=action value="save">
+<input type=hidden name=type value="cacert">
+<table class=config cellspacing=0>
+  <thead>
+  <tr><td colspan=3>|LANG_CA_CERT|</td></tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <input type=checkbox name=active value="yes" |CHECKED|><label>|LANG_USE_CA|</label>
+    </td>
+  </tr>
+  <tr>
+    <td >
+      <textarea style="font-family: courier new; width: 610px;" name=cacert rows=16 class=combot>|CACERT|</textarea>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr><td><input type=submit name=submit value="|LANG_SAVE|"></td></tr>
+  </tfoot>
+</table>
+ </form>
+
+|HTM_USER_BOTTOM|

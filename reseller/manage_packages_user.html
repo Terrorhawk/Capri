@@ -1,0 +1,32 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_MANAGE_USER_PACKAGES">`LANG_MANAGE_USER_PACKS`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/packages.html|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_SHOW_USER_PACKAGE"><img src="/IMG_IC_ADDPACKAGE"><br />|LANG_ADD_PACKAGE|</a>
+        <div class="cf cleft"></div>
+      </div>
+      |HTM_BOX_RESELLER_STATS|
+    </div>
+    <div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MANAGE_USER_PACKS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<div class="table75">|PACKAGES|</div>
+    </div>
+|HTM_FOOTER|

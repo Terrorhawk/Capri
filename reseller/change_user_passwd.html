@@ -1,0 +1,38 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/CMD_USER_SHOW">`LANG_SHOW_USERS`</a> &raquo; <a class=tree href="/HTM_USER_PASSWD">`LANG_CHANGE_PASS`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/userpass.html|
+|HTM_RESELLER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_CHANGE_PASS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/HTM_USER_PASSWD');
+
+?>
+DONE|
+<center>
+<form action="CMD_USER_PASSWD" method="post">
+  <table class="config" cellspacing="0">
+    <thead>
+      <tr><td colspan=2>|LANG_CHANGE_PASS|</td></tr>
+    </thead>
+    <tbody>
+      <tr><td>|LANG_USERNAME|:</td><td><input type="text" name="username" class="combot" tabindex="1"></td></tr>
+      <tr><td>|LANG_ENTER_PASS|:</td><td><input type="password" name="passwd" class="combot" id="passwd" tabindex="2"> <input type=button value="|LANG_RANDOM|"class="boton small randpass"><input type="text" id="visiblepass" class="visiblepass" value="" readonly /></td></tr>
+      <tr><td>|LANG_RE-ENTER_PASS|:</td><td><input type="password" id="passwd2" class="combot" name="passwd2" tabindex="3"></td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td colspan=2><input type=submit value="|LANG_SUBMIT|"></td></tr>
+    </tfoot>
+  </table>
+</form>
+</center>
+<br /><br /><br />
+|HTM_RESELLER_BOTTOM|

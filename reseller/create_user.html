@@ -1,0 +1,82 @@
+|LF_STANDARD|
+|LF_CREATE|
+|LF_JS|
+|?TREE=&raquo; <a class=tree href="/CMD_USER_SHOW">`LANG_SHOW_USERS`</a> &raquo; <a class=tree href="/HTM_ACCOUNT_USER_CREATE">`LANG_CREATE_USER`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/create.html|
+|HTM_RESELLER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_CREATE_USER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/LANG_CREATE_USER');
+
+?>
+DONE|
+<script language="Javascript">
+<!--
+
+|HTM_JAVASCRIPT|
+
+function setText( textfld, checkbx){
+  if (checkbx.checked)
+    textfld.disabled = true;
+  if (!checkbx.checked)
+    textfld.disabled = false;
+}
+
+function setTexts(){
+  with (document.reseller)  {
+    if (sharedip.checked) ip.disabled = true;
+    if (uquota.checked) quota.disabled = true;
+    if (ubandwidth.checked) bandwidth.disabled = true;
+    if (undomains.checked) ndomains.disabled = true;
+    if (unsqldbs.checked) nsqldbs.disabled = true;
+  }
+}
+function formOK(){
+  with (document.reseller)  {
+    if (checkName() && checkPass() && checkDomain() && checkEmail())
+      return true;
+  }
+  return false;
+}
+
+function showUserMessage()
+{
+  var message = window.open("CMD_EDIT_USER_MESSAGE","message","width=740,height=480,scrollbars=no,resizable=yes");
+}
+
+// -->
+</script>
+
+<div class="table75">
+  <form name=reseller action="CMD_ACCOUNT_USER" method="post" onSubmit="return formOK()">
+    <input type=hidden name=action value=create>
+    <table class="config" cellspacing="0">
+      <thead>
+        <tr ><td colspan=3>|LANG_CREATE_USER|</td ></tr >
+      </thead>
+      <tbody>
+        <tr><td >|LANG_USERNAME|:</td><td ><input class="combot" type=text name=username size=32 maxlength=|MAX_USERNAME_LENGTH| onChange="checkName()" tabindex="1"></td></tr>
+        <tr><td >|LANG_EMAIL|:</td><td ><input class="combot" type=text name=email size=32 onChange="checkEmail()" tabindex="2"></td></tr>
+        <tr><td >|LANG_ENTER_PASS|:</td><td ><input class="combot" type=password name=passwd size=32 tabindex="3"> <input type=button value="|LANG_RANDOM|"class="boton small randpass"></td></tr>
+        <tr><td >|LANG_RE-ENTER_PASS|:</td><td ><input class="combot" type=password name=passwd2 size=32 onChange="checkPass()" tabindex="4"></td></tr>
+        <tr><td >|LANG_DOMAIN|:</td><td ><input class="combot" type=text name=domain size=32 onChange="checkDomain()" tabindex="5"></td></tr>
+        <tr><td >|LANG_USE_USER_PACK|:</td><td >|PACKAGES|</td></tr>
+        <tr><td >|LANG_IP|:</td><td >|IPSELECT|</td></tr>
+        <tr><td >|LANG_EMAIL_NOTIFY|:</td><td ><input type=checkbox value="yes" name=notify checked> <a href="javascript:showUserMessage();">|LANG_EDIT_USER_MESS|</a></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td title colspan=2 align=right><input type=submit name=customize value="|LANG_CUSTOMIZE|"> <input type=submit name=add value="|LANG_SUBMIT|" tabindex="6"></td></tr>
+      </tfoot>
+    </table>
+  </form>
+</div>
+|HTM_RESELLER_BOTTOM|

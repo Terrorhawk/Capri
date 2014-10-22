@@ -1,0 +1,61 @@
+|LF_STANDARD|
+|LF_SITE_BACKUP|
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_SITE_BACKUP?domain=`domain`">`LANG_SITE_BACKUP`</a> &raquo; `LANG_RESTORE_FROM_FILE`|
+|?HELP_SECTION=`USER_HELPER`/backup.html#restore|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SITE_BACKUP|: |LANG_RESTORE_FROM_FILE|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<div class="table75">
+<form action="/CMD_SITE_BACKUP" method="post" name="tableform1">
+<input type=hidden name="form_version" value="2">
+<input type=hidden name=domain value="|domain|">
+<input type=hidden name=file value="|file|">
+<input type=hidden name=action value="restore">
+<table cellspacing=0 class="config">
+  <thead>
+  <tr><td colspan=2>|LANG_SELECT_ITEMS_TO_REST| |file|</td></tr>
+  </thead>
+  <tbody>
+  <tr><td colspan=2><b>|LANG_WEB_DATA|</b></td></tr>
+  <tr><td>|LANG_DOMAINS_DIR|</td>    <td><input type=checkbox name=select0 value="domain" |DOMAINON|></td></tr>
+  <tr><td>|LANG_SUBDOMAIN_LIST|</td>  <td><input type=checkbox name=select1 value="subdomain" |SUBDOMAINON|></td></tr>
+  
+  <tr><td colspan=2><b>|LANG_EMAIL|</b></td></tr>
+  <tr><td>|LANG_POP_ACCOUNTS|</td>                  <td><input type=checkbox name=select2 value="email" |EMAILON|></td></tr>
+  <tr><td>Email data</td>				<td><input type=checkbox name=select12	value="email_data" |EMAILDATAON| onClick='if (this.checked == true) { document.tableform1.select2.checked = true; }'></td></tr>
+  <tr><td>|LANG_FOWARDERS|</td>          <td><input type=checkbox name=select3 value="forwarder" |FORWARDERON|></td></tr>
+  <tr><td>|LANG_AUTORESPONDERS|</td>    <td><input type=checkbox name=select4 value="autoresponder" |AUTORESPONDERON|></td></tr>
+  <tr><td>|LANG_VAC_MESSAGES|</td>  <td><input type=checkbox name=select5 value="vacation" |VACATIONON|></td></tr>
+  <tr><td>|LANG_MAILING_LISTS_INCLUDE|</td>                          <td><input type=checkbox name=select6 value="list" |LISTON|></td></tr>
+  <tr><td>|LANG_EMAIL_SETTINGS|</td>  <td><input type=checkbox name=select7 value="emailsettings" |EMAILSETTINGSON|></td></tr>
+  
+  <tr><td colspan=2><b>|LANG_FTP|</b></td></tr>
+  <tr><td>|LANG_FTP_ACCOUNTS|</td>                          <td><input type=checkbox name=select8 value="ftp" |FTPON|></td></tr>
+  <tr><td>|LANG_FTP_SETTINGS|</td>                          <td><input type=checkbox name=select9 value="ftpsettings" |FTPSETTINGSON|></td></tr>
+  <tr><td colspan=2><b>|LANG_DATABASES|</b></td></tr>
+  <tr><td>|LANG_DBS_INCLUDE|</td>              <td><input type=checkbox name=select10 value="database" |DATABASEON|></td></tr>
+  <tr><td>Database data</td>                   <td><input type=checkbox name=select11 value="database_data" onClick='if (this.checked == true) { document.tableform1.select10.checked = true; }' |DATABASEDATAON|></td></tr>
+  <tr><td colspan=2><b>DNS</b></td></tr>
+  <tr><td>|LANG_DNS_RESTORE|</td>        <td><input type=checkbox name=select12 value="dns" |DNSON|></td></tr>
+  </tbody>
+  <tfoot>
+  <tr><td colspan=2><input type=submit value="|LANG_RESOTRE_SELECTED_ITEMS|"></td></tr>
+  </tfoot>
+</table>
+</form>
+</div>
+|HTM_USER_BOTTOM|

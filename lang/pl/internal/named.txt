@@ -1,0 +1,5 @@
+1=Dodano użytkownika do pliku named.conf
+2=Wyjście skryptu
+3=Domena została już usunięta. Nie było domeny w  pliku named.conf
+4=Nie można odczytać pliku strefy w celu zwiększenia numeru seryjnego
+5=Nie można zapisać pliku strefy w celu zwiększenia numeru seryjnego

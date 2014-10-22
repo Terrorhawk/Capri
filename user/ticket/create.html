@@ -1,0 +1,52 @@
+|LF_STANDARD|
+|LF_TICKET|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_TICKET">`LANG_MESS_SYS`</a> &raquo; <a class=tree href="/CMD_TICKET_CREATE?TYPE=`TYPE`">`LANG_CREATE_A` `TYPE`</a>|
+|?HELP_SECTION=`USER_HELPER`/gettingstarted.html#ticket|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MESS_SYS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form name=info action="CMD_TICKET_CREATE" method="post">
+<input type=hidden name=action value="create">
+<input type=hidden name=type value="|TCKTTYPE|">
+    
+  <table class="config" cellspacing="0">
+    <thead>
+    <tr><td colspan=4>|LANG_CREATE| |TYPE|</td></tr>
+    </thead>
+    <tbody>
+    <tr><td>|LANG_TO|</td><td>|TCKTTO|</td><td>|LANG_PRIORITY|
+      <select name=priority class="combot">
+      <option value="10">|LANG_LOW|</option>
+      <option value="20">|LANG_MED|</option>
+      <option value="30">|LANG_HIGH|</option>
+            </select></td>
+    </tr>
+    <tr><td>|LANG_SUBJECT|</td><td colspan=3><input type=text name=subject size=65 class="combot"></td></tr>
+    <tr><td>|LANG_MESSAGE|</td><td colspan=3><textarea name=message rows=16 cols=80 class="combot"></textarea></td></tr>
+    </tbody>
+    <tfoot>
+    <tr><td colspan=4>
+|*if SHOW_EML_ONLY="yes"|
+       <input type=checkbox name=email_only value='yes' |EML_ONLY_CHEKCED|><label>|LANG_ONLY_EMAIL|</label>&nbsp;&nbsp;&nbsp;
+|*endif|
+      <input type=submit name=submit value="|LANG_SAVE|">
+    </td></tr>
+    </tfoot>
+  </table>
+</form>
+
+|HTM_USER_BOTTOM|

@@ -1,0 +1,56 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_TICKET">`LANG_MESS_SYS`</a>|
+|?HELP_SECTION=`USER_HELPER`/gettingstarted.html#ticket|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_TICKET_CREATE?TYPE=Ticket"><img src="/IMG_IC_ADD_TICKET"><br />|LANG_CREATE_TICKET|</a>
+        <a href="/CMD_TICKET?action=closed"><img src="/IMG_IC_VIEW_TICKLET"><br />|LANG_VIEW_CLOSED_TICKETS||NEWCLOSED|</a>
+        <div class="cf cleft"></div>
+      </div>
+  |HTM_BOX_USER_STATS|
+</div>
+<div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MESS_SYS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+$table = <<<EOF
+|TICKETS|
+EOF;
+preg_match_all("/<tr ><td align=right colspan=[1-9]+>Page: (.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace('class=toptext', 'class=pagerText', $matches[1][0]);
+
+?>
+DONE|
+  <div class="table100">|TICKETS|</div>
+  <div class="table100" style="margin: 15px 0;">|MESSAGES|</div>
+  
+  <form action="CMD_TICKET" method="post">
+  <input type=hidden name=action value="email">
+  <table class="config" cellspacing="0">
+    <thead>
+    <tr><td>|LANG_OPTIONS|</td></tr>
+    </thead>
+    <tbody>
+    <tr><td><input type=checkbox name=ON value="yes" |EMAILCHECKED|><label>|LANG_EMAIL_TO|:</label> <input type=text name=email value="|EMAIL|" class="combot" size="36"></td></tr>
+    </tbody>
+    <tfoot>
+    <tr><td><input type=submit value="|LANG_SAVE|" class="boton"></td></tr>
+    </tfoot>
+  </table>
+  </form>
+  
+</div>
+|HTM_FOOTER|

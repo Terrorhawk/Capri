@@ -1,0 +1,159 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADMIN_SETTINGS">`LANG_BRUTE_FORCE_MONITOR`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/settings.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+
+<div id="centerPanel">
+
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+Brute force monitor
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+echo pagetit($pagetit, $tree);
+
+?>
+
+|*if LOG_SCANNING!="ON"|
+|LANG_LOG_SCANNING_OFF|
+<br><br>
+|*endif|
+
+<div class="table100">
+
+<div class="bk_container Backup" style="margin-bottom: 20px;">
+  <div class="title"><b>|LANG_FAILED_LOGINS|</b> - |LANG_CLICK_IP_TO_FILTER|</div>
+  <div class="cont">
+
+      <div class="max270" style="border: 1px solid #c1c1c1;">
+        <form name=tableform action='CMD_BRUTE_FORCE_MONITOR' method=POST>
+        <input type=hidden name=action value="skiplist">
+          |IPLOGINFAILURES|
+          <table class="list" cellpadding=0 cellspacing=0>
+          <tr><td class=footer align=center>
+          
+|*if HAVE_BLOCK_SH="1"|
+            <input type='button' value='Block IPs' onclick="if (confirm('Are you sure?')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
+            &nbsp;&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;&nbsp;
+|*endif|
+
+            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> Comments:<input type=text name=comments size=32>
+          </td></tr>
+          </table>
+        </form>
+      </div>
+
+      <div class="max270" style="margin-top: 15px;border: 1px solid #c1c1c1;">
+        <form name=tableform action='CMD_BRUTE_FORCE_MONITOR' method=POST>
+        <input type=hidden name=action value="skiplist">
+          |USERLOGINFAILURES|
+          <table class="list" cellpadding=0 cellspacing=0>
+          <tr><td class=footer align=center>
+            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> Comments:<input type=text name=comments size=32>
+          </td></tr>
+          </table>
+        </form>
+      </div>
+      
+  </div>
+</div>
+      
+|*if sort1dir|
+<br>
+<a href='?sort1=-1'>|LANG_CLEAR_SEARCH_FILTER|</a>
+|*endif|
+
+<?php
+$table = <<<EOF
+|LOGINFAILURES|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+
+<br><br>
+
+<br>
+<b>|LANG_SKIP_LIST|</b>
+<?php
+$table = <<<EOF
+|SKIPLIST|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+
+</div>
+
+|*if HAVE_SHOW_BLOCKED_IPS_SH="1"|
+<br>
+<div class="tip" style="margin: 10px 0;">
+  <form name=tableform5 action='CMD_BRUTE_FORCE_MONITOR' method=POST>
+    <input type=hidden name=action value="unblock">
+    <b>Blocked IPs</b>
+    <div id="blockedipsdiv" style="overflow: auto; height: 450px; width: 300px; border: 1px solid grey;">
+    |BLOCKED_IPS|
+    </div>
+|*endif|
+|*if HAVE_UNBLOCK_SH="1"|
+    <table id="blockbuttontable" class=list style='width: 50%' cellpadding=3 cellspacing=1>
+      <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='UnBlock' name=unblock></td ></tr>
+    </table>
+  </form>
+|*endif|
+|*if HAVE_SHOW_BLOCKED_IPS_SH="1"|
+</div>
+<script type="text/javascript">
+<!--
+function sizeTheDiv()
+{
+	var tblwidth=document.getElementById('blockedipstable').offsetWidth;
+	if (tblwidth>0)
+	{
+		if (tblwidth < 300)
+		{
+			tblwidth = 300;
+			document.getElementById('blockedipstable').style.width=tblwidth;
+		}
+
+		document.getElementById('blockedipsdiv').style.width=tblwidth+19;
+		if (document.getElementById('blockbuttontable'))
+			document.getElementById('blockbuttontable').style.width=tblwidth+21;
+	}
+}
+sizeTheDiv();
+// -->
+</script>
+|*endif|
+
+<div class="tip" style="margin: 10px 0;">
+|*if IP_LIMIT="0"|
+|LANG_IP_ZERO|
+|*else|
+|LANG_IP_VALUE|
+|*endif|<br>
+
+|*if USER_LIMIT="0"|
+|LANG_USER_ZERO|
+|*else|
+|LANG_USER_VALUE|
+|*endif|
+</div>
+
+DONE|
+|HTM_ADMIN_BOTTOM|

@@ -1,0 +1,63 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_MULTI_SERVER">`LANG_MULTI_SERVER`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_MULTI_SERVER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_MULTI_SERVER');
+
+?>
+DONE|
+<form action="/CMD_MULTI_SERVER" method="post" style="display: block; margin-bottom: 18px;background-color: #f5f5f5;border:1px solid #ccc;padding: 5px;">
+<input type=hidden name=action value="onoff">
+|*if CLUSTER_ON="yes"|
+|LANG_MULTI_IS_ON| &nbsp;&nbsp;&nbsp; <input type=submit name=off value="|LANG_TURN_OFF|">
+|*else|
+|LANG_MULTI_IS_OFF| &nbsp;&nbsp;&nbsp; <input type=submit name=on value="|LANG_TURN_ON|">
+|*endif|
+</form>
+
+<div class="table100" style="margin-bottom: 12px;">
+  <b>|LANG_LIST_OF_SERVERS|</b>
+  |TABLE|
+</div>
+
+
+<form action="/CMD_MULTI_SERVER" method=POST>
+<input type=hidden name=action value=add>
+  <table class="config" cellspacing="0" style="margin-bottom: 10px;">
+    <thead>
+    <tr><td colspan=5>|LANG_ADD_REMOTE_SERVER|<//td></tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>|LANG_IP|: <input type=text name=ip size=15 class="combot"></td>
+      <td>|LANG_PORT|: <input type=text name=port size=4 value="2222" class="combot"></td>
+      <td>|LANG_SSL|: <input type=checkbox name=ssl value=yes size=4 class="combot"></td>
+      <td>|LANG_USERNAME|: <input type=text name=user size=8 class="combot"></td>
+      <td>|LANG_PASSWORD|: <input type=password name=passwd size=8 class="combot"></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr><td colspan=5><input type=submit value="|LANG_ADD|" class="boton"></td></tr>
+    </tfoot>
+  </table>
+</form>
+
+<div class="tip" style="margin-top: 15px;">
+|LANG_SSL_DESCRIPTION|<br />
+|LANG_ZONE_TRANSFER_DESCRIPTION|<br />
+|LANG_DOMAIN_CHECK_DESCRIPTION|
+</div>
+
+|HTM_ADMIN_BOTTOM|
+

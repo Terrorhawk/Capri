@@ -1,0 +1,39 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_PLUGIN_MANAGER">`LANG_PLUGING_MANAGER`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_PLUGING_MANAGER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_PLUGIN_MANAGER');
+
+?>
+DONE|
+<div class="table100">
+|PLUGINS|
+<form action="/CMD_PLUGIN_MANAGER" enctype="multipart/form-data" method="post">
+<input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+<input type="hidden" name="action" value="add">
+  <table class=config style="margin-top:12px" cellspacing="0">
+    <thead>
+    <tr><td class=listtitle colspan=2><b>|LANG_ADD_PLUGIN|</b> - |LANG_SELECT_UP_METH|</td></tr>
+    </thead>
+    <tr><td class=list><input type=radio name=type value="url" id="curl" checked>|LANG_URL|</td><td class=list> <input class="combot" onChange="javascript: document.getElementById('curl').checked=true;" type=text name=url size=32 value="http://"> |LANG_ENTER_URL|</td></tr>
+    <tr><td class=list><input type=radio name=type value="file" id="cfile">|LANG_FILE|</td><td class=list> <input class="combot" onChange="javascript: document.getElementById('cfile').checked=true;" type=file name=file1 size=32> |LANG_UPLOAD_FROM_LOC|</td></tr>
+    </tbody>
+    <tfoot>
+    <tr><td class=listtitle colspan=2 align=right><b>|LANG_PASSWORD|</b>: <input type=password class="combot" name=passwd size=14>&nbsp;&nbsp;&nbsp;<input type=checkbox name=install value="yes" checked> |LANG_INSTALL_AFTER_UP|&nbsp;&nbsp;&nbsp;<input type=submit value="|LANG_ADD_PLUGIN|"></td></tr>
+    </tfoot>
+  </table>
+</form>
+</div>
+|HTM_ADMIN_BOTTOM|
+

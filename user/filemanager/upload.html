@@ -1,0 +1,48 @@
+|?TREE=&raquo; <a class=tree href="/CMD_FILE_MANAGER">`LANG_FILEMANAGER`</a> &raquo; <a class=tree href="/CMD_FILE_MANAGER`path`">`path`</a>|
+|?HELP_SECTION=`USER_HELPER`/filemanager.html#upload|
+|HTM_HEADER|
+<style type="text/css">
+<!--
+#filesBoxes div {
+  padding: 2px 0;
+}
+-->
+</style>
+<script language="Javascript">
+<!--
+fn = 2;
+function addFile(){
+  fn++;
+  $("#filesBoxes").append('<div><input type="file" name="file'+fn+'" class="combot" size="40" /></div>');
+}
+// -->
+</script>
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_FILE_MANAGER|path|"><img src="/IMG_IC_FILEMAN"><br />|LANG_FILEMANAGER|</a>
+        <div class="cf cleft"></div>
+      </div>
+</div>
+<div id="rightPanel" class="table75">
+
+  <div class="pageTit"><span>|LANG_MULTIPLE|</span>|TREE|</div>
+  
+  <form name=uploadform action="/CMD_FILE_MANAGER" enctype="multipart/form-data" method="post">
+    <input type="hidden" name="MAX_FILE_SIZE" value="|MAX_FILE_SIZE|" />
+    <input type=hidden name="action" value="upload" />
+    <input type=hidden name="path" value="|path|" />
+      <table class="config" cellspacing=0>
+        <thead>
+        <tr><td>|LANG_UP_TO| <b>|path|</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|LANG_MAX_SIZE| : |MAX_FILE_SIZE_STR|</td></tr>
+        </thead>
+        <tbody>
+        <tr><td id="filesBoxes"><div><input type="file" name="file1" class="combot" size="40" /></div><div><input type="file" name="file2" class="combot" size="40"></div></td></tr>
+        </tbody>
+        <tfoot>
+        <tr><td><input type=submit value="|LANG_UP_FILES|"> <input type=button value="|LANG_UP_MORE|" onclick="javascript:addFile();"></td></tr>
+        </tfoot>
+      </table>
+  </form>
+</div>
+|HTM_FOOTER|

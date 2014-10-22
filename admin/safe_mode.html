@@ -1,0 +1,96 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/CMD_PHP_SAFE_MODE">`LANG_SAFE_MODE_SETTINGS`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_SAFE_MODE_SETTINGS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_PHP_SAFE_MODE');
+
+?>
+<style>
+.safe_mode_on { color: green; font-weight: bold; }
+.safe_mode_off{ color: red; }
+.sw_on { 
+  color: #127500;
+  padding: 1px 5px !important;
+  font-size: 10px;
+  min-width: 128px;
+  text-align: center;
+  margin: 1px 0 2px 0;
+}
+.sw_off{ 
+  color: #a80000; 
+  padding: 1px 5px !important;
+  font-size: 10px;
+  min-width: 128px;
+  text-align: center;
+  margin: 1px 0 2px 0;
+}
+</style>
+<form action="/CMD_PHP_SAFE_MODE" method=POST>
+<input type=hidden name=action value=enabled>
+|LANG_DEFAULT|:
+    <input type=radio name=enabled value="ON" |ONCHECKED|>|LANG_ON|
+    <input type=radio name=enabled value="OFF" |OFFCHECKED|>|LANG_OFF|
+<br />
+|LANG_OBD|:
+    <input type=radio name=obdenabled value="ON" |OBDONCHECKED|>|LANG_ON|
+    <input type=radio name=obdenabled value="OFF" |OBDOFFCHECKED|>|LANG_OFF|
+<br />
+    <input type=submit value="|LANG_SAVE|">
+</form>
+
+<div class="table75">
+
+<form action="" method="GET">
+  <table class="config" cellspacing="1" style="margin: 12px 0;">
+    <tbody>
+    <tr>
+      <td class=listtitle>
+      |LANG_SHOW_DOMAINS_THAT| 
+      <select class=selectclass name=comparison1>
+      <option value="none">--</option >
+      <option value="equals">|LANG_EQUAL|</option >
+      <option value="contains">|LANG_CONTAIN|</option >
+      <option selected value="startswith">|LANG_START_WITH|</option >
+      </select> 
+      <input type=text size="15" class="inputclass combot" name="value1"> 
+      <input type=hidden name=sort1 value="1">
+      <input type=hidden name=sort1dir value="1">
+      <input type=hidden name=ipp value="50">
+      <input type=submit value="|LANG_SEARCH|" class="boton small"></td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+<?php
+$table = <<<EOF
+|DOMAINS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+</div>
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){
+  $("td.footer input[name='enable'], td.footer input[name='enable_obd']").addClass("sw_on");
+  $("td.footer input[name='disable'], td.footer input[name='disable_obd']").addClass("sw_off");
+});
+//-->
+</script>
+DONE|
+|HTM_ADMIN_BOTTOM|
+

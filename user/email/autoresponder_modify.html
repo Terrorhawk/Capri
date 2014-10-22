@@ -1,0 +1,53 @@
+|LF_EMAIL|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_AUTORESPONDER?DOMAIN=`DOMAIN`">`LANG_AUTO_RESPONDERS`</a> &raquo; <a class=tree href="/CMD_EMAIL_AUTORESPONDER_MODIFY?DOMAIN=`DOMAIN`&user=`user`">`LANG_MODIFY` `user`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#auto|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_EMAIL_AUTORESPONDER?DOMAIN=|DOMAIN|"><img src="/IMG_IC_EMAIL_AUTO"><br />|LANG_AUTO_RESPONDERS|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MOD_AUTO_MESS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+      <div class="table100">
+        <form name=info action="CMD_EMAIL_AUTORESPONDER" method="post">
+        <input type=hidden name=action value=modify>
+        <input type=hidden name=domain value="|DOMAIN|">
+        <input type=hidden name=user value="|USER|">
+          <table class="config" cellspacing="0">
+              <thead>
+              <tr><td class=listtitle colspan=2>|LANG_MOD_AUTO_MESS|</td></tr>
+              </thead>
+              <tbody>
+              <tr><th nowrap width="20%">|LANG_RESP_ADDR|</th><td>|USER|@|DOMAIN|</td></tr>
+              <tr><th nowrap>|LANG_RESP_MESS|</th><td><textarea rows=15  class="combot" style="width:100%" name=text>|TEXT|</textarea></td></tr>
+              <tr><td><input type=checkbox name=cc value="ON" |CCCHECKED|>|LANG_RESP_CC_TO|</td><td class=list><input type=text name=email value="|EMAIL|" class="combot"></td></tr>
+              </tbody>
+              <tfoot>
+              <tr><td colspan=3><input type=submit name=create value="|LANG_MODIFY|" class="boton"></td></tr>
+              </tfoot>
+          </table>
+        </form>
+      </div>
+    </div>
+|HTM_FOOTER|

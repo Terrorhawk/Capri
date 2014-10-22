@@ -1,0 +1,98 @@
+|?HELP_SECTION=`ADMIN_HELPER`/listr.html|
+|LF_TABLES|
+|LF_STANDARD|
+|LF_ADMIN_MAIN|
+|LF_CREATE|
+|LF_TABLES|
+|LF_ADMIN_MAIN|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ALL_USER_SHOW">`LANG_SHOW_RESELLER`</a>|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/HTM_ACCOUNT_RESELLER_CREATE"><img src="/IMG_IC_ADD_RESELLER"><br />|LANG_CREATE_RES|</a>
+          <a href="/HTM_ACCOUNT_RESELLER_DELETE"><img src="/IMG_IC_DEL_RESELLER"><br />|LANG_DELETE_RES|</a>
+          <a href="/CMD_RESELLER_SHOW?view=advanced"><img src="/IMG_IC_SEARCH"><br />|LANG_ADVANCED_SEARCH|</a>
+          <div class="cf cleft"></div>
+        </div>
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT|."inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+$pagetit = <<<EOF
+|LANG_SHOW_RESELLER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+echo pagetit($pagetit, $tree);
+
+$tabla = <<< EOF
+|TABLE|
+EOF;
+
+echo CMD_RESELLER_SHOW($tabla);
+
+$lang_del_user = <<< EOF
+|LANG_DELETE_RES|
+EOF;
+$lang_del_user = addslashes($lang_del_user);
+
+$lang_user_susp = <<< EOF
+|LANG_USER_SUSPENDED|
+EOF;
+$lang_user_susp = addslashes($lang_user_susp);
+?>
+    </div>
+<?php  
+parse_str($_SERVER["QUERY_STRING"], $GET);
+if(!$GET['view']) {
+?>
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){
+  $("table.list tr td.list, table.list tr td.list2").parent().each(function(){
+    $(this).find("td:first").addClass("reseller");
+  });
+  $("table.list tr").each(function(){
+    $(this).find("td:eq(5):contains('Suspended')").remove();
+  });
+  $("table.list tr").each(function(){
+    $(this).find("td:eq(5):contains('Yes')").parent().addClass("Suspended");
+    $(this).find("td:eq(5):contains('Yes')").remove();
+  });
+  $("table.list tr").each(function(){
+    $(this).find("td:eq(5):contains('No')").parent().addClass("noSuspended");
+    $(this).find("td:eq(5):contains('No')").remove();
+  });
+  $("table.list tr td.list, table.list tr td.list2").parent().each(function(){
+    var user = $(this).find("td:first").text();
+    var clas = $(this).find("td:eq(2)").attr("class");
+    $(this).append('<td class="'+clas+'"><a href="CMD_SELECT_USERS?select0='+user+'&delete=Delete&location=CMD_RESELLER_SHOW?sort1=1"><img src="IMG_SK_OFF" title="<?php  echo  $lang_del_user?> '+user+'" border="0"></a></td>');
+  });
+  $("table.list tr:first").append('<td class="listtitle">&nbsp;</td>');
+  $('table.list tr, img').ToolTip({className: 'tooltip', position: 'mouse'});
+  $("table.list tr.Suspended").each(function(){
+    var user = $(this).find("td:first").text()
+    var url = "'/CMD_SELECT_USERS?location=CMD_RESELLER_SHOW&dounsuspend=1&select0="+user+"'";
+    $(this).find("td:last").prepend('<img src="IMG_USER_SUSPENDED" class="userSuspended" title="Unsuspend user" onclick="javascript:window.location='+url+'">');
+  });
+  $("table.list tr.noSuspended").each(function(){
+    var user = $(this).find("td:first").text();
+    var url = "'/CMD_SELECT_USERS?location=CMD_RESELLER_SHOW&dosuspend=1&select0="+user+"'";
+    $(this).find("td:last").prepend('<img src="IMG_USER_NOSUSPENDED" class="usernoSuspended" title="Suspend user" onclick="javascript:window.location='+url+'">');
+  });
+  $("table.list tr.Suspended td:last, table.list tr.noSuspended td:last").attr("nowrap", "nowrap").attr("width", "1%").css("white-space","nowrap");
+  $('table.list tr, img').ToolTip({className: 'tooltip', position: 'mouse'});
+});
+//-->
+</script>
+<?php  } ?>
+DONE|
+|HTM_FOOTER|

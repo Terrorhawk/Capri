@@ -1,0 +1,76 @@
+|LF_STANDARD|
+|LF_EMAIL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_LIST?DOMAIN=`DOMAIN`">`LANG_LISTS`</a> &raquo; <a class=tree href="/CMD_EMAIL_LIST?action=view&name=`name`&DOMAIN=`DOMAIN`">`LANG_VIEW_LIST`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#majordomo|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_EMAIL_LIST?DOMAIN=|DOMAIN|"><img src="/IMG_IC_MAILING"><br />|LANG_LISTS|</a>
+          <a href="/CMD_EMAIL_LIST?action=modify&name=|name|&DOMAIN=|DOMAIN|"><img src="/IMG_IC_SA_MANUAL_SETUP"><br />|LANG_CHANGE_DIGEST_SET|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php 
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_VIEW_LIST| - |name|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+<form action="/CMD_EMAIL_LIST" method="post">
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=name value="|name|">
+<input type=hidden name=action value="add">
+<table class="config" cellspacing="0">
+              <thead>
+  <tr><td colspan=2>|LANG_ADD_EMAIL|</td></tr>
+              </thead>
+              <tbody>
+  <tr><td><input type=radio checked name=type value="list">|LANG_ADD_TO| |name|</td>
+    <td><input type=radio name=type value="digest">|LANG_ADD_TO| |name|-digest</td></tr>
+  <tr><td align=right>|LANG_EMAIL|:</td><td><input type=text size=50 name=email></td></tr>
+              </tbody>
+              <tfoot>
+  <tr><td colspan=2><input type=submit value="|LANG_ADD|"></td></tr>
+              </tfoot>
+</table>
+</form>
+
+<?php  
+
+$table = <<<EOF
+|SUBSCRIBERS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+?>
+<div style="margin: 15px 0;">|SUBSCRIBERS|</div>
+<?php
+
+$table = <<<EOF
+|SUBSCRIBERS_DIGEST|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+?>
+|SUBSCRIBERS_DIGEST|
+
+DONE|
+    </div>
+|HTM_FOOTER|

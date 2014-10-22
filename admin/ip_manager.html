@@ -1,0 +1,49 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_IP_MANAGER">`LANG_IP_MANAGER`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/ipman.html|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_IP_MANAGER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_MANAGER');
+
+?>
+
+|TEXT|
+<form action="/CMD_IP_MANAGER" method='POST'>
+<input type=hidden name=action value=add>
+  <table class="config" cellspacing="0" style="margin-bottom: 10px;">
+    <thead>
+    <tr><td colspan=2>|LANG_ADD_IP|</td></tr>
+    </thead>
+    <tbody>
+    <tr><th>|LANG_IP|</th><td ><input type=text name=ip class="combot"></td></tr>
+    <tr><th nowrap>|LANG_NETMASK|</th><td nowrap><input type=text name=netmask value="255.255.255.0" class="combot">|*if HAVE_IPV6="yes"| For IPv6 IPs, use a /mask, eg: /64|*endif|</td></tr>
+    </tbody>
+    <tfoot>
+    <tr><td colspan=2><input class="boton" type=submit value='|LANG_ADD_IP|'></td></tr>
+    </tfoot>
+  </table>
+</form>
+<div class="table100">
+<?php
+$table = <<<EOF
+|TABLE|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table
+?>
+</div>
+DONE|
+|HTM_ADMIN_BOTTOM|

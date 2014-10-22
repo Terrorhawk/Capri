@@ -1,0 +1,63 @@
+|LF_STANDARD|
+|LF_DB|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_DB?DOMAIN=`DOMAIN`">`LANG_MYSQL_SETUP`</a> &raquo; <a class=tree href="/CMD_DB_CREATE?DOMAIN=`DOMAIN`">`LANG_CREATE_DB`</a>|
+|?HELP_SECTION=`USER_HELPER`/mysql.html#create|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MYSQL_SETUP|: |LANG_CREATE_DB|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<script language="javascript">
+function setGreyout(value){
+  if (document.info)  {
+    with (document.info)    {
+      if (value == '...')      {
+        user.disabled = false;
+        passwd.disabled = false;
+        passwd2.disabled = false;
+      }  else {
+        user.value = value;
+        user.disabled = true;
+        passwd.value = '********';
+        passwd.disabled = true;
+        passwd2.value = '********';
+        passwd2.disabled = true;    
+      }
+    }
+  }
+}
+</script>
+<form name=info action="CMD_DB" method="post">
+<input type=hidden name=action value=create>
+<input type=hidden name=domain value="|DOMAIN|">
+<table class="config" cellspacing=1>
+<thead>
+    <tr><td colspan=2>|LANG_CREATE_DB|</td></tr>
+</thead>
+<tbody>
+    <tr><td>|LANG_DB_NAME|</td><td><b>|USERNAME|_</b><input type=text name=name size=12 class="combot"></td></tr>
+    <tr><td>|LANG_DB_USERNAME|</td><td><b>|USERNAME|_</b><input type=text name=user size=12 class="combot"></td></tr>
+|*if DB_USER_LIST|
+    <tr><td>|LANG_DB_USE_EXTING|</td><td>|DB_USER_LIST|</td></tr>
+|*endif|
+    <tr><td>|LANG_DB_PASS|</td><td><input type=password name=passwd size=20 class="combot"> <input type="button" value="|LANG_RANDOM|" class="boton small randpass"></td></tr>
+    <tr><td>|LANG_DB_PASS_AGAIN|</td><td><input type=password name=passwd2 size=20 class="combot"></td></tr>
+</tbody>
+<tfoot>
+    <tr><td colspan=2><input class="boton" type=submit name=create value="|LANG_CREATE|"></td></tr>
+</tfoot>
+</table>
+</form>
+|HTM_USER_BOTTOM|

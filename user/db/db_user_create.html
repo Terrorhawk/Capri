@@ -1,0 +1,57 @@
+|LF_STANDARD|
+|LF_DB|
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_DB?DOMAIN=`DOMAIN`">`LANG_MYSQL_SETUP`</a> &raquo; <a class=tree href="/CMD_DB_VIEW?DOMAIN=`DOMAIN`&name=`name`">`LANG_VIEW` `name`</a> &raquo; <a class=tree href="/CMD_DB_USER_CREATE?DOMAIN=`DOMAIN`&name=`name`">`LANG_NEW_USER`</a>|
+|?HELP_SECTION=`USER_HELPER`/mysql.html#adduser|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MYSQL_SETUP| - |LANG_VIEW| |name|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<script language="javascript">
+function setGreyout(value){
+  if (document.info)  {
+    with (document.info)    {
+      if (value == '...')      {
+        user.disabled = false;
+        passwd.disabled = false;
+        passwd2.disabled = false;
+      }  else {
+        user.value = value;
+        user.disabled = true;
+        passwd.value = '********';
+        passwd.disabled = true;
+        passwd2.value = '********';
+        passwd2.disabled = true;    
+      }
+    }
+  }
+}
+</script>
+<form name=info action="CMD_DB" method="post">
+<input type=hidden name=action value=createuser>
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=name value="|name|">
+<table class=list cellpadding=3 cellspacing=1>
+    <tr><td class=listtitle colspan=2>|LANG_ADD_USER_TO| |name|</td></tr>
+    <tr><td class=list>|LANG_DB_USERNAME|</td><td class=list><b>|USERNAME|_</b><input type=text name=user size=12></td></tr>
+|*if DB_USER_LIST|
+    <tr><td class=list>|LANG_DB_USE_EXTING|</td><td class=list>|DB_USER_LIST|</td></tr>
+|*endif|
+    <tr><td class=list>|LANG_DB_PASS|</td><td class=list><input type=password name=passwd size=20></td></tr>
+    <tr><td class=list>|LANG_DB_PASS_AGAIN|</td><td class=list><input type=password name=passwd2 size=20></td></tr>
+    <tr><td class=listtitle colspan=3 align=right><input type=submit name=create value="|LANG_CREATE|"></td></tr>
+</table>
+</form>
+|HTM_USER_BOTTOM|

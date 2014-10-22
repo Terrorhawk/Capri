@@ -1,0 +1,68 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_FTP?DOMAIN=`DOMAIN`">`LANG_FTP_SETUP`</a>|
+|?HELP_SECTION=`USER_HELPER`/ftp.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="javascript:;" onclick="javascript:$('#createb').slideToggle('fast');"><img src="/IMG_IC_ADD_FTP"><br />|LANG_CREATE_FTP|</a>
+        <a href="/CMD_FTP_SETTINGS?DOMAIN=|DOMAIN|"><img src="/IMG_IC_ANOON_FTP"><br />|LANG_ANON_FTP_SETTINGS|</a>
+        <div class="cf cleft"></div>
+      </div>
+  |HTM_BOX_USER_STATS|
+</div>
+<div id="rightPanel">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_FTP_SETUP| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+<div id="createb" style="margin-bottom:20px;display:none;">
+  <form name=info action="CMD_FTP" method="post">
+    <input type=hidden name=action value=create>
+    <input type=hidden name=domain value="|DOMAIN|">
+    <table class="config" cellspacing=0>
+      <thead>
+        <tr><td colspan=3>|LANG_CREATE_FTP|</td></tr>
+      </thead>
+      <tbody>
+        <tr><th>|LANG_FTP_USERNAME|</th><td colspan=2><input type=text name=user align=right size=16 class="combot"> @|DOMAIN|</td></tr>
+        <tr><th>|LANG_ENTER_PASS|:</th><td colspan=2><input type=password name=passwd size=19 class="combot"> <input type=button class="boton small randpass" value="|LANG_RANDOM|"> <input type="text" id="visiblepass" class="visiblepass" value="" readonly /></td></tr>
+        <tr><th>|LANG_RE-ENTER_PASS|:</th><td colspan=2><input type=password name=passwd2 size=19 class="combot"></td></tr>
+        <tr><th>|LANG_DOMAIN|:</th><td align=center><input type=radio name=type value="domain" checked></td><td>|LANG_DOMAIN_USER|</td></tr>
+        <tr><th>|LANG_FTP|:</th><td align=center><input type=radio name=type value="ftp"></td><td>|LANG_FTP_USER|</td></tr>
+        <tr><th>|LANG_USER|:</th><td align=center><input type=radio name=type value="user"></td><td>|LANG_USER_USER|</td></tr>
+        <tr><th>|LANG_CUSTOM|:</th><td align=center><input type=radio name=type value="custom"></td><td><input type=text size=82 name=custom_val value="|HOME_DIR|" class="combot"></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan=3><input type=submit name=create value="|LANG_CREATE|"></td></tr>
+      </tfoot>
+    </table>
+  </form>
+</div>
+<?php
+
+$table = <<<EOF
+|FTPACCOUNTS|
+EOF;
+preg_match_all("/<tr ><td align=right colspan=[1-9]+>Page: (.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace('class=toptext', 'class=pagerText', $matches[1][0]);
+
+?>
+DONE|
+<div class="table100">|FTPACCOUNTS|</div>
+
+<div style="margin-top: 10px;">|LANG_ANON_FTP_SETTINGS|. Login: |ANONLOGIN|</div>
+
+</div>
+|HTM_FOOTER|

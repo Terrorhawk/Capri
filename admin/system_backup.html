@@ -1,0 +1,159 @@
+|LF_STANDARD|
+|LF_BACKUPS|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SYSTEM_BACKUP">`LANG_SYSTEM_BACKUP`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="javascript:;" onclick="javascript:$('#runnow').trigger('submit');"><img src="/IMG_IC_RUNBK"><br />|LANG_RUN_NOW|</a>
+        <a href="javascript:;" onclick="javascript:$('#cronBox').toggle();"><img src="/IMG_IC_CRON"><br />|LANG_CRON_SCHEDULE|</a>
+        <a href="/CMD_SYSTEM_BACKUP/status.log.txt"><img src="/IMG_IC_LOG"><br />|LANG_VIEW_LOG|</a>
+        <div class="cf cleft"></div>
+      </div>
+      |HTM_BOX_SERVER_STATS|
+    </div>
+    <div id="rightPanel">
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_SYSTEM_BACKUP|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_SYSTEM_BACKUP');
+
+?>
+DONE|
+<form action="/CMD_SYSTEM_BACKUP" method="post" id="runnow">
+<input type=hidden name=action value="now">
+</form>
+
+        <form action="/CMD_SYSTEM_BACKUP" method="post" style="display: none;margin-bottom:15px;" id="cronBox">
+        <input type=hidden name=action value="when">
+          <table class="config" cellspacing="0">
+          <thead>
+          <tr><td colspan=10><b>|LANG_CRON_SCHEDULE|</b></td></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td align=right>|LANG_MINUTE|</td><td><input type=text class="combot cs" name=minute value="|MINUTE|" size=3></td>
+            <td align=right>|LANG_HOUR|</td><td><input type=text class="combot cs" name=hour value="|HOUR|" size=3></td>
+            <td align=right>|LANG_DAY_OF_MONTH|</td><td><input type=text class="combot cs" name=dayofmonth value="|DAY|" size=3></td>
+            <td align=right>|LANG_MONTH|</td><td><input type=text class="combot cs" name=month value="|MONTH|" size=3></td>
+            <td align=right>|LANG_DAY_OF_WEEK|</td><td><input type=text class="combot cs" name=dayofweek value="|DAYOFWEEK|" size=3></td>
+          </tr>
+          </tdoby>
+          <tfoot>
+          <tr>
+            <td colspan=5 style="text-align:left !important;"><input id="useCron" type="checkbox" name="use_cron" value="yes" |CRON|><label for="useCron">|LANG_USE_CRON|</label></td>
+            <td colspan=5 align=right><input type=submit value="|LANG_SAVE|"></td>
+          </tr>
+          </tfoot>
+          </table>
+        </form>
+
+
+        <form action="/CMD_SYSTEM_BACKUP" method="post" class="table100">
+        <input type=hidden name=action value="setting">
+        <table class="config" cellspacing="0">
+          <thead>
+          <tr>
+            <td colspan="2">|LANG_CONFIGURE_FULL_SYSTEM_BACKUP|</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td colspan="2" width="50%">|LANG_BACKUP_PATH| <input class="combot" type=text name="BACKUP_PATH" value="|BACKUP_PATH|" size=32></td>
+          </tr>
+            <td colspan="2">|LANG_MIN_DISK_SPACE| <input class="combot" type=text name="MIN_DISK" value="|MIN_DISK|" size=4> on partition |MOUNT_POINT|</td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type=checkbox name="ADD_USERS_TO_LIST" value="yes" |ADD_USERS_TO_LIST|><label>|LANG_ADD_USERS|</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type=checkbox name="HTTP_BK" value="yes" |HTTP_BK|><label>|LANG_BACKUP_HTTP_CONFIG|</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type=checkbox name="MYSQL_BK" value="yes" |MYSQL_BK|><label>|LANG_BACKUP_MYSQL_CONFIG|</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type=checkbox name="BIND_BK" value="yes" |BIND_BK|><label>|LANG_BACKUP_BIND_CONFIG|</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input id="filesAndDirs" onclick="javascript:switchFilesDirs();" type=checkbox name="CUSTOM_BK" value="yes" |CUSTOM_BK|><label for="filesAndDirs">|LANG_BACKUP_DIRS_FILES|</label></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input id="rtrans" onclick="javascript:switchRtrans();" type=checkbox name="USE_RTRANS" value="yes" |USE_RTRANS|><label for="rtrans"><b>|LANG_USE_REMOTE_TRANSFER|</b></label></td>
+          </tr>
+          
+          <tr class="rtr" style="display:none;"><td colspan="2">|LANG_REMOTE_TRANSFER_METHOD|: |RTRANS_SELECT| &nbsp;&nbsp;&nbsp;&nbsp;<a href="/CMD_SYSTEM_BACKUP/id_dsa.pub">|LANG_DOWNLOAD_ID_DSA|</a></td></tr>
+          <tr class="rtr" style="display:none;"><td colspan="2"><input type=checkbox name="DEL_AFTERTRANS" value="yes" |DEL_AFTERTRANS|><label>|LANG_DEL_AFTER_RTRANS|</label></td></tr>
+          <tr class="rtr" style="display:none;"><td colspan="2"><input type=checkbox name="FBF_RTRANS" value="yes" |FBF_RTRANS|><label>|LANG_FILE_BY_FILE|  |LANG_FILE_BY_FILE_COMMENT|</label></td></tr>
+          <tr class="rtr" style="display:none;"><td width="12%">|LANG_REMOTE_HOST|</td><td width="88%"><input class="combot" type=text name="FTP_HOST" value="|FTP_HOST|"></td></tr>
+          <tr class="rtr" style="display:none;"><td>|LANG_REMOTE_USER|</td><td><input class="combot" type=text name="FTP_USER" value="|FTP_USER|"></td></tr>
+          <tr class="rtr" style="display:none;"><td>|LANG_REMOTE_PASS|</td><td><input class="combot" type=password name="FTP_PASS" value="|FTP_PASS|"></td></tr>
+          <tr class="rtr" style="display:none;"><td>|LANG_REMOTE_PATH|</td><td><input class="combot" type=text name="FTP_RPATH" value="|FTP_RPATH|"></td></tr>
+          </tbody>
+          <tfoot>
+          <tr><td colspan="2"><input type=submit value="|LANG_SAVE|"></td></tr>
+          </tfoot>
+        </table>
+        </form>
+
+        <table class="config" width="100%" cellspacing="0" id="filesDirs" style="margin-top: 15px;">
+          <thead>
+          <tr>
+            <td colspan=2>|LANG_FILES_AND_DIRS|</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td width="50%">
+              <div style="overflow: auto; height: 160px; width: 100%;" class="table100">|BACKUP_DIRECTORIES|</div>
+              <form action="/CMD_SYSTEM_BACKUP" method="post">
+              <input type=hidden name=action value="adddirectory">
+              <input type=text name=directory> <input type=submit value="|LANG_ADD_DIRECTORY|">
+              </form>
+            </td>
+            <td width="50%">
+              <div style="overflow: auto; height: 160px; width: 100%;" class="table100">|BACKUP_FILES|</div>
+              <form action="/CMD_SYSTEM_BACKUP" method="post">
+              <input type=hidden name=action value="addfile">
+              <input type=text name=file> <input type=submit value="|LANG_ADD_FILE|">
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+    </div>
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){
+  switchFilesDirs();
+  switchRtrans();
+  $("#filesDirs").find("table.list").css({"border":"none"});
+});
+function switchFilesDirs(){
+  if($("#filesAndDirs").attr("checked")==true) {
+    $("#filesDirs").show();
+  } else {
+    $("#filesDirs").hide();
+  }
+}
+function switchRtrans(){
+  if($("#rtrans").attr("checked")==true) {
+    $(".rtr").show();
+  } else {
+    $(".rtr").hide();
+  }
+}
+//-->
+</script>
+|HTM_FOOTER|
+

@@ -1,0 +1,80 @@
+|HTM_HEADER|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/HOME_MEMORY">`LANG_HOME`</a> &raquo; <a class=tree href="/HTM_ALL_DOMAINS">`LANG_ALL_DOMAINS_LIST`</a>|
+|HTM_CONFIG|
+    <div id="leftPanel">
+|HTM_BOX_ADMIN_SEARCH|
+|HTM_BOX_SERVER_STATS|
+    </div>
+    <div id="rightPanel">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT|."inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+$pagetit = <<<EOF
+|LANG_ALL_DOMAINS_LIST|
+EOF;
+
+$tree = <<<EOF
+|TREE|
+EOF;
+
+echo pagetit($pagetit, $tree);
+$domains=getDomainsList();
+
+parse_str($_SERVER['QUERY_STRING'], $GET);
+
+if($GET['sort']==1) {
+  @asort($domains);
+$t1=<<<EOF
+<a class="listtitle" href="/HTM_ALL_DOMAINS">|LANG_DOMAIN|</a>
+EOF;
+$t2=<<<EOF
+<b><a class="listtitle" href="/HTM_ALL_DOMAINS?sort=1">|LANG_OWNER|</a></b>
+EOF;
+} else {
+  @ksort($domains);
+$t1=<<<EOF
+<b><a class="listtitle" href="/HTM_ALL_DOMAINS">|LANG_DOMAIN|</a></b>
+EOF;
+$t2=<<<EOF
+<a class="listtitle" href="/HTM_ALL_DOMAINS?sort=1">|LANG_OWNER|</a>
+EOF;
+}
+
+if($GET['raw']==1) {
+
+?>
+      <div style="line-height:16px;">
+        <textarea style="width:100%; height: 335px;" readonly readonly="readonly">
+<?php  if(is_array($domains) && count($domains)>0) {
+     foreach($domains as $domain => $ouwner) {
+       echo $domain."\n";
+  }} ?>
+        </textarea>
+      </div>
+<?php
+
+} else {
+?>
+      &nbsp;&raquo; <a href="/HTM_ALL_DOMAINS?raw=1"><b>|LANG_RAW_LIST|</b></a>
+      <table class="list" cellpadding="3" cellspacing="0" width="600" style="margin-top: 10px;">
+        <tr>
+          <td class="listtitle"><?php  echo  $t1?></td>
+          <td class="listtitle"><?php  echo  $t2?></a></td>
+        </tr>
+<?php  if(is_array($domains) && count($domains)>0) {
+     foreach($domains as $domain => $ouwner) {
+?>
+        <tr class="trList">
+          <td class="list"><a href="http://<?php  echo  $domain?>" target="_blank"><?php  echo  $domain?></a></td>
+          <td class="list user"><a href="/CMD_SHOW_USER?user=<?php  echo  $ouwner?>"><?php  echo  $ouwner?></a></td>
+        </tr>
+<?php  }} ?>
+      </table>
+<?php  } /* enf if raw list */ ?>
+    </div>
+DONE|
+|HTM_FOOTER|

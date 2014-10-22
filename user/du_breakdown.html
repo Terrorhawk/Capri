@@ -1,0 +1,32 @@
+|LF_STANDARD|
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=|LANG_ENCODING|">
+<title>Disk Usage Breakdown
+|*if user|
+|user|
+|*else|
+|USERNAME|
+|*endif|
+</title>
+<link rel="stylesheet" type="text/css" href="/CSS_STYLES">
+<script type="text/javascript" src="/IMG_JQ"></script>
+<script type="text/javascript" src="/IMG_TOOLTIP"></script>
+<script type="text/javascript" src="/IMG_MAINJS"></script>
+</head>
+<body>
+<form action=? method=GET>
+<input type=checkbox name="hidezero" value="1" |*if hidezero="1"|checked|*endif|>Hide entires which use 0 bytes<br>
+<input type=checkbox name="hide_duplicate_count" value="1" |*if hide_duplicate_count="1"|checked|*endif|>Hide entires which are already included in the System Quotas <a href="javascript:alert('Many entires that DirectAdmin counts are not added to the totals because they are already included in some other counted item such as the System Quotas. Unhiding these entries will help you track account disk usage, but are not included in the totals.');">(?)</a><br>
+<input type=hidden name="sort1" value="|sort1|">
+<input type=hidden name="ipp" value="|ipp|">
+<input type=submit value="Update">
+|*if user|<input type=hidden name="user" value="|user|">|*endif|
+<center>
+|TABLE|
+<br>
+<a href="javascript:self.close();">Close</a>
+</center>
+</form>
+</body>
+</html>

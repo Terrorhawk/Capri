@@ -1,0 +1,64 @@
+|LF_EMAIL|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_LIST?DOMAIN=`DOMAIN`">`LANG_LISTS`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#majordomo|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="javascript:;" onclick="javascript:$('#create').slideToggle('fast');"><img src="/IMG_IC_ADD_MAILING"><br />|LANG_CREATE_LIST|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_LISTS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+      <div class="table100">
+        <div id="create" style="display: none;margin-bottom:15px;">
+          <form name=info action="CMD_EMAIL_LIST" method="post">
+          <input type=hidden name=action value=create>
+          <input type=hidden name=domain value="|DOMAIN|">
+            <table class="config" cellspacing="0">
+              <thead>
+              <tr><td colspan="2"><b>|LANG_CREATE_LIST|</b></td></tr>
+              </thead>
+              <tbody>
+                <tr><th nowrap width="10%">|LANG_LIST_NAME|</th><td><input type=text name=name size=20 class=combot> @|DOMAIN|</td></tr>
+              </tbody>
+              <tfoot>
+              <tr><td colspan="2"><input type="submit" name="create" class="boton" value="|LANG_CREATE|"></td></tr>
+              </tfoot>
+            </table>
+          </form>
+        </div>
+      </div>
+      <div id="forlist">
+<?php
+
+$table = <<<EOF
+|LISTS|
+EOF;
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+?>
+DONE|
+      |LISTS|
+      </div>
+    </div>
+|HTM_FOOTER|

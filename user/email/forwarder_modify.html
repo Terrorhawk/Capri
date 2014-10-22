@@ -1,0 +1,51 @@
+|LF_STANDARD|
+|LF_EMAIL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_FORWARDER?DOMAIN=`DOMAIN`">`LANG_FORWARDERS`</a> &raquo; <a class=tree href="/CMD_EMAIL_FORWARDER_MODIFY?DOMAIN=`DOMAIN`&user=`user`">`LANG_MODIFY` `user`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#forwarders|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_EMAIL_FORWARDER?domain=|DOMAIN|"><img src="/IMG_IC_EMAIL_FOR"><br />|LANG_EMAIL_FORWARDERS|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MOD_FORWARD| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+      <div class="table100">
+      <form name=info action="CMD_EMAIL_FORWARDER" method="post">
+      <input type=hidden name=action value=modify>
+      <input type=hidden name=domain value="|DOMAIN|">
+      <input type=hidden name=user value="|FORWARDERNAME|">
+      <table class="config" cellspacing="0"><br />
+              <thead>
+          <tr><td colspan=2>|LANG_MOD_FORWARD|</td></tr>
+              </thead>
+              <tbody>
+          <tr><th>|LANG_FORWARD_NAME|</th><td>|FORWARDERNAME|@|DOMAIN|</td></tr>
+          <tr><th>|LANG_DEST|</th><td><input class="combot" type=text name=email value="|FORWARDEREMAIL|" size=48> |LANG_WHERE_YOU_WANT|</td></tr>
+              <tfoot>
+          <tr><td colspan=3 align=right><input type=submit name=update value="|LANG_MODIFY|" class="boton"></td></tr>
+              </tfoot>
+        </form>
+      </table>
+      </div>
+    </div>
+|HTM_FOOTER|

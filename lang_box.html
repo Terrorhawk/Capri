@@ -1,0 +1,21 @@
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT|."inc/functions.php";
+include |SK_ROOT|."inc/json.php";
+
+$languages = getLanguages(|SK_ROOT|);
+
+sort($languages);
+
+echo '<select id="changeLang"><option value="" selected="selected">Change language...</option>';
+if(is_array($languages) && count($languages)>0) {
+  foreach($languages as $lang) {
+    echo '<option value="'.$lang.'">'.$lang.'</option>';
+  }
+}
+echo '</select>';
+
+?>
+DONE|

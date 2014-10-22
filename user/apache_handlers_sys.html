@@ -1,0 +1,26 @@
+|LF_HANDLERS|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_HANDLERS?DOMAIN=`domain`">`LANG_APCHE_HANDLERS`</a> &raquo; <a class=tree href="/CMD_HANDLERS?action=system&domain=`domain`">`LANG_SYSTEM_HANDLERS`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#handlers|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SYSTEM_HANDLERS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+|HANDLERS|
+<br />
+<a href="/CMD_HANDLERS?DOMAIN=|domain|">|LANG_LIST_OF_USER_HANDLERS|</a><br /><br />
+
+|HTM_USER_BOTTOM|

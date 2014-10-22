@@ -1,0 +1,92 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_SSL?DOMAIN=`DOMAIN`">`LANG_SSL`</a>|
+|?HELP_SECTION=`USER_HELPER`/ssl.html|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SSL| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<script language="javascript">
+function setRequest(onoff){
+if (document.info)  {
+with (document.info)    {
+for (var i=0; i < elements.length; i++)
+if (elements[i].type == 'radio')
+if ( elements[i].name == "request" ) {
+if (onoff == 'on') elements[i].disabled = false;
+else elements[i].disabled = true;
+}}}}
+</script>
+<b>|RESULT|</b><br />
+
+|*if SSL_ON="no"|
+<div style="margin-bottom: 20px;padding:10px;border:1px solid #b00;color:#a00;background:#ffefee;">|LANG_SSL_DISABLED|<br />
+<a href="/CMD_ADDITIONAL_DOMAINS?action=view&domain=|domain|">|LANG_SSL_HERE|</a>
+</div>
+|*else|
+<div style="margin-bottom: 20px;padding:10px;border:1px solid #b00;color:#a00;background:#ffefee;">SSL is currently <b>enabled</b> for this domain.  You can disable it 
+<a href="/CMD_ADDITIONAL_DOMAINS?action=view&domain=|domain|">here</a>
+</div>
+|*endif|
+
+<form name=info action="CMD_SSL" method="post">
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=action value="save">
+<table class=config cellspacing=0>
+  <thead>
+  <tr><td colspan=3>|LANG_SSL_CERTS|</td></tr>
+  </thead>
+  <tbody>
+
+  <tr class="clear" style="padding-top: 12px !important;font-weight:bold;">
+    <td align=center><input type=radio name=type value="server" |SERVERCHECKED| onclick="setRequest('off');"></td>
+    <td colspan=2>|LANG_USE_SERVERS|</td>
+  </tr>
+  <tr><td>&nbsp;</td><td colspan=2>|LANG_USE_SHARED|</td></tr>
+
+  <tr class="clear" style="padding-top: 12px !important;font-weight:bold;">
+    <td align=center><input type=radio name=type value="create" onclick="setRequest('on');"></td>
+    <td colspan=2><input type=radio name=request value="no" checked disabled id=asa1><label for="asa1">|LANG_CREATE_SELF_SIGNED|</label><input style="margin-left:60px;" type=radio name=request value="yes" disabled id=asa2><label for="asa2">|LANG_CREATE_CSR|</label></td>
+  </tr>
+  <tr><td>&nbsp;</td><td>|LANG_COUNTRY|</td><td><input type=text class=combot name=country size=2 maxlength=2></td></tr>
+  <tr><td>&nbsp;</td><td>|LANG_STATE|</td><td><input type=text class=combot size=18 name=province></td></tr>
+  <tr><td>&nbsp;</td><td>|LANG_CITY|</td><td><input type=text class=combot size=18 name=city></td></tr>
+  <tr><td>&nbsp;</td><td>|LANG_COMPANY|</td><td><input type=text class=combot size=18 name=company></td></tr>
+  <tr><td>&nbsp;</td><td>|LANG_COMPANY_DIV|</td><td><input type=text class=combot size=18 name=division></td></tr>
+  <tr><td>&nbsp;</td><td>|LANG_COMMON_NAME|</td><td><input type=text class=combot size=20 name=name value="www.|DOMAIN|"></td></tr>
+  <tr><td>&nbsp;</td><td>|LANG_EMAIL|</td><td><input type=text class=combot name=email size=30></td></tr>
+  <tr><td>&nbsp;</td><td>Key Size (bits)</td><td><select  class="combot selectclass" name="keysize"><option selected="selected">2048</option></select></td></tr>
+  
+  <tr style="padding-top: 12px !important;font-weight:bold;">
+    <td align=center><input type=radio name=type value="paste" |PASTECHECKED| onclick="setRequest('off');"></td>
+    <td colspan=2>|LANG_PASTE|</td>
+  </tr>
+  <tr><td>&nbsp;</td>
+    <td colspan=2>
+      <textarea style="font-family: courier new; width: 610px;" name=certificate rows=16 class=combot>|KEY||CERTIFICATE|</textarea>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr><td colspan=3 align=right><input type=submit name=submit value="|LANG_SAVE|"></td></tr>
+  </tfoot>
+</table>
+</form>
+
+<br />
+<a href="/CMD_SSL?DOMAIN=|DOMAIN|&view=cacert">|LANG_CLICK_HERE|<br /><br />
+
+<div class="tip" style="margin-top:15px;">|LANG_NOTE|</div>
+|HTM_USER_BOTTOM|

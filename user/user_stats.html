@@ -1,0 +1,158 @@
+|?TREE=&raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`domain`">`domain`</a> &raquo; <a class=tree href="/CMD_USER_STATS?domain=`domain`">`LANG_STATS_FOR` `USERNAME`</a>|
+|?HELP_SECTION=`USER_HELPER`/stats.html|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="/CMD_USER_HISTORY?domain=|domain|"><img src="/IMG_IC_USER_HISTORY"><br />|LANG_USER_HISTORY|</a>
+          <a href="/CMD_FILE_MANAGER/domains/|domain|/logs"><img src="/IMG_IC_APACHEHAND"><br />|LANG_APACHE_LOGS_BK|</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+$pagetit = <<<EOF
+|LANG_STATS_FOR| |USERNAME|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+$results = <<<EOF
+|RESULT|
+EOF;
+$results = urldecode($results);
+
+echo pagetit($pagetit, $tree);
+
+if(strlen($results)>3) {
+  echo '<div class="succ">'.$results.'</div>';
+}
+?>
+DONE|
+    |DOMAINS|
+    <div class="tip" style="margin: 10px 0;">|LANG_WEBALIZER|</div>
+    <div class="tip">|LANG_NOTE|</div>
+|$|SK_PHP|
+<?php  
+include |SK_ROOT| . "inc/functions.php";
+$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
+
+$admistats=$sk->api_get("/CMD_API_SHOW_USER_USAGE");
+$admistats = urldecode($admistats);
+parse_str($admistats, $statsArr);
+
+if($statsArr['bandwidth']) {
+  $bw = $statsArr['bandwidth'];
+  $dbQ = round($statsArr['db_quota']/(1024*1024),2);
+  $emQ = round($statsArr['email_quota']/(1024*1024),2);
+  $domQ = $statsArr['quota'] - ($dbQ+$emQ);
+  $hdQ = $statsArr['quota'];
+  $USERQUOTAMAX = "|USERQUOTAMAX|";
+	$USERBANDWIDTHMAX = "|USERBANDWIDTHMAX|";
+	settype($USERBANDWIDTHMAX , "integer");
+	settype($USERQUOTAMAX , "integer");
+	$hdmax = intval($USERQUOTAMAX);
+  $bwmax = intval($USERBANDWIDTHMAX);
+  $free = $hdmax - $hdQ;
+   ?>
+    <div class="graph" style="margin: 10px 0;">
+      <div id="Pie2D1Div" style="float:left;width:170px;margin: 5px;"></div>
+      <script type="text/javascript" >
+        var chart_Pie2D1 = new FusionCharts("IMG_FLASH_CHART_PIE2D", "Pie2D1", "170", "175", "0", "0", "","noScale","EN"); 
+        chart_Pie2D1.setDataXML("<graph caption='Disk usage' subCaption='Total' showValues='0' decimalPrecision='0' formatNumberScale='0' showPercentageValues='1' pieBorderThickness='1' shadowXShift='3' shadowYShift='3' shadowColor='999999'>"
+        +"<set value='<?php  echo  $free?>' name='Free space' color='#98cd0a'  />"
+        +"<set value='<?php  echo  $domQ?>' name='Domains usage' color='#fc0a62'  />"
+        +"<set value='<?php  echo  $dbQ?>' name='Database usage' color='#930afc'  />"
+        +"<set value='<?php  echo  $emQ?>' name='Email usage' color='#0a9bfc'  />"
+        //+"<set value='<?php  echo  $used?>' name='Used' color='#fa003c' isSliced='1'  />"
+        +"</graph>");
+        chart_Pie2D1.render("Pie2D1Div");
+      </script>
+      
+      <div id="Pie2D2Div" style="float:left;width:170px;margin: 5px;"></div>
+      <script type="text/javascript" >
+        var chart_Pie2D2 = new FusionCharts("IMG_FLASH_CHART_PIE2D", "Pie2D2", "170", "175", "0", "0", "","noScale","EN"); 
+        chart_Pie2D2.setDataXML("<graph caption='Email usage' subCaption='  ' showValues='0' decimalPrecision='0' formatNumberScale='0' showPercentageValues='1' pieBorderThickness='1' shadowXShift='3' shadowYShift='3' shadowColor='999999'>"
+        +"<set value='<?php  echo  $hdQ?>' name='Total usage' color='#faaf00'  />"
+        +"<set value='<?php  echo  $emQ?>' name='Email usage' color='#0a9bfc' isSliced='1' />"
+        +"</graph>");
+        chart_Pie2D2.render("Pie2D2Div");
+      </script>
+      
+      <div id="Pie2D3Div" style="float:left;width:170px;margin: 5px;"></div>
+      <script type="text/javascript" >
+        var chart_Pie2D3 = new FusionCharts("IMG_FLASH_CHART_PIE2D", "Pie2D3", "170", "175", "0", "0", "","noScale","EN"); 
+        chart_Pie2D3.setDataXML("<graph caption='Dababase usage' subCaption='  ' showValues='0' decimalPrecision='0' formatNumberScale='0' showPercentageValues='1' pieBorderThickness='1' shadowXShift='3' shadowYShift='3' shadowColor='999999'>"
+        +"<set value='<?php  echo  $hdQ?>' name='Total usage' color='#faaf00'  />"
+        +"<set value='<?php  echo  $dbQ?>' name='Database usage' color='#930afc' isSliced='1' />"
+        +"</graph>");
+        chart_Pie2D3.render("Pie2D3Div");
+      </script>
+      
+      <div class="leyends">
+        <div class="leyend"><span style="background-color:#98cd0a;"><img src="IMG_SPACER"></span>Free space</div>
+        <div class="leyend"><span style="background-color:#fc0a62;"><img src="IMG_SPACER"></span>Domains usage</div>
+        <div class="leyend"><span style="background-color:#930afc;"><img src="IMG_SPACER"></span>Database usage</div>
+        <div class="leyend"><span style="background-color:#0a9bfc;"><img src="IMG_SPACER"></span>Email usage</div>
+        <div class="leyend"><span style="background-color:#faaf00;"><img src="IMG_SPACER"></span>Total usage</div>
+      </div>
+      
+      <div class="cf cleft"></div>
+    
+    </div>
+   <?php
+  
+}
+
+?>
+DONE|
+    |STATS|
+    <br /><br />
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+
+$dt = <<<EOF
+|LANG_APACHE_LOG|
+EOF;
+$d1 = <<<EOF
+|LANG_FULL_USAGE|
+EOF;
+$d2 = <<<EOF
+|LANG_LAST_USAGE_LOGS|
+EOF;
+$d3 = <<<EOF
+|LANG_FULL_ERROR|
+EOF;
+$d4 = <<<EOF
+|LANG_LAST_ERROR_LOGS|
+EOF;
+$d5 = <<<EOF
+|LANG_APACHE_LOG|
+EOF;
+$d6 = <<<EOF
+|LANG_APACHE_LOG|
+EOF;
+
+$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=log', 'txt' => $d1);
+$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=log&lines=100', 'txt' => $d2);
+$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=error', 'txt' => $d3);
+$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=error&lines=100', 'txt' => $d4);
+
+$sk->iconmenu($dt,$items);
+
+
+?>
+DONE|
+    </div>
+|HTM_FOOTER|

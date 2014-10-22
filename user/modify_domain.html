@@ -1,0 +1,108 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADDITIONAL_DOMAINS?domain=`domain`">`LANG_MODIFY` `domain`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#domains|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_DOMAIN_SETUP|: |domain|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<div class="table75">
+<form name=info action="/CMD_DOMAIN" method="post" style="display:block;margin-bottom:15px;">
+<input type=hidden name=action value="modify">
+<input type=hidden name=domain value="|domain|">
+<table class=config cellspacing=0>
+  <thead>
+  <tr ><td colspan=2>|LANG_MODIFY| |domain|</td></tr>
+  </thead>
+  <tbody>
+  <tr><th>|LANG_BANDWIDTH|</th><td><input type=text class="combot" name=bandwidth value="|BANDWIDTH|" |BANDWIDTHDISABLED|><input type="checkbox" name="ubandwidth" value="unlimited" onclick='setText( document.info.bandwidth,this)' |BANDWIDTHCHECKED|>|LANG_SAME_AS_MAIN|</td ></tr>
+  <tr><th>|LANG_DISK_SPACE|</th><td><input type=text class="combot" name=quota value="|QUOTA|" |QUOTADISABLED|><input type="checkbox" name="uquota" value="unlimited" onclick='setText( document.info.quota,this)' |QUOTACHECKED|>|LANG_SAME_AS_MAIN|</td ></tr>
+  |*if USERSSL="ON"|
+  <tr><th>|LANG_SECURE_SSL|</th><td><input type="checkbox" name=ssl value="ON" |SSLCHECKED|></td></tr>
+  |*endif|
+  |*if USERCGI="ON"|
+  <tr><th>|LANG_CGI| |LANG_ACCESS|</th><td><input type="checkbox" name=cgi value="ON" |CGICHECKED|> </td></tr>
+  |*endif|
+  |*if USERPHP="ON"|
+  <tr><th>|LANG_PHP| |LANG_ACCESS|</th><td><input type="checkbox" name=php value="ON" |PHPCHECKED|> </td></tr>
+  |*endif|
+  </tbody>
+  <tfoot>
+  <tr><td colspan=3><input type=submit name=modify value="|LANG_SAVE|" class="boton"></td></tr>
+  </tfoot>
+</table>
+</form>
+
+<form name=https action="/CMD_DOMAIN" method="post">
+<input type=hidden name=action value="private_html">
+<input type=hidden name=domain value="|domain|">
+<table class=config cellspacing=0>
+  <thead>
+  <tr><td colspan=2>|LANG_SETUP_FOR| |domain| - |LANG_SSL_REQUIRED| </td></tr>
+  </thead>
+  <tbody>
+|*if SSLCHECKED!="checked"|
+|?SSLDISABLED=disabled|
+|*else|
+|?SSLDISABLED=|
+|*endif|
+  <tr><td><input type=radio name=val value="directory" |SSLDISABLED| |DIRECTORY_CHECKED|></td><td>|LANG_USE_DIR|</td></tr>
+  <tr><td><input type=radio name=val value="symlink" |SSLDISABLED| |SYMLINK_CHECKED|></td><td>|LANG_USE_SYMLINK|</td></tr>
+  </tbody>
+  <tfoot>
+  <tr><td colspan=3><input type=button value='|LANG_SAVE|' |SSLDISABLED| onclick="confirmit();" class="boton"></td></tr>
+  </tfoot>
+</table>
+</form>
+
+|*if HAS_MULTIPLE_IPS="yes"|
+|MULTI_IP_TABLE|
+<form name=addmulti action="/CMD_DOMAIN" method="post">
+<input type=hidden name=action value="multi_ip">
+<input type=hidden name=domain value="|domain|">
+  <table class=config cellspacing=0 style="margin-top: 20px;">
+    <thead>
+      <tr><td class=listtitle colspan=2>|LANG_ADD_ANOTHER_IP| |domain|</td></tr>
+    </thead>
+    <tbody>
+      <tr><td class=list align=right>|LANG_SELECT_IP_TO_ADD|</td><td class=list>|MULTI_IP_SELECT|</td></tr>
+      <tr><td class=list2 align=right>|LANG_ADD_DNS_RECORDS|</td><td class=list2><input type=checkbox name="dns" value="yes" checked></td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td class=listtitle colspan=2 align=right><input type=submit value="|LANG_ADD_IP|" name="add"></td></tr>
+    </tfoot>
+  </table>
+</form>
+|*endif|
+
+</div>
+<script language=javascript>
+<!--
+function confirmit(){
+  with (document.https){
+    var checkedval='';
+    for (var i=0; i < elements.length; i++) 
+    if (elements[i].type == 'radio'){if ( elements[i].name == "val" && elements[i].checked ){checkedval=elements[i].value;}}
+    if (checkedval=='symlink'){if (confirm('|LANG_CONFIRM_DIR|')){submit();}}
+    else{submit();}  
+  }
+}
+function setText(textfld, checkbx){
+if (checkbx.checked)  textfld.disabled = true;
+if (!checkbx.checked) textfld.disabled = false;
+}
+//-->
+</script>
+|HTM_USER_BOTTOM|

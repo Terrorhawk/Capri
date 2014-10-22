@@ -1,0 +1,151 @@
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php  include |SK_ROOT| . "inc/functions.php";
+
+$USERQUOTAMAX = "|USERQUOTAMAX|";
+settype($USERQUOTAMAX , "float");
+
+$USERBANDWIDTHMAX = "|USERBANDWIDTHMAX|";
+settype($USERBANDWIDTHMAX , "float");
+
+$USERBANDWIDTHMAXGIG = "|USERBANDWIDTHMAXGIG|";
+settype($USERBANDWIDTHMAXGIG , "float");
+
+$hd = (float)number_format(|USERQUOTA|,1,'.','');
+$hdmax = (float)number_format($USERQUOTAMAX,1,'.','');
+$hdunit = 'MB';
+
+$bw = (float)number_format(|USERBANDWIDTH|,1,'.','');
+$bwmax = (float)number_format($USERBANDWIDTHMAX,1,'.','');
+$bwunit = 'MB';
+
+if($bwmax>1024) {
+  $bw = (float)number_format(|USERBANDWIDTHGIG|,1,'.','');
+  $bwmax = (float)number_format($USERBANDWIDTHMAXGIG,1,'.','');
+  $bwunit = 'GB';
+}
+
+if($USERQUOTAMAX>1024) {
+  $hd = (float)number_format(|USERQUOTA|/1024,1,'.','');
+  $hdmax = (float)number_format($USERQUOTAMAX/1024,1,'.','');
+  $hdunit = 'GB';
+}
+
+?>
+      <div class="panelBox">
+        <div class="title"><span>|LANG_ACCOUNT_SUMMARY|</span></div>
+        <ul>
+<?php  if($hdmax>0) {
+
+$hdper = intval(($hd * 100) / $hdmax);
+if($hdper>100) $hdper=100;
+$Shdper = number_format($hdper,0);
+$hdbar = round( ($hdper * 130) / 100);
+if($hdbar>160) $hdbar=160;
+
+?>
+          <li><span>|LANG_DISK_SPACE|:</span><?php  echo  $hd?> / <?php  echo  $hdmax?> <?php  echo  $hdunit?> <br>
+            <div class="usagebar">
+              <div class="per"><?php  echo  $hdper?>%</div>
+              <div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $hdbar?>" style="width: 1px"></div></div>
+            </div>
+            <div class="cf"></div>
+          </li>
+<?php  } else {?>
+          <li><span>|LANG_DISK_SPACE|:</span><?php  echo  $hd?><?php  echo  $hdunit?></li>
+<?php  } ?>
+<?php  if($bwmax>0) {
+
+$bwper = intval(($bw * 100) / $bwmax);
+if($bwper>100) $bwper=100;
+$Sbwper = number_format($bwper,0);
+$bwbar = round( ($bwper * 130) / 100);
+if($bwbar>160) $bwbar=160;
+
+?>
+        <li><span>|LANG_BANDWIDTH|:</span><?php  echo  $bw?> / <?php  echo  $bwmax?><?php  echo  $bwunit?> <br>
+          <div class="usagebar">
+            <div class="per"><?php  echo  $bwper?>%</div>
+            <div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $bwbar?>" style="width: 1px"></div></div>
+          </div>
+          <div class="cf"></div>
+        </li>
+<?php  } else {?>
+        <li><span>|LANG_BANDWIDTH|:</span>|USERBANDWIDTH| <?php  echo  $bwunit?></li>
+<?php  } ?>
+<?php  
+
+$pointers = "|USERPOINTERSMAX|";
+settype($pointers , "float");
+
+$dbs = "|USERDATABASEMAX|";
+settype($dbs , "float");
+
+$ftps = "|USERFTPMAX|";
+settype($ftps , "float");
+
+$mails = "|USEREMAILMAX|";
+settype($mails , "float");
+
+$subdomains = "|NUSERSUBDOMAINSMAX|";
+settype($subdomains , "float");
+
+$domains = "|NDOMAINSMAX|";
+settype($domains , "float");
+
+?>
+<?php  if($domains==0) { ?>
+				  <li><span>|LANG_DOMAINS|:</span>|NDOMAINS|</li>
+<?php  } else { ?>
+				  <li><span>|LANG_DOMAINS|:</span>|NDOMAINS| / |NDOMAINSMAX|</li>
+<?php  } ?>
+|*if USERDATABASEMAX!="0"|
+<?php  if($dbs==0) { ?>
+          <li><span>|LANG_DATABASES|:</span>|USERDATABASE|</li>
+<?php  } else { ?>
+          <li><span>|LANG_DATABASES|:</span>|USERDATABASE| / |USERDATABASEMAX|</li>
+<?php  } ?>
+|*endif|
+|*if USERFTPMAX!="0"|
+<?php  if($ftps==0) { ?>
+          <li><span>|LANG_FTP_ACCOUNTS|:</span>|USERFTP|</li>
+<?php  } else { ?>
+          <li><span>|LANG_FTP_ACCOUNTS|:</span>|USERFTP| / |USERFTPMAX|</li>
+<?php  } ?>
+|*endif|
+|*if USEREMAILMAX!="0"|
+<?php  if($ftps==0) { ?>
+          <li><span>|LANG_EMAILS|:</span>|USEREMAIL|</li>
+<?php  } else { ?>
+          <li><span>|LANG_EMAILS|:</span>|USEREMAIL| / |USEREMAILMAX|</li>
+<?php  } ?>
+|*endif|
+|*if NUSERSUBDOMAINSMAX!="0"|
+<?php  if($subdomains==0) { ?>
+          <li><span>|LANG_SUBDOMAINS|:</span>|NUSERSUBDOMAINS|</li>
+<?php  } else { ?>
+          <li><span>|LANG_SUBDOMAINS|:</span>|NUSERSUBDOMAINS| / |NUSERSUBDOMAINSMAX|</li>
+<?php  } ?>
+|*endif|
+|*if USERPOINTERSMAX!="0"|
+<?php  if($pointers==0) { ?>
+          <li><span>|LANG_POINTERS|:</span>|USERPOINTERS|</li>
+<?php  } else { ?>
+          <li><span>|LANG_POINTERS|:</span>|USERPOINTERS| / |USERPOINTERSMAX|</li>
+<?php  } ?>
+|*endif|
+
+	|*if HAVE_INODE="yes"|
+		<li><span>|LANG_INODES|:</span>|USERINODE| / |USERINODEMAX|</li>
+		
+			|*endif|
+
+
+        </ul>
+      </div>
+DONE|
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){$("body").find(".bbar").each(function(){$(this).animate({width:$(this).attr("ancho")+"px"},2000).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200);});});
+//-->
+</script>

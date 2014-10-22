@@ -1,0 +1,40 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/CMD_FILE_MANAGER">`LANG_FILEMANAGER`</a> &raquo; <a class=tree href="/CMD_FILE_MANAGER`path`">`path`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#password|
+|HTM_HEADER|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_PROTECTED_DIRECTORIES?domain=|domain|"><img src="/IMG_IC_PASSDIRS"><br />|LANG_PASS_PROT_DIRS|</a>
+        <a href="/CMD_FILE_MANAGER|path|"><img src="/IMG_IC_FILEMAN"><br />|LANG_FILEMANAGER|</a>
+        <div class="cf cleft"></div>
+      </div>
+</div>
+<div id="rightPanel">
+
+  <div class="pageTit"><span>|LANG_PROTECT_DIR|</span>|TREE|</div>
+  
+  <form name=info action='/CMD_FILE_MANAGER' method='POST'>
+  <input type=hidden name=action value="protect">
+  <input type=hidden name=path value="|path|">
+    <table class="config" cellspacing="0" width="600">
+      <thead>
+      <tr><td colspan=2>|path|</td ></tr>
+      </thead>
+      <tbody>
+      <tr><td>|LANG_PROMPT|</td><td><input type=text class="combot" name=name value="|NAME|"> |LANG_EG|</td></tr>
+      <tr><td>|LANG_SET_USER|</td><td><input type=text class="combot" name=user> (Not required)</td></tr>
+      <tr><td>|LANG_AND_PASS|</td><td><input type=password class="combot" name=passwd> <input type=button class="boton small randpass" value="|LANG_RANDOM|"></td></tr>
+      <tr><td>|LANG_RE-ENTER_PASS|</td><td><input type=password class="combot" name=passwd2></td></tr>
+      <tr><td>|LANG_ACTIVATE_PROTECCION|</td><td><input type=checkbox name="enabled" value="yes" |ENABLED| checked></td></tr>
+      </tbody>
+      <tfoot>
+      <tr><td colspan=2 align=right><input class="boton" type="submit" value="|LANG_SAVE|"></td ></tr >
+      </tfoot>
+    </table>
+  </form>
+  
+  |USERS|
+  
+</div>
+|HTM_FOOTER|

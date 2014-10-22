@@ -1,0 +1,36 @@
+|LF_TICKETS|
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_TICKET_MANAGE">`LANG_MANAGE_TICKETS`</a> &raquo; <a class=tree href="/CMD_TICKET_MANAGE?action=closed">`LANG_VIEW_CLOSED`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/messagesystem.html|
+|HTM_RESELLER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MANAGE_TICKETS|: |LANG_VIEW_CLOSED|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+?>
+
+<div class="table100">
+<?php
+$table = <<<EOF
+|TICKETS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+</div>
+DONE|
+
+
+|HTM_RESELLER_BOTTOM|

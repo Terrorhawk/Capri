@@ -1,0 +1,70 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADDITIONAL_DOMAINS">`LANG_ADDITIONAL_DOMAINS`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#domains|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+|$|SK_PHP|
+<?php  
+$ndomains = "|NDOMAINS|";
+$ndomainsmax = "|NDOMAINSMAX|";
+
+if($ndomains < $ndomainsmax || !is_numeric($ndomainsmax)) {
+
+?>
+        <a href="/HTM_ADD_DOMAIN"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
+<?php  } 
+
+elseif($ndomains < $ndomainsmax) {?>
+        <a href="javascript:;" onclick="alert('LANG_NO_DOMAINS_AVAILABLE')"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
+<?php   } ?>
+DONE|
+          
+        <a href="/CMD_CHANGE_DOMAIN"><img src="/IMG_IC_CHANGEDOMAIN"><br />|LANG_CHANGE_DOMAIN| <?php=echo "test";?> </a>
+        <div class="cf cleft"></div>
+      </div>
+  |HTM_BOX_USER_STATS|
+</div>
+<div id="rightPanel">
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_ADDITIONAL_DOMAINS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+<div class="table75">
+<?php
+$table = <<<EOF
+|DOMAINS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
+DONE|
+</div>
+<div style="margin-top:15px;padding: 2px 6px;border:1px solid #ccc;background-color:#f6f6f6;">|LANG_DOMAINS_CURRENT_USAGE|: <b>|NDOMAINS|/|NDOMAINSMAX|</b></div>
+</div>
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){
+  $("table.list tr").each(function(){
+    $(this).find("td:eq(4):contains('yes')").parent().addClass("Suspended");
+  });
+});
+//-->
+</script>
+|HTM_FOOTER|

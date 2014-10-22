@@ -1,0 +1,30 @@
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT| . "inc/functions.php";
+
+$username = $_SERVER["USER"];
+
+parse_str($_SERVER["QUERY_STRING"]);
+// creo shortcuts ***************************************************************************************************
+if($ln) {
+  list($ln, $link) = explode('#',base64_decode($ln));
+  
+  if($_Config = $sk->getUserConf()) {
+    $_Config[$username]['sc'][]=array('ln' => $ln, 'link' => $link);
+    $sk->saveConfig($_Config);
+  }
+}
+
+// actualizador *****************************************************************************************************
+if($upgrade && $ipgrade==1) {
+  list($ln, $link) = explode('#',base64_decode($ln));
+  
+  if($path = $sk->getconfigpath()) {
+    $sk->whitefile("1", $path."upgrade");
+  }
+}
+
+?>
+DONE|

@@ -1,0 +1,125 @@
+|LF_STANDARD|
+|LF_EMAIL|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_POP?DOMAIN=`DOMAIN`">`LANG_POP_ACCOUNTS`</a>|
+|?HELP_SECTION=`USER_HELPER`/email.html#pop3|
+|HTM_HEADER|
+    <div id="leftPanel">
+        <div class="panelBox">
+          <div class="title"><span>|LANG_OPTIONS|</span></div>
+          <a href="javascript:;" onclick="javascript:$('#createpop').slideToggle('fast');"><img src="/IMG_IC_ADD_POP"><br />|LANG_POP_CREATE|</a>
+          <a href="/CMD_EMAIL_USAGE?DOMAIN=|DOMAIN|"><img src="/IMG_IC_SMTP_CONTROL"><br />Email usage</a>
+          <div class="cf cleft"></div>
+        </div>
+|HTM_BOX_USER_STATS|
+|HTM_BOX_USER_DOMAINS|
+    </div>
+    <div id="rightPanel" class="table100">
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php  
+
+include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT|."inc/tables.php";
+include |SK_ROOT|."inc/layout.php";
+$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
+
+$pagetit = <<<EOF
+|LANG_POP_ACCOUNTS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+echo pagetit($pagetit, $tree);
+
+// email quotas
+$post = array('action'=>'list', 'type'=>'quota', 'domain'=>'|DOMAIN|');
+$result=$sk->api_get("/CMD_API_POP", $post);
+parse_str($result, $cuentas);
+$_Cuentas = array();
+if(is_array($cuentas) && count($cuentas)>0) {
+  foreach($cuentas as $cuenta => $val) {
+    parse_str(urldecode($val), $valores);
+    $_Cuentas[$cuenta]=$valores;
+  }
+}
+
+
+?>
+|?POP_QUOTA=0|
+|*if DEFAULT_POP_QUOTA|
+|?POP_QUOTA=`DEFAULT_POP_QUOTA`|
+|*endif|
+      <div class="table100">
+        <div id="createpop" style="display: none;margin-bottom:15px;">
+          <form name="info" action="CMD_EMAIL_POP" method="post">
+          <input type="hidden" name="action" value="create">
+          <input type="hidden" name="domain" value="|DOMAIN|">
+            <table class="config" cellspacing="0"><br />
+              <thead>
+              <tr><td colspan="2"><b>|LANG_POP_CREATE|</b></td></tr>
+              </thead>
+              <tbody>
+              <tr><th nowrap width="20%">|LANG_POP_USERNAME|</th><td><input class="combot" type="text" name="user" size="25"> @|DOMAIN|</td></tr>
+              <tr><th nowrap>|LANG_ENTER_PASS|:</th><td><input class="combot" type="password" name="passwd" size="25"> <input type="button" class="button randpass small" name="randon" size="16" value="|LANG_RANDOM|"></td></tr>
+              <tr><th nowrap>|LANG_RE-ENTER_PASS|:</th><td><input class="combot" type="password" name="passwd2" size="25"></td></tr>
+              <tr><th nowrap>|LANG_EMAIL_QUOTA|</th><td><input class="combot" type="text" name="quota" size="16" value="|POP_QUOTA|">|LANG_ZERO_UNLIMITED|</td></tr>
+|*if USER_CAN_SET_SEND_LIMIT="yes"|
+		          <tr><th nowrap>Send Limit</th><td><input type=text name=limit size=16 value=""> Zero is unlimited. Blank will default to |GLOBAL_PER_EMAIL_LIMIT|</td></tr>
+|*endif|
+              
+              </tbody>
+              <tfoot>
+              <tr><td colspan="3"><input type="submit" name="create" class="boton" value="|LANG_CREATE|"></td></tr>
+              </tfoot>
+            </table>
+          </form>
+        </div>
+      </div>
+      <div id="poplist">
+<?php
+$table = <<<EOF
+|POPACCOUNTS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+$table = str_replace('Outlook Settings', 'Outlook', $table);
+echo str_replace('Password/Quota', 'Pass/Quota', $table);
+
+?>
+      </div>
+    </div>
+    
+    
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){
+  $("#poplist table tr.trList").each(function(){
+    var email = $(this).find("td:first").text();
+    data = email.split('@');
+    user = data[0].replace(/\./g, "_"); 
+    $(this).find("td:eq(2)").attr('user', user).css({'white-space': 'nowrap','padding-right':'55px'}).prepend('<div class="minusagebar pop"><div class="out" align="left"><div class="in bbar" style="width: 1px"></div></div></div>');
+  });
+<?php
+if(is_array($_Cuentas) && count($_Cuentas)>0) {
+  foreach($_Cuentas as $user => $val) {
+    if($val['quota']>0) {
+      $per = $val['usage']*100/$val['quota'];
+      if($per>100) $per = 100;
+      $bar = round($per * 0.45);
+      if($per>95) {
+        echo '  $("td[user=\''.$user.'\'] .minusagebar").addClass("red");'."\n";
+      }
+      echo '  $("td[user=\''.$user.'\'] .minusagebar").attr("title", "'.round($per).'% used");'."\n";
+      echo '  $("td[user=\''.$user.'\'] .minusagebar .in").animate({width: "'.$bar.'px"},1700);'."\n";
+    }
+  }
+}
+?>
+});
+//-->
+</script>
+DONE|
+|HTM_FOOTER|

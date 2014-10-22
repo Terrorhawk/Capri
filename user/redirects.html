@@ -1,0 +1,45 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_REDIRECT?DOMAIN=`DOMAIN`">`LANG_SITE_REDIRECTS`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#redirect|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SITE_REDIRECTS| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form name=info action='/CMD_REDIRECT' method='POST'>
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=action value="add">
+<table class="config" cellspacing=0 style="margin-bottom:10px;">
+  <thead>
+    <tr><td colspan=2>|LANG_ADD_NEW_REDIRECT|</td></tr>
+  </thead>
+  <tbody>
+    <tr><th>|LANG_LOCAL_URL|</th><td><input type=text name=from class="combot" size=30> |LANG_EG_REDIRECT|</td></tr>
+    <tr><th>Redirect Type</th><td><select name=type class="combot">
+    <option value="301">301 - |LANG_REDIRECT_PERMANENT|</option>
+    <option value="302" selected>302 - |LANG_REDIRECT_TEMPORARY|</option>
+    <option value="303">303 - |LANG_REDIRECT_REPLACE|</option>
+    </select></td></tr>
+    <tr><th>|LANG_DESTINATION_URL|</th><td><input type=text name=to value="http://" class="combot" size=50> |LANG_EG_DOMAIN|</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan=2><input type=submit value="|LANG_SAVE|"></td></tr>
+  </tfoot>
+</table>
+</form>
+
+<div class="table100">|REDIRECTS|</div>
+
+|HTM_USER_BOTTOM|

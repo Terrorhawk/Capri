@@ -1,0 +1,33 @@
+|LF_LEVEL_MENU|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php  
+$mensajes = intval(|NEWMESSAGES|);
+if($mensajes > 0) {
+  $img = "/IMG_LV_BT_MSG1";
+  $title = <<<EOF
+|LANG_SYSTEM_MESSAGES|
+<br />
+|NEWMESSAGES| |LANG_NEW|
+EOF;
+} else {
+  $img = "/IMG_LV_BT_MSG0";
+  $title = <<<EOF
+|LANG_SYSTEM_MESSAGES|
+<br /><b>
+|LANG_NO_MESSAGES|
+</b>
+EOF;
+}
+
+
+?>
+        <a onclick="javascript:window.location='/CMD_TICKET?sort1=-1';" class="lmsg" style="background-image: url(<?php  echo  $img?>);" title="<?php  echo  $title?>"></a>
+        <a onclick="javascript:window.location='/HTM_INDEX_USER';" class="lluser" title="|LANG_USER_LEVEL|"></a>
+        <a onclick="javascript:window.location='/';" class="llreseller" title="|LANG_RESELLER_LEVEL|"></a>
+DONE|
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){$('a.lmsg, a.lluser, a.llreseller').ToolTip({className: 'tooltip', position: 'mouse',delay: 200});});
+//-->
+</script>

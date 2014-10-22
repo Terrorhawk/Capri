@@ -1,0 +1,61 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/CMD_ADMIN_SHOW">`LANG_SHOW_ADMINS`</a> &raquo; <a class=tree href="/HTM_ACCOUNT_ADMIN_CREATE">`LANG_CREATE_ADMIN`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/createa.html|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_CREATE_ADMIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/HTM_ACCOUNT_ADMIN_CREATE');
+
+?>
+DONE|
+
+|*if AJAX="1"|
+	|?CHECK_NAME=ajax_checkName()|
+	|?CHECK_PASS=onChange="ajax_checkPass()"|
+	|?RANDOM_PASS=ajax_randomPass('')|
+
+	<script type="text/javascript" src="JS_CREATION_CHECK"></script>
+|*endif|
+
+<script language="Javascript">
+<!--
+|HTM_JAVASCRIPT|
+function showAdminMessage(){ var message = window.open("CMD_EDIT_ADMIN_MESSAGE","message","width=740,height=480,scrollbars=no,resizable=yes");}
+function formOK(){
+  with (document.reseller)  {
+    if (checkName() && checkPass() && checkEmail())
+      return true;
+  }
+  return false;
+}
+// -->
+</script>
+
+<form name=reseller action="CMD_ACCOUNT_ADMIN" method="post" onSubmit="return formOK()">
+<input type=hidden name=action value=create>
+<table class="config" style="width: 50%" cellspacing=0>
+<thead>
+<tr><td colspan=2>|LANG_CREATE_ADMIN_ACCOUNT|</td></tr>
+</thead>
+<tbody>
+<tr><td>|LANG_USERNAME|:</td><td><input type=text class="combot" name=username id=username maxlength=|MAX_USERNAME_LENGTH| onChange="checkName()"><div id=username_result class=warning></div></td></tr>
+<tr><td>|LANG_EMAIL|:</td><td><input type=text class="combot" name=email onChange="checkEmail()"></td></tr>
+<tr><td>|LANG_ENTER_PASS|:</td><td><input class="combot" type="password" name=passwd id=passwd> <input type=button class="boton randpass small" value="|LANG_RANDOM|"><div id=passwd_result class=warning></div></td></td></tr>
+<tr><td>|LANG_RE-ENTER_PASS|:</td><td><input class="combot" type="password" name=passwd2 id=passwd2 onChange="checkPass()"></td></tr>
+<tr><td>|LANG_EMAIL_NOTIFICATION|:</td><td><input type=checkbox value="yes" name=notify checked> <a href="javascript:showAdminMessage();">|LANG_EDIT_ADMIN_MESSAGE|</a></td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan=3><input type=submit value="|LANG_SUBMIT|" class=boton></td></tr>
+</tfoot>
+</table>
+</form>
+|HTM_ADMIN_BOTTOM|

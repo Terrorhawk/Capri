@@ -1,0 +1,84 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_CRON_JOBS">`LANG_CRON_JOBS`</a>|
+|?HELP_SECTION=`USER_HELPER`/misc.html#cron|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_CRON_JOBS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+<script language="Javascript">
+<!--
+function preventEmail(){with (document.info){command.value=command.value+' >/dev/null 2>&1';prevent.disabled = true;}}
+// -->
+</script>
+<style type="text/css">
+<!--
+.listtitle {
+  line-height: 14px ! important;
+  padding-top: 2px ! important;
+  padding-bottom: 2px ! important;
+}
+-->
+</style>
+<form name=info action='/CMD_CRON_JOBS' method='POST'>
+<input type=hidden name=action value="create">
+<table class="config" cellspacing="0" width="100%">
+<thead>
+  <tr><td colspan=3><div style="float:right; color:#c10;">|LANG_CURRENT_TIME|: <span style="font-weight:normal;">|TIME|</span></div>|LANG_CREATE_NEW_CRON|</td></tr>
+</thead>
+<tbody>
+  <tr><td>|LANG_MINUTE|</td><td width="7%"><input type=text size=8 class="combot" name=minute value=*></td><td>0-59</td></tr>
+  <tr><td>|LANG_HOUR|</td><td><input type=text size=8 class="combot" name=hour value=*></td><td>0-23</td></tr>
+  <tr><td>|LANG_DAY_OF_MONTH|</td><td><input type=text size=8 class="combot" name=dayofmonth value=*></td><td>1-31</td></tr>
+  <tr><td>|LANG_MONTH|</td><td><input type=text size=8 class="combot" name=month value=*></td><td>1-12</td></tr>
+  <tr><td>|LANG_DAY_OF_WEEK|</td><td><input type=text size=8 class="combot" name=dayofweek value=*></td><td>0-7 (0 or 7 = |LANG_SUNDAY|)</td></tr>
+  <tr><td>|LANG_COMMAND|</td><td colspan="2"><input type=text style="width:530px;" name=command value='/home/|USERNAME|/' class="combot"> <input type=button name=prevent value="|LANG_PREVENT_EMAIL|" onclick='preventEmail()' class="boton small"></td></tr>
+</tbody>
+<tfoot>
+  <tr><td colspan=3><input type=submit value="    |LANG_ADD|    " class="boton"></td></tr>
+</tfoot>
+</table>
+</form>
+
+<div style="margin-top:15px;"></div>
+
+<form action='/CMD_CRON_JOBS' method='POST'>
+<input type=hidden name="action" value="saveemail">
+  <table class="config" cellspacing="0" width="100%">
+  <thead>
+    <tr><td colspan=2>Send all Cron output to E-Mail</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>Email|</td><td><input type="text" name="email" size="78" value="|MAILTO|" class="combot"></td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan=2><input type=submit value="    |LANG_SAVE|    " class="boton"></td></tr>
+  </tfoot>
+  </table>
+  Valid values are an E-Mail address, your DA username: |USERNAME|, or a blank field to prevent any email. 
+</form>
+<?php
+$table = <<<EOF
+|CRONJOBS|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+?>
+<div style="margin-top:15px;" class="table100">|CRONJOBS|</div>
+
+<div class="tip" style="margin-top:10px;">|LANG_VALID_CRON|<br />|LANG_EXACT_TIMES|<br />|LANG_DASH|<br />|LANG_INTERVALS|<br />|LANG_COMBINE|<br />|LANG_NO_SPACES|</div>
+DONE|
+|HTM_USER_BOTTOM|

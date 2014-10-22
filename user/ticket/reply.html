@@ -1,0 +1,47 @@
+|LF_STANDARD|
+|LF_TICKET|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_TICKET">`LANG_MESS_SYS`</a> &raquo; <a class=tree href="/CMD_TICKET?action=view&number=`number`&type=ticket">View `type` `number`</a> &raquo; <a class=tree href="/HTM_TICKET_REPLY?number=`number`&action=`action`&subject=`subject`&user=`user`&priority=`priority`">`LANG_REPLY_TO`</a>|
+|?HELP_SECTION=`USER_HELPER`/gettingstarted.html#ticket|
+|HTM_USER_TOP|
+|HTM_CONFIG|
+<form name=info action="CMD_TICKET" method="post">
+<input type=hidden name=action value="|action|">
+<input type=hidden name=type value="reply">
+<input type=hidden name=number value="|number|">
+<input type=hidden name=user value="|user|">
+<input type=hidden name=subject value="|subject|">
+<input type=hidden name=priority value="|priority|">
+|$|SK_PHP|
+<?php  
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_ADD_REPLY|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+parse_str($_SERVER["QUERY_STRING"]);
+
+?>
+   
+<table class=config cellspacing=0>
+    <thead>
+  <tr><td colspan=2>|LANG_ADD_REPLY|</td></tr>
+    </thead>
+    <tbody>
+  <tr><td>|LANG_SUBJECT|</td><td><?php  echo  urldecode($subject)?></td></tr>
+  <tr><td>|LANG_MESSAGE|</td><td><textarea name=message rows=16 cols=65></textarea></td></tr>
+    </tbody>
+    <tfoot>
+  <tr><td colspan=2 align=right>
+    <input type=submit name=submit value="|LANG_SAVE|" class="boton">
+  </td></tr>
+    </tfoot>
+</table>
+</form>
+DONE|
+|HTM_USER_BOTTOM|

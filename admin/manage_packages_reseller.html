@@ -1,0 +1,23 @@
+|?TREE=&raquo; <a class=tree href="/CMD_MANAGE_RESELLER_PACKAGES">`LANG_MANAGE_RES_PACK`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/rpackages.html|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_MANAGE_RES_PACK|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_MANAGE_RESELLER_PACKAGES');
+
+$items[] = array('img' => '/IMG_IC_ADDPACKAGE', 'link' => 'CMD_SHOW_RESELLER_PACKAGE', 'txt' => '|LANG_MANAGE_RES_PACK|');
+$sk->submenu('|LANG_OPTIONS|',$items);
+
+?>
+DONE|
+|PACKAGES|
+|HTM_ADMIN_BOTTOM|

@@ -1,0 +1,65 @@
+|LF_STANDARD|
+|LF_DB|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_DB?DOMAIN=`DOMAIN`">`LANG_MYSQL_SETUP`</a> &raquo; <a class=tree href="/CMD_DB_VIEW?DOMAIN=`DOMAIN`&name=`name`">`LANG_VIEW` `name`</a> &raquo; <a class=tree href="/CMD_DB_USER_PRIV?DOMAIN=`DOMAIN`&name=`name`&user=`user`">`LANG_USER_PRIVS`</a>|
+|?HELP_SECTION=`USER_HELPER`/mysql.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_DB?domain=|DOMAIN|"><img src="/IMG_IC_MYSQL"><br />|LANG_MYSQL_SETUP|</a>
+        <a href="|HTTP|://|HOSTNAME|/phpMyAdmin" target="_blank"><img src="/IMG_IC_PHPMYADMIN"><br />|LANG_PMA|</a>
+        <a href="/CMD_DB_VIEW?DOMAIN=|DOMAIN|&name=|name|"><img src="/IMG_IC_MYSQL"><br />|LANG_VIEW| |name|</a>
+        
+        
+        <div class="cf cleft"></div>
+      </div>
+  |HTM_BOX_USER_STATS|
+</div>
+<div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MYSQL_SETUP| - |LANG_VIEW| |name|: |LANG_USER_PRIVS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+<form name=info action="CMD_DB_USER_PRIVS" method="post">
+<input type=hidden name=action value=save>
+<input type=hidden name=domain value="|DOMAIN|">
+<input type=hidden name=name value="|name|">
+<input type=hidden name=user value="|user|">
+<table class="config" cellspacing="0" width="70%">
+  <thead>
+    <tr><td colspan=4>|LANG_PRIVS_1| |user| |LANG_PRIVS_2| |name|</td></tr>
+  </thead>
+  <tbody>
+    <tr><td align=right width=25%>|LANG_SELECT|</td><td width=25%>|SELECT|</td>
+    <td align=right width=25%>|LANG_INSERT|</td><td width=25%>|INSERT|</td></tr>
+    <tr><td align=right>|LANG_UPDATE|</td><td>|UPDATE|</td>
+    <td align=right>|LANG_DELETE|</td><td>|DELETE|</td></tr>
+    <tr><td align=right>|LANG_CREATE|</td><td>|CREATE|</td>
+    <td align=right>|LANG_DROP|</td><td>|DROP|</td></tr>
+    <tr><td align=right>|LANG_ALTER|</td><td>|ALTER|</td>
+    <td align=right>|LANG_INDEX|</td><td>|INDEX|</td></tr>
+    <tr><td align=right>|LANG_GRANT|</td><td>|GRANT|</td>
+    <td align=right>|LANG_REFERENCE|</td><td>|REFERENCE|</td></tr>
+    <tr><td align=right>|LANG_TMP_TABLE|</td><td>|CREATE_TMP_TABLE|</td>
+    <td align=right>|LANG_LOCK|</td><td>|LOCK_TABLE|</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan=4><input type=submit value="|LANG_SAVE|"></td></tr>
+
+
+</table>
+</form>
+</div>
+|HTM_FOOTER|

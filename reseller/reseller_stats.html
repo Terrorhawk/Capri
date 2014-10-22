@@ -1,0 +1,35 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_RESELLER_STATS">`LANG_STATS_FOR` `USERNAME`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`/rstats.html|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_USER_HISTORY"><img src="/IMG_IC_USER_HISTORY"><br />|LANG_RESELLER_HISTORY|</a>
+        <a href="/CMD_USER_SHOW"><img src="/IMG_IC_LIST_USERS"><br />|LANG_SHOW_ALL_USERS|</a>
+        <div class="cf cleft"></div>
+      </div>
+      |HTM_BOX_RESELLER_STATS|
+    </div>
+    <div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_STATS_FOR| |USERNAME|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+      <div class="table75"> 
+        |STATS|
+      </div>
+    </div>
+|HTM_FOOTER|

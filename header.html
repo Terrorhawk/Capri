@@ -1,0 +1,63 @@
+|LF_STANDARD|
+|LF_IMAGES|
+|HTM_CONFIG|
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>|DEAMONNAME| v|VERSION|</title>
+<link rel="stylesheet" type="text/css" href="/CSS_STYLES">
+<script type="text/javascript" src="/IMG_JQ"></script>
+<script type="text/javascript" src="/IMG_TOOLTIP"></script>
+<script type="text/javascript" src="/IMG_MAINJS"></script>
+<script type="text/javascript" src="/IMG_JS_CHARTS"></script>
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="/CSS_STYLES_IE">
+<![endif]-->
+<script language="JavaScript" type="text/javascript">
+<!--
+function log_me_out()		{
+  location.href = '/CMD_LOGOUT';
+}
+setTimeout('log_me_out();', |SESSION_MINUTES|*60*1000);
+//-->
+</script>
+</head>
+<body |BODY| bgcolor="#FFFFFF" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" onLoad="javascript:TB_unload();" onBeforeUnLoad="javascript:TB_load();">
+<center>
+<div id="mail_frame" align="center">
+  <div id="pageloading">|LANG_LOADIONG_PAGE|</div>
+  <div id="main_top">
+    <div style="height:65px;">
+      <div id="top_user">
+        <a href="./">|LANG_HOME|</a> | <a href="/CMD_LOGOUT">|LANG_LOGOUT|</a><span class="langbox">|HTM_LANG_BOX|</span>
+        <br />
+        |LANG_WELCOME| <b>|USERNAME|</b>
+      </div>
+      <div id="top_logo" 
+|$|SK_PHP|
+      <?php
+      echo 'style="background-image: url(';
+      include |SK_ROOT| . "inc/functions.php";
+      echo $sk->getLogo("|USERCREATOR|", "|USERNAME|"); 
+      echo ');"';
+      ?>
+DONE|
+      ></div>
+    </div>
+    <div style="height:25px;" align="left">
+      <div id="level_menu">
+        |HTM_LEVEL_MENU|
+      </div>
+      <div id="top_menu">
+        <a href="/|HOME_MEMORY|" class="lhome">|LANG_HOME|</a>
+|*if HIDE_WEBMAIL_LINKS!="yes"|
+        <a href="|HTTP|://|HOSTNAME|/|WEBMAIL_LINK|" target="_blank" class="lwmail">|LANG_WEBMAIL|</a>
+|*endif|
+        <a href="/CMD_FILE_MANAGER" class="lfiles">|LANG_FILE_MANAGER|</a>
+        <a href="/HTM_PASSWD" class="lpass">|LANG_PASSWORD|</a>
+        <a href="http://|HELP_SECTION|" target="_blank" class="lhelp">|LANG_HELP|</a>
+      </div>
+    </div>
+  </div>
+  <div id="main_contents">

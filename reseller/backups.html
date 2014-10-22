@@ -1,0 +1,186 @@
+|LF_STANDARD|
+|LF_BACKUPS|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_USER_BACKUP">`LANG_MANAGE_USER_BACKUPS`</a>|
+|?HELP_SECTION=`RESELLER_HELPER`|
+|HTM_CONFIG|
+|HTM_HEADER|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="javascript:;" onclick="javascript:showPane('Backup');"><img src="/IMG_IC_BACKUP"><br />|LANG_MANAGE_BACKUPS|</a>
+        <a href="javascript:;" onclick="javascript:showPane('currentBackups');"><img src="/IMG_IC_BACKUP"><br />|LANG_CURRENT_BACKUP_CRONS|</a>
+        <a href="javascript:;" onclick="javascript:showPane('configBackup');"><img src="/IMG_IC_BACKUP"><br />|LANG_BACKUP_SETTINGS|</a>
+        <div class="cf cleft"></div>
+      </div>
+      |HTM_BOX_RESELLER_STATS|
+    </div>
+    <div id="rightPanel">
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_MANAGE_USER_BACKUPS|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+      <div class="bk_container Backup">
+      <form name=tableform1 action="/CMD_USER_BACKUP" method="post">
+      <input type=hidden name=action value="create">
+        <div class="title">|LANG_CREATE_BACKUP|</div>
+        <div class="cont">
+        
+          <div style="float: left;width:300px">
+            <div>|LANG_STEP_1|: <b>|LANG_WHO|</b></div>
+            <div class="topsel"><input type=radio name=who id=who1 value="all"><label for="who1">|LANG_ALL_USERS|</label><br />
+            <input type=radio name=who id=who3 value="except"><label for="who3">All Users Except Selected Users</label><br />
+            <input type=radio name=who id=who2 value="selected" checked><label for="who2">|LANG_SELECTED_USERS|</label></div>
+            <div style="overflow: auto; height: 160px; width: 300px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
+          </div>
+          
+          <div style="float: left;width:190px;margin: 0 10px;">
+            <div>|LANG_STEP_2|: <b>|LANG_WHEN|</b></div>
+            <div class="topsel"><input type=radio name=when id=when1 value="now" checked><label for="when1">|LANG_NOW|</label><br />
+            <input type=radio id=when2 name=when value="cron"><label for="when1">|LANG_CRON_SCHED|</label></div>
+            <div class="table100">
+              <table class=config cellspacing=0>
+                <tbody>
+                <tr><td align=right>|LANG_MINUTE|: </td>      <td><input type="text" size="3" class="combot" name=minute value="0"></td><td>0-59</td></tr>
+                <tr><td align=right>|LANG_HOUR|: </td>        <td><input type="text" size="3" class="combot" name=hour value="5"></td><td>0-23</td></tr>
+                <tr><td align=right>|LANG_DAY_OF_MONTH|: </td><td><input type="text" size="3" class="combot" name=dayofmonth value="*"></td><td>1-31</td></tr>
+                <tr><td align=right>|LANG_MONTH|: </td>       <td><input type="text" size="3" class="combot" name=month value="*"></td><td>1-12</td></tr>
+                <tr><td align=right>|LANG_DAY_OF_WEEK|: </td> <td><input type="text" size="3" class="combot" name=dayofweek value="*"></td><td>0-7</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div style="float: left;width:236px">
+            <div>|LANG_STEP_3|: <b>|LANG_WHERE|</b></div>
+            <div class="topsel"><input type=radio name=where id=where1 value="local" |LOCAL_CHECKED|><label for="where1">|LANG_LOCAL|: ~/|USERNAME|/|USER_BACKUPS_DIR|/</label><br />
+            <input type=radio name=where id=where2 value="ftp" |FTP_CHECKED|><label for="where2">|LANG_FTP|</label></div>
+            <div class="table100">
+              <table class=config cellspacing=0>
+                <tbody>
+                <tr><td align=right>|LANG_IP|:</td><td><input type="text" size="15" class="combot" name=ftp_ip value="|ftp_ip|"></td></tr>
+                <tr><td align=right>|LANG_USERNAME|:</td><td><input type="text" size="15" class="combot" name=ftp_username value="|ftp_username|"></td></tr>
+                <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
+                <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
+                <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <br class="cf" />
+        </div>
+        <div align="right" style="padding: 4px 0;text-align:right;"><input class="boton" type="button" name="backup_submit" value="|LANG_SUBMIT|" onclick="submitBackup();"></div>
+      </form>
+      </div>
+      
+      <div class="bk_container Backup" style="margin-top: 20px;">
+        <div class="title">|LANG_RESTORE_BACKUP|</div>
+        <div class="cont">
+        
+          <div style="float: left;width:236px">
+            <form action="/CMD_USER_BACKUP" method="post">
+            <input type=hidden name=action value="update_files">
+						<div>|LANG_STEP_1|: <b>|LANG_FROM_WHERE|</b></div>
+            <div class="topsel"><input type=radio name=where id=where1 value="local" |LOCAL_CHECKED|><label for="where1">|LANG_LOCAL|: ~/|USERNAME|/|USER_BACKUPS_DIR|/</label><br />
+            <input type=radio name=where id=where2 value="ftp" |FTP_CHECKED|><label for="where2">|LANG_FTP|</label></div>
+            <div class="table100">
+              <table class=config cellspacing=0>
+                <tbody>
+                <tr><td align=right>|LANG_IP|:</td><td><input type="text" size="15" class="combot" name=ftp_ip value="|ftp_ip|"></td></tr>
+                <tr><td align=right>|LANG_USERNAME|:</td><td><input type="text" size="15" class="combot" name=ftp_username value="|ftp_username|"></td></tr>
+                <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
+                <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
+                <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
+                <tr><td align=right colspan="2"><input class="boton small" type=submit value="|LANG_UPDATE_FILES|"></td></tr>
+                </tbody>
+              </table>
+            </div>
+						</form>
+          </div>
+              
+          <form name="tableform2" id="restoreForm" action="/CMD_USER_BACKUP" method="post">
+          <input type=hidden name=action value="restore">
+          <input type=hidden name=where value="|where|">
+          <input type=hidden name=ftp_ip value="|ftp_ip|">
+          <input type=hidden name=ftp_username value="|ftp_username|">
+          <input type=hidden name=ftp_password value="|ftp_password|">
+          <input type=hidden name=ftp_path value="|ftp_path|">
+          <input type=hidden name=ftp_port value="|ftp_port|">
+          
+          <div style="float: left;width:220px;margin: 0 10px;">
+            <div>|LANG_STEP_2|: <b>|LANG_SELECT_IP|</b></div>
+            <div class="topsel"><input type=radio name=ip_choice id=ip_choice1 value="file" checked onclick='doIP("file");')><label for="ip_choice1">|LANG_USE_STORED_IP|</label><br />
+            <input type=radio name=ip_choice id=ip_choice2 value="select" onclick='doIP("ip_choice");'><label for="ip_choice2">|LANG_USE_IP_FROM_LIST|</label></div>
+            <div class="table100 iplistx">
+              |IPLIST|<br /><br />
+              <span style="font-size: 11px;color: #333;">|LANG_NOTE|</span>
+            </div>
+          </div>
+          
+          <div style="float: left;width:270px">
+            <div>|LANG_STEP_3|: <b>|LANG_SELECT_FILES|</b></div>
+            <div class="topsel">|LANG_LOCATION|: <b>|FILES_LOCATION|</b></div>
+            <div style="overflow: auto; height: 160px; width: 270px;border: 1px solid #ddd" class="table100 tboverf">|FILES|</div>
+          </div>
+          
+          </form>
+          <br class="cf" />
+        </div>
+        <div align="right" style="padding: 4px 0;text-align:right;"><input class="boton" type="button" name="restore_submit" value="|LANG_SUBMIT|" onclick="javascript:submitRestore(this);"></div>
+      </div>
+      
+      <div class="bk_container currentBackups" style="display: none;">
+        <div class="title">|LANG_CURRENT_BACKUP_CRONS|</div>
+        <div class="cont table100">
+          |CRONS|
+        </div>
+      </div>
+      
+      <div class="bk_container configBackup" style="display: none;">
+      <form action="/CMD_USER_BACKUP" method="post">
+      <input type=hidden name=action value="setting">
+        <div class="title">|LANG_BACKUP_SETTINGS|</div>
+        <div class="cont table100">
+          <input type=checkbox name=message value="yes" |SEND_MESSAGE| id="sgd5"><label for="sgd5">|LANG_SEND_MESSAGE|</label><br />
+          <input type=checkbox name="local_ns" value="yes" |LOCAL_NS| id="dfj7"><label for="dfj7">|LANG_LOCAL_NS|</label>
+        </div>
+        <div align="right" style="padding: 4px 0;text-align:right;"><input type=submit value="|LANG_SAVE|" class="boton"></div>
+      </form>
+      </div>
+    </div>
+  
+<script language="JavaScript" type="text/javascript">
+<!--
+$(function(){$(".tboverf table.list").css({"border":"none"});});
+function showPane(e){$(".bk_container").hide();$("."+e).show();}
+function submitRestore(e){
+  $(e).attr("disabled","disabled");
+  $("#restoreForm").submit();
+}
+|DATALIST|
+function submitBackup(){ document.tableform1.backup_submit.disabled = true;document.tableform1.submit();}
+function addReseller(reseller){
+  var select="select";
+  with (document.tableform1){
+    var i=0; var count=0;
+    for (i=0; i < user_reseller_list.length; i++){if (user_reseller_list[i][0] == reseller){count=user_reseller_list[i][1];}}
+    for (i=0; i < elements.length; i++){if (elements[i].type == 'checkbox'){if (elements[i].name.substring(0, select.length) == select){if (elements[i].value == reseller){var end=i+count+1;for (;i<end; i++) {elements[i].checked = true;}}}}}
+  }
+}
+function doIP(which){
+if (which == "file") document.tableform2.ip.disabled = true;
+else document.tableform2.ip.disabled = false;
+}
+//-->
+</script>
+|HTM_FOOTER|

@@ -1,0 +1,25 @@
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT|."inc/functions.php";
+include |SK_ROOT|."inc/json.php";
+
+parse_str($_SERVER["QUERY_STRING"], $GET);
+
+if($_ENV['USERNAME']) {
+  $username = $_ENV['USERNAME'];
+} elseif($_ENV['USER']) {
+  $username = $_ENV['USER'];
+} else {
+  $username = $_SERVER['USER'];
+}
+
+if($GET['addShotcut']) {
+  list($name, $link) = explode('||', base64_decode($GET['addShotcut'])); 
+  $result = $sk->addShotcut($name, $link, $username);
+  echo $output = _json_encode($result);
+}
+
+?>
+DONE|

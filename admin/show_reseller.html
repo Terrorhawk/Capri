@@ -1,0 +1,59 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_RESELLER_SHOW">`LANG_SHOW_RESELLERS`</a> &raquo; <a class=tree href="/CMD_SHOW_RESELLER?user=`user`">`LANG_RESELLER` `user`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/listr.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+    <div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="javascript:;" onclick="javascript:$('#loginas').trigger('submit');"><img src="/IMG_IC_USER_DATA"><br />|LANG_LOGIN_AS| |user|</a>
+        <a href="/CMD_SHOW_USER?user=|user|"><img src="/IMG_IC_USER_DATA"><br />|user| |LANG_HIS_DATA|</a>
+        
+        <a href="/CMD_MODIFY_RESELLER?user=|user|"><img src="/IMG_IC_EDIT_RESELLER"><br />|LANG_MODIFY_RES| |user|</a>
+        <a href="/CMD_SELECT_USERS?select0=|user|&delete=1"><img src="/IMG_IC_DEL_RESELLER"><br />|LANG_DELETE_RES| |user|</a>
+        <div class="cf cleft"></div>
+      </div>
+      |HTM_BOX_ADMIN_SEARCH|
+      |HTM_BOX_SERVER_STATS|
+    </div>
+    <div id="rightPanel" class="table100">
+|$|SK_PHP|
+<form action="CMD_LOGIN" method="post" id="loginas" style="margin: 0;padding:0;">
+<input type=hidden name=username value="|LOGIN_AS_MASTER_NAME|||user|">
+</form>
+<?php
+
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_SHOW_RESELLERS|: |LANG_RESELLER| |user|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+|USERS|
+|STATS|
+
+<form action="CMD_COMMENTS" method="post">
+<input type=hidden name=user value="|user|">
+<input type=hidden name=location value="CMD_SHOW_RESELLER">
+<table class="config" cellspacing="0" style="margin-top: 12px;">
+  <thead>
+  <tr><td>|LANG_USER_COMMENT_BOX|</td></tr>
+  </thead>
+  <tbody>
+  <tr><td align=center><textarea class="combot" rows=15 style="width:100%" name=comments>|COMMENTS|</textarea></td></tr>
+  </tbody>
+  <tfoot>
+  <tr><td><input class="boton" type=submit value="|LANG_SAVE_COMMENTS|"></td></tr>
+  </tfoot>
+</table>
+</form>
+
+    </div>
+|HTM_FOOTER|

@@ -1,0 +1,58 @@
+|LF_STANDARD|
+|LF_IP_MANAGER|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_IP_MANAGER">`LANG_IP_MANAGER`</a>|
+|?HELP_SECTION=`ADMIN_HELPER`/ipman.html|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+$pagetit = <<<EOF
+|LANG_IP_MANAGER|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+include |SK_ROOT| . "inc/functions.php";
+$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_MANAGER');
+
+?>
+
+<div class="table75">
+<table class="config" cellspacing="0" style="margin-bottom: 10px;">
+    <thead>
+    <tr><td colspan=2>|LANG_DETAILS_FOR| |ip|</td></tr>
+    </thead>
+    <tbody>
+    <tr><th>|LANG_STATUS|</th><td >|status|</td></tr>
+    <tr><th>|LANG_NETMASK|</th><td >|netmask|</td></tr>
+    <tr><th>|LANG_RESELLER|</th><td >|reseller|</td></tr>
+    <tr><th>|LANG_USER_VALUE|</th><td >|value|</td></tr>
+    <tr><th>|LANG_NAMESERVER|</th><td >|ns|</td></tr>
+    </tbody>
+  </table>
+
+
+
+|IPS_TO_LINK|
+<br>
+|LINKED_IPS|
+</div>
+
+<br><br>
+|LANG_IP_PURPOSE|<br>
+<br>
+|LANG_LAN_EXPLANATION|<br>
+<br>
+|LANG_IPV6_EXPLANATION|<br>
+<br>
+|LANG_LINK_OPTIONS_EXPLANATION|<br>
+<br>
+|LANG_MULTI_IP_RELATION|<br>
+<br>
+|LANG_LINK_NOT_RECURSIVE|<br>
+<br>
+|LANG_APPLY_TO_DOMAINS|
+
+DONE|
+|HTM_ADMIN_BOTTOM|

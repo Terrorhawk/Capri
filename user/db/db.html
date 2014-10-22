@@ -1,0 +1,71 @@
+|LF_STANDARD|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_DB?DOMAIN=`DOMAIN`">`LANG_MYSQL_SETUP`</a>|
+|?HELP_SECTION=`USER_HELPER`/mysql.html|
+|HTM_HEADER|
+|HTM_CONFIG|
+<div id="leftPanel">
+      <div class="panelBox">
+        <div class="title"><span>|LANG_OPTIONS|</span></div>
+        <a href="/CMD_DB_CREATE?DOMAIN=|DOMAIN|"><img src="/IMG_IC_ADD_MYSQL"><br />|LANG_CREATE_DB|</a>
+        <a href="|HTTP|://|HOSTNAME|/phpMyAdmin" target="_blank"><img src="/IMG_IC_PHPMYADMIN"><br />|LANG_PMA|</a>
+        <div class="cf cleft"></div>
+      </div>
+  |HTM_BOX_USER_STATS|
+</div>
+<div id="rightPanel">
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/functions.php";
+
+$pagetit = <<<EOF
+|LANG_MYSQL_SETUP| - |DOMAIN|
+EOF;
+$tree = <<<EOF
+|TREE|
+EOF;
+
+$tpl->pagetit($pagetit, $tree);
+
+?>
+DONE|
+  <div class="table75">
+  
+  |DATABASES|
+  
+  <div class="tip" style="width:534px;margin-top:10px;">|LANG_USERS_HELP|</div>
+  
+  <form name=backupform action="/CMD_DB" enctype="multipart/form-data" method="post">
+  <input type=hidden name=action value="restore">
+  <input type=hidden name=domain value="|DOMAIN|">
+  <table class="config" cellspacing=0 style="margin-top:20px;">
+  <thead>
+  <tr><td colspan=2>|LANG_UPLOAD_DB|</td></tr>
+  </thead>
+  <tbody>
+  <tr><td colspan=2>|LANG_SELECT_DB|: |DATABASESELECT|</td></tr>
+  <tr><td colspan=2><input type=file name="file1" size=40 class="combot"></td></tr>
+  
+  <tr><th colspan=2>|LANG_SELECT_CONNECTION|:</th></tr>
+  <tr><td><input type=radio name=method value=default checked onclick="setuserpass(true);"><label>|LANG_YOUR_ACC_LOG_INFO|</label></td>
+      <td><input type=radio name=method value=custom onclick="setuserpass(false);"> |LANG_A_ESPECIFIED| <input type=text size=12 class="combot" name=dbuser value="|LANG_USER|" disabled onclick="this.select()"> &#38; |LANG_PASS| <input type=password class="combot" size=12 name=dbpass value="" disabled></td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr><td colspan=2><input type=submit value="|LANG_UPLOAD|"></td></tr>
+  </tfoot>
+  </table>
+  </form>
+  
+  </div>
+
+</div>
+<script language="javascript">
+function setuserpass(truefalse){
+if (document.backupform)
+with (document.backupform)
+for (var i=0; i < elements.length; i++)
+if (elements[i].name == 'dbuser' || elements[i].name == 'dbpass')
+elements[i].disabled=truefalse;
+}
+</script>
+|HTM_FOOTER|
