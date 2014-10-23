@@ -75,9 +75,9 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   $status=array();
   $troubles = '<span style="color:#127500;">Everything sesms to be ok</span>';
   $troubles1 = '';
-  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
-  if(!file_exists('/usr/local/directadmin/data/skins/capri/inc/gitclass.php')) { $troubles1 .= '<span style="color:#f00;">Gitclass.php not found. Upgrade disabled!</span><br>';$upgradeenable=false;} 
-  if(!function_exists('proc_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
+//  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+//  if(!file_exists('/usr/local/directadmin/data/skins/capri/inc/gitclass.php')) { $troubles1 .= '<span style="color:#f00;">Gitclass.php not found. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+  if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function Zip_open not found. Upgrade disabled!</span><br>';$upgradeenable=false;}
 
   if($path=="/usr/local/directadmin/data/skin_data/capri/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
