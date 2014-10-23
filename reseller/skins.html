@@ -124,6 +124,26 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
   if($upgrade && $upgrade==1) {
   
+  $remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
+$file = '/usr/local/directadmin/data/skins/capri/upgrade.zip';
+$dir = '/usr/local/directadmin/data/skins/capri/';
+file_put_contents($file, file_get_contents($remotefile));
+$zip = zip_open($file);
+    while($zip_entry = zip_read($zip)) {
+        $entry = zip_entry_open($zip,$zip_entry);
+        $filename = str_replace('Capri-master/','/',zip_entry_name($zip_entry));
+        $target_dir = $dir.dirname($filename);
+        $filesize = zip_entry_filesize($zip_entry);
+        if (is_dir($target_dir) || mkdir($target_dir)) {
+          if ($filesize > 0) {
+                $contents = zip_entry_read($zip_entry, $filesize);
+                file_put_contents($dir.$filename,$contents);
+            }
+        }
+        
+    }
+unlink($file);  
+  
   /*
         if(!function_exists('proc_open')){}
       else {
