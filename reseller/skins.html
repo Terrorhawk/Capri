@@ -143,7 +143,7 @@ if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><
           if ($filesize > 0) {
                 $contents = zip_entry_read($zip_entry, $filesize);
                 file_put_contents($dir.$filename,$contents);
-                chmod($dir.$filename, 0777);
+                @chmod($dir.$filename, 0777);
             }
         }
         
