@@ -136,10 +136,10 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   // guardo nueva key (licencia)
   
   
-    $lstatus='<span style="color: green;"><strong>Activated by Terrorhawk & Dj Paul</strong></span>';
+    $lstatus='<span style="color: green;"><strong>Github Version</strong></span>';
   
   
-  if($versions = @file_get_contents("https://localserver.flaxe.eu/Capri/versions/capri.txt")) {
+  if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri/master/version.txt")) {
     list($ava_version, $da_version) = explode('-', $versions);
   } else {
     $ava_version = 'n/a';
