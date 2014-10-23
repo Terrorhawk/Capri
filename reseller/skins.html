@@ -19,7 +19,7 @@ $tpl->pagetit($pagetit, $tree);
 $arrPath = getpath();
 $ownerType=$arrPath['owner'];
 $path=$arrPath['path'];
-
+$upgradeenable=true;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
@@ -73,9 +73,9 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   $status=array();
   $troubles = '<span style="color:#127500;">Everything sesms to be ok</span>';
   $troubles1 = '';
-  if(!is_writeable($path)) { $troubles1 .= '<span style="color:#f00;">'.$path.' is not writeable</span><br>'; }
-  if(!is_writeable($path."data")) { $troubles1 .= '<span style="color:#f00;">'.$path.'data is not writeable</span><br>'; }
-  if(!is_writeable($path."license")) { $troubles1 .= '<span style="color:#f00;">'.$path.'key.php is not writeable</span><br>'; }
+  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+  if(!file_exists('/usr/local/directadmin/data/skins/capri/inc/gitclass.php')) { $troubles1 .= '<span style="color:#f00;">Gitclass.php not found. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+
 
   if($path=="/usr/local/directadmin/data/skin_data/capri/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
@@ -119,20 +119,28 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   
   // actualizador *****************************************************************************************************
 
-/*
+
   if($upgrade && $upgrade==1) {
-    if($path) {
-      whitefile("1", $path."upgrade");
-      $doupgrade=true;
-      if(!file_exists($path."upgrade")) { 
-        $troubles1 .= '<span style="color:#f00;">Unable to create files in '.$path.'</span><br>'; 
-      } else {
-        if($msg && $msg!='') $msg .= "\n|LANG_REQUEST_PENDING|";
-        else $msg = "|LANG_REQUEST_PENDING|";
+    require "/usr/local/directadmin/data/skins/capri/inc/gitclass.php";
+      $skinpath="/usr/local/directadmin/data/skins/capri/";
+      try {
+        $repo = Git::open('$skinpath');
+      } 
+      catch (Exception $e){
+        $repo = Git::create('$skinpath');
+        $repo = Git::open('$skinpath');
       }
-    }
+      if (Git::is_repo($repo)){
+          $repo->pull('https://github.com/Terrorhawk/Capri/','master' );
+      }
+      else {
+        $troubles = '<span style="color:#f00;">Something went wrong while upgradeing</span><br>';
+      }
+
+    
+    $troubles = '<span style="color:#127500;"><strong>UPGRADE COMPLETED</strong></span>';
   }
-  */
+  
   // guardo nueva key (licencia)
   
   
@@ -157,6 +165,8 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   
   
   $color = openfile($path."color");
+  
+  
 
 ?>
 
@@ -199,7 +209,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   </tr>
   <tr>
     <td nowrap>Lastest skin build:</td>
-    <td><?php  echo  $ava_version?> <?php  if($path=="/usr/local/directadmin/data/skin_data/capri/") { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Upgrade"  style="margin-left:40px;" /><?php  } ?></td>
+    <td><?php  echo  $ava_version?> <?php  if($path=="/usr/local/directadmin/data/skin_data/capri/" && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Upgrade"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
   <tr>
     <td nowrap>Lastest version is Valid for DirectAdmin:</td>
