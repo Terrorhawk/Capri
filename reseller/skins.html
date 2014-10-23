@@ -26,6 +26,8 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
 
 if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
+
+
 ?>
 <style type="text/css">
 <!--
@@ -75,7 +77,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   $troubles1 = '';
   if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!file_exists('/usr/local/directadmin/data/skins/capri/inc/gitclass.php')) { $troubles1 .= '<span style="color:#f00;">Gitclass.php not found. Upgrade disabled!</span><br>';$upgradeenable=false;} 
-
+  if(!function_exists('proc_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
 
   if($path=="/usr/local/directadmin/data/skin_data/capri/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
@@ -121,27 +123,38 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
 
   if($upgrade && $upgrade==1) {
-    require "/usr/local/directadmin/data/skins/capri/inc/gitclass.php";
+  
+  /*
+        if(!function_exists('proc_open')){}
+      else {
+        require "/usr/local/directadmin/data/skins/capri/inc/gitclass.php";
       $skinpath="/usr/local/directadmin/data/skins/capri/";
       try {
-        $repo = Git::open('$skinpath');
+        $repo = Git::open($skinpath);
       } 
       catch (Exception $e){
-        $repo = Git::create('$skinpath');
-        $repo = Git::open('$skinpath');
-      }
+          $repo = Git::create($skinpath);
+        
+      } 
+        
       if (Git::is_repo($repo)){
           $repo->pull('https://github.com/Terrorhawk/Capri/','master' );
       }
       else {
         $troubles = '<span style="color:#f00;">Something went wrong while upgradeing</span><br>';
       }
-
-    
     $troubles = '<span style="color:#127500;"><strong>UPGRADE COMPLETED</strong></span>';
   }
-  
-  // guardo nueva key (licencia)
+*/
+
+
+    
+//Run the function
+
+
+
+}
+ 
   
   
     $lstatus='<span style="color: green;"><strong>Github Version</strong></span>';
