@@ -73,11 +73,11 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   
   // chequeo de errores
   $status=array();
-  $troubles = '<span style="color:#127500;">Everything sesms to be ok</span>';
+  $troubles = '<span style="color:#127500;">Everything sesms to be ok </span>';
   $troubles1 = '';
 //  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
-//  if(!file_exists('/usr/local/directadmin/data/skins/capri/inc/gitclass.php')) { $troubles1 .= '<span style="color:#f00;">Gitclass.php not found. Upgrade disabled!</span><br>';$upgradeenable=false;} 
-  if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function Zip_open not found. Upgrade disabled!</span><br>';$upgradeenable=false;}
+  if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+  if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
 
   if($path=="/usr/local/directadmin/data/skin_data/capri/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
@@ -123,26 +123,32 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
 
   if($upgrade && $upgrade==1) {
-  
-  $remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
-$file = '/usr/local/directadmin/data/skins/capri/upgrade.zip';
-$dir = '/usr/local/directadmin/data/skins/capri/';
+  error_reporting(-1);
+ini_set('display_errors', 'On');
+$remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
+$file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
+$dir = "/usr/local/directadmin/data/skins/|SKIN|/";
 file_put_contents($file, file_get_contents($remotefile));
+if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
 $zip = zip_open($file);
+if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
     while($zip_entry = zip_read($zip)) {
         $entry = zip_entry_open($zip,$zip_entry);
         $filename = str_replace('Capri-master/','/',zip_entry_name($zip_entry));
         $target_dir = $dir.dirname($filename);
         $filesize = zip_entry_filesize($zip_entry);
-        if (is_dir($target_dir) || mkdir($target_dir)) {
+        if (is_dir($target_dir) || mkdir($target_dir,0777)) {
+        
+        
           if ($filesize > 0) {
                 $contents = zip_entry_read($zip_entry, $filesize);
                 file_put_contents($dir.$filename,$contents);
+                chmod($dir.$filename, 0777);
             }
         }
         
     }
-unlink($file);  
+
   
   /*
         if(!function_exists('proc_open')){}
