@@ -167,7 +167,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     $da_version = 'n/a';
   }
   if ($da_version < "VERSION") {$da_version = '<span style="color:#f00;">'.$da_version.'</span>';}
-  if ("|SVERSION|" < $ava_version ) {$ava_version = '<span style="color:#f00;">'.$ava_version.'</span>';}
+  if ("|SVERSION|" < $ava_version ) {$ava_version = '<span style="color:#f00;">'.$ava_version.'</span>';$upgradebutton=true;}
   
   /**** mensaje ****/
   if($msg && $msg!='') { 
@@ -222,7 +222,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   </tr>
   <tr>
     <td nowrap>Lastest skin build:</td>
-    <td><?php  echo  $ava_version?> <?php  if($path=="/usr/local/directadmin/data/skin_data/capri/" && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Upgrade"  style="margin-left:40px;" /><?php  } ?></td>
+    <td><?php  echo  $ava_version?> <?php  if($upgradebutton==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Upgrade"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
   <tr>
     <td nowrap>Lastest version is Valid for DirectAdmin:</td>
