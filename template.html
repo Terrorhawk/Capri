@@ -25,7 +25,7 @@ if(strstr($all,'success') || strstr($all,'created') || strstr($all,'restores') |
  $type="succ2";
 }
 
-echo '<div id="result" class="'.$type.'"><a class=tree href="javascript:history.back();">'.$text.'</a></div></a>';
+echo '<div id="result" class="'.$type.'"><a class=tree href="'.$_SERVER['HTTP_REFERER'].'">'.$text.'</a></div></a>';
 
 if($res) { echo '<div id="resultDetails" class="'.$type.'">'.$res.'</div>'; }
 
