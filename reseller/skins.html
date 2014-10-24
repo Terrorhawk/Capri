@@ -158,7 +158,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     $ava_version = 'n/a';
     $da_version = 'n/a';
   }
-  if ($da_version != "VERSION") {$da_version = '<span style="color:#f00;">'.$da_version.'</span>';}
+  if ($da_version < "|VERSION|") {$da_version = '<span style="color:#f00;">'.$da_version.'</span>';}
   if ("|SVERSION|" < $ava_version ) {$ava_version = '<span style="color:#f00;">'.$ava_version.'</span>';$upgradebutton=true;}
   
   /**** mensaje ****/
