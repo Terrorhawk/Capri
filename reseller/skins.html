@@ -20,7 +20,7 @@ $arrPath = getpath();
 $ownerType=$arrPath['owner'];
 $path=$arrPath['path'];
 $upgradeenable=true;
-$upgradebutton=true;
+$upgradebutton=false;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
