@@ -20,6 +20,7 @@ $arrPath = getpath();
 $ownerType=$arrPath['owner'];
 $path=$arrPath['path'];
 $upgradeenable=true;
+$upgradebutton=true;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
@@ -123,62 +124,27 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
 
   if($upgrade && $upgrade==1) {
-  error_reporting(-1);
-ini_set('display_errors', 'On');
-$remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
-$file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
-$dir = "/usr/local/directadmin/data/skins/|SKIN|/";
-file_put_contents($file, file_get_contents($remotefile));
-if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
-$zip = zip_open($file);
-if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
-    while($zip_entry = zip_read($zip)) {
-        $entry = zip_entry_open($zip,$zip_entry);
-        $filename = str_replace('Capri-master/','/',zip_entry_name($zip_entry));
-        $target_dir = $dir.dirname($filename);
-        $filesize = zip_entry_filesize($zip_entry);
-        if (is_dir($target_dir) || mkdir($target_dir,0777)) {
-        
-        
-          if ($filesize > 0) {
-                $contents = zip_entry_read($zip_entry, $filesize);
-                file_put_contents($dir.$filename,$contents);
-                @chmod($dir.$filename, 0777);
-            }
-        }
-        
-    }
-@unlink($file);
-  
-  /*
-        if(!function_exists('proc_open')){}
-      else {
-        require "/usr/local/directadmin/data/skins/capri/inc/gitclass.php";
-      $skinpath="/usr/local/directadmin/data/skins/capri/";
-      try {
-        $repo = Git::open($skinpath);
-      } 
-      catch (Exception $e){
-          $repo = Git::create($skinpath);
-        
-      } 
-        
-      if (Git::is_repo($repo)){
-          $repo->pull('https://github.com/Terrorhawk/Capri/','master' );
-      }
-      else {
-        $troubles = '<span style="color:#f00;">Something went wrong while upgradeing</span><br>';
-      }
-    $troubles = '<span style="color:#127500;"><strong>UPGRADE COMPLETED</strong></span>';
-  }
-*/
-
-
-    
-//Run the function
-
-
-
+      $remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
+      $file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
+      $dir = "/usr/local/directadmin/data/skins/|SKIN|/";
+      file_put_contents($file, file_get_contents($remotefile));
+      if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
+      $zip = zip_open($file);
+      if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
+          while($zip_entry = zip_read($zip)) {
+              $entry = zip_entry_open($zip,$zip_entry);
+              $filename = str_replace('Capri-master/','/',zip_entry_name($zip_entry));
+              $target_dir = $dir.dirname($filename);
+              $filesize = zip_entry_filesize($zip_entry);
+              if (is_dir($target_dir) || mkdir($target_dir,0777)) {
+                if ($filesize > 0) {
+                      $contents = zip_entry_read($zip_entry, $filesize);
+                      file_put_contents($dir.$filename,$contents);
+                      @chmod($dir.$filename, 0777);
+                  }
+              }
+          }
+        @unlink($file);
 }
  
   
@@ -248,7 +214,7 @@ if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><
   </tr>
   <tr>
     <td nowrap>Lastest skin build:</td>
-    <td><?php  echo  $ava_version?> <?php  if($upgradebutton==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Upgrade"  style="margin-left:40px;" /><?php  } ?></td>
+    <td><?php  echo  $ava_version?> <?php  if($upgradebutton==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
   <tr>
     <td nowrap>Lastest version is Valid for DirectAdmin:</td>
