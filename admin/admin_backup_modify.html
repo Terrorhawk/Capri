@@ -73,6 +73,15 @@ DONE|
                 <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
                 <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
                 <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
+                <tr><td align=right class=listtitle>Append to path:</td><td class=listtitle>|PATH_APPEND|</td>
+				</tr>
+				<tr class="|CUSTOM_PATH_CLASS|" id="custom_path"><td align=right>Custom append:</td>
+					<td class=list>
+						&nbsp;/&nbsp;<input type=text name="custom_append" value="|CUSTOM_APPEND_VALUE|" size="15" class="combot">
+						<a target=_blank href="http://help.directadmin.com/item.php?id=539">(?)</a>&nbsp;
+					</td>
+				</tr>
+                
                 </tbody>
               </table>
             </div>
@@ -167,6 +176,14 @@ function addReseller(reseller){
               elements[i].checked = true;
           }
   }}
+  
+  function set_custom_path()
+{
+	if (document.getElementById('append_path').value == 'custom')
+		document.getElementById('custom_path').className = 'path_visible';
+	else
+		document.getElementById('custom_path').className = 'path_hidden';
+}
 //-->
 </script>
 |HTM_FOOTER|
