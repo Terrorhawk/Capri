@@ -21,6 +21,7 @@ $ownerType=$arrPath['owner'];
 $path=$arrPath['path'];
 $upgradeenable=true;
 $upgradebutton=false;
+$csschange=true;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
@@ -79,20 +80,34 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 //  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
-
+  if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/base.css")) { $troubles1 .= '<span style="color:#f00;">base.css not writeble chmod to 777. color change disabled!</span><br>';$csschange=false;} 
+  
   if($path=="/usr/local/directadmin/data/skin_data/capri/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
   }
   
   // actualizador *****************************************************************************************************
-  /*
-  if($colorset && ($colorset==1 || $colorset==2)) {
-    if($path) {
-      whitefile($colorset, $path."color");
-      $upgrade=1;
+  
+  if($colorset ) {
+    $file = "/usr/local/directadmin/data/skins/|SKIN|/css/". $colorset . ".css";
+    $file2 = "/usr/local/directadmin/data/skins/|SKIN|/css/". $colorset . "_ie.css";
+    if (!file_exists($file)) {
+    $troubles1 .= '<span style="color:#f00;">css file '.$file.'is missing.</span><br>';
+    }
+    if (!file_exists($file2)) {
+    $troubles1 .= '<span style="color:#f00;">css file '.$file2 .'is missing.</span><br>';
+    }
+    else {
+        
+        $basecss=file_get_contents($file);
+        file_put_contents('/usr/local/directadmin/data/skins/|SKIN|/base.css',$basecss);
+        @chmod($dir.$filename, 0777);
+        $basecss=file_get_contents($file2);
+        file_put_contents('/usr/local/directadmin/data/skins/|SKIN|/base_ie.css',$basecss);
+        @chmod($dir.$filename, 0777);
     }
   }
-  */
+  
   // cambio logo ******************************************************************************************************
   if($imagelogo && $imagelogo!='' && urldecode($imagelogo!='http://')) {
     if($img = @file_get_contents(urldecode($imagelogo))) {
@@ -169,8 +184,12 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   /**** mensaje ****/
   
   
-  $color = openfile($path."color");
-  
+  $css_dir=glob("/usr/local/directadmin/data/skins/|SKIN|/css/*.css");
+  $css_select="";
+  foreach ($css_dir as $file){
+  if (strpos($file,'_ie.css')){continue;}
+  $css_select.="<option value=\"".basename($file,".css")."\">".basename($file,".css")."</option>";
+  }
   
 
 ?>
@@ -199,6 +218,22 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
       <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
     </form></td>
   </tr>
+  
+  <tr>
+    <td nowrap width="20%">CSS color:</td>
+    <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
+     <?php if($csschange){ ?>  
+       <select class="combot" id="colorset" name="colorset">
+<?php echo $css_select;?>
+      </select> 
+      <input name="Submit" type="submit" class="boton small" value="Submit" /> 
+     <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
+    </form>
+    <?php } ?>
+    </td>
+  </tr>
+  
+  
   <tr>
     <td nowrap width="20%">Resellers custom logo:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS" onsubmit="javascript:return customLogoForm(<?php  if(file_exists($path."allowcustomlogo")) { echo "1"; } ?>);">

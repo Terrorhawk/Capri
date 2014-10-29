@@ -1,5 +1,5 @@
 body,td,th {font-family: Tahoma, Helvetica, Arial;font-size: 12px;color: #333333;}
-body {background-color: #aaa; margin: 0px;height:100%;}
+body {background-color: #aaa; margin: 0px;}
 a { color: #004F9D; text-decoration: none;}
 a:hover {  text-decoration: none;color: #A82200;}
 form { margin: 0; }
@@ -38,10 +38,10 @@ div#main_contents {
   border: 1px solid #777;
 }
 div#main_top {
-  background: -webkit-linear-gradient(0deg, #103963, #285c92); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(0deg, #103963, #285c92); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(0deg, #103963, #285c92); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(0deg, #103963, #285c92); /* Standard syntax */
+  background: -webkit-linear-gradient(0deg, gray, silver); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(0deg, gray, silver); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(0deg,gray, silver); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(0deg, gray, silver); /* Standard syntax */
   height: 90px;
   border-left: 1px solid #222;
   border-right: 1px solid #222;
@@ -67,18 +67,21 @@ div#top_user {
   width: 300px;
   display: block;
   float: right;
-  color: #8aaec5;
+  color: #d5d5d5;
   padding-right: 40px;
   padding-top: 10px;
   text-align: right;
   font-size: 11px;
   line-height: 20px;
 }
+div#top_user b {
+  color: #f4ffa7;
+}
 .langbox select {
   font-size: 11px;
-  border: 1px solid #226dba;
-  background-color: #24578a;
-  color: #c7e7fa;
+  border: 1px solid #949673;
+  background-color: #4a4a4a;
+  color: #e2e2e2;
   margin-left: 10px;
 }
 .langbox {
@@ -94,10 +97,10 @@ div#top_user a:hover {
   text-decoration: none;
 }
 div#main_bottom {
-  background: -webkit-linear-gradient(0deg, #103963, #285c92); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(0deg, #103963, #285c92); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(0deg, #103963, #285c92); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(0deg, #103963, #285c92); /* Standard syntax */
+  background: -webkit-linear-gradient(0deg, gray, silver); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(0deg, gray, silver); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(0deg,gray, silver); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(0deg, gray, silver); /* Standard syntax */
   height: 40px;
   border-left: 1px solid #222;
   border-right: 1px solid #222;
@@ -120,7 +123,7 @@ div#level_menu {
   width: 200px;
   text-align: right;
   padding-right: 40px;
-  color: #16416e;
+  color: #414141;
   font-size: 0.001em;
 }
 div#level_menu a, div#top_menu a {
@@ -130,11 +133,11 @@ div#level_menu a, div#top_menu a {
   border-radius: 4px 4px 0 0;
   line-height: 25px;
   vertical-align: middle;
-  color: #cad9e8;
+  color: #ebebeb;
   font-weight: bold;
   opacity: .8;
   -moz-opacity:.8;
-  background-color: #44678c;
+  background-color: #666666;
   background-repeat: no-repeat;
   height: 25px;
   diplay: block;
@@ -165,7 +168,6 @@ div#top_menu a {
 div#level_menu a:hover {
   opacity: 1;
   -moz-opacity:1;
-  background-color: #4a6d93;
   color: #ecf2f8;
   height: 28px;
   margin-top: -3px;
@@ -213,7 +215,7 @@ div#pageloading {
   width: 200px;
   left: 420px;
   font-size: 11px;
-  color: #aac0d6;
+  color: #fdffbf;
   padding: 5px 0 5px 0;
   text-indent: 26px;
   font-weight: bold;
@@ -227,7 +229,7 @@ div#pageloading {
   padding: 5px;
   border: 1px solid #4a4a4a;
   background-color: #525252;
-  color: #fff;
+  color: #fdffbf;
   font-size: 11px;
 }
 .combot, table.config .selectclass {
@@ -272,7 +274,6 @@ a.micon:link, a.micon:active, a.micon:visited,
 .buttons-box span.dis img {
  -moz-opacity:.4;
  opacity:.4;
-
  width: 32px;
  height: 32px;
  border: none;
@@ -316,8 +317,8 @@ a.micon:link, a.micon:active, a.micon:visited,
   background-position: right center;
   background-repeat: repeat-x;
   background-image: url(IMG_PBOX_BGR);
-  background-color: #165d8c;
-  color: #fff;
+  background-color: #595959;
+  color: #fffece;
   height: 27px;
   margin: 0 -1px 6px -1px;
   -moz-border-radius: 9px 0px 9px 0px;
@@ -451,7 +452,7 @@ table.list, table.list td {
   border-spacing: 0;
 }
 table.list  {
-  border: 4px solid #e8e8e8;
+  border: 3px solid #cdcdcd;
   background-color: #fff;
 }
 table.list a.toptext {
@@ -463,16 +464,16 @@ table.list a.toptext:hover {
 }
 table.list td.listtitle {
   background-image: url(IMG_TITLE_TABLE);
+  background-color: #626262;
   font-size: 11px;
   white-space: nowrap;
   line-height: 25px;
   padding: 0 6px 0 0;
   height: 25px;
-  color: #000;
-  border-top: 1px solid #d8d8d8;
-  border-bottom: 1px solid #d8d8d8;
+  color: #fff;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #fffc00;
   font-weight: bold;
-  border-bottom: 1px solid #005a9d;
 }
 table.list td input, table.list td select, table.list td textarea {
   font-size: 11px;
@@ -491,10 +492,10 @@ table.list td.listtitle b a {
   background-repeat: no-repeat;
 }
 table.list td.listtitle a {
-  color: #000;
+  color: #fff;
 }
 table.list td.list2, table.list td.list, table.list td.listwrap {
-  border-bottom: 1px solid #bed8e7;
+  border-bottom: 1px solid #d9d9d9;
   color: #444;
   font-size: 11px;
   padding: 4px 5px;
@@ -518,7 +519,7 @@ table.list td.listwrap {
 }
 .evenodd table.list td.list2 {
   border-bottom: 1px solid #fff;
-  background-color: #eef5f9;
+  background-color: #f9f9ee;
 }
 table.list tr.Suspended td.list2, table.list tr.Suspended td.list {
   background-color: #fff3f3 ! important;
@@ -582,6 +583,9 @@ table.list .footer .boton, input.boton {
   background-image: url(IMG_LIST_BOTON);
   padding: 2px 8px;
 } 
+table.list .footer .boton:hover, input.boton:hover {
+  color: #014ec0;
+}
 table.list .footer .boton.small, input.boton.small {
   font-size: 10px ! important;
   padding: 0px 8px ! important;
@@ -592,26 +596,27 @@ label {
   margin-left: 5px;
 }
 table.config {
-  border: 1px solid #ccc;
+  border: 3px solid #cdcdcd;
   background-color: #f8f8f8;
   font-size: 11px;
   color: #333;
-  padding: 3px;
 }
 table.config thead td {
-  font-weight: bold;
-  color: #666;
-  height: 23px;
-  padding: 2px 6px;
-  border-bottom: 1px solid #d94600;
+  background-image: url(IMG_TITLE_TABLE);
+  background-color: #626262;
   font-size: 11px;
-  vertical-align: middle;
-  margin-bottom: 4px;
+  white-space: nowrap;
+  line-height: 25px;
+  padding-left: 6px;
+  height: 25px;
+  color: #fff;
+  border-bottom: 1px solid #ff6000;
+  font-weight: bold;
 }
 table.config tbody td, table.config tbody th {
   font-size: 11px;
   height: 24px;
-  padding: 2px 3px;
+  padding: 2px 4px;
   vertical-align: middle;
   border-bottom: 1px solid #ddd;
 }
@@ -837,22 +842,19 @@ div#result.succ2 {
   font-size: 11px;
   margin-left: 10px;
 }
-.pagerText {
+a.pagerText {
   padding: 2px 3px;
   vertical-align: center;
   display: inline-block;
   margin-bottom: 4px;
-  border: 1px solid #5a86b4;
-  background-color: #eef3f8;
+  border: 1px solid #555354;
+  background-color: #f7ffe8;
+	color: #000;
+}
+a.pagerText:hover {
+	background-color: #e6ff97;
 }
 .max270 {
   overflow: auto;
   max-height: 270px;
-}
-
-.path_hidden {
-	visibility: hidden;
-}
-.path_visible {
-	visibility: visible;
 }

@@ -1,0 +1,24 @@
+div#level_menu a, div#top_menu a {
+  filter: alpha(opacity=80);
+}
+div#top_menu a {
+  filter: alpha(opacity=80);
+}
+div#top_menu a:hover {
+  filter: alpha(opacity=100);
+}
+div#level_menu a:hover {
+  filter: alpha(opacity=100);
+}
+.buttons-box span.dis img {
+ filter:alpha(opacity=40);
+}
+.panelBox #searchByUser, .panelBox #searchByDomain {
+  vertical-align: -3px;
+}
+table.list .footer .boton, input.boton {
+  *padding: 1px 0;
+} 
+.max270 {
+  height: 270px;
+}
