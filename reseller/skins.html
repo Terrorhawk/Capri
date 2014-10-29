@@ -25,6 +25,7 @@ $csschange=true;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
+if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
 
 if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
@@ -75,7 +76,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   
   // chequeo de errores
   $status=array();
-  $troubles = '<span style="color:#127500;">Everything sesms to be ok </span>';
+  $troubles = '<span style="color:#127500;">Everything seems to be ok </span>';
   $troubles1 = '';
 //  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 

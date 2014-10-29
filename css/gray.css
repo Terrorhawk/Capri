@@ -314,9 +314,6 @@ a.micon:link, a.micon:active, a.micon:visited,
   border-top: none;
 }
 .panelBox .title {
-  background-position: right center;
-  background-repeat: repeat-x;
-  background-image: url(IMG_PBOX_BGR);
   background-color: #595959;
   color: #fffece;
   height: 27px;
@@ -470,7 +467,7 @@ table.list td.listtitle {
   line-height: 25px;
   padding: 0 6px 0 0;
   height: 25px;
-  color: #fff;
+  color: #595959;
   border-top: 1px solid #000000;
   border-bottom: 1px solid #fffc00;
   font-weight: bold;
@@ -492,7 +489,7 @@ table.list td.listtitle b a {
   background-repeat: no-repeat;
 }
 table.list td.listtitle a {
-  color: #fff;
+  color: #595959;
 }
 table.list td.list2, table.list td.list, table.list td.listwrap {
   border-bottom: 1px solid #d9d9d9;
@@ -609,7 +606,7 @@ table.config thead td {
   line-height: 25px;
   padding-left: 6px;
   height: 25px;
-  color: #fff;
+  color: #595959;
   border-bottom: 1px solid #ff6000;
   font-weight: bold;
 }
