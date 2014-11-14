@@ -86,7 +86,10 @@ DONE|
   </table>
 </form>
 |*endif|
-
+|*if HAS_PHP_SELECTOR="yes"|
+<br>
+|PHP_SELECTOR_TABLE|
+|*endif|
 </div>
 <script language=javascript>
 <!--
