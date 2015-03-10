@@ -1,5 +1,7 @@
 |LF_STANDARD|
 |LF_EMAIL|
+
+
 |?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_SHOW_DOMAIN?domain=`DOMAIN`">`DOMAIN`</a> &raquo; <a class=tree href="/CMD_EMAIL_USAGE?DOMAIN=`DOMAIN`">Email Usage</a>|
 |?HELP_SECTION=`USER_HELPER`/email.html#email_usage|
 |HTM_HEADER|
@@ -28,9 +30,20 @@ $tree = <<<EOF
 |TREE|
 EOF;
 
+
+
 echo pagetit($pagetit, $tree);
 
 ?>
+|*if BLOCK_CRACKING_PATHS="yes"|
+|BLOCK_CRACKING_PATHS_TABLE|
+
+<br>
+|SENDING_PHP_SCRIPTS|
+
+<br>
+
+|*endif|
 
 Show usage from:
 <form name=whichfile action=? method=GET>

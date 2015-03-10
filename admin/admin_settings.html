@@ -104,6 +104,16 @@ DONE|
           <td class="list top-border"><input type=radio name=brute_force_log_scanner value="yes" |BRUTEFORCELOGSCANNER_YES|>|LANG_YES|&nbsp;&nbsp;&nbsp;<input type=radio name=brute_force_log_scanner value="no" |BRUTEFORCELOGSCANNER_NO|>|LANG_NO|
           &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1227">(?)</a>&nbsp;&nbsp;<a href="CMD_BRUTE_FORCE_MONITOR">View Log</a></td>
         </tr>
+        
+        <tr>
+				<td class="list top-border">Scan for WordPress attacks</td>
+				<td class="list top-border">
+					<input type=radio name=brute_force_scan_apache_logs value="2" |BF_SCAN_APACHE_LOGS_2|>All Logs&nbsp;&nbsp;
+					<input type=radio name=brute_force_scan_apache_logs value="1" |BF_SCAN_APACHE_LOGS_1|>Manual&nbsp;&nbsp;
+					<input type=radio name=brute_force_scan_apache_logs value="0" |BF_SCAN_APACHE_LOGS_0|>No
+					&nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1695">(?)</a>
+				</td>
+		</tr>
         <tr>
           <td class=list>Notify Admins after an IP has</td>
           <td class=list><input type=text name=ip_brutecount value="|IP_LOGIN_FAILURE_THRESHOLD|" size=4> login failures on any account.</td>
@@ -152,6 +162,19 @@ DONE|
         <tr>
           <th>Daily Email Limit per DirectAdmin User</th>
           <td><input name="virtual_limit" value="|VIRTUAL_LIMIT|" size="4" type="text" class="combot"> &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1175">(?)</a></td>
+        </tr>
+        <tr>
+          <th>|LANG_PER_EMAIL_LIMIT|</th>
+          <td><input type=text name=per_email_limit value="|PER_EMAIL_LIMIT|" size=4> &nbsp;&nbsp;<a target=_blank href="http://help.directadmin.com/item.php?id=514">(?)</a></td>
+        </tr>
+        <tr>
+          <th>|LANG_USER_CAN_SET_PER_EMAIL_LIMIT|</th>
+              <td> <input type=radio name=user_can_set_email_limit value="yes" |USER_CAN_SET_EMAIL_LIMIT_YES|>|LANG_YES|&nbsp;&nbsp;&nbsp;<input type=radio name=user_can_set_email_limit value="no" |USER_CAN_SET_EMAIL_LIMIT_NO|>|LANG_NO| &nbsp;&nbsp;<a target=_blank href="http://help.directadmin.com/item.php?id=514">(?)</a></td>
+        </tr>
+        <tr>
+          <th>|LANG_MAX_PER_EMAIL|</th>
+          <td>  <input type=text name=max_per_email_send_limit value="|MAX_PER_EMAIL_LIMIT|" size=4> &nbsp;&nbsp;-1=|PER_EMAIL_LIMIT|, 0=|LANG_UNLIMITED| &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1373">(?)</a></td>
+        </tr>  
         </tr>
         <tr>
           <th>Use RBL Blocking</th>

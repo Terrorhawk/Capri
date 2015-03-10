@@ -75,6 +75,26 @@ echo pagetit($pagetit, $tree);
 <?php
 $table = <<<EOF
 |LOGINFAILURES|
+
+
+<script language="Javascript">
+<!--
+function validate_seek()
+{
+	var val = document.getElementById('seek_value').value;
+	if (isNaN(val) || val > 0)
+	{
+		return false;
+	}
+	return true;
+}
+//-->
+</script>
+<form onsubmit="return validate_seek();">
+<input type=hidden name="sort1" value="-1">
+brute_log_entries.list is |BRUTE_LOG_SIZE|. &nbsp;&nbsp;
+Only show <input size=6 type=text placeholder="0 or negative number" title="" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> bytes from the end of the file (negative number). 0 for all.</form>
+
 EOF;
 
 preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);

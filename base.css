@@ -856,3 +856,16 @@ div#result.succ2 {
 .path_visible {
 	visibility: visible;
 }
+.highlighted-good
+{
+	COLOR: green;
+}
+.highlighted-bad
+{
+	COLOR: red;
+	FONT-WEIGHT: bold;
+}
+.highlighted-neutral
+{
+	COLOR: #DBA24D;
+}
