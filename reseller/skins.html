@@ -21,6 +21,7 @@ $ownerType=$arrPath['owner'];
 $path=$arrPath['path'];
 $upgradeenable=true;
 $upgradebutton=false;
+$MAILONLYINSTALL=false;
 $csschange=true;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
@@ -162,7 +163,29 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
           }
         @unlink($file);
 }
- 
+   if($upgrade && $upgrade==2) {
+      $remotefile = 'https://github.com/Terrorhawk/Capri-mailonly/archive/master.zip';
+      $file = "/usr/local/directadmin/data/skins/|SKIN|-mail/upgrade.zip";
+      $dir = "/usr/local/directadmin/data/skins/|SKIN|-mail/";
+      file_put_contents($file, file_get_contents($remotefile));
+      if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
+      $zip = zip_open($file);
+      if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
+          while($zip_entry = zip_read($zip)) {
+              $entry = zip_entry_open($zip,$zip_entry);
+              $filename = str_replace('Capri-mailonly-master/','/',zip_entry_name($zip_entry));
+              $target_dir = $dir.dirname($filename);
+              $filesize = zip_entry_filesize($zip_entry);
+              if (is_dir($target_dir) || mkdir($target_dir,0777)) {
+                if ($filesize > 0) {
+                      $contents = zip_entry_read($zip_entry, $filesize);
+                      file_put_contents($dir.$filename,$contents);
+                      @chmod($dir.$filename, 0777);
+                  }
+              }
+          }
+        @unlink($file);
+}
   
   
     $lstatus='<span style="color: green;"><strong>Github Version</strong></span>';
@@ -174,6 +197,25 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     $ava_version = 'n/a';
     $da_version = 'n/a';
   }
+ 
+ 
+  /*Check if we have a mail only version */
+  if (file_exists("/usr/local/directadmin/data/skins/|SKIN|-mail/version.txt")){
+      $MAILONLYINSTALL= true;
+      
+      /*Get local version of the mail only*/
+      $versionmailonly = @file_get_contents("/usr/local/directadmin/data/skins/|SKIN|-mail/inc/version.html");
+      /*Get git version*/
+      if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri-mailonly/master/version.txt")) {
+        list($ava2_version, $da_version2) = explode('-', $versions);
+      } else {
+        $ava2_version = 'n/a';
+        $da2_version = 'n/a';
+      }
+    if ($versionmailonly < $ava2_version ) {$ava2_version = '<span style="color:#f00;">'.$ava2_version.'</span>';$upgradebutton2=true;}
+    if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|-mail/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|-mail/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+  } 
+  
   if ($da_version < "|VERSION|") {$da_version = '<span style="color:#f00;">'.$da_version.'</span>';}
   if ("|SVERSION|" < $ava_version ) {$ava_version = '<span style="color:#f00;">'.$ava_version.'</span>';$upgradebutton=true;}
   
@@ -253,6 +295,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     <td><?php  echo  $ava_version?> <?php  if($upgradebutton==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
   <tr>
+  <tr>
     <td nowrap>Lastest version is Valid for DirectAdmin:</td>
     <td><?php  echo  $da_version?></td>
   </tr>
@@ -260,6 +303,37 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     <td nowrap>Current DirectAdmin version:</td>
     <td>|VERSION|</td>
   </tr>
+  <?php
+  if ($MAILONLYINSTALL){
+  ?>
+ <thead>
+  <tr>
+    <td colspan="2">Capri mail only</td>
+  </tr>
+</thead>
+  
+ <tr>
+    <td nowrap width="20%">Installed skin build:</td>
+    <td><?php echo $versionmailonly ?></td>
+  </tr>
+  <tr>
+    <td nowrap>Lastest mail-only skin build:</td>
+    <td><?php  echo  $ava2_version?> <?php  if($upgradebutton2==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=2';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
+  </tr>
+ 
+ 
+ <?php
+    }
+    else{
+    ?>
+   <tr>
+    <td nowrap width="20%">Capri mail only:</td>
+    <td>Not Installed</td>
+  </tr>   
+    <?php
+    }
+  ?>
+
   <tr>
     <th colspan=2 style="padding-top: 12px !important;">Troubleshooter</th>
   </tr>
