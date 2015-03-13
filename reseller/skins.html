@@ -23,6 +23,7 @@ $upgradeenable=true;
 $upgradebutton=false;
 $MAILONLYINSTALL=false;
 $csschange=true;
+$logochange=true;
 if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
 if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
@@ -75,7 +76,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   }
   
   
-  // chequeo de errores
+  // Check for errors
   $status=array();
   $troubles = '<span style="color:#127500;">Everything seems to be ok </span>';
   $troubles1 = '';
@@ -83,8 +84,10 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/base.css")) { $troubles1 .= '<span style="color:#f00;">base.css not writeble chmod to 777. color change disabled!</span><br>';$csschange=false;} 
+  if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif not writeble chmod to 777. logo disabled!</span><br>';$logochange=false;} 
   
-  if($path=="/usr/local/directadmin/data/skin_data/capri/") {
+
+  if($path=="/usr/local/directadmin/data/skin_data/SKIN|/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
   }
   
@@ -110,15 +113,19 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     }
   }
   
-  // cambio logo ******************************************************************************************************
+  // change logo ******************************************************************************************************
   if($imagelogo && $imagelogo!='' && urldecode($imagelogo!='http://')) {
-    if($img = @file_get_contents(urldecode($imagelogo))) {
-      whitefile(1, $path."changeimagelogo");
-      whitefile($img, $path."imagelogo");
-      $msg = "|LANG_LOGO_DONE|";
-    } else {
-      $error = "|LANG_FETCH_URL_ERROR|";
-    }
+    
+    /*Backup original logo*/
+    $ch = curl_init($imagelogo);
+    $fp = fopen("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif", 'wb');
+    curl_setopt($ch, CURLOPT_FILE, $fp);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_exec($ch);
+    curl_close($ch);
+    fclose($fp);
+    $msg = "|LANG_LOGO_DONE|";
+
   }
   
   // alloresellerslogo ******************************************************************************************************
@@ -133,7 +140,9 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
  
   // restorelogo ******************************************************************************************************
   if($restorelogo==1) {
-    whitefile(1, $path."restoreimagelogo");
+    unlink("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif");
+    copy("/usr/local/directadmin/data/skins/|SKIN|/images/logo.bak","/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif");
+    chmod("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif",0777);
     $msg = "|LANG_LOGO_RESTORED|";
   }
   
@@ -253,10 +262,11 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   <tr>
     <td nowrap width="20%">Logo image URL:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
-      <input type class="combot" id="imagelogo" name="imagelogo" value="http://" style="width: 160px;" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?>>
-      <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?> /> 
-      <?php  if(file_exists("/usr/local/directadmin/data/skin_data/capri/imagelogo")) { ?>
-        <input name="restore" type="button" class="boton small" value="Restore" oncClick="javascript:window.location='/CMD_SKINS?restorelogo=1';" /> 
+      <input type class="combot" id="imagelogo" name="imagelogo" value="http://" style="width: 160px;" <?php  if(!$logochange) { echo 'disabled'; }?>>
+      <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if(!$logochange) { echo 'disabled'; }?> /> 
+      <?php  if(file_exists("/usr/local/directadmin/data/skins/|SKIN|/images/logo.bak")) { ?>
+        <input name="restore" type="button" class="boton small" value="Restore" onClick="window.location.href='/CMD_SKINS?restorelogo=1';" /> 
+      
       <?php  } ?>
       <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
     </form></td>

@@ -402,7 +402,7 @@ function getDomainsList()
 	}
 
 function checkLicence($license, $localKey = '')
-	{ //b85ee429d2d7cf3061d0eec7514dbe6a
+	{ 
     return;
 	}
 
