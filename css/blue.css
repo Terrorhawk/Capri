@@ -853,3 +853,32 @@ div#result.succ2 {
 .path_visible {
 	visibility: visible;
 }
+.message
+{
+	padding: 15px;
+}
+
+.message, td.message_info
+{
+	box-shadow: 1px 1px 3px #727272;
+}
+
+td.message_info_round_top
+{
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+td.message_info_round_bottom, .message_round
+{
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+td.message_info
+{
+	padding: 5px;
+}
+
+.message_info
+{
+	COLOR: #777777;
+}
