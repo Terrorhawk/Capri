@@ -1,27 +1,13 @@
 |LF_STANDARD|
-|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADMIN_SETTINGS">`LANG_BRUTE_FORCE_MONITOR`</a>|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="//CMD_BRUTE_FORCE_MONITOR">`LANG_BRUTE_FORCE_MONITOR`</a>|
 |?HELP_SECTION=`ADMIN_HELPER`/settings.html|
 |HTM_HEADER|
-|HTM_CONFIG|
 
 <div id="centerPanel">
 
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
 Brute force monitor
-EOF;
-$tree = <<<EOF
+
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-echo pagetit($pagetit, $tree);
-
-?>
 
 |*if LOG_SCANNING!="ON"|
 |LANG_LOG_SCANNING_OFF|
@@ -42,23 +28,23 @@ echo pagetit($pagetit, $tree);
           <tr><td class=footer align=center>
           
 |*if HAVE_BLOCK_SH="1"|
-            <input type='button' value='Block IPs' onclick="if (confirm('Are you sure?')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
+<input type='button' value='|LANG_BLOCK_IPS|' onclick="if (confirm('|LANG_ARE_YOU_SURE_BLOCK|')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
             &nbsp;&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;&nbsp;
 |*endif|
 
-            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> Comments:<input type=text name=comments size=32>
+            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> |LANG_COMMENTS|:<input type=text name=comments size=32>
           </td></tr>
           </table>
         </form>
       </div>
 
       <div class="max270" style="margin-top: 15px;border: 1px solid #c1c1c1;">
-        <form name=tableform action='CMD_BRUTE_FORCE_MONITOR' method=POST>
+        <form name=tableform2 action='CMD_BRUTE_FORCE_MONITOR' method=POST>
         <input type=hidden name=action value="skiplist">
           |USERLOGINFAILURES|
           <table class="list" cellpadding=0 cellspacing=0>
           <tr><td class=footer align=center>
-            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> Comments:<input type=text name=comments size=32>
+            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> |LANG_COMMENTS|:<input type=text name=comments size=32>
           </td></tr>
           </table>
         </form>
@@ -72,8 +58,7 @@ echo pagetit($pagetit, $tree);
 <a href='?sort1=-1'>|LANG_CLEAR_SEARCH_FILTER|</a>
 |*endif|
 
-<?php
-$table = <<<EOF
+
 |LOGINFAILURES|
 
 
@@ -93,30 +78,13 @@ function validate_seek()
 <form onsubmit="return validate_seek();">
 <input type=hidden name="sort1" value="-1">
 brute_log_entries.list is |BRUTE_LOG_SIZE|. &nbsp;&nbsp;
-Only show <input size=6 type=text placeholder="0 or negative number" title="" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> bytes from the end of the file (negative number). 0 for all.</form>
-
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
+Only show <input size=6 type=text placeholder="0 or negative number" title="" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> |LANG_BYTES_FROM_THE_END|.</form>
 
 <br><br>
 
 <br>
 <b>|LANG_SKIP_LIST|</b>
-<?php
-$table = <<<EOF
 |SKIPLIST|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
 
 </div>
 
