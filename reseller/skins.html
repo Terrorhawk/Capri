@@ -150,7 +150,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
 
   if($upgrade && $upgrade==1) {
-      $remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
+      $remotefile = 'https://github.com/blaidwhite/Capri/archive/master.zip';
       $file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
       $dir = "/usr/local/directadmin/data/skins/|SKIN|/";
       file_put_contents($file, file_get_contents($remotefile));
@@ -173,7 +173,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
         @unlink($file);
 }
    if($upgrade && $upgrade==2) {
-      $remotefile = 'https://github.com/Terrorhawk/Capri-mailonly/archive/master.zip';
+      $remotefile = 'https://github.com/blaidwhite/Capri-mailonly/archive/master.zip';
       $file = "/usr/local/directadmin/data/skins/|SKIN|-mail/upgrade.zip";
       $dir = "/usr/local/directadmin/data/skins/|SKIN|-mail/";
       file_put_contents($file, file_get_contents($remotefile));
@@ -200,7 +200,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     $lstatus='<span style="color: green;"><strong>Github Version</strong></span>';
   
   
-  if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri/master/version.txt")) {
+  if($versions = @file_get_contents("https://raw.githubusercontent.com/blaidwhite/Capri/master/version.txt")) {
     list($ava_version, $da_version) = explode('-', $versions);
   } else {
     $ava_version = 'n/a';
@@ -215,7 +215,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
       /*Get local version of the mail only*/
       $versionmailonly = @file_get_contents("/usr/local/directadmin/data/skins/|SKIN|-mail/inc/version.html");
       /*Get git version*/
-      if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri-mailonly/master/version.txt")) {
+      if($versions = @file_get_contents("https://raw.githubusercontent.com/blaidwhite/Capri-mailonly/master/version.txt")) {
         list($ava2_version, $da_version2) = explode('-', $versions);
       } else {
         $ava2_version = 'n/a';
