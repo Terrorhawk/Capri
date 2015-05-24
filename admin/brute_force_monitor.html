@@ -5,7 +5,7 @@
 
 <div id="centerPanel">
 
-<div class="pageTit"><span>Brute force monitor</span>
+<div class="pageTit"><span>LANG_BRUTE_FORCE_MONITOR</span>
 |TREE|
 </div>
 
@@ -100,7 +100,7 @@ function validate_seek()
 |*endif|
 |*if HAVE_UNBLOCK_SH="1"|
     <table id="blockbuttontable" class=list style='width: 50%' cellpadding=3 cellspacing=1>
-      <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='UnBlock' name=unblock></td ></tr>
+      <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='|LANG_UNBLOCK|' name=unblock></td ></tr>
     </table>
   </form>
 |*endif|
@@ -128,6 +128,14 @@ sizeTheDiv();
 // -->
 </script>
 |*endif|
+
+<br>
+<hr width=50%>
+<br>
+|CLEAR_MESSAGES_TABLE|
+<br>
+<hr width=50%>
+<br>
 
 <div class="tip" style="margin: 10px 0;">
 |*if IP_LIMIT="0"|
