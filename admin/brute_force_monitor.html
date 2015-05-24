@@ -1,11 +1,13 @@
 |LF_STANDARD|
-|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="//CMD_BRUTE_FORCE_MONITOR">`LANG_BRUTE_FORCE_MONITOR`</a>|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_BRUTE_FORCE_MONITOR">`LANG_BRUTE_FORCE_MONITOR`</a>|
 |?HELP_SECTION=`ADMIN_HELPER`/settings.html|
 |HTM_HEADER|
+|HTM_CONFIG|
 
 <div id="centerPanel">
 
-<div class="pageTit"><span>LANG_BRUTE_FORCE_MONITOR</span>
+|$|SK_PHP|
+<div class="pageTit"><span>|LANG_BRUTE_FORCE_MONITOR|</span>
 |TREE|
 </div>
 
@@ -28,7 +30,7 @@
           <tr><td class=footer align=center>
           
 |*if HAVE_BLOCK_SH="1"|
-<input type='button' value='|LANG_BLOCK_IPS|' onclick="if (confirm('|LANG_ARE_YOU_SURE_BLOCK|')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
+            <input type='button' value='|LANG_BLOCK_IPS|' onclick="if (confirm('|LANG_ARE_YOU_SURE_BLOCK|')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
             &nbsp;&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;&nbsp;
 |*endif|
             <input type=text name="skip_value" placeholder="|LANG_OPTIONAL_IP|" title="|LANG_OPTIONAL_IP|" size=24><a target=_blank class=listtitle href="http://www.directadmin.com/features.php?id=1252">?</a>
@@ -58,7 +60,8 @@
 <a href='?sort1=-1'>|LANG_CLEAR_SEARCH_FILTER|</a>
 |*endif|
 
-
+<?php
+$table = <<<EOF
 |LOGINFAILURES|
 
 
@@ -78,13 +81,30 @@ function validate_seek()
 <form onsubmit="return validate_seek();">
 <input type=hidden name="sort1" value="-1">
 |LANG_BLE_IS| |BRUTE_LOG_SIZE|. &nbsp;&nbsp;
-|LANG_ONLY_READ| <input size=6 type=text placeholder="|LANG_ZERO_OR_NEG|" title="|LANG_ZERO_OR_NEG|" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> |LANG_BYTES_FROM_THE_END|.</form>
+|LANG_ONLY_READ| <input size=6 type=text placeholder="|LANG_ZERO_OR_NEG|" title="|LANG_ZERO_OR_NEG|" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> |LANG_BYTES_FROM_THE_END|</form>
+
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
 
 <br><br>
 
 <br>
 <b>|LANG_SKIP_LIST|</b>
+<?php
+$table = <<<EOF
 |SKIPLIST|
+EOF;
+
+preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
+echo str_replace("toptext", "pagerText", $matches[6][0]);
+
+echo $table;
+?>
 
 </div>
 
@@ -94,7 +114,7 @@ function validate_seek()
   <form name=tableform5 action='CMD_BRUTE_FORCE_MONITOR' method=POST>
     <input type=hidden name=action value="unblock">
     <b>|LANG_BLOCKED_IPS|</b>
-    <div id="blockedipsdiv" style="overflow: auto; height: 450px; width: 300px; border: 1px solid grey;">
+    <div id="blockedipsdiv" style="overflow: auto; height: 450px; width: 100%; border: 1px solid grey;">
     |BLOCKED_IPS|
     </div>
 |*endif|
@@ -106,35 +126,14 @@ function validate_seek()
 |*endif|
 |*if HAVE_SHOW_BLOCKED_IPS_SH="1"|
 </div>
-<script type="text/javascript">
-<!--
-function sizeTheDiv()
-{
-	var tblwidth=document.getElementById('blockedipstable').offsetWidth;
-	if (tblwidth>0)
-	{
-		if (tblwidth < 300)
-		{
-			tblwidth = 300;
-			document.getElementById('blockedipstable').style.width=tblwidth;
-		}
-
-		document.getElementById('blockedipsdiv').style.width=tblwidth+19;
-		if (document.getElementById('blockbuttontable'))
-			document.getElementById('blockbuttontable').style.width=tblwidth+21;
-	}
-}
-sizeTheDiv();
-// -->
-</script>
 |*endif|
 
 <br>
-<hr width=50%>
+<hr />
 <br>
 |CLEAR_MESSAGES_TABLE|
 <br>
-<hr width=50%>
+<hr />
 <br>
 
 <div class="tip" style="margin: 10px 0;">
@@ -151,4 +150,5 @@ sizeTheDiv();
 |*endif|
 </div>
 
+DONE|
 |HTM_ADMIN_BOTTOM|

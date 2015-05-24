@@ -180,6 +180,12 @@ DONE|
           <th>|LANG_RBL_BLOCKING|</th>
           <td><input type="radio" name="rbl_enabled" value="yes" |CHECK_RBL_YES|>|LANG_YES|&nbsp;&nbsp;&nbsp;<input type="radio" name="rbl_enabled" value="no" |CHECK_RBL_NO|>|LANG_NO| &nbsp;&nbsp; <a target="_blank" href="http://www.directadmin.com/features.php?id=1181">(?)</a></td>
         </tr>
+|*if USE_DOVECOT="yes"|
+        <tr>
+          <th>|LANG_PURGE_SPAMBOX|</th>
+          <td>|LANG_PURGE_AFTER|  <input type=text name=purge_spam_days value="|PURGE_SPAM_DAYS|" size=2 maxlength=3> &nbsp;&nbsp;|LANG_PURGE_DAYS|</td>
+        </tr> 
+|*endif|
       <tfoot>
         <tr><td colspan="2"><input type="submit" name="save" class="boton" value="|LANG_SAVE|"></td></tr>
       </tfoot>
