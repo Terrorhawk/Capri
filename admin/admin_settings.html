@@ -96,45 +96,45 @@ DONE|
         </tr>  
         <tr>
           <th>|LANG_REMOVE_IP_AFTER|</th>
-          <td><input name="clear_blacklist_ip_time" value="|CLEAR_BLACKLIST_IP_TIME|" size="4" type="text" class="combot"> |LANG__CERO_NEVER|</td>
+          <td><input name="clear_blacklist_ip_time" value="|CLEAR_BLACKLIST_IP_TIME|" size="4" type="text" class="combot"> |LANG_ZERO_NEVER|</td>
         </tr>
         
         <tr>
-          <td class="list top-border">Parse service logs for brute force attacks</td>
+          <td class="list top-border">|LANG_PARSE_FOR_BFA|</td>
           <td class="list top-border"><input type=radio name=brute_force_log_scanner value="yes" |BRUTEFORCELOGSCANNER_YES|>|LANG_YES|&nbsp;&nbsp;&nbsp;<input type=radio name=brute_force_log_scanner value="no" |BRUTEFORCELOGSCANNER_NO|>|LANG_NO|
-          &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1227">(?)</a>&nbsp;&nbsp;<a href="CMD_BRUTE_FORCE_MONITOR">View Log</a></td>
+          &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1227">(?)</a>&nbsp;&nbsp;<a href="CMD_BRUTE_FORCE_MONITOR">|LANG_VIEW_LOG|</a></td>
         </tr>
         
         <tr>
-				<td class="list top-border">Scan for WordPress attacks</td>
+				<td class="list top-border">|LANG_SCAN_APACHE_LOGS|</td>
 				<td class="list top-border">
-					<input type=radio name=brute_force_scan_apache_logs value="2" |BF_SCAN_APACHE_LOGS_2|>All Logs&nbsp;&nbsp;
-					<input type=radio name=brute_force_scan_apache_logs value="1" |BF_SCAN_APACHE_LOGS_1|>Manual&nbsp;&nbsp;
-					<input type=radio name=brute_force_scan_apache_logs value="0" |BF_SCAN_APACHE_LOGS_0|>No
+					<input type=radio name=brute_force_scan_apache_logs value="2" |BF_SCAN_APACHE_LOGS_2|>|LANG_ALL_LOGS|&nbsp;&nbsp;
+					<input type=radio name=brute_force_scan_apache_logs value="1" |BF_SCAN_APACHE_LOGS_1|>|LANG_MANUAL|&nbsp;&nbsp;
+					<input type=radio name=brute_force_scan_apache_logs value="0" |BF_SCAN_APACHE_LOGS_0|>|LANG_NO|
 					&nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1695">(?)</a>
 				</td>
 		</tr>
         <tr>
-          <td class=list>Notify Admins after an IP has</td>
-          <td class=list><input type=text name=ip_brutecount value="|IP_LOGIN_FAILURE_THRESHOLD|" size=4> login failures on any account.</td>
+          <td class=list>|LANG_NOTIFY_AFTER_IP|</td>
+          <td class=list><input type=text name=ip_brutecount value="|IP_LOGIN_FAILURE_THRESHOLD|" size=4> |LANG_LOGIN_FAIL_USER|</td>
         </tr>
         <tr>
-          <td class=list>Notify Admins after a User has</td>
-          <td class=list><input type=text name=user_brutecount value="|USER_LOGIN_FAILURE_THRESHOLD|" size=4> login failures from any IP.</td>
+          <td class=list>|LANG_NOTIFY_ADMIN_USER|</td>
+          <td class=list><input type=text name=user_brutecount value="|USER_LOGIN_FAILURE_THRESHOLD|" size=4> |LANG_LOGIN_FAIL_IP|</td>
         </tr>
 |*if HAVE_BF_UNBLOCK_AFTER_TIME="1"|
         <tr>
-          <td class=list>Remove an IP from the BF blacklist after</td>
-          <td class=list><input type=text name=unblock_brute_ip_time value="|UNBLOCK_BRUTE_IP_TIME|" size=4> minutes (0 = never)</td>
+          <td class=list>|LANG_REMOVE_IP_AFTER|</td>
+          <td class=list><input type=text name=unblock_brute_ip_time value="|UNBLOCK_BRUTE_IP_TIME|" size=4> |LANG_ZERO_NEVER|</td>
         </tr>
 |*endif|
         <tr>
-          <td class=list>Reset count of IP/User failed attempts</td>
-          <td class=list><input type=text name=clear_brute_log_time value="|CLEAR_BRUTE_LOG_TIME|" size=4> hours after last attempt.</td>
+          <td class=list>|LANG_RESET_COUNT_AFTER|</td>
+          <td class=list><input type=text name=clear_brute_log_time value="|CLEAR_BRUTE_LOG_TIME|" size=4> |LANG_HOURS_AFTER_LAST|</td>
         </tr>
         <tr>
-          <td class=list> Clear failed login attempts from log</td>
-          <td class=list><input type=text name=clear_brute_log_entry_time value="|CLEAR_BRUTE_LOG_ENTRY_TIME|" size=4> days after entry was made.</td>
+          <td class=list> |LANG_CLEAR_BF_FROM_LOG|</td>
+          <td class=list><input type=text name=clear_brute_log_entry_time value="|CLEAR_BRUTE_LOG_ENTRY_TIME|" size=4> |LANG_DAYS_AFTER_ENTRY|</td>
         </tr>
 
         
