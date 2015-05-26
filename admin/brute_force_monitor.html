@@ -1,5 +1,5 @@
 |LF_STANDARD|
-|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADMIN_SETTINGS">`LANG_BRUTE_FORCE_MONITOR`</a>|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_BRUTE_FORCE_MONITOR">`LANG_BRUTE_FORCE_MONITOR`</a>|
 |?HELP_SECTION=`ADMIN_HELPER`/settings.html|
 |HTM_HEADER|
 |HTM_CONFIG|
@@ -7,21 +7,9 @@
 <div id="centerPanel">
 
 |$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-Brute force monitor
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_BRUTE_FORCE_MONITOR|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-echo pagetit($pagetit, $tree);
-
-?>
+</div>
 
 |*if LOG_SCANNING!="ON"|
 |LANG_LOG_SCANNING_OFF|
@@ -42,23 +30,23 @@ echo pagetit($pagetit, $tree);
           <tr><td class=footer align=center>
           
 |*if HAVE_BLOCK_SH="1"|
-            <input type='button' value='Block IPs' onclick="if (confirm('Are you sure?')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
+            <input type='button' value='|LANG_BLOCK_IPS|' onclick="if (confirm('|LANG_ARE_YOU_SURE_BLOCK|')){document.tableform.action.value = 'block_ips';document.tableform.submit();}">
             &nbsp;&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;&nbsp;
 |*endif|
-
-            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> Comments:<input type=text name=comments size=32>
+            <input type=text name="skip_value" placeholder="|LANG_OPTIONAL_IP|" title="|LANG_OPTIONAL_IP|" size=24><a target=_blank class=listtitle href="http://www.directadmin.com/features.php?id=1252">?</a>
+            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> |LANG_COMMENTS|:<input type=text name=comments size=32>
           </td></tr>
           </table>
         </form>
       </div>
 
       <div class="max270" style="margin-top: 15px;border: 1px solid #c1c1c1;">
-        <form name=tableform action='CMD_BRUTE_FORCE_MONITOR' method=POST>
+        <form name=tableform2 action='CMD_BRUTE_FORCE_MONITOR' method=POST>
         <input type=hidden name=action value="skiplist">
           |USERLOGINFAILURES|
           <table class="list" cellpadding=0 cellspacing=0>
           <tr><td class=footer align=center>
-            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> Comments:<input type=text name=comments size=32>
+            <input class="boton" type="submit" value="|LANG_ADD_TO_SKIP|"> |LANG_COMMENTS|:<input type=text name=comments size=32>
           </td></tr>
           </table>
         </form>
@@ -92,8 +80,8 @@ function validate_seek()
 </script>
 <form onsubmit="return validate_seek();">
 <input type=hidden name="sort1" value="-1">
-brute_log_entries.list is |BRUTE_LOG_SIZE|. &nbsp;&nbsp;
-Only show <input size=6 type=text placeholder="0 or negative number" title="" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> bytes from the end of the file (negative number). 0 for all.</form>
+|LANG_BLE_IS| |BRUTE_LOG_SIZE|. &nbsp;&nbsp;
+|LANG_ONLY_READ| <input size=6 type=text placeholder="|LANG_ZERO_OR_NEG|" title="|LANG_ZERO_OR_NEG|" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> |LANG_BYTES_FROM_THE_END|</form>
 
 EOF;
 
@@ -125,41 +113,28 @@ echo $table;
 <div class="tip" style="margin: 10px 0;">
   <form name=tableform5 action='CMD_BRUTE_FORCE_MONITOR' method=POST>
     <input type=hidden name=action value="unblock">
-    <b>Blocked IPs</b>
-    <div id="blockedipsdiv" style="overflow: auto; height: 450px; width: 300px; border: 1px solid grey;">
+    <b>|LANG_BLOCKED_IPS|</b>
+    <div id="blockedipsdiv" style="overflow: auto; height: 450px; width: 100%; border: 1px solid grey;">
     |BLOCKED_IPS|
     </div>
 |*endif|
 |*if HAVE_UNBLOCK_SH="1"|
     <table id="blockbuttontable" class=list style='width: 50%' cellpadding=3 cellspacing=1>
-      <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='UnBlock' name=unblock></td ></tr>
+      <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='|LANG_UNBLOCK|' name=unblock></td ></tr>
     </table>
   </form>
 |*endif|
 |*if HAVE_SHOW_BLOCKED_IPS_SH="1"|
 </div>
-<script type="text/javascript">
-<!--
-function sizeTheDiv()
-{
-	var tblwidth=document.getElementById('blockedipstable').offsetWidth;
-	if (tblwidth>0)
-	{
-		if (tblwidth < 300)
-		{
-			tblwidth = 300;
-			document.getElementById('blockedipstable').style.width=tblwidth;
-		}
-
-		document.getElementById('blockedipsdiv').style.width=tblwidth+19;
-		if (document.getElementById('blockbuttontable'))
-			document.getElementById('blockbuttontable').style.width=tblwidth+21;
-	}
-}
-sizeTheDiv();
-// -->
-</script>
 |*endif|
+
+<br>
+<hr />
+<br>
+|CLEAR_MESSAGES_TABLE|
+<br>
+<hr />
+<br>
 
 <div class="tip" style="margin: 10px 0;">
 |*if IP_LIMIT="0"|
