@@ -55,15 +55,15 @@ DONE|
     <tr><td align=right>|LANG_TMP_TABLE|</td><td>|CREATE_TMP_TABLE|</td>
     <td align=right>|LANG_LOCK|</td><td>|LOCK_TABLE|</td></tr>
     |*if DATABASE_EXTENDED_USER_PRIVILEGES>="1"|
-		<tr><td class=list align=right>Show View</td><td class=list>|SHOW_VIEW_PRIV|</td></tr>
-		<tr><td class=list align=right>Create Routine</td><td class=list>|CREATE_ROUTINE_PRIV|</td></tr>
-		<tr><td class=list align=right>Alter Routine</td><td class=list>|ALTER_ROUTINE_PRIV|</td></tr>
-		<tr><td class=list align=right>Execute</td><td class=list>|EXECUTE_PRIV|</td></tr>
-		<tr><td class=list align=right>Create View</td><td class=list>|CREATE_VIEW_PRIV|</td></tr>
+		<tr><td class=list align=right>|LANG_SHOW_VIEW|</td><td class=list>|SHOW_VIEW_PRIV|</td></tr>
+		<tr><td class=list align=right>|LANG_CREATE_ROUTINE|</td><td class=list>|CREATE_ROUTINE_PRIV|</td></tr>
+		<tr><td class=list align=right>|LANG_ALTER_ROUTINE|</td><td class=list>|ALTER_ROUTINE_PRIV|</td></tr>
+		<tr><td class=list align=right>|LANG_EXECUTE|</td><td class=list>|EXECUTE_PRIV|</td></tr>
+		<tr><td class=list align=right>|LANG_CREATE_VIEW|</td><td class=list>|CREATE_VIEW_PRIV|</td></tr>
 |*endif|
 |*if DATABASE_EXTENDED_USER_PRIVILEGES>="2"|
-	<tr><td class=list align=right>Event</td><td class=list>|EVENT_PRIV|</td></tr>
-	<tr><td class=list align=right>Trigger</td><td class=list>|TRIGGER_PRIV|</td></tr>
+	<tr><td class=list align=right>|LANG_EVENT|</td><td class=list>|EVENT_PRIV|</td></tr>
+	<tr><td class=list align=right>|LANG_TRIGGER|</td><td class=list>|TRIGGER_PRIV|</td></tr>
 |*endif|
   </tbody>
   <tfoot>
