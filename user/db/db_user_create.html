@@ -5,20 +5,10 @@
 |HTM_USER_TOP|
 |HTM_CONFIG|
 |$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MYSQL_SETUP| - |LANG_VIEW| |name|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MYSQL_SETUP| - |LANG_VIEW| |name|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <script language="javascript">
 function setGreyout(value){
   if (document.info)  {

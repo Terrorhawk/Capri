@@ -13,21 +13,10 @@
   |HTM_BOX_USER_STATS|
 </div>
 <div id="rightPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MYSQL_SETUP| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MYSQL_SETUP| - |DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
   <div class="table75">
   
   |DATABASES|
@@ -47,7 +36,7 @@ DONE|
   
   <tr><th colspan=2>|LANG_SELECT_CONNECTION|:</th></tr>
   <tr><td><input type=radio name=method value=default checked onclick="setuserpass(true);"><label>|LANG_YOUR_ACC_LOG_INFO|</label></td>
-      <td><input type=radio name=method value=custom onclick="setuserpass(false);"> |LANG_A_ESPECIFIED| <input type=text size=12 class="combot" name=dbuser value="|LANG_USER|" disabled onclick="this.select()"> &#38; |LANG_PASS| <input type=password class="combot" size=12 name=dbpass value="" disabled></td>
+      <td><input type=radio name=method value=custom onclick="setuserpass(false);"> |LANG_A_SPECIFIED| <input type=text size=12 class="combot" name=dbuser value="|LANG_USER|" disabled onclick="this.select()"> &#38; |LANG_PASS| <input type=password class="combot" size=12 name=dbpass value="" disabled></td>
   </tr>
   </tbody>
   <tfoot>

@@ -17,53 +17,41 @@
   |HTM_BOX_USER_STATS|
 </div>
 <div id="rightPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
-
-$pagetit = <<<EOF
-|LANG_MYSQL_SETUP| - |LANG_VIEW| |name|: |LANG_USER_PRIVS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MYSQL_SETUP| - |LANG_VIEW| |name|: |LANG_USER_PRIVS|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <form name=info action="CMD_DB_USER_PRIVS" method="post">
 <input type=hidden name=action value=save>
 <input type=hidden name=domain value="|DOMAIN|">
 <input type=hidden name=name value="|name|">
 <input type=hidden name=user value="|user|">
-<table class="config" cellspacing="0" width="70%">
+<table class="config" cellspacing="0" width="100%">
   <thead>
     <tr><td colspan=4>|LANG_PRIVS_1| |user| |LANG_PRIVS_2| |name|</td></tr>
   </thead>
   <tbody>
-    <tr><td align=right width=25%>|LANG_SELECT|</td><td width=25%>|SELECT|</td>
-    <td align=right width=25%>|LANG_INSERT|</td><td width=25%>|INSERT|</td></tr>
-    <tr><td align=right>|LANG_UPDATE|</td><td>|UPDATE|</td>
-    <td align=right>|LANG_DELETE|</td><td>|DELETE|</td></tr>
-    <tr><td align=right>|LANG_CREATE|</td><td>|CREATE|</td>
-    <td align=right>|LANG_DROP|</td><td>|DROP|</td></tr>
-    <tr><td align=right>|LANG_ALTER|</td><td>|ALTER|</td>
-    <td align=right>|LANG_INDEX|</td><td>|INDEX|</td></tr>
-    <tr><td align=right>|LANG_GRANT|</td><td>|GRANT|</td>
-    <td align=right>|LANG_REFERENCE|</td><td>|REFERENCE|</td></tr>
-    <tr><td align=right>|LANG_TMP_TABLE|</td><td>|CREATE_TMP_TABLE|</td>
-    <td align=right>|LANG_LOCK|</td><td>|LOCK_TABLE|</td></tr>
+    <tr bgcolor="#fff"><td>|LANG_SELECT_PRIV|</td><td>|SELECT|</td></tr><tr>
+    <td>|LANG_INSERT_PRIV|</td><td>|INSERT|</td></tr>
+    <tr bgcolor="#fff"><td>|LANG_UPDATE_PRIV|</td><td>|UPDATE|</td></tr><tr>
+    <td>|LANG_DELETE_PRIV|</td><td>|DELETE|</td></tr>
+    <tr bgcolor="#fff"><td>|LANG_CREATE_PRIV|</td><td>|CREATE|</td></tr><tr>
+    <td>|LANG_DROP_PRIV|</td><td>|DROP|</td></tr>
+    <tr bgcolor="#fff"><td>|LANG_ALTER_PRIV|</td><td>|ALTER|</td></tr><tr>
+    <td>|LANG_INDEX_PRIV|</td><td>|INDEX|</td></tr>
+    <tr bgcolor="#fff"><td>|LANG_GRANT_PRIV|</td><td>|GRANT|</td></tr><tr>
+    <td>|LANG_REFERENCE_PRIV|</td><td>|REFERENCE|</td></tr>
+    <tr bgcolor="#fff"><td>|LANG_TMP_TABLE|</td><td>|CREATE_TMP_TABLE|</td></tr><tr>
+    <td>|LANG_LOCK|</td><td>|LOCK_TABLE_PRIV|</td></tr>
     |*if DATABASE_EXTENDED_USER_PRIVILEGES>="1"|
-		<tr><td class=list align=right>|LANG_SHOW_VIEW|</td><td class=list>|SHOW_VIEW_PRIV|</td></tr>
-		<tr><td class=list align=right>|LANG_CREATE_ROUTINE|</td><td class=list>|CREATE_ROUTINE_PRIV|</td></tr>
-		<tr><td class=list align=right>|LANG_ALTER_ROUTINE|</td><td class=list>|ALTER_ROUTINE_PRIV|</td></tr>
-		<tr><td class=list align=right>|LANG_EXECUTE|</td><td class=list>|EXECUTE_PRIV|</td></tr>
-		<tr><td class=list align=right>|LANG_CREATE_VIEW|</td><td class=list>|CREATE_VIEW_PRIV|</td></tr>
+		<tr bgcolor="#fff"><td>|LANG_SHOW_VIEW|</td><td c>|SHOW_VIEW_PRIV|</td></tr>
+		<tr><td>|LANG_CREATE_ROUTINE|</td><td>|CREATE_ROUTINE_PRIV|</td></tr>
+		<tr bgcolor="#fff"><td>|LANG_ALTER_ROUTINE|</td><td>|ALTER_ROUTINE_PRIV|</td></tr>
+		<tr><td>|LANG_EXECUTE|</td><td>|EXECUTE_PRIV|</td></tr>
+		<tr bgcolor="#fff"><td>|LANG_CREATE_VIEW|</td><td>|CREATE_VIEW_PRIV|</td></tr>
 |*endif|
 |*if DATABASE_EXTENDED_USER_PRIVILEGES>="2"|
-	<tr><td class=list align=right>|LANG_EVENT|</td><td class=list>|EVENT_PRIV|</td></tr>
-	<tr><td class=list align=right>|LANG_TRIGGER|</td><td class=list>|TRIGGER_PRIV|</td></tr>
+	<tr><td>|LANG_EVENT_PRIV|</td><td>|EVENT_PRIV|</td></tr>
+	<tr bgcolor="#fff"><td>|LANG_TRIGGER_PRIV|</td><td>|TRIGGER_PRIV|</td></tr>
 |*endif|
   </tbody>
   <tfoot>
