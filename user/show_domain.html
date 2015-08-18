@@ -3,349 +3,118 @@
 |HTM_CONFIG|
 |HTM_USER_TOP|
 |LF_POP|
-|$|SK_PHP|
-      <div style="float:left;width:350px;margin-right: 40px;">
-<?php
-
-include |SK_ROOT| . "inc/functions.php";
-
-$daplugins=array();
-$plugin=array();
-$daplugins[0] = <<<END
-|PLUGIN_0_TXT|
-END;
-$daplugins[1] = <<<END
-|PLUGIN_1_TXT|
-END;
-$daplugins[2] = <<<END
-|PLUGIN_2_TXT|
-END;
-$daplugins[3] = <<<END
-|PLUGIN_3_TXT|
-END;
-$daplugins[4] = <<<END
-|PLUGIN_4_TXT|
-END;
-$daplugins[5] = <<<END
-|PLUGIN_5_TXT|
-END;
-$daplugins[6] = <<<END
-|PLUGIN_6_TXT|
-END;
-$daplugins[7] = <<<END
-|PLUGIN_7_TXT|
-END;
-
-foreach($daplugins as $data) {
-  if(strlen($data)>2) {
-    if(strstr(strtolower($data),"awstats")
-       || strstr(strtolower($data),"pgsql")
-       || strstr(strtolower($data),"postgre") 
-       || strstr(strtolower($data),"phpvs") 
-       || strstr(strtolower($data),"hotlink") 
-       || strstr(strtolower($data),"php version selector")) 
-    {
-      $plugin['domain'][]=$data;
-    } elseif(strstr(strtolower($data),"smtp")) {
-      $plugin['email'][]=$data;
-    } elseif(strstr(strtolower($data),"bill") || strstr(strtolower($data),"payment")) {
-      $plugin['account'][]=$data;
-    } else {
-      $plugin['extra'][]=$data;
-    }
-  }
-}
-
-
-$domain = '|domain|';
-
-$d1 = <<<EOF
-|LANG_POP_EMAIL_ACCOUNTS|
-EOF;
-$d2 = <<<EOF
-|LANG_CATCH_ALL_EMAIL|
-EOF;
-$d3 = <<<EOF
-|LANG_FORWARDERS|
-EOF;
-$d4 = <<<EOF
-|LANG_AUTORESPONDERS|
-EOF;
-$d5 = <<<EOF
-|LANG_VAC_MESSAGES|
-EOF;
-$d6 = <<<EOF
-|LANG_SPAMASSASSIN|
-EOF;
-$d7 = <<<EOF
-|LANG_MAILING_LISTS|
-EOF;
-$d8 = <<<EOF
-|LANG_SPAM_FILTERS|
-EOF;
-$d9 = <<<EOF
-|LANG_WEBMAIL_SM|
-EOF;
-$d0 = <<<EOF
-|LANG_WEBMAIL_UEBI|
-EOF;
-$dm = <<<EOF
-|LANG_MENU_EMAIL|
-EOF;
-$ds = <<<EOF
-|LANG_WEBMAIL_ROUNDCUBE|
-EOF;
-$dk = <<<EOF
-|LANG_WEBMAIL_ATM|
-EOF;
-$dw = <<<EOF
-|LANG_WEBMAIL|
-EOF;
-$dh = <<<EOF
-|LANG_WEBMAIL_HORDE|
-EOF;
-$d01 = <<<EOF
-|LANG_DOMAIN_SETUP|
-EOF;
-$d02 = <<<EOF
-|LANG_CHANGE_PASSWORD|
-EOF;
-$d03 = <<<EOF
-|LANG_LOGIN_HISTORY|
-EOF;
-$d04 = <<<EOF
-|LANG_DNS_MANAGEMENT|
-EOF;
-$d05 = <<<EOF
-|LANG_SUPPORT_CENTER|
-EOF;
-$d06 = <<<EOF
-|LANG_INSTALLED_PERL_MODULES|
-EOF;
-$d07 = <<<EOF
-|LANG_CREATE_RESTORE_BACKUPS|
-EOF;
-$d08 = <<<EOF
-|LANG_SITE_SUM_STATS_LOGS|
-EOF;
-$d09 = <<<EOF
-|LANG_FTP_MANAGEMENT|
-EOF;
-$d10 = <<<EOF
-|LANG_SUBDOMAIN_MANAGEMENT|
-EOF;
-$d11 = <<<EOF
-|LANG_FRONTPAGE_EXTENSIONS|
-EOF;
-$d12 = <<<EOF
-|LANG_MYSQL_MANAGEMENT|
-EOF;
-$d13 = <<<EOF
-|LANG_PHPMYADMIN|
-EOF;
-$d14 = <<<EOF
-|LANG_PASS_PROC_DIRS|
-EOF;
-$d15 = <<<EOF
-|LANG_FILE_MANAGER|
-EOF;
-$d16 = <<<EOF
-|LANG_MENU_ACCOUNT|
-EOF;
-// menu avanzado
-$d17 = <<<EOF
-|LANG_DOMAIN_POINTERS|
-EOF;
-$d18 = <<<EOF
-|LANG_SITE_REDIRECTION|
-EOF;
-$d19 = <<<EOF
-|LANG_SERVER_INFO|
-EOF;
-$d20 = <<<EOF
-|LANG_CUSTOM_ERROR_PAGES|
-EOF;
-$d21 = <<<EOF
-|LANG_SSL_CERTS|
-EOF;
-$d22 = <<<EOF
-|LANG_CRONJOBS|
-EOF;
-$d23 = <<<EOF
-|LANG_MIMETYPES|
-EOF;
-$d24 = <<<EOF
-|LANG_APACHE_HANDLERS|
-EOF;
-$d25 = <<<EOF
-|LANG_MX_RECORDS|
-EOF;
-$d27 = <<<EOF
-|LANG_MENU_ADVANCED|
-EOF;
-$d37 = <<<EOF
-|LANG_TIT_DOMAIN|
-EOF;
-
-$items[] = array('img' => '/IMG_IC_STATS', 'link' => '/CMD_USER_STATS?domain='.$domain, 'txt' => $d08);
-$items[] = array('img' => '/IMG_IC_FILEMAN', 'link' => '/CMD_FILE_MANAGER?domain='.$domain, 'txt' => $d15);
-|*if USERDATABASEMAX!="0"|
-$items[] = array('img' => '/IMG_IC_PHPMYADMIN', 'link' => 'http://|HOSTNAME|/phpMyAdmin', 'txt' => $d13);
+|?SHOW_LINKS=yes|
+|*if HIDE_WEBMAIL_LINKS="yes"|
+	|?SHOW_LINKS=no|
+|*endif|
+|*if SHOW_LINKS="no"|
+	|?HAVE_SQUIRRELMAIL=no|
+	|?HAVE_WEBMAIL=no|
+	|?HAVE_ROUNDCUBE=no|
+	|?HAVE_ATMAIL=no|
 |*endif|
 
-$items[] = array('img' => '/IMG_IC_PASSWD', 'link' => '/HTM_PASSWD?domain='.$domain, 'txt' => $d02);
-$items[] = array('img' => '/IMG_IC_LOGHIST', 'link' => '/CMD_LOGIN_HISTORY?domain='.$domain, 'txt' => $d03);
-$items[] = array('img' => '/IMG_IC_SUPPORT', 'link' => '/CMD_TICKET?domain='.$domain, 'txt' => $d05);
-
+<div style="float:left;width:350px;margin-right: 40px;">
+    <fieldset class="buttons-box"><legend>|LANG_MENU_ACCOUNT|</legend>
+      <a href="/CMD_USER_STATS?domain=|domain|"><img src="/IMG_IC_STATS"><br>|LANG_SITE_SUM_STATS_LOGS|</a>
+      <a href="/CMD_FILE_MANAGER?domain=|domain|"><img src="/IMG_IC_FILEMAN"><br>|LANG_FILE_MANAGER|</a>
+      <a href="|WEBAPPS_SSL|://|HOSTNAME|/phpMyAdmin" target="_blank"><img src="/IMG_IC_PHPMYADMIN"><br>|LANG_PHPMYADMIN|</a>
+      <a href="HTM_PASSWD?domain=|domain|"><img src="/IMG_IC_PASSWD"><br>|LANG_CHANGE_PASSWORD|</a>
+      <a href="/CMD_LOGIN_HISTORY?domain=|domain|"><img src="/IMG_IC_LOGHIST"><br>|LANG_LOGIN_HISTORY|</a>
+      <a href="/CMD_TICKET?domain=|domain|"><img src="/IMG_IC_SUPPORT"><br>|LANG_SUPPORT_CENTER|</a>
 |*if USERSYSINFO="ON"|
-$items[] = array('img' => '/IMG_IC_SERVINFO', 'link' => '/CMD_SYSTEM_INFO?domain='.$domain, 'txt' => $d19);
+      <a href="/CMD_SYSTEM_INFO?domain=|domain|"><img src="/IMG_IC_SERVINFO"><br>|LANG_SERVER_INFO|</a>
 |*endif|
-$items[] = array('img' => '/IMG_IC_BACKUP', 'link' => '/CMD_SITE_BACKUP?domain='.$domain, 'txt' => $d07);
-$items[] = array('img' => '/IMG_IC_PASSDIRS', 'link' => '/CMD_PROTECTED_DIRECTORIES?domain='.$domain, 'txt' => $d14);
-
+      <a href="/CMD_SITE_BACKUP?domain=|domain|"><img src="/IMG_IC_BACKUP"><br>|LANG_CREATE_RESTORE_BACKUPS|</a>
+      <a href="/CMD_PROTECTED_DIRECTORIES?domain=|domain|"><img src="/IMG_IC_PASSDIRS"><br>|LANG_PASS_PROC_DIRS|</a>
 |*if USERDNSCONTROL="ON"|
-$items[] = array('img' => '/IMG_IC_DNS', 'link' => '/CMD_DNS_CONTROL?domain='.$domain, 'txt' => $d04);
+      <a href="/CMD_DNS_CONTROL?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_DNS_MANAGEMENT|</a>
 |*endif|
-
-if(is_array($plugin['account']) && count($plugin['account'])>0) {
-  foreach($plugin['account'] as $plug) {
-    $items[] = array('plugin' => $plug);
-  }
-}
-
-$sk->iconmenu($d16,$items, $menutype);
-unset($items);
-
+    </fieldset>
+    <fieldset class="buttons-box"><legend>|LANG_TIT_DOMAIN|</legend>
 |*if USERDATABASEMAX!="0"|
-$items[] = array('img' => '/IMG_IC_MYSQL', 'link' => '/CMD_DB?domain='.$domain, 'txt' => $d12);
+      <a href="/CMD_DB?domain=|domain|"><img src="/IMG_IC_MYSQL"><br>|LANG_MYSQL_MANAGEMENT|</a>
 |*endif|
 |*if USERFTPMAX!="0"|
-$items[] = array('img' => '/IMG_IC_FTP', 'link' => '/CMD_FTP?domain='.$domain, 'txt' => $d09);
+      <a href="/CMD_FTP?domain=|domain|"><img src="/IMG_IC_FTP"><br>|LANG_FTP_MANAGEMENT|</a>
 |*endif|
 |*if NUSERSUBDOMAINSMAX!="0"|
-$items[] = array('img' => '/IMG_IC_SUBDOM', 'link' => '/CMD_SUBDOMAIN?domain='.$domain, 'txt' => $d10);
+      <a href="/CMD_SUBDOMAIN?domain=|domain|"><img src="/IMG_IC_SUBDOM"><br>|LANG_SUBDOMAIN_MANAGEMENT|</a>
 |*endif|
-
 |*if USERPOINTERSMAX!="0"|
-$items[] = array('img' => '/IMG_IC_DOMPTR', 'link' => '/CMD_DOMAIN_POINTER?domain='.$domain, 'txt' => $d17);
+      <a href="/CMD_DOMAIN_POINTER?domain=|domain|"><img src="/IMG_IC_DOMPTR"><br>|LANG_DOMAIN_POINTERS|</a>
 |*endif|
-
-$items[] = array('img' => '/IMG_IC_SITEREDIRECT', 'link' => '/CMD_REDIRECT?domain='.$domain, 'txt' => $d18);
-
+      <a href="/CMD_REDIRECT?domain=|domain|"><img src="/IMG_IC_SITEREDIRECT"><br>|LANG_SITE_REDIRECTION|</a>
 |*if ALLOWED_CMD_DOMAIN!="no"|
-$items[] = array('img' => '/IMG_IC_DOMAIN_SETUP', 'link' => '/CMD_ADDITIONAL_DOMAINS?domain='.$domain, 'txt' => $d01);
+      <a href="/CMD_ADDITIONAL_DOMAINS?domain=|domain|"><img src="/IMG_IC_DOMAIN_SETUP"><br>|LANG_DOMAIN_SETUP|</a>
 |*endif|
+    </fieldset>
+</div>
 
-if(is_array($plugin['domain']) && count($plugin['domain'])>0) {
-  foreach($plugin['domain'] as $plug) {
-    $items[] = array('plugin' => $plug);
-  }
-}
-
-$sk->iconmenu($d37,$items, $menutype);
-unset($items);
-
-?>
-      </div>
-      <div style="float:left;width:350px">
-<?php
-// menu de email
-
-$items[] = array('img' => '/IMG_IC_EMAIL', 'link' => '/CMD_EMAIL_POP?domain='.$domain, 'txt' => $d1);
-|*if USERCATCHALL="ON"|
-$items[] = array('img' => '/IMG_IC_EMAIL_CATCH', 'link' => '/CMD_EMAIL_CATCH_ALL?domain='.$domain, 'txt' => $d2);
+<div style="float:left;width:350px">
+    <fieldset class="buttons-box"><legend>|LANG_MENU_EMAIL|</legend>
+|*if USEREMAILMAX!="0"|
+      <a href="/CMD_EMAIL_POP?domain=|domain|"><img src="/IMG_IC_EMAIL"><br>|LANG_POP_EMAIL_ACCOUNTS|</a>
 |*endif|
 |*if USERFORWARDERMAX!="0"|
-$items[] = array('img' => '/IMG_IC_EMAIL_FOR', 'link' => '/CMD_EMAIL_FORWARDER?domain='.$domain, 'txt' => $d3);
+      <a href="/CMD_EMAIL_FORWARDER?domain=|domain|"><img src="/IMG_IC_EMAIL_FOR"><br>|LANG_FORWARDERS|</a>
 |*endif|
 |*if USERRESPONDERMAX!="0"|
-$items[] = array('img' => '/IMG_IC_EMAIL_AUTO', 'link' => '/CMD_EMAIL_AUTORESPONDER?domain='.$domain, 'txt' => $d4);
+      <a href="/CMD_EMAIL_AUTORESPONDER?domain=|domain|"><img src="/IMG_IC_EMAIL_AUTO"><br>|LANG_AUTORESPONDERS|</a>
 |*endif|
-$items[] = array('img' => '/IMG_IC_EMAIL_VAC', 'link' => '/CMD_EMAIL_VACATION?domain='.$domain, 'txt' => $d5);
+|*if USEREMAILMAX!="0"|
+      <a href="/CMD_EMAIL_VACATION?domain=|domain|"><img src="/IMG_IC_EMAIL_VAC"><br>|LANG_VAC_MESSAGES|</a>
+|*endif|
 |*if USERSPAM="ON"|
-$items[] = array('img' => '/IMG_IC_SPAM', 'link' => '/CMD_SPAMASSASSIN?domain='.$domain, 'txt' => $d6);
+      <a href="/CMD_SPAMASSASSIN?domain=|domain|"><img src="/IMG_IC_SPAM"><br>|LANG_SPAMASSASSIN|</a>
 |*endif|
 |*if USERMLISTMAX!="0"|
-$items[] = array('img' => '/IMG_IC_MAILING', 'link' => '/CMD_EMAIL_LIST?domain='.$domain, 'txt' => $d7);
+      <a href="/CMD_EMAIL_LIST?domain=|domain|"><img src="/IMG_IC_MAILING"><br>|LANG_MAILING_LISTS|</a>
+      <a href="/CMD_EMAIL_FILTER?domain=|domain|"><img src="/IMG_IC_EMAIL_FIL"><br>|LANG_SPAM_FILTERS|</a>
 |*endif|
-$items[] = array('img' => '/IMG_IC_EMAIL_FIL', 'link' => '/CMD_EMAIL_FILTER?domain='.$domain, 'txt' => $d8);
-
-if ("|HIDE_WEBMAIL_LINKS|" != "yes" && "|HAVE_ATMAIL|"=="yes"){
-  $items[] = array('img' => '/IMG_IC_ATMAIL', 'link' => '|HTTP|://|HOSTNAME|/atmail', 'txt' => $dk);
-}
-
-if ("|HIDE_WEBMAIL_LINKS|" != "yes" && "|HAVE_WEBMAIL|"=="yes"){
-  $items[] = array('img' => '/IMG_IC_WEBMAIL', 'link' => '|HTTP|://|HOSTNAME|/webmail', 'txt' => $d0);
-}
-
-if ("|HIDE_WEBMAIL_LINKS|" != "yes" && "|HAVE_SQUIRRELMAIL|"=="yes"){
-  $items[] = array('img' => '/IMG_IC_WEBMAIL', 'link' => '|HTTP|://|HOSTNAME|/squirrelmail', 'txt' => $d9);
-}
-
-if ("|HIDE_WEBMAIL_LINKS|" != "yes" && "|HAVE_ROUNDCUBE|"=="yes"){
-  $items[] = array('img' => '/IMG_IC_ROUNDCUBE', 'link' => '|HTTP|://|HOSTNAME|/roundcube', 'txt' => $ds);
-}
-
-if ("|HIDE_WEBMAIL_LINKS|" != "yes" && @file_exists("/var/www/html/horde")){
-  $items[] = array('img' => '/IMG_IC_HORDE', 'link' => '|HTTP|://|HOSTNAME|/horde', 'txt' => $dh);
-}
-
-if ("|HIDE_WEBMAIL_LINKS|" != "yes" && @file_exists("/var/www/html/afterlogic")){
-  $items[] = array('img' => '/IMG_IC_AFTERLOGIC', 'link' => '|HTTP|://|HOSTNAME|/afterlogic', 'txt' => 'Afterlogic Webmail');
-}
-
-if("|WEBMAIL_LINK|" != "horde" 
-&& "|WEBMAIL_LINK|" != "webmail" 
-&& "|WEBMAIL_LINK|" != "atmail" 
-&& "|WEBMAIL_LINK|" != "squirrelmail" 
-&& "|WEBMAIL_LINK|" != "afterlogic" 
-&& "|WEBMAIL_LINK|" != "roundcube" 
-&& @file_exists("/var/www/html/|WEBMAIL_LINK|")) {
-  $items[] = array('img' => '/IMG_IC_WEBMAIL', 'link' => '|HTTP|://|HOSTNAME|/|WEBMAIL_LINK|', 'txt' => $dw);
-}
-
-if(is_array($plugin['email']) && count($plugin['email'])>0) {
-  foreach($plugin['email'] as $plug) {
-    $items[] = array('plugin' => $plug);
-  }
-}
-
-
-|*if USEREMAILMAX!="0"|
-$sk->iconmenu($dm,$items);
+|*if HAVE_SQUIRRELMAIL="yes"|
+      <a href="|WEBAPPS_SSL|://|HOSTNAME|/squirrelmail" target="_blank"><img src="/IMG_IC_WEBMAIL"><br>|LANG_WEBMAIL_SM|</a>
 |*endif|
-unset($items);
-
-
+|*if HAVE_ROUNDCUBE="yes"|
+      <a href="|WEBAPPS_SSL|://|HOSTNAME|/roundcube" target="_blank"><img src="/IMG_IC_ROUNDCUBE"><br>|LANG_WEBMAIL_ROUNDCUBE|</a>
+|*endif|
+|*if HAVE_ATMAIL="yes"|
+      <a href="|WEBAPPS_SSL|://|HOSTNAME|/atmail" target="_blank"><img src="/IMG_IC_ATMAIL"><br>|LANG_WEBMAIL_ATMAIL|</a><br>
+|*endif|
+|*if HAVE_WEBMAIL="yes"|
+<a href="|WEBAPPS_SSL|://|HOSTNAME|/webmail" target="_blank"><img src="/IMG_IC_WEBMAIL"><br>|LANG_WEBMAIL_UEBI|</a><br>
+|*endif|
+    </fieldset>
+    <fieldset class="buttons-box"><legend>|LANG_MENU_ADVANCED|</legend>
 |*if USERSSL="ON"|
-$items[] = array('img' => '/IMG_IC_SSL', 'link' => '/CMD_SSL?domain='.$domain, 'txt' => $d21);
+      <a href="/CMD_SSL?domain=|domain|"><img src="/IMG_IC_SSL"><br>|LANG_SSL_CERTS|</a>
 |*endif|
 |*if USERCRON="ON"|
-$items[] = array('img' => '/IMG_IC_CRON', 'link' => '/CMD_CRON_JOBS?domain='.$domain, 'txt' => $d22);
+      <a href="/CMD_CRON_JOBS?domain=|domain|"><img src="/IMG_IC_CRON"><br>|LANG_CRONJOBS|</a>
 |*endif|
-$items[] = array('img' => '/IMG_IC_MIME', 'link' => '/CMD_MIME_TYPES?domain='.$domain, 'txt' => $d23);
-$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_HANDLERS?domain='.$domain, 'txt' => $d24);
-$items[] = array('img' => '/IMG_IC_ERRORPAGES', 'link' => '/HTM_ERROR_PAGES?domain='.$domain, 'txt' => $d20);
-$items[] = array('img' => '/IMG_IC_PERLMODS', 'link' => '/CMD_PERL_MODULES?domain='.$domain, 'txt' => $d06);
+      <a href="/CMD_MIME_TYPES?domain=|domain|"><img src="/IMG_IC_MIME"><br>|LANG_MIMETYPES|</a>
+      <a href="/CMD_HANDLERS?domain=|domain|"><img src="/IMG_IC_APACHEHAND"><br>|LANG_APACHE_HANDLERS|</a>
+      <a href="/HTM_ERROR_PAGES?domain=|domain|"><img src="/IMG_IC_ERRORPAGES"><br>|LANG_CUSTOM_ERROR_PAGES|</a>
+      <a href="/CMD_PERL_MODULES?domain=|domain|"><img src="/IMG_IC_PERLMODS"><br>|LANG_INSTALLED_PERL_MODULES|</a>
 |*if USERDNSCONTROL="ON"|
-$items[] = array('img' => '/IMG_IC_DNS', 'link' => '/CMD_DNS_MX?domain='.$domain, 'txt' => $d25);
+      <a href="/CMD_DNS_MX?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_MX_RECORDS|</a>
 |*endif|
-|*if FRONTPAGE_ON="yes"|
-$items[] = array('img' => '/IMG_IC_FRONTP', 'link' => '/CMD_FRONTPAGE?domain='.$domain, 'txt' => $d11);
+|*if USERLOGINKEYS="ON"|
+      <a href="/CMD_LOGIN_KEYS"><img src="/IMG_IC_LOGINKEYS"><br>|LANG_LOGIN_KEYS|</a>
 |*endif|
-$items[] = array('img' => '/IMG_IC_LOGINKEYS', 'link' => '/CMD_LOGIN_KEYS', 'txt' => "|LANG_LOGIN_KEYS|");
 
-if(is_array($plugin['extra']) && count($plugin['extra'])>0) {
-  foreach($plugin['extra'] as $plug) {
-    $items[] = array('plugin' => $plug);
-  }
-}
+|PLUGIN_0_IMG|
+|PLUGIN_1_IMG|
+|PLUGIN_2_IMG|
+|PLUGIN_3_IMG|
+|PLUGIN_4_IMG|
+|PLUGIN_5_IMG|
+|PLUGIN_6_IMG|
+|PLUGIN_7_IMG|
+|PLUGIN_8_IMG|
+|PLUGIN_9_IMG|
 
-$sk->iconmenu($d27,$items, $menutype);
-unset($items);
+    </fieldset>
+</div>
 
-?>
-      </div>
-DONE|
 |HTM_USER_BOTTOM|
-
