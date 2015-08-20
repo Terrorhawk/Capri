@@ -13,21 +13,11 @@
   |HTM_BOX_USER_STATS|
 </div>
 <div id="rightPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_CREATE_FTP| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_CREATE_FTP| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <form name=info action="CMD_FTP" method="post">
 <input type=hidden name=action value=create>
 <input type=hidden name=domain value="|DOMAIN|">

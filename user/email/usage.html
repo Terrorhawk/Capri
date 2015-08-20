@@ -16,25 +16,11 @@
     </div>
     <div id="rightPanel" class="table100">
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php  
 
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-$pagetit = <<<EOF
-Email Usage
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>Email Usage</span>
 |TREE|
-EOF;
+</div>
 
-
-
-echo pagetit($pagetit, $tree);
-
-?>
 |*if BLOCK_CRACKING_PATHS="yes"|
 |BLOCK_CRACKING_PATHS_TABLE|
 
@@ -56,34 +42,12 @@ Show usage from:
 </form>
 <br><br>
 
-<?php
-$table = <<<EOF
 |EMAIL_STATS|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-$table = str_replace('Outlook Settings', 'Outlook', $table);
-echo str_replace('Password/Quota', 'Pass/Quota', $table);
-
-?>
 
 <b>Note:</b> Each delivery attempt is counted, including retries.
 <br><br>
 
-<?php
-$table = <<<EOF
 |EMAIL_USAGE|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-$table = str_replace('Outlook Settings', 'Outlook', $table);
-echo str_replace('Password/Quota', 'Pass/Quota', $table);
-
-?>
 
 <br>
 <b>Sender:</b> The 'From' value set in the email header. This value should not be considered accurate as a sender can specify any value they wish.<br>
@@ -93,5 +57,4 @@ echo str_replace('Password/Quota', 'Pass/Quota', $table);
 
     </div>
     
-DONE|
 |HTM_FOOTER|

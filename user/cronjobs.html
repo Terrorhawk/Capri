@@ -7,6 +7,7 @@
 <div class="pageTit"><span>|LANG_CRON_JOBS|</span>
 |TREE|
 </div>
+
 <script language="Javascript">
 <!--
 function preventEmail(){with (document.info){command.value=command.value+' >/dev/null 2>&1';prevent.disabled = true;}}
@@ -73,17 +74,9 @@ function set_cron_display()
   </table>
   Valid values are an E-Mail address, your DA username: |USERNAME|, or a blank field to prevent any email. 
 </form>
-<?php
-$table = <<<EOF
-|CRONJOBS|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-?>
 <div style="margin-top:15px;" class="table100">|CRONJOBS|</div>
 
 <div class="tip" style="margin-top:10px;">|LANG_VALID_CRON|<br />|LANG_EXACT_TIMES|<br />|LANG_DASH|<br />|LANG_INTERVALS|<br />|LANG_COMBINE|<br />|LANG_NO_SPACES|</div>
-DONE|
+
 |HTM_USER_BOTTOM|

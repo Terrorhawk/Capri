@@ -13,27 +13,13 @@
   |HTM_BOX_USER_STATS|
 </div>
 <div id="rightPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MESS_SYS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MESS_SYS|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-$table = <<<EOF
 |TICKETS|
-EOF;
-preg_match_all("/<tr ><td align=right colspan=[1-9]+>Page: (.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace('class=toptext', 'class=pagerText', $matches[1][0]);
 
-?>
-DONE|
   <div class="table100">|TICKETS|</div>
   <div class="table100" style="margin: 15px 0;">|MESSAGES|</div>
   

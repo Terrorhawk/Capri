@@ -14,21 +14,11 @@
 |HTM_BOX_USER_DOMAINS|
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_SET_VAC| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SET_VAC| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
       <div class="table100">
         <form name=info action="CMD_EMAIL_VACATION" method="post">
         <input type=hidden name=action value=create>

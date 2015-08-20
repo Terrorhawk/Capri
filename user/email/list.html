@@ -39,16 +39,6 @@
         </div>
       </div>
       <div id="forlist">
-<?php
-
-$table = <<<EOF
-|LISTS|
-EOF;
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-?>
-DONE|
       |LISTS|
       </div>
     </div>

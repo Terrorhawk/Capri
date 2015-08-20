@@ -66,16 +66,6 @@
 </table>
 </div>
 <div style="margin:15px 0;" class="table75">
-<?php
-
-$table = <<<EOF
-|FILTERS|
-EOF;
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-?>
-DONE|
 |FILTERS|
 </div>
 <div class="tip">|LANG_WORD_WARNING|</div>

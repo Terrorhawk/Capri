@@ -39,29 +39,11 @@
 </table>
 </form>
 
-<?php  
-
-$table = <<<EOF
 |SUBSCRIBERS|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-?>
 <div style="margin: 15px 0;">|SUBSCRIBERS|</div>
-<?php
 
-$table = <<<EOF
-|SUBSCRIBERS_DIGEST|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-?>
 |SUBSCRIBERS_DIGEST|
 
-DONE|
     </div>
 |HTM_FOOTER|

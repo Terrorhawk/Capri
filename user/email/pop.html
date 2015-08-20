@@ -15,37 +15,11 @@
     </div>
     <div id="rightPanel" class="table100">
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php  
 
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
-
-$pagetit = <<<EOF
-|LANG_POP_ACCOUNTS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_POP_ACCOUNTS|</span>
 |TREE|
-EOF;
+</div>
 
-echo pagetit($pagetit, $tree);
-
-// email quotas
-$post = array('action'=>'list', 'type'=>'quota', 'domain'=>'|DOMAIN|');
-$result=$sk->api_get("/CMD_API_POP", $post);
-parse_str($result, $cuentas);
-$_Cuentas = array();
-if(is_array($cuentas) && count($cuentas)>0) {
-  foreach($cuentas as $cuenta => $val) {
-    parse_str(urldecode($val), $valores);
-    $_Cuentas[$cuenta]=$valores;
-  }
-}
-
-
-?>
 |?POP_QUOTA=0|
 |*if DEFAULT_POP_QUOTA|
 |?POP_QUOTA=`DEFAULT_POP_QUOTA`|
@@ -77,18 +51,9 @@ if(is_array($cuentas) && count($cuentas)>0) {
         </div>
       </div>
       <div id="poplist">
-<?php
-$table = <<<EOF
+
 |POPACCOUNTS|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-$table = str_replace('Outlook Settings', 'Outlook', $table);
-echo str_replace('Password/Quota', 'Pass/Quota', $table);
-
-?>
       </div>
     </div>
     
@@ -121,5 +86,5 @@ if(is_array($_Cuentas) && count($_Cuentas)>0) {
 });
 //-->
 </script>
-DONE|
+
 |HTM_FOOTER|

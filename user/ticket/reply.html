@@ -11,22 +11,11 @@
 <input type=hidden name=user value="|user|">
 <input type=hidden name=subject value="|subject|">
 <input type=hidden name=priority value="|priority|">
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_ADD_REPLY|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_ADD_REPLY|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-parse_str($_SERVER["QUERY_STRING"]);
-
-?>
    
 <table class=config cellspacing=0>
     <thead>
@@ -43,5 +32,5 @@ parse_str($_SERVER["QUERY_STRING"]);
     </tfoot>
 </table>
 </form>
-DONE|
+
 |HTM_USER_BOTTOM|

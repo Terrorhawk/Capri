@@ -13,20 +13,11 @@
   |HTM_BOX_USER_STATS|
 </div>
 <div id="rightPanel">
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_FTP_SETUP| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_FTP_SETUP| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
 <div id="createb" style="margin-bottom:20px;display:none;">
   <form name=info action="CMD_FTP" method="post">
     <input type=hidden name=action value=create>
@@ -50,16 +41,9 @@ $tpl->pagetit($pagetit, $tree);
     </table>
   </form>
 </div>
-<?php
 
-$table = <<<EOF
 |FTPACCOUNTS|
-EOF;
-preg_match_all("/<tr ><td align=right colspan=[1-9]+>Page: (.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace('class=toptext', 'class=pagerText', $matches[1][0]);
 
-?>
-DONE|
 <div class="table100">|FTPACCOUNTS|</div>
 
 <div style="margin-top: 10px;">|LANG_ANON_FTP_SETTINGS|. Login: |ANONLOGIN|</div>

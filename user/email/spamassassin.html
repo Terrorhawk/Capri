@@ -17,21 +17,11 @@
 |HTM_BOX_USER_DOMAINS|
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_SPAM_SETUP|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SPAM_SETUP|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-
-?>
 |*if SA_ENABLED="yes"|
 <div style="margin-bottom: 20px;padding:10px;border:1px solid #127500;color:#127500;background:#f0ffcc;">|LANG_SA_ENABLED|</div>
 |*else|
@@ -96,7 +86,7 @@ $tpl->pagetit($pagetit, $tree);
 </tfoot>
 </table>
 </form>
-DONE|
+
 <form action="/CMD_SPAMASSASSIN" method="post" id="desable_sa">
 <input type=hidden name=action value="disable">
 <input type=hidden name=domain value="|domain|">
