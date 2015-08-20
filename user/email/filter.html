@@ -4,20 +4,11 @@
 |?HELP_SECTION=`USER_HELPER`/email.html#filters|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php 
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_EMAIL_FILTERS| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_EMAIL_FILTERS| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
 <div>
 <table class="config" cellspacing="0">
 <thead>

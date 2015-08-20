@@ -3,21 +3,10 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#404|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_EDIT_ERROR_PAGES| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_EDIT_ERROR_PAGES| - |DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <table class=list cellpadding=3 cellspacing=1>
 <tr><td class=listtitle colspan=3>|LANG_EDIT_ERROR_PAGES|</td></tr>
 <tr><td class=list>|LANG_401|</td><td class=list><a href="/CMD_FILE_MANAGER/domains/|DOMAIN|/public_html/401.shtml?action=edit">401.shtml</a></td><td class=list><a href="/CMD_FILE_MANAGER/domains/|DOMAIN|/public_html/401.shtml">|LANG_VIEW|</a></td></tr>

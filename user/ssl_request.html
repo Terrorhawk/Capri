@@ -4,21 +4,11 @@
 |?HELP_SECTION=`USER_HELPER`/ssl.html#install|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_CREATE_CSR| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_CREATE_CSR| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <table class=config cellspacing=0>
   <thead>
     <tr><td>|LANG_SSL_CSR|</td></tr>

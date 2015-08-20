@@ -4,21 +4,11 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#mime|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_SYSTEM_MIME_TYPES|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SYSTEM_MIME_TYPES|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <style type="text/css">
 <!--
 td.list, td.list2 {  font-size: 10px ! important;}

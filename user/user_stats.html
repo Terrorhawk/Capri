@@ -13,30 +13,13 @@
 |HTM_BOX_USER_DOMAINS|
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
 
-$pagetit = <<<EOF
-|LANG_STATS_FOR| |USERNAME|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_STATS_FOR| |USERNAME|</span>
 |TREE|
-EOF;
-$results = <<<EOF
+</div>
+
 |RESULT|
-EOF;
-$results = urldecode($results);
 
-echo pagetit($pagetit, $tree);
-
-if(strlen($results)>3) {
-  echo '<div class="succ">'.$results.'</div>';
-}
-?>
-DONE|
     |DOMAINS|
     <div class="tip" style="margin: 10px 0;">|LANG_WEBALIZER|</div>
     <div class="tip">|LANG_NOTE|</div>
@@ -63,6 +46,7 @@ if($statsArr['bandwidth']) {
   $bwmax = intval($USERBANDWIDTHMAX);
   $free = $hdmax - $hdQ;
    ?>
+   
     <div class="graph" style="margin: 10px 0;">
       <div id="Pie2D1Div" style="float:left;width:170px;margin: 5px;"></div>
       <script type="text/javascript" >
@@ -116,43 +100,13 @@ if($statsArr['bandwidth']) {
 DONE|
     |STATS|
     <br /><br />
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
 
-$dt = <<<EOF
-|LANG_APACHE_LOG|
-EOF;
-$d1 = <<<EOF
-|LANG_FULL_USAGE|
-EOF;
-$d2 = <<<EOF
-|LANG_LAST_USAGE_LOGS|
-EOF;
-$d3 = <<<EOF
-|LANG_FULL_ERROR|
-EOF;
-$d4 = <<<EOF
-|LANG_LAST_ERROR_LOGS|
-EOF;
-$d5 = <<<EOF
-|LANG_APACHE_LOG|
-EOF;
-$d6 = <<<EOF
-|LANG_APACHE_LOG|
-EOF;
-
-$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=log', 'txt' => $d1);
-$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=log&lines=100', 'txt' => $d2);
-$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=error', 'txt' => $d3);
-$items[] = array('img' => '/IMG_IC_APACHEHAND', 'link' => '/CMD_SHOW_LOG?domain=|domain|&type=error&lines=100', 'txt' => $d4);
-
-$sk->iconmenu($dt,$items);
-
-
-?>
-DONE|
+    <fieldset class="buttons-box"><legend>Логи Apache</legend>
+        <a href="/CMD_SHOW_LOG?domain=|domain|&type=log"><img src="/IMG_IC_APACHEHAND"><br>|LANG_FULL_USAGE|</a>
+        <a href="/CMD_SHOW_LOG?domain=|domain|&type=log&lines=100"><img src="/IMG_IC_APACHEHAND"><br>|LANG_LAST_USAGE_LOGS|</a>
+        <a href="/CMD_SHOW_LOG?domain=|domain|&type=error"><img src="/IMG_IC_APACHEHAND"><br>|LANG_FULL_ERROR|</a>
+        <a href="/CMD_SHOW_LOG?domain=|domain|&type=error&lines=100"><img src="/IMG_IC_APACHEHAND"><br>|LANG_LAST_ERROR_LOGS|</a>
+    </fieldset>
+    
     </div>
 |HTM_FOOTER|

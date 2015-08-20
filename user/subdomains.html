@@ -3,21 +3,10 @@
 |?HELP_SECTION=`USER_HELPER`/subdomains.html|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_SUBDOMAINS| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SUBDOMAINS| - |DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-
+</div>
 
 <form name=info action="CMD_SUBDOMAIN" method="post">
 <input type=hidden name=action value="create">

@@ -3,21 +3,11 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#redirect|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_SITE_REDIRECTS| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SITE_REDIRECTS| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <form name=info action='/CMD_REDIRECT' method='POST'>
 <input type=hidden name=domain value="|DOMAIN|">
 <input type=hidden name=action value="add">

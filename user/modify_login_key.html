@@ -23,22 +23,10 @@ function create_random_key(){
         </div>
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php
+<div class="pageTit"><span>|LANG_LOGIN_KEYS|</span>
+|TREE|
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-
-$pagetit = <<<EOF
-|LANG_LOGIN_KEYS|
-EOF;
-$tree = <<<EOF
-|LANG_MODIFY_LOGIN_KEY|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <div class="table100">
   <table class='list' cellpadding=3 cellspacing=1>
   	<form name=tableform action="CMD_LOGIN_KEYS" method="post">

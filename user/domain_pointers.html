@@ -3,21 +3,10 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#pointers|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_DOMAIN_POINTERS| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_DOMAIN_POINTERS| - |DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <form name=info action='/CMD_DOMAIN_POINTER' method='POST'>
 <input type=hidden name=domain value="|DOMAIN|">
 <input type=hidden name=action value="add">

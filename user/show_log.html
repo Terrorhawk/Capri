@@ -2,20 +2,10 @@
 |?HELP_SECTION=`USER_HELPER`/stats.html#logs|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_APACHE_LOGS| (<span style="color: #003dd7;">|domain|</span>)
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_APACHE_LOGS| (<span style="color: #003dd7;">|domain|</span>)</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <form><textarea wrap=off style="font-family: courier new; width: 620px;" rows=24>|LOG|</textarea></form>
 |HTM_USER_BOTTOM|

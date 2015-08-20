@@ -3,21 +3,10 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#mime|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MIME_TYPES| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MIME_TYPES| - |DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <div class="table50">
 <form action="/CMD_MIME_TYPES" method="post">
 <input type=hidden name=domain value="|DOMAIN|">

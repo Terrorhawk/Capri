@@ -14,20 +14,11 @@
 |HTM_BOX_USER_DOMAINS|
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_LISTS| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_LISTS| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
       <div class="table100">
         <div id="create" style="display: none;margin-bottom:15px;">
           <form name=info action="CMD_EMAIL_LIST" method="post">

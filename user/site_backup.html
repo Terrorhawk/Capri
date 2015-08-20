@@ -3,27 +3,13 @@
 |?HELP_SECTION=`USER_HELPER`/backup.html|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_BACKUP_ALL_DOMAINS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_BACKUP_ALL_DOMAINS|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-$res = <<<EOF
 |RESULT|
-EOF;
 
-if(strlen($res>4)) { ?>
-<div class="succ">|RESULT|</div>
-<?php  } ?>
-DONE|
 <div class="table75">
 <form action="/CMD_SITE_BACKUP" method="post" name="tableform1">
 <input type=hidden name="form_version" value="2">

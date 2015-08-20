@@ -3,21 +3,11 @@
 |?HELP_SECTION=`USER_HELPER`/scripts.html#perl|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_INSTALLED_PERL_MODS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_INSTALLED_PERL_MODS|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <style type="text/css">
 <!--
 td.list, td.list2 {  font-size: 10px ! important;}

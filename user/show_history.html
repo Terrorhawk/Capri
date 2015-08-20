@@ -4,20 +4,10 @@
 |?HELP_SECTION=`USER_HELPER`/stats.html#logs|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_USER_HISTORY|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_USER_HISTORY|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 |HISTORY|
 |HTM_USER_BOTTOM|

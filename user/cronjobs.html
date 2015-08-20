@@ -3,20 +3,10 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#cron|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_CRON_JOBS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_CRON_JOBS|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
+</div>
 <script language="Javascript">
 <!--
 function preventEmail(){with (document.info){command.value=command.value+' >/dev/null 2>&1';prevent.disabled = true;}}

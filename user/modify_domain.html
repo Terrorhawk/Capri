@@ -3,21 +3,11 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#domains|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_DOMAIN_SETUP|: |domain|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_DOMAIN_SETUP|: |domain|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <div class="table75">
 <form name=info action="/CMD_DOMAIN" method="post" style="display:block;margin-bottom:15px;">
 <input type=hidden name=action value="modify">

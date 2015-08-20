@@ -4,21 +4,10 @@
 |?HELP_SECTION=`USER_HELPER`/email.html#mx|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MAIL_SERVER_SETTINGS| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MAIL_SERVER_SETTINGS| - |DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <script language="Javascript">
 <!--
 //**NOTE that this will check ALL checkboxes in the form.

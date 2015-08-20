@@ -3,21 +3,9 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#handlers|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
-
-$pagetit = <<<EOF
-|LANG_APCHE_HANDLERS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_APCHE_HANDLERS|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <table class=list style="width: 50%" cellpadding=3 cellspacing=1>
 <tr><td class=listtitle colspan=4>|LANG_ADD_HANDLER|</td></tr>
 <tr>

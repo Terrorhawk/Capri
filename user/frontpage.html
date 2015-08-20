@@ -3,21 +3,11 @@
 |?HELP_SECTION=`USER_HELPER`/frontpage.html|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_FP_EXT| - |DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_FP_EXT| - |DOMAIN|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <table class=list cellpadding=3 cellspacing=1>
   <tr><td class=listtitle colspan=2>|LANG_FP_EXT|</td></tr>
 

@@ -15,21 +15,11 @@
 |HTM_BOX_USER_DOMAINS|
     </div>
     <div id="rightPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MOD_LIST| - |name|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MOD_LIST| - |name|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <form name=info action="CMD_EMAIL_LIST" method="post">
 <input type=hidden name=action value=save>
 <input type=hidden name=domain value="|DOMAIN|">

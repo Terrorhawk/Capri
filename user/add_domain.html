@@ -4,21 +4,9 @@
 |?HELP_SECTION=`USER_HELPER`/misc.html#domains|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
-
-$pagetit = <<<EOF
-|LANG_CREATE_DOMAIN|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_CREATE_DOMAIN|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 <script language="Javascript">
 <!--
 var shortDomain='|LANG_SHORT_DOMAIN|';

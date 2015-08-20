@@ -6,21 +6,14 @@
 <div id="leftPanel">
       <div class="panelBox">
         <div class="title"><span>|LANG_OPTIONS|</span></div>
-|$|SK_PHP|
-<?php  
-$ndomains = "|NDOMAINS|";
-$ndomainsmax = "|NDOMAINSMAX|";
 
-if($ndomains < $ndomainsmax || !is_numeric($ndomainsmax)) {
+|*if NDOMAINS<NDOMAINSMAX|
 
-?>
         <a href="/HTM_ADD_DOMAIN"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
-<?php  } 
 
-elseif($ndomains < $ndomainsmax) {?>
+|*else|
         <a href="javascript:;" onclick="alert('LANG_NO_DOMAINS_AVAILABLE')"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
-<?php   } ?>
-DONE|
+|*endif|
           
         <a href="/CMD_CHANGE_DOMAIN"><img src="/IMG_IC_CHANGEDOMAIN"><br />|LANG_CHANGE_DOMAIN| <?php=echo "test";?> </a>
         <div class="cf cleft"></div>
@@ -28,33 +21,11 @@ DONE|
   |HTM_BOX_USER_STATS|
 </div>
 <div id="rightPanel">
-|$|SK_PHP|
-<?php
-
-include |SK_ROOT| . "inc/functions.php";
-
-$pagetit = <<<EOF
-|LANG_ADDITIONAL_DOMAINS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_ADDITIONAL_DOMAINS|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-
-?>
+</div>
 <div class="table75">
-<?php
-$table = <<<EOF
 |DOMAINS|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
-DONE|
 </div>
 <div style="margin-top:15px;padding: 2px 6px;border:1px solid #ccc;background-color:#f6f6f6;">|LANG_DOMAINS_CURRENT_USAGE|: <b>|NDOMAINS|/|NDOMAINSMAX|</b></div>
 </div>
