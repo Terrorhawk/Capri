@@ -46,7 +46,8 @@ elements[i].checked = check;
 |*if LOGIN_AS_DNSCONTROL="ON"|
 <span class="warning" style="color:red;">DNS Control is disabled for this User. You can edit the zone because your master account has DNS Control.</span>
 |*endif|
-<table class=list cellspacing=0 width="70%">
+
+<table class=list cellspacing=0 width="100%">
 <form name=tableform action='/CMD_DNS_CONTROL' method='POST'>
 <tr>
 <td class=listtitle>|LANG_NAME|</td >
@@ -58,7 +59,7 @@ elements[i].checked = check;
 <tr><td class=listtitle align=right colspan=4><input type=submit value='|LANG_DELETE_SELECTED|' name=delete |DNS_DISABLED|></td></tr>
 <input type=hidden name=action value=select>
 </form>
-
+</table >
 
 |?FULL_MX_NAME=|
 |?FULL_MX_VALUE=|
@@ -69,6 +70,7 @@ elements[i].checked = check;
 
 |*if USERDNSCONTROL="ON"|
 
+<table class=list cellspacing=0 width="100%">
 <tr><td class=list colspan=4>|LANG_ADD_DOMAIN_RECS|</td></tr>
 
 <form action='/CMD_DNS_CONTROL' method='POST'>

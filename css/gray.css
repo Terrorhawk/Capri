@@ -497,6 +497,8 @@ table.list td.list2, table.list td.list, table.list td.listwrap {
   font-size: 11px;
   padding: 4px 5px;
   background-color: #fff;
+  word-break: break-all;
+  min-width: 100px
 }
 table.list td.bold {
   font-weight: bold;
