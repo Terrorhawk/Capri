@@ -6,12 +6,13 @@
           <li><span>|LANG_DISK_SPACE|:</span>|ADMINQUOTAGIG|GB</li>
 |*else|
           <li><span>|LANG_DISK_SPACE|:</span>|ADMINQUOTA|MB</li>
-|endif|
+|*endif|
+
 |*if ADMINBANDWIDTH>"1024"|
           <li><span>|LANG_BANDWIDTH|:</span>|ADMINBANDWIDTHGIG|GB</li>
 |*else|    
           <li><span>|LANG_BANDWIDTH|:</span>|ADMINBANDWIDTH|MB</li>
-|endif|
+|*endif|
           <li><span>|LANG_DOMAINS|:</span>|ADMINDOMAINS|</li>
           <li><span>|LANG_USERS|:</span>|ADMINUSERS|</li>
           <li><span>|LANG_RESELLERS|:</span>|ADMINRESELLERS|</li>
