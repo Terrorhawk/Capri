@@ -1,11 +1,17 @@
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php  include |SK_ROOT| . "inc/functions.php";  ?>
       <div class="panelBox">
         <div class="title"><span>|LANG_ACCOUNT_SUMMARY|</span></div>
         <ul>
+|*if ADMINQUOTA>"1024"|
+          <li><span>|LANG_DISK_SPACE|:</span>|ADMINQUOTAGIG|GB</li>
+|*else|
           <li><span>|LANG_DISK_SPACE|:</span>|ADMINQUOTA|MB</li>
+|endif|
+|*if ADMINBANDWIDTH>"1024"|
           <li><span>|LANG_BANDWIDTH|:</span>|ADMINBANDWIDTHGIG|GB</li>
+|*else|    
+          <li><span>|LANG_BANDWIDTH|:</span>|ADMINBANDWIDTH|MB</li>
+|endif|
           <li><span>|LANG_DOMAINS|:</span>|ADMINDOMAINS|</li>
           <li><span>|LANG_USERS|:</span>|ADMINUSERS|</li>
           <li><span>|LANG_RESELLERS|:</span>|ADMINRESELLERS|</li>
@@ -16,4 +22,4 @@
           <li><span>|LANG_POINTERS|:</span>|ADMINPOINTERS|</li>
         </ul>
       </div>
-DONE|
+

@@ -1,108 +1,95 @@
 |HTM_CONFIG|
 |$|SK_PHP|
-<?php  include |SK_ROOT| . "inc/functions.php";  
 
-$RESELLERQUOTA =  "|RESELLERQUOTA|";
-settype($RESELLERQUOTA, "float");
+|?HD=`RESELLERQUOTA`|
+|?HDMAX=`RESELLERQUOTAMAX`|
+|?HDUNIT=MB|
+|?BW=`RESELLERBANDWIDTH`|
+|?BWMAX=`RESELLERBANDWIDTHMAX`|
+|?BWUNIT=MB|
 
-$RESELLERQUOTAMAX =  "|RESELLERQUOTAMAX|";
-settype($RESELLERQUOTAMAX, "float");
 
-$RESELLERBANDWIDTHGIG =  "|RESELLERBANDWIDTHGIG|";
-settype($RESELLERBANDWIDTHGIG, "float");
+|*if RESELLERBANDWIDTH>"1024"|
+|?BW=`RESELLERBANDWIDTHGIG`|
+|?BWMAX=`RESELLERBANDWIDTHMAXGIG`|
+|?BWUNIT=GB|
+|*endif|
 
-$RESELLERBANDWIDTHMAXGIGUOTA =  "|RESELLERBANDWIDTHMAXGIG|";
-settype($RESELLERBANDWIDTHMAXGIG, "float");
 
-$hd = number_format($RESELLERQUOTA,1,'.','');
-$hdmax = intval($RESELLERQUOTAMAX);
-
-$bwunit = 'GB';
-$bw = number_format($RESELLERBANDWIDTHGIG,1,'.','');
-$bwmax = number_format($RESELLERBANDWIDTHMAXGIG,1,'.','');
-
-if($hdmax>1024) {
-  $hd = (float)number_format($hd/1024,1,'.','');
-  $hdmax = (float)number_format($hdmax/1024,1,'.','');
-  $hdunit = 'GB';
-}
-
-?>
       <div class="panelBox">
         <div class="title"><span>|LANG_ACCOUNT_SUMMARY|</span></div>
         <ul>
-<?php  if($hdmax>0) {
+|*if RESELLERQUOTAMAX!="unlimited"|
+<?php
 
-$hdper = round(($hd * 100) / $hdmax);
+$hdper = round((|HD| * 100) / |HDMAX|);
 if($hdper>100) $hdper=100;
 $Shdper = number_format($hdper,0);
 $hdbar = round( ($hdper * 130) / 100);
 if($hdbar>130) $hdbar=130;
 
 ?>
-        <li><span>|LANG_DISK_SPACE|:</span><?php  echo  $hd?> / <?php  echo  $hdmax?><?php  echo  $hdunit?> <br>
+        <li><span>|LANG_DISK_SPACE|:</span> |HD| / |HDMAX| |HDUNIT| <br>
           <div class="usagebar"><div class="per"><?php  echo  $hdper?>%</div><div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $hdbar?>" style="width: 1px"></div></div></div>
         </li>
-<?php  } else {?>
-        <li><span>|LANG_DISK_SPACE|:</span><?php  echo  number_format(|RESELLERQUOTA|,2,'.','')?><?php  echo  $hdunit?></li>
-<?php  } ?>
-<?php  if($bwmax>0) {
+|*else|
+        <li><span>|LANG_DISK_SPACE|:</span> |HD| |HDUNIT| </li>
+|*endif|
 
-$bwper = round(($bw * 100) / $bwmax);
+|*if RESELLERBANDWIDTHMAX!="unlimited"|
+<?php
+
+$bwper = round((|BW| * 100) / |BWMAX|);
 if($bwper>100) $bwper=100;
 $Sbwper = number_format($bwper,0);
 $bwbar = round( ($bwper * 130) / 100);
 if($bwbar>130) $bwper=130;
 
 ?>
-        <li><span>|LANG_BANDWIDTH|:</span><?php  echo  $bw?> / <?php  echo  $bwmax?><?php  echo  $bwunit?> <br>
+        <li><span>|LANG_BANDWIDTH|:</span> |BW| / |BWMAX| |BWUNIT| <br>
           <div class="usagebar"><div class="per"><?php  echo  $bwper?>%</div><div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $bwbar?>" style="width: 1px"></div></div></div>
         </li>
-<?php  } else {?>
-        <li><span>|LANG_BANDWIDTH|:</span><?php  echo  number_format(|RESELLERBANDWIDTHGIG|,2,'.','')?> GB</li>
-<?php  } ?>
-<?php  
+|*else|
+        <li><span>|LANG_BANDWIDTH|:</span> |BW| |BWUNIT| </li>
+|*endif|
 
-$domains = intval(|RESELLERDOMAINSMAX|);
-$pointers = intval(|RESELLERPOINTERSMAX|);
-$dbs = intval(|RESELLERDATABASEMAX|);
-$ftps = intval(|RESELLERFTPMAX|);
-$mails = intval(|RESELLEREMAILMAX|);
-$subdomains = intval(|RESELLERSUBDOMAINSMAX|);
+|*if RESELLERDOMAINSMAX="unlimited"|
+	<li><span>|LANG_DOMAINS|:</span>|RESELLERDOMAINS|</li>
+|*else|
+	<li><span>|LANG_DOMAINS|:</span>|RESELLERDOMAINS| / |RESELLERDOMAINSMAX|</li>
+|*endif|
 
-?>
-<?php  if($domains==0) { ?>
-				  <li><span>|LANG_DOMAINS|:</span>|RESELLERDOMAINS|</li>
-<?php  } else { ?>
-				  <li><span>|LANG_DOMAINS|:</span>|RESELLERDOMAINS| / |RESELLERDOMAINSMAX|</li>
-<?php  } ?>
+	<li><span>|LANG_USERS|:</span>|RESELLERUSERS|</li>
 
-          <li><span>|LANG_USERS|:</span>|RESELLERUSERS|</li>
-<?php  if($dbs==0) { ?>
-				  <li><span>|LANG_DATABASES|:</span>|RESELLERDATABASE|</li>
-<?php  } else { ?>
-				  <li><span>|LANG_DATABASES|:</span>|RESELLERDATABASE| / |RESELLERDATABASEMAX|</li>
-<?php  } ?>
-<?php  if($ftps==0) { ?>
-				  <li><span>|LANG_FTP_ACCOUNTS|:</span>|RESELLERFTP|</li>
-<?php  } else { ?>
-				  <li><span>|LANG_FTP_ACCOUNTS|:</span>|RESELLERFTP| / |RESELLERFTPMAX|</li>
-<?php  } ?>
-<?php  if($mails==0) { ?>
-				  <li><span>|LANG_EMAILS|:</span>|RESELLEREMAIL|</li>
-<?php  } else { ?>
-				  <li><span>|LANG_EMAILS|:</span>|RESELLEREMAIL| / |RESELLEREMAILMAX|</li>
-<?php  } ?>
-<?php  if($subdomains==0) { ?>
-				  <li><span>|LANG_SUBDOMAINS|:</span>|RESELLERSUBDOMAINS|</li>
-<?php  } else { ?>
-				  <li><span>|LANG_SUBDOMAINS|:</span>|RESELLERSUBDOMAINS| / |RESELLERSUBDOMAINSMAX|</li>
-<?php  } ?>
-<?php  if($pointers==0) { ?>
-				  <li><span>|LANG_POINTERS|:</span>|RESELLERPOINTERS|</li>
-<?php  } else { ?>
-				  <li><span>|LANG_POINTERS|:</span>|RESELLERPOINTERS| / |RESELLERPOINTERSMAX|</li>
-<?php  } ?>
+|*if RESELLERDATABASEMAX="unlimited"|
+	<li><span>|LANG_DATABASES|:</span>|RESELLERDATABASE|</li>
+|*else|
+	<li><span>|LANG_DATABASES|:</span>|RESELLERDATABASE| / |RESELLERDATABASEMAX|</li>
+|endif|
+
+|*if RESELLERFTPMAX="unlimited"|
+	<li><span>|LANG_FTP_ACCOUNTS|:</span>|RESELLERFTP|</li>
+|*else|
+	<li><span>|LANG_FTP_ACCOUNTS|:</span>|RESELLERFTP| / |RESELLERFTPMAX|</li>
+|*endif|
+
+|*if RESELLEREMAILMAX="unlimited"|
+	<li><span>|LANG_EMAILS|:</span>|RESELLEREMAIL|</li>
+|*else|
+	<li><span>|LANG_EMAILS|:</span>|RESELLEREMAIL| / |RESELLEREMAILMAX|</li>
+|*endif|
+
+|*if RESELLERSUBDOMAINSMAX="unlimited"|
+	<li><span>|LANG_SUBDOMAINS|:</span>|RESELLERSUBDOMAINS|</li>
+|*else|
+	<li><span>|LANG_SUBDOMAINS|:</span>|RESELLERSUBDOMAINS| / |RESELLERSUBDOMAINSMAX|</li>
+|*endif|
+
+|*if RESELLERPOINTERSMAX="unlimited"|
+	<li><span>|LANG_POINTERS|:</span>|RESELLERPOINTERS|</li>
+|*else|
+	<li><span>|LANG_POINTERS|:</span>|RESELLERPOINTERS| / |RESELLERPOINTERSMAX|</li>
+|*endif|
         </ul>
       </div>
 DONE|
