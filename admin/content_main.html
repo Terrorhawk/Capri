@@ -6,107 +6,69 @@
 |HTM_BOX_SERVER_STATS|
 |HTM_BOX_SERVER_STATUS|
     </div>
-|$|SK_PHP|
-<?php 
-include |SK_ROOT| . "inc/functions.php";
 
-?>
-    <div id="rightPanel">
-      <div style="float:left;width:350px;margin-right: 40px;">
-<?php  
-$items[] = array('img' => '/IMG_IC_LIST_ALL_USERS', 'link' => '/CMD_ALL_USER_SHOW', 'txt' => '|LANG_SHOW_ALL_USERS|');
-$items[] = array('img' => '/IMG_IC_LIST_USERS', 'link' => '/CMD_USER_SHOW', 'txt' => '|LANG_ADM_USERS|');
-$items[] = array('img' => '/IMG_IC_LIST_RESELLERS', 'link' => '/CMD_RESELLER_SHOW', 'txt' => '|LANG_LIST_RESELLERS|');
+	<div id="rightPanel">
+		<div style="float:left;width:350px;margin-right: 40px;">
+			<fieldset class="buttons-box"><legend>|LANG_USERS_ADMINISTRATION|</legend>
+				<a href="/CMD_ALL_USER_SHOW"><img src="/IMG_IC_LIST_ALL_USERS"><br>|LANG_SHOW_ALL_USERS|</a>
+				<a href="/CMD_USER_SHOW"><img src="/IMG_IC_LIST_USERS"><br>|LANG_ADM_USERS|</a>
+				<a href="/CMD_RESELLER_SHOW"><img src="/IMG_IC_LIST_RESELLERS"><br>|LANG_LIST_RESELLERS|</a>
+				<a href="/HTM_ACCOUNT_USER_CREATE"><img src="/IMG_IC_ADD_USER"><br>|LANG_ADD_USER|</a>
+				<a href="/HTM_ACCOUNT_RESELLER_CREATE"><img src="/IMG_IC_ADD_RESELLER"><br>|LANG_CREATE_RESELLER|</a>
+				<a href="/HTM_ACCOUNT_ADMIN_CREATE"><img src="/IMG_IC_ADD_ADMIN"><br>|LANG_CREATE_ADMIN|</a>
+				<a href="/CMD_MANAGE_RESELLER_PACKAGES"><img src="/IMG_IC_PACKAGE"><br>|LANG_RESELLER_PACKAGES|</a>
+				<a href="/CMD_ADMIN_SHOW"><img src="/IMG_IC_LIST_ADMINS"><br>|LANG_LIST_ADMINS|</a>
+				<a href="/HTM_USER_PASSWD"><img src="/IMG_IC_USER_PASS"><br>|LANG_CHANGE_PASS|</a>
+			</fieldset>
+	    	<fieldset class="buttons-box"><legend>|LANG_TIT_SERVER|</legend>
+				<a href="/CMD_SYSTEM_INFO"><img src="/IMG_IC_SERVINFO"><br>|LANG_SYSTEM_INFO|</a>
+				<a href="/CMD_SHOW_SERVICES"><img src="/IMG_IC_SERVICESMON"><br>|LANG_SERVICE_MONITOR|</a>
+				<a href="/CMD_LOG_VIEWER"><img src="/IMG_IC_LOG"><br>|LANG_LOG_VIEWER|</a>
+				<a href="/CMD_IP_MANAGER"><img src="/IMG_IC_IPADDR"><br>|LANG_IP_MANAGEMENT|</a>
+				<a href="/CMD_MAIL_QUEUE?sort1=2"><img src="/IMG_IC_MAILQUEUE"><br>|LANG_MAIL_Q_ADMIN|</a>
+				<a href="/CMD_MULTI_SERVER"><img src="/IMG_IC_MULTISERVER"><br>|LANG_MULTI_SERVER|</a>
+				<a href="/CMD_ADMIN_STATS"><img src="/IMG_IC_STATS"><br>|LANG_COMPLETE_USAGE_STATS|</a>
+				<a href="/CMD_PROCESS_MONITOR?sort1=-9"><img src="/IMG_IC_PROCESS"><br>|LANG_PROCESS_MONITOR|</a>
+			</fieldset>
+		</div>
+		<div style="float:left;width:350px">
+			<fieldset class="buttons-box"><legend>|LANG_ADMINISTRATIVE_TOOLS|</legend>
+				<a href="/CMD_ADMIN_BACKUP"><img src="/IMG_IC_BACKUP"><br>|LANG_ADMIN_BACKUP|</a>
+				<a href="/CMD_SYSTEM_BACKUP"><img src="/IMG_IC_BACKUP"><br>|LANG_SYS_BACKUP|</a>
+				<a href="/CMD_MOVE_USERS"><img src="/IMG_IC_MOVE_USERS"><br>|LANG_MOVE_USERS|</a>
+				<a href="/CMD_ADMIN_FILE_EDITOR"><img src="/IMG_IC_FILEDITOR"><br>|LANG_FILE_EDITOR|</a>
+				<a href="/CMD_DNS_ADMIN"><img src="/IMG_IC_DNS"><br>|LANG_DNS_ADMIN|</a>
+				<a href="/CMD_TICKET_MANAGE"><img src="/IMG_IC_TICKETS"><br>|LANG_MANAGE_TICKETS|</a>
+				<a href="/CMD_ADMIN_SETTINGS"><img src="/IMG_IC_SETTINGS"><br>|LANG_ADMIN_SETTINGS|</a>
+				<a href="/CMD_LICENSE"><img src="/IMG_IC_UPDATE"><br>|LANG_LICENSE_UPDATES|</a>
+				<a href="/CMD_ADMIN_CRON_JOBS"><img src="/IMG_IC_CRON"><br>|LANG_ALL_USERS_CRON|</a>
+			</fieldset>
+			<fieldset class="buttons-box"><legend>|LANG_TIT_EXTRA|</legend>
+				<a href="/CMD_PLUGIN_MANAGER"><img src="/IMG_IC_PLUGINS"><br>|LANG_PLUGIN_MANAGER|</a>
+				<a href="/CMD_SKINS"><img src="/IMG_IC_SKINS"><br>|LANG_SKIN_MANAGER|</a>
+				<a href="/CMD_CUSTOM_HTTPD"><img src="/IMG_IC_CUSTHHPTD"><br>|LANG_CUSTOM_HTTPD|</a>
+				<a href="/CMD_PHP_SAFE_MODE"><img src="/IMG_IC_SAFEMODE"><br>|LANG_PHP_SAFEMODE|</a>
+				<a href="/CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value=-500000"><img src="/IMG_IC_BRUTE"><br>|LANG_BRUTE_FORCE_MONITOR|</a>
 
-$items[] = array('img' => '/IMG_IC_ADD_USER', 'link' => '/HTM_ACCOUNT_USER_CREATE', 'txt' => '|LANG_ADD_USER|');
-$items[] = array('img' => '/IMG_IC_ADD_RESELLER', 'link' => '/HTM_ACCOUNT_RESELLER_CREATE', 'txt' => '|LANG_CREATE_RESELLER|');
-$items[] = array('img' => '/IMG_IC_ADD_ADMIN', 'link' => '/HTM_ACCOUNT_ADMIN_CREATE', 'txt' => '|LANG_CREATE_ADMIN|');
+|PLUGIN_0_ADMIN_IMG|
+|PLUGIN_1_ADMIN_IMG|
+|PLUGIN_2_ADMIN_IMG|
+|PLUGIN_3_ADMIN_IMG|
+|PLUGIN_4_ADMIN_IMG|
+|PLUGIN_5_ADMIN_IMG|
+|PLUGIN_6_ADMIN_IMG|
+|PLUGIN_7_ADMIN_IMG|
+|PLUGIN_8_ADMIN_IMG|
+|PLUGIN_9_ADMIN_IMG|
 
-$items[] = array('img' => '/IMG_IC_PACKAGE', 'link' => '/CMD_MANAGE_RESELLER_PACKAGES', 'txt' => '|LANG_RESELLER_PACKAGES|');
-$items[] = array('img' => '/IMG_IC_LIST_ADMINS', 'link' => '/CMD_ADMIN_SHOW', 'txt' => '|LANG_LIST_ADMINS|');
-$items[] = array('img' => '/IMG_IC_USER_PASS', 'link' => '/HTM_USER_PASSWD', 'txt' => '|LANG_CHANGE_PASS|');
-
-$sk->iconmenu('|LANG_USERS_ADMINISTRATION|',$items);
-unset($items);
-
-$items[] = array('img' => '/IMG_IC_SERVINFO', 'link' => '/CMD_SYSTEM_INFO', 'txt' => '|LANG_SYSTEM_INFO|');
-$items[] = array('img' => '/IMG_IC_SERVICESMON', 'link' => '/CMD_SHOW_SERVICES', 'txt' => '|LANG_SERVICE_MONITOR|');
-$items[] = array('img' => '/IMG_IC_LOG', 'link' => '/CMD_LOG_VIEWER', 'txt' => '|LANG_LOG_VIEWER|');
-
-$items[] = array('img' => '/IMG_IC_IPADDR', 'link' => '/CMD_IP_MANAGER', 'txt' => '|LANG_IP_MANAGEMENT|');
-$items[] = array('img' => '/IMG_IC_MAILQUEUE', 'link' => '/CMD_MAIL_QUEUE?sort1=2', 'txt' => '|LANG_MAIL_Q_ADMIN|');
-$items[] = array('img' => '/IMG_IC_MULTISERVER', 'link' => '/CMD_MULTI_SERVER', 'txt' => '|LANG_MULTI_SERVER|');
-
-$items[] = array('img' => '/IMG_IC_STATS', 'link' => '/CMD_ADMIN_STATS', 'txt' => '|LANG_COMPLETE_USAGE_STATS|');
-$items[] = array('img' => '/IMG_IC_PROCESS', 'link' => '/CMD_PROCESS_MONITOR?sort1=-9', 'txt' => '|LANG_PROCESS_MONITOR|');
-
-$sk->iconmenu('|LANG_TIT_SERVER|',$items);
-unset($items);
-
-
-?>
-      </div>
-      <div style="float:left;width:350px">
-<?php
-$items[] = array('img' => '/IMG_IC_BACKUP', 'link' => '/CMD_ADMIN_BACKUP', 'txt' => '|LANG_ADMIN_BACKUP|');
-$items[] = array('img' => '/IMG_IC_BACKUP', 'link' => '/CMD_SYSTEM_BACKUP', 'txt' => '|LANG_SYS_BACKUP|');
-$items[] = array('img' => '/IMG_IC_MOVE_USERS', 'link' => '/CMD_MOVE_USERS', 'txt' => '|LANG_MOVE_USERS|');
-
-$items[] = array('img' => '/IMG_IC_FILEDITOR', 'link' => '/CMD_ADMIN_FILE_EDITOR', 'txt' => '|LANG_FILE_EDITOR|');
-$items[] = array('img' => '/IMG_IC_DNS', 'link' => '/CMD_DNS_ADMIN', 'txt' => '|LANG_DNS_ADMIN|');
-$items[] = array('img' => '/IMG_IC_TICKETS', 'link' => '/CMD_TICKET_MANAGE', 'txt' => '|LANG_MANAGE_TICKETS|');
-
-$items[] = array('img' => '/IMG_IC_SETTINGS', 'link' => '/CMD_ADMIN_SETTINGS', 'txt' => '|LANG_ADMIN_SETTINGS|');
-$items[] = array('img' => '/IMG_IC_UPDATE', 'link' => '/CMD_LICENSE', 'txt' => '|LANG_LICENSE_UPDATES|');
-$items[] = array('img' => '/IMG_IC_CRON', 'link' => '/CMD_ADMIN_CRON_JOBS', 'txt' => '|LANG_ALL_USERS_CRON|');
-
-
-$sk->iconmenu('|LANG_ADMINISTRATIVE_TOOLS|',$items);
-unset($items);
-
-$items[] = array('img' => '/IMG_IC_PLUGINS', 'link' => '/CMD_PLUGIN_MANAGER', 'txt' => '|LANG_PLUGIN_MANAGER|');
-$items[] = array('img' => '/IMG_IC_SKINS', 'link' => '/CMD_SKINS', 'txt' => '|LANG_SKIN_MANAGER|');
-$items[] = array('img' => '/IMG_IC_CUSTHHPTD', 'link' => '/CMD_CUSTOM_HTTPD', 'txt' => '|LANG_CUSTOM_HTTPD|');
-
-$items[] = array('img' => '/IMG_IC_SAFEMODE', 'link' => '/CMD_PHP_SAFE_MODE', 'txt' => '|LANG_PHP_SAFEMODE|');
-$items[] = array('img' => '/IMG_IC_BRUTE', 'link' => '/CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value=-500000', 'txt' => 'Brute Force Monitor');
+			</fieldset>
 
 
 
-$data = <<<END
-|PLUGIN_0_ADMIN_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-
-$data = <<<END
-|PLUGIN_1_ADMIN_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-
-$data = <<<END
-|PLUGIN_2_ADMIN_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-
-$data = <<<END
-|PLUGIN_3_ADMIN_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-
-$data = <<<END
-|PLUGIN_4_ADMIN_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-
-$data = <<<END
-|PLUGIN_5_ADMIN_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
 
 
-$sk->iconmenu('|LANG_TIT_EXTRA|',$items);
 
-?>
-      </div>
-    </div>
-DONE|
+
+		</div>
+	</div>
+

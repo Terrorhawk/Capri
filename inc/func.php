@@ -72,6 +72,16 @@ class skclass{
 		return false;
 	}
 
+	function load_average($color = false) {
+		$loads = urldecode($this->api_get("/CMD_API_LOAD_AVERAGE"));
+		parse_str($loads);
+		settype($one, "float");
+		settype($five, "float");
+		settype($fifteen, "float");
+		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
+		return $load;
+	}
+
 	function getServices() {
 		$str = $this->api_get("/CMD_API_SHOW_SERVICES", $post = false);
 		if (strpos($str, "httpd") === false){
