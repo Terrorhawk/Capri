@@ -451,7 +451,7 @@ table.list, table.list td {
 table.list  {
   border: 3px solid #cdcdcd;
   background-color: #fff;
-  table-layout:fixed;
+  /*table-layout:fixed;*/
 }
 table.list a.toptext {
   color: #777;
@@ -498,9 +498,9 @@ table.list td.list2, table.list td.list, table.list td.listwrap {
   font-size: 11px;
   padding: 4px 5px;
   background-color: #fff;
-  /*word-break: break-all;
-  min-width: 50px*/
-  overflow:hidden;
+  word-break: break-all;
+  max-width: 250px
+  /*overflow:hidden;*/
 }
 table.list td.bold {
   font-weight: bold;
@@ -887,4 +887,8 @@ td.message_info
 .message_info
 {
 	COLOR: #777777;
+}
+
+.selectclass.combo .inputclass.combo{
+    max-width: 60px;
 }
