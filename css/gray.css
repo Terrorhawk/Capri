@@ -889,6 +889,6 @@ td.message_info
 	COLOR: #777777;
 }
 
-.selectclass.combo .inputclass.combo{
+.selectclass.combo, .inputclass.combo{
     max-width: 60px;
 }
