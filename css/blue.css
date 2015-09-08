@@ -233,6 +233,7 @@ div#pageloading {
 .combot, table.config .selectclass {
   border: 1px solid #888;
   font-size: 11px;
+  max-width: 100px;
 }
 /* user item ******************************/
 /* user item ******************************/
@@ -498,7 +499,7 @@ table.list td.list2, table.list td.list, table.list td.listwrap {
   padding: 4px 5px;
   background-color: #fff;
   word-break: break-all;
-  max-width: 250px
+  max-width: 250px;
   /*overflow:hidden;*/
 }
 table.list td.bold {
@@ -888,6 +889,6 @@ td.message_info
 }
 
 .selectclass.combo, .inputclass.combo{
-    max-width: 60px;
+    max-width: 100px;
 }
  

@@ -1,6 +1,6 @@
 |LF_STANDARD|
 |LF_BACKUPS|
-|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADMIN_BACKUP">Admin Backup/Transfer</a> &raquo; <a class=tree href="/CMD_ADMIN_BACKUP_MODIFY?id=`id`">`LANG_MODIFY_BACKUP`</a>|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/CMD_ADMIN_BACKUP">`LANG_ADMIN_BACKUP`</a> &raquo; <a class=tree href="/CMD_ADMIN_BACKUP_MODIFY?id=`id`">`LANG_MODIFY_BACKUP`</a>|
 |?HELP_SECTION=`ADMIN_HELPER`|
 |HTM_CONFIG|
 |HTM_HEADER|
@@ -13,20 +13,11 @@
       |HTM_BOX_SERVER_STATS|
     </div>
     <div id="rightPanel">
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-Admin Backup/Transfer
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_ADMIN_BACKUP|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_ADMIN_BACKUP');
-
-?>
-DONE|
       <div class="bk_container Backup">
       <form name=tableform1 action="/CMD_ADMIN_BACKUP" method="post">
       <input type=hidden name="form_version" value="2">
@@ -38,10 +29,10 @@ DONE|
           <div style="float: left;width:300px">
             <div>|LANG_STEP_1|: <b>|LANG_WHO|</b></div>
             <div class="topsel"><input type=radio name=who id=who1 value="all" |WHO_ALL_CHECKED|><label for="who1">|LANG_ALL_USERS|</label><br />
-            <input type=radio name=who id=who3 value="except" |WHO_EXCEPT_CHECKED|><label for="who3">All Users Except Selected Users</label><br />
+            <input type=radio name=who id=who3 value="except" |WHO_EXCEPT_CHECKED|><label for="who3">|LANG_ALL_USERS| |LANG_EXCEPT_USERS|</label><br />
             <input type=radio name=who id=who2 value="selected" |WHO_SELECT_CHECKED|><label for="who2">|LANG_SELECTED_USERS| |CREATOR_SELECT| &amp; Users 
             <input type=button class="boton small" value="Select" onclick="addReseller(document.tableform1.selectcreator.value)"></label><br />
-            <input type=checkbox name="skip_suspended" id="skip_suspended" value="yes" |SKIP_SUSPENDED_CHECKED|><label for="skip_suspended">Skip Suspended</label></div>
+            <input type=checkbox name="skip_suspended" id="skip_suspended" value="yes" |SKIP_SUSPENDED_CHECKED|><label for="skip_suspended">|LANG_SKIP_SUSPENDED|</label></div>
             <div style="overflow: auto; height: 322px; width: 300px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
           </div>
           
@@ -73,9 +64,9 @@ DONE|
                 <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
                 <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
                 <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
-                <tr><td align=right class=listtitle>Append to path:</td><td class=listtitle>|PATH_APPEND|</td>
+                <tr><td align=right class=listtitle>|LANG_APPEND_TO_PATH|:</td><td class=listtitle>|PATH_APPEND|</td>
 				</tr>
-				<tr class="|CUSTOM_PATH_CLASS|" id="custom_path"><td align=right>Custom append:</td>
+				<tr class="|CUSTOM_PATH_CLASS|" id="custom_path"><td align=right>|LANG_CUSTOM_APPEND|:</td>
 					<td class=list>
 						&nbsp;/&nbsp;<input type=text name="custom_append" value="|CUSTOM_APPEND_VALUE|" size="15" class="combot">
 						<a target=_blank href="http://help.directadmin.com/item.php?id=539">(?)</a>&nbsp;
@@ -88,54 +79,54 @@ DONE|
           </div>
           
           <div style="float: left;width:436px;margin: 20px 0 0 10px;">
-            <div>Step 4: <b>What</b></div>
-            <div class="topsel"><input type=radio name=what id="what_all" value="all" |ALL_DATA_CHECKED|><label for="what_all">All data</label>
+            <div>|LANG_STEP_4|: <b>|LANG_WHAT|</b></div>
+            <div class="topsel"><input type=radio name=what id="what_all" value="all" |ALL_DATA_CHECKED|><label for="what_all">|LANG_ALL_DATA|</label>
             <br />
-            <input type=radio name=what id="what_select" value="select" |SELECTED_DATA_CHECKED|><label for="what_select">Selected data</label></div>
+            <input type=radio name=what id="what_select" value="select" |SELECTED_DATA_CHECKED|><label for="what_select">|LANG_SELECTED_DATA|</label></div>
             <div class="table100">
               <table class=config cellspacing=0>
                 <tbody>
                   <tr>
                     <td align=right><input type=checkbox name=option0 value="domain" |DOMAINON| onClick='setSelectedData()' |DOMAINON|></td>
-                    <td style="padding-right: 20px;">Domains Directory</td>
+                    <td style="padding-right: 20px;">|LANG_OPT_DOMAINS_DIR|</td>
                     <td align=right><input type=checkbox name=option2 value="email" |EMAILON| onClick='setSelectedData()' |EMAILON|></td>
-                    <td>E-Mail Accounts</td>
+                    <td>|LANG_OPT_EMAIL_ACCOUNTS|</td>
                   </tr>
                   <tr>
                     <td align=right><input type=checkbox name=option1 value="subdomain" |SUBDOMAINON| onClick='setSelectedData()' |SUBDOMAINON|></td>
-                    <td>Subdomain Lists</td>
+                    <td>|LANG_OPT_SUB_LISTS|</td>
                     <td align=right><input type=checkbox name=option3 value="forwarder" |FORWARDERON| onClick='setSelectedData()' |FORWARDERON|></td>
-                    <td>Forwarders</td>
+                    <td>|LANG_OPT_FORWARDERS|</td>
                   </tr>
                   <tr>
                     <td align=right><input type=checkbox name=option8 value="ftp" |FTPON| onClick='setSelectedData()' |FTPON|></td>
-                    <td>Ftp Accounts</td>
+                    <td>|LANG_OPT_FTP_ACCOUNTS|</td>
                     <td align=right><input type=checkbox name=option4 value="autoresponder" |AUTORESPONDERON| onClick='setSelectedData()' |AUTORESPONDERON|></td>
-                    <td >Autoresponders</td>
+                    <td>|LANG_OPT_AUTORESPONDERS|</td>
                   </tr>
                   <tr>
                     <td align=right><input type=checkbox name=option9 value="ftpsettings" |FTPSETTINGSON| onClick='setSelectedData()' |FTPSETTINGSON|></td>
-                    <td>Ftp Settings</td>
+                    <td>|LANG_OPT_FTP_SETTINGS|</td>
                     <td align=right><input type=checkbox name=option5 value="vacation" |VACATIONON| onClick='setSelectedData()' |VACATIONON|></td>
-                    <td style="padding-right: 20px;">Vacation Messages</td>
+                    <td style="padding-right: 20px;">|LANG_OPT_VACATION_MESSAGES|</td>
                   </tr>
                   <tr>
                     <td align=right><input type=checkbox name=option10 value="database" |DATABASEON| onClick='setSelectedData()' |DATABASEON|></td>
-                    <td>Databases</td>
+                    <td>|LANG_OPT_DATABASES|</td>
                     <td align=right><input type=checkbox name=option7 value="emailsettings" |EMAILSETTINGSON| onClick='setSelectedData()' |EMAILSETTINGSON|></td>
-                    <td>E-Mail Settings</td>
+                    <td>|LANG_OPT_EMAIL_SETTINGS|</td>
                   </tr>
                   <tr>
                     <td align=right><input type=checkbox name=option11 value="database_data" |DATABASEDATAON| onClick='setSelectedData();if (this.checked == true) { document.tableform1.option10.checked = true; }'></td>
-                    <td>Database data</td>
+                    <td>|LANG_OPT_DATABASE_DATA|</td>
                     <td align=right><input type=checkbox name=option6 value="list" |LISTON| onClick='setSelectedData()' |LISTON|></td>
-                    <td>Mailing Lists</td>
+                    <td>|LANG_OPT_MAILING_LISTS|</td>
                   </tr>
                   <tr>
                     <td align=right></td>
                     <td></td>
                     <td><input class=backup_option type=checkbox name=option12 value="email_data" |EMAILDATAON| onClick='setSelectedData(); if (this.checked == true) { document.tableform1.option2.checked = true; }'></td>
-                    <td class=list2 title="Email data">Email Data</td>
+                    <td class=list2 title="Email data">|LANG_OPT_EMAIL_DATA|</td>
                   </tr>
                 </tbody>
               </table>
