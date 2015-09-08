@@ -3,19 +3,10 @@
 |?HELP_SECTION=`ADMIN_HELPER`/ipman.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_IP_MANAGER|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_IP_MANAGER|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_MANAGER');
-
-?>
+</div>
 
 |TEXT|
 <form action="/CMD_IP_MANAGER" method='POST'>
@@ -34,16 +25,7 @@ $tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_MANAGER');
   </table>
 </form>
 <div class="table100">
-<?php
-$table = <<<EOF
+
 |TABLE|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table
-?>
-</div>
-DONE|
 |HTM_ADMIN_BOTTOM|

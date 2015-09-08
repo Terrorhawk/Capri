@@ -3,22 +3,10 @@
 |?HELP_SECTION=`ADMIN_HELPER`|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_CUST_HTTPD_CONF|: |domain|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_CUST_HTTPD_CONF|: |domain|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
-
-
-
-?>
-DONE|
+</div>
 
 |*if CONFIG_ERROR="1"|
 <center>

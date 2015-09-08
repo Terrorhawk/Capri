@@ -13,23 +13,11 @@
 |HTM_BOX_SERVER_STATS|
     </div>
     <div id="rightPanel" class="table75">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
 
-$pagetit = <<<EOF
-|LANG_LICE_UP|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_LICE_UP|</span>
 |TREE|
-EOF;
+</div>
 
-echo pagetit($pagetit, $tree);
-
-?>
-DONE|
     <table class="config" cellpadding="0" style="width: 580px;margin-bottom: 15px;">
       <thead>
         <tr><td colspan="2">|LANG_LICE_VALS|</td></tr>
@@ -45,10 +33,10 @@ DONE|
         <tr><th nowrap>|LANG_TIME_REM|</th><td>|remaining|</td></tr>
         <tr><th nowrap>|LANG_LAST_UP|</th><td>|license_change|</td></tr>
 |*if internal="Y"|
-        <tr><th nowrap>License Type</th><td><b>INTERNAL LICENSE.</b> To be included only with a dedicated server / VPS product. Not for resale, not transferrable. Please contact server provider for all DirectAdmin-related support.  See <a href="http://www.directadmin.com/reselling">directadmin.com/reselling</a> for more information.</td></tr>
+        <tr><th nowrap>|LANG_LTYPE|</th><td>|LANG_INTERNAL|</td></tr>
 |*endif|
 |*if internal="N"|
-        <tr><th nowrap>License Type</th><td>External license</td></tr>
+        <tr><th nowrap>|LANG_LTYPE|</th><td>|LANG_EXTERNAL|</td></tr>
 |*endif|
       </tbody>
     </table>
@@ -59,7 +47,7 @@ DONE|
       </thead>
       <tbody>
         <tr><th nowrap>|LANG_COMPILED_FOR|</th><td>|OS_NAME|</td></tr>
-        <tr><td nowrap>Compile Date</td><td nowrap>|compile_time|</td></tr>
+        <tr><td nowrap>|LANG_COMPILE_DATE|</td><td nowrap>|compile_time|</td></tr>
         <tr><th nowrap>|LANG_SERVER_VER|</th><td>|version|</td></tr>
         <tr><th nowrap>|LANG_CURRENT_VER|</th><td>|currentversion|</td></tr>
         <tr><th nowrap>|LANG_LAST_UP|</th><td>|software_change|</td></tr>

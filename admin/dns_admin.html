@@ -3,20 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`/dnsadmin.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_DNS_ADMIN|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_DNS_ADMIN|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_DNS_ADMIN');
-
-?>
-DONE|
 <div class="table75">
 
   <b>|LANG_SELECT_DNS|</b><br /><br />

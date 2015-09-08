@@ -3,20 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`/listr.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_DELETE_RES|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_DELETE_RES|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
   <center>
       <table class=list style="width: 50%" cellpadding=3 cellspacing=1>
           <tr><td class=listtitle colspan=2>|LANG_DELETE_RES|</td></tr>

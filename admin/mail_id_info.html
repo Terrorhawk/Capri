@@ -5,20 +5,10 @@
 |HTM_HEADER|
 |HTM_CONFIG|
 <div id="centerPanel" class="table100">
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_MAIL_QUEUE_ADMIN|: |LANG_VIEW| |id|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_MAIL_QUEUE_ADMIN|: |LANG_VIEW| |id|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
+</div>
 
 <table class=config cellspacing=0>
   <tbody>

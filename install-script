@@ -25,7 +25,7 @@ doInstall()
     SKNAME="$SKINFNAME"
   fi
   
-  SKINPATH="/usr/local/directadmin/data/skins/$SKNAME"
+  SKINPATH="/usr/local/directadmin/data/skins/$SKINDIRNAME"
   
   echo -e "Skin name will be:\e[1;37m $SKNAME \e[40;37m\e[0m"
   echo ""

@@ -3,23 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`/settings.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_ADMIN_SETTINGS|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_ADMIN_SETTINGS|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-echo pagetit($pagetit, $tree);
-
-?>
-DONE|
     <form action="CMD_ADMIN_SETTINGS" method="post">
     <input type=hidden name=action value="save">
     <table class="config" cellpadding="0" style="width: 580px;margin-bottom: 15px;">

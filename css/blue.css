@@ -452,6 +452,7 @@ table.list  {
   border: 4px solid #e8e8e8;
   background-color: #fff;
   /*table-layout:fixed;*/
+  width: 100%;
 }
 table.list a.toptext {
   color: #777;
@@ -889,6 +890,13 @@ td.message_info
 }
 
 .selectclass.combo, .inputclass.combo{
-    max-width: 100px;
+    max-width: 70px;
 }
  
+table#blockedipstable {
+    width:100% !important;
+}
+
+.table-highlight, table.config {
+    width:100% !important;
+}

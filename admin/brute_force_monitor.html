@@ -6,7 +6,6 @@
 
 <div id="centerPanel">
 
-|$|SK_PHP|
 <div class="pageTit"><span>|LANG_BRUTE_FORCE_MONITOR|</span>
 |TREE|
 </div>
@@ -60,6 +59,7 @@
 <a href='?sort1=-1'>|LANG_CLEAR_SEARCH_FILTER|</a>
 |*endif|
 
+|$|SK_PHP|
 <?php
 $table = <<<EOF
 |LOGINFAILURES|
@@ -105,6 +105,7 @@ echo str_replace("toptext", "pagerText", $matches[6][0]);
 
 echo $table;
 ?>
+DONE|
 
 </div>
 
@@ -119,7 +120,7 @@ echo $table;
     </div>
 |*endif|
 |*if HAVE_UNBLOCK_SH="1"|
-    <table id="blockbuttontable" class=list style='width: 50%' cellpadding=3 cellspacing=1>
+    <table id="blockbuttontable" class=list style='width: 100%' cellpadding=3 cellspacing=1>
       <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='|LANG_UNBLOCK|' name=unblock></td ></tr>
     </table>
   </form>
@@ -150,5 +151,4 @@ echo $table;
 |*endif|
 </div>
 
-DONE|
 |HTM_ADMIN_BOTTOM|

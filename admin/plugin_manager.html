@@ -3,20 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_PLUGING_MANAGER|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_PLUGING_MANAGER|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_PLUGIN_MANAGER');
-
-?>
-DONE|
 <div class="table100">
 |PLUGINS|
 <form action="/CMD_PLUGIN_MANAGER" enctype="multipart/form-data" method="post">

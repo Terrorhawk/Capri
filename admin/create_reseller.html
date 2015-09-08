@@ -4,22 +4,10 @@
 |?HELP_SECTION=`ADMIN_HELPER`/creater.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_CREATE_RES|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_CREATE_RES|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-echo pagetit($pagetit, $tree);
-
-?>
+</div>
 
 |*if AJAX="1"|
 	|?CHECK_NAME=ajax_checkName()|

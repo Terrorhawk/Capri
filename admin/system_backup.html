@@ -15,20 +15,11 @@
       |HTM_BOX_SERVER_STATS|
     </div>
     <div id="rightPanel">
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_SYSTEM_BACKUP|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_SYSTEM_BACKUP|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_SYSTEM_BACKUP');
-
-?>
-DONE|
 <form action="/CMD_SYSTEM_BACKUP" method="post" id="runnow">
 <input type=hidden name=action value="now">
 </form>

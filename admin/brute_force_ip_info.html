@@ -3,25 +3,12 @@
 |?HELP_SECTION=`ADMIN_HELPER`/settings.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-<b>|LANG_IP_INFO|</b> |LANG_ON| |BLOCK_IP|<br>
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span><b>|LANG_IP_INFO|</b> |LANG_ON| |BLOCK_IP|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-echo pagetit($pagetit, $tree);
-
-?>
-DONE|
-
-<textarea cols=125 rows=30 readonly>|IPINFO|</textarea>
+<textarea cols=107 rows=30 readonly>|IPINFO|</textarea>
 <br><br>
 
 |*if HAVE_BLOCK_SH="1"|

@@ -3,19 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_SAFE_MODE_SETTINGS|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_SAFE_MODE_SETTINGS|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_PHP_SAFE_MODE');
-
-?>
 <style>
 .safe_mode_on { color: green; font-weight: bold; }
 .safe_mode_off{ color: red; }
@@ -72,16 +64,9 @@ $tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_PHP_SAFE_MODE');
     </tbody>
   </table>
 </form>
-<?php
-$table = <<<EOF
+
 |DOMAINS|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
 </div>
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -91,6 +76,6 @@ $(function(){
 });
 //-->
 </script>
-DONE|
+
 |HTM_ADMIN_BOTTOM|
 
