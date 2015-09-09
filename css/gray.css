@@ -235,7 +235,7 @@ div#pageloading {
 .combot, table.config .selectclass {
   border: 1px solid #888;
   font-size: 11px;
-  max-width: 100px;
+  /*max-width: 100px;*/
 }
 /* user item ******************************/
 /* user item ******************************/
@@ -891,7 +891,7 @@ td.message_info
 	COLOR: #777777;
 }
 
-.selectclass.combo, .inputclass.combo{
+.trList .selectclass.combo, .trList .inputclass.combo{
     max-width: 70px;
 }
 

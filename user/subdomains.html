@@ -26,16 +26,9 @@
 
 
 <div class="table100">
-<?php
-$table = <<<EOF
+
 |SUBDOMAINS|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
 </div>
-DONE|
+
 |HTM_USER_BOTTOM|
