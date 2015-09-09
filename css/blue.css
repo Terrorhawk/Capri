@@ -900,3 +900,7 @@ table#blockedipstable {
 .table-highlight, table.config {
     width:100% !important;
 }
+
+textarea.combo {
+   max-width: 800px;
+}
