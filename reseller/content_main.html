@@ -12,130 +12,48 @@ function showUserMessage(){
 |HTM_BOX_RESELLER_SEARCH|
 |HTM_BOX_RESELLER_STATS|
     </div>
-|$|SK_PHP|
-<?php 
-include |SK_ROOT| . "inc/functions.php";
 
-?>
     <div id="rightPanel">
       <div style="float:left;width:350px;margin-right: 40px;">
-<?php
-$items[] = array('img' => '/IMG_IC_LIST_USERS', 'link' => '/CMD_USER_SHOW', 'txt' => '|LANG_LIST_USERS|');
-
-$items[] = array('img' => '/IMG_IC_ADD_USER', 'link' => '/HTM_ACCOUNT_USER_CREATE', 'txt' => '|LANG_ADD_NEW_USER|');
-
-$items[] = array('img' => '/IMG_IC_ADDPACKAGE', 'link' => '/CMD_SHOW_USER_PACKAGE', 'txt' => '|LANG_ADD_PACKAGE|');
-$items[] = array('img' => '/IMG_IC_PACKAGE', 'link' => '/CMD_MANAGE_USER_PACKAGES', 'txt' => '|LANG_LIST_PACKAGES|');
-$items[] = array('img' => '/IMG_IC_PACKAGE', 'link' => 'javascript:showUserMessage();', 'txt' => "|LANG_EDIT_USER_MESS|");
-
-$items[] = array('img' => '/IMG_IC_USER_PASS', 'link' => '/HTM_USER_PASSWD', 'txt' => '|LANG_CHANGE_PASSWORDS|');
-
-$sk->iconmenu('|LANG_USERS_ADMINISTRATION|',$items);
-unset($items);
-
-/*
-
-$items[] = array('img' => '/IMG_IC_ADD_USER', 'link' => '/HTM_ACCOUNT_USER_CREATE', 'txt' => '|LANG_ADD_NEW_USER|');
-$items[] = array('img' => '/IMG_IC_LIST_USERS', 'link' => '/CMD_USER_SHOW', 'txt' => '|LANG_LIST_USERS|');
-$items[] = array('img' => '/IMG_IC_ADDPACKAGE', 'link' => '/CMD_SHOW_USER_PACKAGE', 'txt' => '|LANG_ADD_PACKAGE|');
-$items[] = array('img' => '/IMG_IC_PACKAGE', 'link' => '/CMD_MANAGE_USER_PACKAGES', 'txt' => '|LANG_LIST_PACKAGES|');
-$items[] = array('img' => '/IMG_IC_TICKETS', 'link' => '/CMD_TICKET_MANAGE', 'txt' => '|LANG_MANAGE_TICKETS|');
-$sk->user_mainmenu($d05,$items, $menutype);
-unset($items);
-*/
-
-$d01 = <<<EOF
-|LANG_RESELLER_STATS|
-EOF;
-$d02 = <<<EOF
-|LANG_IP_MANAGER|
-EOF;
-$d03 = <<<EOF
-|LANG_SKIN_MANAGER|
-EOF;
-$d04 = <<<EOF
-|LANG_USER_BACKUPS|
-EOF;
-$d05 = <<<EOF
-|LANG_TIT_RESELLER|
-EOF;
-
-$items[] = array('img' => '/IMG_IC_STATS', 'link' => '/CMD_RESELLER_STATS', 'txt' => $d01);
-$items[] = array('img' => '/IMG_IC_IP', 'link' => '/CMD_IP_CONFIG', 'txt' => $d02);
-$items[] = array('img' => '/IMG_IC_SKINS', 'link' => '/CMD_SKINS', 'txt' => $d03);
-$items[] = array('img' => '/IMG_IC_BACKUP', 'link' => '/CMD_USER_BACKUP', 'txt' => $d04);
-$sk->iconmenu($d05,$items);
-unset($items);
-
-?>
+<fieldset class="buttons-box"><legend>|LANG_USERS_ADMINISTRATION|</legend>
+      <a href="/CMD_USER_SHOW"><img src="/IMG_IC_LIST_USERS"><br>|LANG_LIST_USERS|</a>
+      <a href="/HTM_ACCOUNT_USER_CREATE"><img src="/IMG_IC_ADD_USER"><br>|LANG_ADD_NEW_USER|</a>
+      <a href="/CMD_SHOW_USER_PACKAGE"><img src="/IMG_IC_ADDPACKAGE"><br>|LANG_ADD_PACKAGE|</a>
+      <a href="/CMD_MANAGE_USER_PACKAGES"><img src="/IMG_IC_PACKAGE"><br>|LANG_LIST_PACKAGES|</a>
+      <a href="javascript:showUserMessage();"><img src="/IMG_IC_PACKAGE"><br>|LANG_EDIT_USER_MESS|</a>
+      <a href="/HTM_USER_PASSWD"><img src="/IMG_IC_USER_PASS"><br>|LANG_CHANGE_PASSWORDS|</a>
+    </fieldset>
+    <fieldset class="buttons-box"><legend>|LANG_TIT_RESELLER|</legend>
+      <a href="/CMD_RESELLER_STATS"><img src="/IMG_IC_STATS"><br>|LANG_RESELLER_STATS|</a>
+      <a href="/CMD_IP_CONFIG"><img src="/IMG_IC_IP"><br>|LANG_IP_MANAGER|</a>
+      <a href="/CMD_SKINS"><img src="/IMG_IC_SKINS"><br>|LANG_SKIN_MANAGER|</a>
+      <a href="/CMD_USER_BACKUP"><img src="/IMG_IC_BACKUP"><br>|LANG_USER_BACKUPS|</a>
+    </fieldset>
 
       </div>
       <div style="float:left;width:350px">
-<?php
-$d00 = <<<EOF
-|LANG_MESSSAGE_ALL_USERS|
-EOF;
-$d01 = <<<EOF
-|LANG_SYSTEM_INFO|
-EOF;
-$d02 = <<<EOF
-|LANG_NAMESERVERS|
-EOF;
-$d03 = <<<EOF
-|LANG_CONTACT_ADMIN|
-EOF;
-$d04 = <<<EOF
-|LANG_TIT_EXTRA|
-EOF;
-
-$items[] = array('img' => '/IMG_IC_TICKETS', 'link' => '/CMD_TICKET_MANAGE', 'txt' => '|LANG_MANAGE_TICKETS|<br />(|NEWTICKETS| |LANG_NEW|)');
-$items[] = array('img' => '/IMG_IC_MESSAGEUSERS', 'link' => '/CMD_TICKET_CREATE?TYPE=Message&amp;who=all', 'txt' => $d00);
-$items[] = array('img' => '/IMG_IC_CONTACTADMIN', 'link' => '/CMD_TICKET_CREATE?TYPE=Ticket', 'txt' => $d03);
-
-//$items[] = array('img' => '/IMG_IC_OVERUSES', 'link' => '/HTM_OVERUSAGES', 'txt' => '|LANG_OVERUSES|');
-
+    <fieldset class="buttons-box"><legend>|LANG_TIT_EXTRA|</legend>
+      <a href="/CMD_TICKET_MANAGE"><img src="/IMG_IC_TICKETS"><br>|LANG_MANAGE_TICKETS|<br />(|NEWTICKETS| |LANG_NEW|)</a>
+      <a href="/CMD_TICKET_CREATE?TYPE=Message&amp;who=all"><img src="/IMG_IC_MESSAGEUSERS"><br>|LANG_MESSSAGE_ALL_USERS|</a>
+      <a href="/CMD_TICKET_CREATE?TYPE=Ticket"><img src="/IMG_IC_CONTACTADMIN"><br>|LANG_CONTACT_ADMIN|</a>
 |*if USERSYSINFO="ON"|
-$items[] = array('img' => '/IMG_IC_SERVINFO', 'link' => '/CMD_SYSTEM_INFO', 'txt' => $d01);
+      <a href="/CMD_SYSTEM_INFO"><img src="/IMG_IC_SERVINFO"><br>|LANG_SYSTEM_INFO|</a>
 |*endif|
-$items[] = array('img' => '/IMG_IC_DOMAIN_SETUP', 'link' => '/CMD_NAME_SERVER', 'txt' => $d02);
+      <a href="/CMD_NAME_SERVER"><img src="/IMG_IC_DOMAIN_SETUP"><br>|LANG_NAMESERVERS|</a>
 
-$data = <<<END
-|PLUGIN_0_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_1_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_2_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_3_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_4_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_5_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_6_RESELLER_TXT|
-END;
-if (strlen($data) > 1) $items[] = array('plugin' => $data);
-$data = <<<END
-|PLUGIN_7_RESELLER_TXT|
-END;
-
-
-$sk->iconmenu($d04,$items);
-
-
-?>
+|PLUGIN_0_RESELLER_IMG|
+|PLUGIN_1_RESELLER_IMG|
+|PLUGIN_2_RESELLER_IMG|
+|PLUGIN_3_RESELLER_IMG|
+|PLUGIN_4_RESELLER_IMG|
+|PLUGIN_5_RESELLER_IMG|
+|PLUGIN_6_RESELLER_IMG|
+|PLUGIN_7_RESELLER_IMG|
+|PLUGIN_8_RESELLER_IMG|
+|PLUGIN_9_RESELLER_IMG|
+      
+    </fieldset>
+      
       </div>
     </div>
-DONE|
+
