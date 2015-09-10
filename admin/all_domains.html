@@ -40,7 +40,8 @@ EOF;
 if($GET['raw']==1) {
 
 ?>
-      <div style="line-height:16px;">
+      &nbsp;&raquo; <a href="/HTM_ALL_DOMAINS?raw=1"><b>|LANG_TABLE_LIST|</b></a>
+      <div style="line-height:16px; margin-top: 10px;">
         <textarea style="width:100%; height: 335px;" readonly readonly="readonly">
 <?php  if(is_array($domains) && count($domains)>0) {
      foreach($domains as $domain => $ouwner) {
@@ -53,7 +54,7 @@ if($GET['raw']==1) {
 } else {
 ?>
       &nbsp;&raquo; <a href="/HTM_ALL_DOMAINS?raw=1"><b>|LANG_RAW_LIST|</b></a>
-      <table class="list" cellpadding="3" cellspacing="0" width="600" style="margin-top: 10px;">
+      <table class="list" cellpadding="3" cellspacing="0" width="100%" style="margin-top: 10px;">
         <tr>
           <td class="listtitle"><?php  echo  $t1?></td>
           <td class="listtitle"><?php  echo  $t2?></a></td>
