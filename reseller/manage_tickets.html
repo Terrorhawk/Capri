@@ -3,53 +3,68 @@
 |?HELP_SECTION=`RESELLER_HELPER`/messagesystem.html|
 |HTM_RESELLER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MANAGE_TICKETS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MANAGE_TICKETS|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_TICKET_MANAGE');
+<table class="list" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr>
+	<td class="listtitle" style="padding-left:3px;" height="22"><b>Опции</b></td></tr>
+<tr class="trList">
+	<td class="list">
+		<table align="center" border="0" cellpadding="0" cellspacing="0">
+		<tbody>
+		<tr>
+			<td align="center" width="20%"><a href="/CMD_TICKET_CREATE?TYPE=Message" class="subitem"><img src="/IMG_IC_EMAIL_FOR" height="32" border="0" width="32"><br>|LANG_SEND_MESS|</a></td>
 
-$searchforms = <<<EOT
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="50%" align="left"><form id="form1" name="form1" method="get" action="/CMD_TICKET_MANAGE" style="margin: 0;padding:0;">
-<input type="hidden" name="comparison2" value="contains" />
-<table border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="left" style="padding-right: 4px;"><img src="/IMG_IC_SEARCH" width="16" height="16"></td>
-        <td style="padding-right: 4px;">|LANG_SEARCH_TICKET_BY_SUBJECT|:</td>
-        <td style="padding-right: 8px;"><input type="text" name="value2" class="combo" style="width: 85px" /></td>
-        <td style="padding-right: 20px;"><input type="submit" name="Submit" value="|LANG_SEARCH|" /></td>
-      </tr>
-    </table></form></td>
-    <td width="50%" align="right"><form id="form1" name="form1" method="get" action="/CMD_TICKET_MANAGE" style="margin: 0;padding:0;">
-<input type="hidden" name="comparison3" value="contains" />
-<table border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="left" style="padding-right: 4px;"><img src="/IMG_IC_SEARCH" width="16" height="16"></td>
-        <td style="padding-right: 4px;">|LANG_SEARCH_TICKET_BY_USER|:</td>
-        <td style="padding-right: 8px;"><input type="text" name="value3" class="combo" style="width: 85px" /></td>
-        <td style="padding-right: 4px;"><input type="submit" name="Submit" value="|LANG_SEARCH|" /></td>
-      </tr>
-    </table></form></td>
-  </tr>
+			<td align="center" width="20%"><a href="/CMD_TICKET_MANAGE?action=closed" class="subitem"><img src="/IMG_IC_VIEW_TICKLET" height="32" border="0" width="32"><br>|LANG_VIEW_CLOSED||NEWCLOSED|</a></td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td class="listend">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="50%" align="left">
+				<form id="form1" name="form1" method="get" action="/CMD_TICKET_MANAGE" style="margin: 0;padding:0;">
+					<input type="hidden" name="comparison2" value="contains" />
+						<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="left" style="padding-right: 4px;"><img src="/IMG_IC_SEARCH" width="16" height="16"></td>
+							<td style="padding-right: 4px;">|LANG_SEARCH_TICKET_BY_SUBJECT|:</td>
+							<td style="padding-right: 8px;"><input type="text" name="value2" class="combo" style="width: 85px" /></td>
+							<td style="padding-right: 20px;"><input type="submit" name="Submit" value="|LANG_SEARCH|" /></td>
+						</tr>
+						</table>
+				</form>
+			</td>
+			<td width="50%" align="right">
+				<form id="form1" name="form1" method="get" action="/CMD_TICKET_MANAGE" style="margin: 0;padding:0;">
+					<input type="hidden" name="comparison3" value="contains" />
+					<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td align="left" style="padding-right: 4px;"><img src="/IMG_IC_SEARCH" width="16" height="16"></td>
+						<td style="padding-right: 4px;">|LANG_SEARCH_TICKET_BY_USER|:</td>
+						<td style="padding-right: 8px;"><input type="text" name="value3" class="combo" style="width: 85px" /></td>
+						<td style="padding-right: 4px;"><input type="submit" name="Submit" value="|LANG_SEARCH|" /></td>
+					</tr>
+					</table>
+				</form>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</tbody>
 </table>
-EOT;
-
-$items[] = array('img' => '/IMG_IC_EMAIL_FOR', 'link' => 'CMD_TICKET_CREATE?TYPE=Message', 'txt' => '|LANG_SEND_MESS|');
-$items[] = array('img' => '/IMG_IC_VIEW_TICKLET', 'link' => 'CMD_TICKET_MANAGE?action=closed', 'txt' => '|LANG_VIEW_CLOSED||NEWCLOSED|');
-$sk->submenu('|LANG_OPTIONS|',$items, $searchforms);
-
-?>
 
 <div class="table100" style="margin: 12px 0;">
+
+|$|SK_PHP|
 <?php
 
 $table = <<<EOF
@@ -69,15 +84,15 @@ DONE|
   </thead>
   <tbody>
   <form action="CMD_TICKET_MANAGE" method="post">
-    <input type=hidden name=action value="active">
-    <tr><td><input type=checkbox name=active value="yes" |ACTIVECHECKED|></td><td class=list>|LANG_TICK_ENABLED| <input type=text size=30 name=html value="|HTML|"></td>
-    <td><input class="boton" type=submit name=save value="|LANG_SAVE|"></td></tr>
+	<input type=hidden name=action value="active">
+	<tr><td><input type=checkbox name=active value="yes" |ACTIVECHECKED|></td><td class=list>|LANG_TICK_ENABLED| <input type=text size=30 name=html value="|HTML|"></td>
+	<td><input class="boton" type=submit name=save value="|LANG_SAVE|"></td></tr>
   </form>
   
   <form action="CMD_TICKET_MANAGE" method="post">
-    <input type=hidden name=action value="email">
-    <tr><td><input type=checkbox name=ON value="yes" |EMAILCHECKED|></td><td class=list>|LANG_EMAIL_TO| <input type=text name=email value="|EMAIL|"></td>
-    <td><input class="boton" type=submit name=save value="|LANG_SAVE|"></td></tr>
+	<input type=hidden name=action value="email">
+	<tr><td><input type=checkbox name=ON value="yes" |EMAILCHECKED|></td><td class=list>|LANG_EMAIL_TO| <input type=text name=email value="|EMAIL|"></td>
+	<td><input class="boton" type=submit name=save value="|LANG_SAVE|"></td></tr>
   </form>
   </tbody>
 </table>

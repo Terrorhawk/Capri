@@ -15,25 +15,15 @@
       |HTM_BOX_RESELLER_STATS|
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php  
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_SHOW_USERS|: |LANG_USER| |user|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SHOW_USERS|: |LANG_USER| |user|</span>
 |TREE|
-EOF;
-$user = '|user|';
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
 <form action="CMD_LOGIN" method="post" id="loginas" style="margin: 0;padding:0;">
-<input type=hidden name=username value="|LOGIN_AS_MASTER_NAME|||user|">
+<input type=hidden name=username value="|LOGIN_AS_MASTER_NAME|\||user|">
 </form>
-DONE|
+
 |DOMAINS|
 |STATS|
 

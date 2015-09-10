@@ -12,20 +12,11 @@
       |HTM_BOX_RESELLER_STATS|
     </div>
     <div id="rightPanel">
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_MANAGE_USER_BACKUPS|: |LANG_MODIFY_BACKUP|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_MANAGE_USER_BACKUPS|: |LANG_MODIFY_BACKUP|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
       <div class="bk_container Backup">
       <form name=tableform1 action="/CMD_USER_BACKUP" method="post">
       <input type=hidden name=action value="modify">

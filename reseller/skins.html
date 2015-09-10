@@ -4,17 +4,14 @@
 |HTM_CONFIG|
 |HTM_VERSION|
 |HTM_RESELLER_TOP|
-|$|SK_PHP|
-<?php  
-$pagetit = <<<EOF
-|LANG_MANAGE_SKINS|
-EOF;
-$tree = <<<EOF
-|TREE|
-EOF;
 
+<div class="pageTit"><span>|LANG_MANAGE_SKINS|</span>
+|TREE|
+</div>
+
+|$|SK_PHP|
+<?php
 include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
 
 $arrPath = getpath();
 $ownerType=$arrPath['owner'];

@@ -5,20 +5,11 @@
 |?HELP_SECTION=`RESELLER_HELPER`/create.html|
 |HTM_RESELLER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_CREATE_USER|: |LANG_CUSTOMIZE_USER| |NEWUSERNAME|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_CREATE_USER|: |LANG_CUSTOMIZE_USER| |NEWUSERNAME|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <script language="Javascript">
 <!--
 

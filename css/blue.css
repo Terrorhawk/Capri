@@ -904,3 +904,7 @@ table#blockedipstable {
 textarea.combo {
    max-width: 800px;
 }
+
+.selectclass.combo {
+    max-width: 150px;
+}

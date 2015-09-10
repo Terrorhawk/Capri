@@ -2,20 +2,11 @@
 |?TREE=&raquo; <a class=tree href="/CMD_USER_SHOW">`LANG_SHOW_USERS`</a> &raquo; <a class=tree href="/HTM_ACCOUNT_USER_DELETE">`LANG_DELETE_USER`</a>|
 |?HELP_SECTION=`RESELLER_HELPER`/modify.html|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_DELETE_USER|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_DELETE_USER|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_USER_SHOW');
-
-?>
-DONE|
 |HTM_RESELLER_TOP|
     <center>
       <table class=list style="width: 50%" cellpadding=3 cellspacing=1>
