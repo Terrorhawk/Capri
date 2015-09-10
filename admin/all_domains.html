@@ -7,22 +7,15 @@
 |HTM_BOX_SERVER_STATS|
     </div>
     <div id="rightPanel">
+
+<div class="pageTit"><span>|LANG_ALL_DOMAINS_LIST|</span>
+|TREE|
+</div>
+
 |$|SK_PHP|
 <?php  
-include |SK_ROOT|."inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-$pagetit = <<<EOF
-|LANG_ALL_DOMAINS_LIST|
-EOF;
-
-$tree = <<<EOF
-|TREE|
-EOF;
-
-echo pagetit($pagetit, $tree);
-$domains=getDomainsList();
+include |SK_ROOT|."inc/func.php";
+$domains=$sk->getDomainsList();
 
 parse_str($_SERVER['QUERY_STRING'], $GET);
 

@@ -91,6 +91,19 @@ class skclass{
 		parse_str(urldecode($str) , $servArr);
 		return $servArr;
 	}
+
+	function getDomainsList() {
+		$ret = array();
+		$r = $this->api_get("/CMD_API_DOMAIN_OWNERS");
+		$domainsOwn = @urldecode($r);
+		@parse_str($domainsOwn, $domains);
+		if (is_array($domains) && count($domains) > 0) {
+			foreach($domains as $domain => $ouwner) {
+				$ret[str_replace("_", ".", $domain) ] = $ouwner;
+			}
+		}
+		return $ret;
+	}
 }
 
 $sk = new skclass();
