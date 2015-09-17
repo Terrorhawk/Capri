@@ -62,9 +62,9 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 } ?>
 <?php  if($show_options==true) { 
 
-  /**** mensaje ****/
+  /**** message ****/
   $msg = openfile($path."results");
-  /**** mensaje ****/
+  /**** message ****/
 	
   if($_SERVER["QUERY_STRING"]) {
     parse_str($_SERVER["QUERY_STRING"]);
@@ -88,7 +88,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
   }
   
-  // actualizador *****************************************************************************************************
+  // updater *****************************************************************************************************
   
   if($colorset ) {
     $file = "/usr/local/directadmin/data/skins/|SKIN|/css/". $colorset . ".css";
@@ -143,7 +143,7 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
     $msg = "|LANG_LOGO_RESTORED|";
   }
   
-  // actualizador *****************************************************************************************************
+  // Updater *****************************************************************************************************
 
 
   if($upgrade && $upgrade==1) {
@@ -210,29 +210,29 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
       $MAILONLYINSTALL= true;
   }
   
-  if (file_exists("/usr/local/directadmin/data/skins/|SKIN|/version.txt")){
+  if (file_exists("/usr/local/directadmin/data/skins/|SKIN|-mail/version.txt")){
       /*Get local version of the mail only*/
-      $curentversion = @file_get_contents("/usr/local/directadmin/data/skins/|SKIN|/inc/version.html");
+      $versionmailonly = @file_get_contents("/usr/local/directadmin/data/skins/|SKIN|-mail/inc/version.html");
       /*Get git version*/
-      if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri/master/version.txt")) {
+      if($versions = @file_get_contents("https://raw.github.com/Terrorhawk/Capri-mailonly/master/version.txt")) {
         list($ava2_version, $da_version2) = explode('-', $versions);
       } else {
         $ava2_version = 'n/a';
         $da2_version = 'n/a';
       }
-    if ($curentversion < $ava2_version ) {$ava2_version = '<span style="color:#f00;">'.$ava2_version.'</span>';$upgradebutton2=true;}
-    if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
+    if ($versionmailonly < $ava2_version ) {$ava2_version = '<span style="color:#f00;">'.$ava2_version.'</span>';$upgradebutton2=true;}
+    if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|-mail/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|-mail/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   } 
   
   if ($da_version < "|VERSION|") {$da_version = '<span style="color:#f00;">'.$da_version.'</span>';}
   if ("|SVERSION|" < $ava_version ) {$ava_version = '<span style="color:#f00;">'.$ava_version.'</span>';$upgradebutton=true;}
   
-  /**** mensaje ****/
+  /**** Message ****/
   if($msg && $msg!='') { 
     echo '<div class="smsg">'.nl2br(htmlspecialchars($msg)).'</div>';
     @unlink($path."results");  
   }
-  /**** mensaje ****/
+  /**** Message ****/
   
   
   $css_dir=glob("/usr/local/directadmin/data/skins/|SKIN|/css/*.css");
