@@ -1,11 +1,8 @@
-<?php
-//need for optimisation functions.php
+<?php //need for optimisation functions.php
 
 class skclass{
 	public function api_get($cmd, $post = false) {
-		$_SERVER_PORT='';
-		$_SESSION_KEY='';
-		$_SESSION_ID='';
+		//var_dump($_SERVER);
 		global $disable_api_on_ssl;
 		if (is_array($post)) {
 			$is_post = true;
@@ -20,15 +17,30 @@ class skclass{
 		else {
 			$is_post = false;
 		}
-
-		$_SERVER_PORT = $_ENV["SERVER_PORT"];
-		if (!$_ENV["SERVER_PORT"] && $_SERVER["SERVER_PORT"]) $_SERVER_PORT = $_SERVER["SERVER_PORT"];
-		$_SESSION_KEY = $_ENV["SESSION_KEY"];
-		if (!$_ENV["SESSION_KEY"] && $_SERVER["SESSION_KEY"]) $_SESSION_KEY = $_SERVER["SESSION_KEY"];
-		$_SESSION_ID = $_ENV["SESSION_ID"];
-		if (!$_ENV["SESSION_ID"] && $_SERVER["SESSION_ID"]) $_SESSION_ID = $_SERVER["SESSION_ID"];
-		$SSL = $_ENV["SSL"];
-		if (!$_ENV["SSL"] && $_SERVER["SSL"]) $SSL = $_SERVER["SSL"];
+		if( isset( $_SERVER["SERVER_NAME"] ) ) {
+		    $_SERVER_PORT = $_SERVER["SERVER_PORT"];
+		} else {
+		    $_SERVER_PORT = $_ENV["SERVER_PORT"];
+		}
+		//if (!$_ENV["SERVER_PORT"] && $_SERVER["SERVER_PORT"]) $_SERVER_PORT = $_SERVER["SERVER_PORT"];
+		if( isset( $_SERVER["SESSION_KEY"] ) ) {
+		    $_SESSION_KEY = $_SERVER["SESSION_KEY"];
+		} else {
+		    $_SESSION_KEY = $_ENV["SESSION_KEY"];
+		}    
+		//if (!$_ENV["SESSION_KEY"] && $_SERVER["SESSION_KEY"]) $_SESSION_KEY = $_SERVER["SESSION_KEY"];
+		if( isset( $_SERVER["SESSION_ID"] ) ) {
+		    $_SESSION_ID = $_SERVER["SESSION_ID"];
+		} else {
+		    $_SESSION_ID = $_ENV["SESSION_ID"];
+		}
+		//if (!$_ENV["SESSION_ID"] && $_SERVER["SESSION_ID"]) $_SESSION_ID = $_SERVER["SESSION_ID"];
+		if( isset( $_SERVER["SESSION_ID"] ) ) {
+		    $SSL = $_SERVER["SSL"];
+		} else {
+		    $SSL = $_ENV["SSL"];
+		}
+		//if (!$_ENV["SSL"] && $_SERVER["SSL"]) $SSL = $_SERVER["SSL"];
 		if ($disable_api_on_ssl == 1) return false;
 		
 		$headers = array();
@@ -139,8 +151,8 @@ class logoclass{
 
 	public function uploadLogoUrl($logourl, $user, $skroot) {
 		$imgcheck = getimagesize ($logourl);
-
-	    if ($imgcheck) {
+		list($w, $h, $t, $x) = $imgcheck;
+	    if(($t==1  || $t==2 || $t==3) && $w<=300 && $h<=60) {
 	        $extfile = image_type_to_extension($imgcheck[2]);
 	        $logodata = file_get_contents($logourl);
 	        $logopath = "images/custom/". $user . $extfile;
@@ -152,7 +164,7 @@ class logoclass{
 	          return 1;
 	        } else {
 	          return 0;
-	        }    
+	        }
 	    } else {
 	        return 2;
 	    }
