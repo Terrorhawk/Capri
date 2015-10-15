@@ -11,23 +11,24 @@
 
 |$|SK_PHP|
 <?php
-include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT| . "inc/func.php";
 
-$arrPath = getpath();
-$ownerType=$arrPath['owner'];
-$path=$arrPath['path'];
+$path=|SK_ROOT|. "/inc";
 $upgradeenable=true;
 $upgradebutton=false;
 $MAILONLYINSTALL=false;
 $csschange=true;
 $logochange=true;
-if($ownerType=="admin" && "|USERCREATOR|"=="root") $show_options = true;
-if($ownerType=='reseller' && file_exists('/home/|USERNAME|/skins/|SKIN|') && '/home/|USERNAME|/skins/|SKIN|/'==|SK_ROOT|) $show_options = true;
+$resellerlogo='';
+$imagelogo='';
+$colorset=false;
+$resellerslogo='';
+$restorelogo='';
+$upgrade='';
+$error='';
+$show_options = false;
+if("|USERCREATOR|"=="root") $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
-if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
-
-if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
-
 
 
 ?>
@@ -40,7 +41,6 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 
 <div class="table75">
   |SKINS|
-  
   <form name=uploadform action="CMD_SKINS" enctype="multipart/form-data" method="post">
   <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
   <input type="hidden" name="action" value="upload">
@@ -57,15 +57,12 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
       </tfoot>
     </table>
   </form>
-<?php  if($show_warn==true) {
-  echo '<div style="margin: 10px 0;border: 1px solid #f00000;background-color:#ffecec;font-weight: bold;padding:10px;">Your user creator is not "root". Please read this <a href="http://www.outservices.net/clients/index.php?_m=knowledgebase&_a=viewarticle&kbarticleid=6&nav=0,1">http://www.outservices.net/clien...nav=0,1</a></div>';
-} ?>
 <?php  if($show_options==true) { 
 
   /**** message ****/
-  $msg = openfile($path."results");
+  $msg = $fl->openfile($path."results");
   /**** message ****/
-	
+  
   if($_SERVER["QUERY_STRING"]) {
     parse_str($_SERVER["QUERY_STRING"]);
   } else {
@@ -112,34 +109,39 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   
   // change logo ******************************************************************************************************
   if($imagelogo && $imagelogo!='' && urldecode($imagelogo!='http://')) {
-    
-    /*Backup original logo*/
-    $ch = curl_init($imagelogo);
-    $fp = fopen("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif", 'wb');
-    curl_setopt($ch, CURLOPT_FILE, $fp);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_exec($ch);
-    curl_close($ch);
-    fclose($fp);
-    $msg = "|LANG_LOGO_DONE|";
+      $uploadlogo = $logo->uploadLogoUrl($imagelogo, "|USERNAME|", |SK_ROOT|);
+
+      switch ($uploadlogo) {
+          case 0:
+              $msg = "|LANG_LOGO_DONE|";
+              break;
+          case 1:
+              $msg = "|LANG_IMG_UPLOAD_ERROR|";
+              break;
+          case 2:
+              $msg = "|LANG_IMAGE_ERROR|";
+              break;
+      }
 
   }
   
   // alloresellerslogo ******************************************************************************************************
   if($resellerslogo && $resellerslogo==1) {
     if($allow==1) {
-      whitefile(1, $path."allowcustomlogo");
-      if(!file_exists($path."allowcustomlogo")) { $troubles1 .= '<span style="color:#f00;">Unable to create files in '.$path.'</span><br>'; }
+      $fl->whitefile(1, $path."/allowcustomlogo");
+      if(!file_exists($path."/allowcustomlogo")) { $troubles1 .= '<span style="color:#f00;">Unable to create files in '.$path.'</span><br>'; }
     } else {
-      @unlink($path."allowcustomlogo");
+      @unlink($path."/allowcustomlogo");
     }
   }
  
   // restorelogo ******************************************************************************************************
   if($restorelogo==1) {
-    unlink("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif");
-    copy("/usr/local/directadmin/data/skins/|SKIN|/images/logo.bak","/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif");
-    chmod("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif",0777);
+    $icpath_usr = glob(|SK_ROOT| . "/images/custom/|USERNAME|.*");
+    if (count($icpath_usr) > 0) {
+        unlink($icpath_usr[0]);
+    }
+
     $msg = "|LANG_LOGO_RESTORED|";
   }
   
@@ -248,18 +250,21 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
 <table cellspacing="0" class="config">
 <thead>
   <tr>
-    <td colspan="2">Skin manager</td>
+    <td colspan="2">|LANG_SKIN_MANAGER|</td>
   </tr>
 </thead>
 <tbody>
- 
   <tr>
-    <th>License status: </th>
-    <td><?php  echo  $lstatus?></td>
+     <td>|LANG_CURRENTLY_USING|: </td>
+     <td><strong>|SKIN|</strong></span></td>
+  </tr>
+  <tr>
+    <td>License status: </td>
+    <td><span style="color: green;"><strong>Free Github Version</strong></span></td>
   </tr>
 
   <tr>
-    <td nowrap width="20%">Logo image URL:</td>
+    <td nowrap width="20%">|LANG_LOGO_URL|:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
       <input type class="combot" id="imagelogo" name="imagelogo" value="http://" style="width: 160px;" <?php  if(!$logochange) { echo 'disabled'; }?>>
       <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if(!$logochange) { echo 'disabled'; }?> /> 
@@ -288,10 +293,10 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   
   <tr>
     <td nowrap width="20%">Resellers custom logo:</td>
-    <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS" onsubmit="javascript:return customLogoForm(<?php  if(file_exists($path."allowcustomlogo")) { echo "1"; } ?>);">
+    <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS" onsubmit="javascript:return customLogoForm(<?php  if(file_exists($path."/allowcustomlogo")) { echo "1"; } ?>);">
       <input type="hidden" name="resellerslogo" value="1">
-      <input type="checkbox" id="resellerslogo" name="allow" value="1" <?php  if(file_exists($path."allowcustomlogo")) { echo "checked"; } ?>>
-      <input name="Submit" type="submit" class="boton small" value="|LANG_SAVE|" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?> /> 
+      <input type="checkbox" id="resellerslogo" name="allow" value="1" <?php  if(file_exists($path."/allowcustomlogo")) { echo "checked"; } ?>>
+      <input name="Submit" type="submit" class="boton small" value="|LANG_SAVE|" /> 
       <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_RES_LOGO_HELP|">?</span>
     </form></td>
   </tr>
@@ -351,54 +356,44 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   </tr>
 </tbody>
 </table>
-<?php  } elseif(file_exists($path."allowcustomlogo")) {
+<?php  } elseif(file_exists($path."/allowcustomlogo")) {
 
   /**** mensaje ****/
-  $msg = openfile($path."results_|USERNAME|");
+  $msg = $fl->openfile($path."/results_|USERNAME|");
   /**** mensaje ****/
   
-  parse_str($_ENV["QUERY_STRING"]);
+  if($_SERVER["QUERY_STRING"]) {
+    parse_str($_SERVER["QUERY_STRING"]);
+  } else {
+    parse_str(getenv("QUERY_STRING"));
+  }
 
   // cambio logo reseller *********************************************************************************************
   if($resellerlogo && $resellerlogo!='' && urldecode($resellerlogo!='http://')) {
-    if($img = @file_get_contents(urldecode($resellerlogo))) {
-      whitefile($img, $path."_newlogo");
-      if(file_exists($path."_newlogo")) {
-        if(function_exists('getimagesize')) {
-          list($w, $h, $t, $x, $m) = getimagesize($path."_newlogo");
-          if(($t==1 || $t==IMAGETYPE_JPEG || $t==2 || $t==IMAGETYPE_GIF) && $w<=300 && $h<=60) {
-            whitefile("|USERNAME|", $path."_logodata");
-            $msg = "|LANG_LOGO_DONE|";
-          } else {
-            $error = "|LANG_IMAGE_ERROR|";
-          }
-        } else {
-          $ext = strtolower(substr(urldecode($resellerlogo), -4, 4));
-          if($ext=='.gif' || $ext=='.jpeg' || $ext=='jpeg') {
-            whitefile("|USERNAME|", $path."_logodata");
-            $msg = "|LANG_LOGO_DONE|";
-          } else {
-            $error = "|LANG_IMAGE_ERROR|";
-          }
-        }
+    $uploadlogo = $logo->uploadLogoUrl($resellerlogo, "|USERNAME|", |SK_ROOT|);
 
-      } else {
-        $error = "|LANG_IMG_UPLOAD_ERROR|";
-      }
-    } else {
-      $error = "|LANG_FETCH_URL_ERROR|";
+    switch ($uploadlogo) {
+        case 0:
+            $msg = "|LANG_LOGO_DONE|";
+            break;
+        case 1:
+            $msg = "|LANG_IMG_UPLOAD_ERROR|";
+            break;
+        case 2:
+            $msg = "|LANG_IMAGE_ERROR|";
+            break;
     }
   }
   
   /**** mensaje ****/
   if($msg && $msg!='') { 
     echo '<div class="smsg">'.nl2br(htmlspecialchars($msg)).'</div>';
-    @unlink($path."results");  
+    @unlink($path."/results");  
   }
 
   if($error && $error!='') { 
     echo '<div style="border: 1px solid #e00; padding: 3px 8px;font-size: 11px;color:#a00;margin-bottom:10px;background-color:#ffeae6;">'.nl2br(htmlspecialchars($error)).'</div>';
-    @unlink($path."results");  
+    @unlink($path."/results");  
   }
   /**** mensaje ****/
 
@@ -415,12 +410,11 @@ if("|USERNAME|"=="admin" && "|USERCREATOR|"!="root") $show_warn = true;
   </tr>
   <tr>
     <td nowrap width="20%">|LANG_LOGO_URL|:</td>
-    <td><form id="form1" name="form1" method="GET" action="">
-      <input type class="combot" id="resellerlogo" name="resellerlogo" value="http://" style="width: 160px;" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?>>
-      <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if($path!="/usr/local/directadmin/data/skin_data/capri/") { echo 'disabled'; }?> /> 
-      <?php  if(file_exists("/usr/local/directadmin/data/skin_data/capri/imagelogo")) { ?>
-        <input name="restore" type="button" class="boton small" value="Restore" oncClick="javascript:window.location='/CMD_SKINS?restorereslogo=1';" /> 
-      <?php  } ?>
+    <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
+      <input type class="combot" id="resellerlogo" name="resellerlogo" value="http://" style="width: 160px;" />
+      <input name="Submit" type="submit" class="boton small" value="Submit"  /> 
+      <input name="restore" type="button" class="boton small" value="Restore" oncClick="javascript:window.location='/CMD_SKINS?restorereslogo=1';" /> 
+      <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
     </form></td>
   </tr>
 </tbody>

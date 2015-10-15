@@ -500,7 +500,7 @@ table.list td.list2, table.list td.list, table.list td.listwrap {
   font-size: 11px;
   padding: 4px 5px;
   background-color: #fff;
-  word-break: break-all;
+  /*word-break: break-all;*/
   max-width: 250px;
   /*overflow:hidden;*/
 }

@@ -233,6 +233,7 @@ div#pageloading {
 .combot, table.config .selectclass {
   border: 1px solid #888;
   font-size: 11px;
+  /*max-width: 100px;*/
 }
 /* user item ******************************/
 /* user item ******************************/
@@ -243,8 +244,8 @@ a.micon:link, a.micon:active, a.micon:visited,
  text-align: center;
  display: block;
  width: 85px !important;
- width: 95px;
- height: 60px !important;
+ width: 85px;
+ height: 70px !important;
  height: 70px;
  margin: 6px 0;
  color: #555;
@@ -313,9 +314,6 @@ a.micon:link, a.micon:active, a.micon:visited,
   border-top: none;
 }
 .panelBox .title {
-  background-position: right center;
-  background-repeat: repeat-x;
-  background-image: url(IMG_PBOX_BGR);
   background-color: #165d8c;
   color: #fff;
   height: 27px;
@@ -453,6 +451,8 @@ table.list, table.list td {
 table.list  {
   border: 4px solid #e8e8e8;
   background-color: #fff;
+  /*table-layout:fixed;*/
+  width: 100%;
 }
 table.list a.toptext {
   color: #777;
@@ -499,6 +499,9 @@ table.list td.list2, table.list td.list, table.list td.listwrap {
   font-size: 11px;
   padding: 4px 5px;
   background-color: #fff;
+  /*word-break: break-all;*/
+  max-width: 250px;
+  /*overflow:hidden;*/
 }
 table.list td.bold {
   font-weight: bold;
@@ -856,20 +859,6 @@ div#result.succ2 {
 .path_visible {
 	visibility: visible;
 }
-.highlighted-good
-{
-	COLOR: green;
-}
-.highlighted-bad
-{
-	COLOR: red;
-	FONT-WEIGHT: bold;
-}
-.highlighted-neutral
-{
-	COLOR: #DBA24D;
-}
-
 .message
 {
 	padding: 15px;
@@ -898,4 +887,24 @@ td.message_info
 .message_info
 {
 	COLOR: #777777;
+}
+
+.trList .selectclass.combo, .trList .inputclass.combo{
+    max-width: 70px;
+}
+ 
+table#blockedipstable {
+    width:100% !important;
+}
+
+.table-highlight, table.config {
+    width:100% !important;
+}
+
+textarea.combo {
+   max-width: 800px;
+}
+
+.selectclass.combo {
+    max-width: 150px;
 }

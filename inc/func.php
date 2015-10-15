@@ -2,8 +2,10 @@
 //need for optimisation functions.php
 
 class skclass{
-	function api_get($cmd, $post = false) {
-		
+	public function api_get($cmd, $post = false) {
+		$_SERVER_PORT='';
+		$_SESSION_KEY='';
+		$_SESSION_ID='';
 		global $disable_api_on_ssl;
 		if (is_array($post)) {
 			$is_post = true;
@@ -72,7 +74,7 @@ class skclass{
 		return false;
 	}
 
-	function load_average($color = false) {
+	public function load_average($color = false) {
 		$loads = urldecode($this->api_get("/CMD_API_LOAD_AVERAGE"));
 		parse_str($loads);
 		settype($one, "float");
@@ -82,7 +84,7 @@ class skclass{
 		return $load;
 	}
 
-	function getServices() {
+	public function getServices() {
 		$str = $this->api_get("/CMD_API_SHOW_SERVICES", $post = false);
 		if (strpos($str, "httpd") === false){
 			return false;
@@ -92,7 +94,7 @@ class skclass{
 		return $servArr;
 	}
 
-	function getDomainsList() {
+	public function getDomainsList() {
 		$ret = array();
 		$r = $this->api_get("/CMD_API_DOMAIN_OWNERS");
 		$domainsOwn = @urldecode($r);
@@ -106,7 +108,91 @@ class skclass{
 	}
 }
 
-$sk = new skclass();
+class logoclass{
+	public function addCustomLogoConf($user, $logopath, $skroot) { 
+		$content = ""; 
+		$confpath = $skroot . "/files_custom.conf";
+		$customLogoArr = parse_ini_file($confpath);
+		$customLogoArr["IMG_RESLOGO_" . $user] = $logopath;
+		foreach ($customLogoArr as $key=>$elem) { 
+            if(is_array($elem)) 
+            { 
+                for($i=0;$i<count($elem);$i++) 
+                { 
+                    $content .= $key."[]=".$elem[$i]."\n"; 
+                } 
+            } 
+            else if($elem=="") $content .= $key." = \n"; 
+            else $content .= $key."=".$elem."\n"; 
+        } 
 
+
+	    if (!$handle = fopen($confpath, 'w')) { 
+	        return false; 
+	    }
+
+	    $success = fwrite($handle, $content);
+	    fclose($handle); 
+
+	    return $success;
+	}
+
+	public function uploadLogoUrl($logourl, $user, $skroot) {
+		$imgcheck = getimagesize ($logourl);
+
+	    if ($imgcheck) {
+	        $extfile = image_type_to_extension($imgcheck[2]);
+	        $logodata = file_get_contents($logourl);
+	        $logopath = "images/custom/". $user . $extfile;
+	        $fullLogoPath = $skroot . "/" . $logopath;
+	        file_put_contents($fullLogoPath, $logodata);
+
+	        if(!$this->addCustomLogoConf($user, $logopath, $skroot)) {
+	          @unlink($fullLogoPath);
+	          return 1;
+	        } else {
+	          return 0;
+	        }    
+	    } else {
+	        return 2;
+	    }
+	}
+
+}
+
+class fileclass{
+	public function openfile($file) {
+		if (file_exists($file)) {
+			if ($data = @file_get_contents($file)) {
+				return $data;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public function whitefile($str, $file) {
+		if ($al = @fopen($file, "w")) {
+			if (@is_writable($file)) {
+				@fwrite($al, $str);
+				return true;
+			} else {
+				return false;
+			}
+
+			@fclose($al);
+		} else {
+			return false;
+		}
+	}
+
+
+}
+
+$sk = new skclass();
+$logo = new logoclass();
+$fl = new fileclass();
 
 ?>

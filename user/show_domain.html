@@ -56,6 +56,9 @@
 |*if USEREMAILMAX!="0"|
       <a href="/CMD_EMAIL_POP?domain=|domain|"><img src="/IMG_IC_EMAIL"><br>|LANG_POP_EMAIL_ACCOUNTS|</a>
 |*endif|
+|*if USERCATCHALL="ON"|
+      <a href="/CMD_EMAIL_CATCH_ALL?domain=|domain|"><img src="/IMG_IC_EMAIL_CATCH"><br>|LANG_CATCH_ALL_EMAIL|</a>
+|*endif|
 |*if USERFORWARDERMAX!="0"|
       <a href="/CMD_EMAIL_FORWARDER?domain=|domain|"><img src="/IMG_IC_EMAIL_FOR"><br>|LANG_FORWARDERS|</a>
 |*endif|
