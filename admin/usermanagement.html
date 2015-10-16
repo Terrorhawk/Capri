@@ -3,20 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`|
 |HTM_CONFIG|
 |HTM_ADMIN_TOP|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_MOVE_USERS|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_MOVE_USERS|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_MOVE_USERS');
-
-?>
-DONE|
 <script language="Javascript">
 <!--
 |DATALIST|
@@ -54,11 +45,11 @@ elements[i].checked = true;
   </thead>
   <tbody>
   <tr>
-    <td>Select the Users of |CREATOR_SELECT| <input type=button value="Select" class="boton" onclick="addReseller(document.tableform1.selectcreator.value)"></td>
-    <td>Move Selected Users to Reseller:</td>
+    <td>|LANG_SELECT_USERS_OF| |CREATOR_SELECT| <input type=button value="|LANG_SELECT|" class="boton" onclick="addReseller(document.tableform1.selectcreator.value)"></td>
+    <td>|LANG_MOVE_SELECTED_USERS|:</td>
   </tr>
   <tr>
-    <td><div style="overflow: auto; max-height: 400px; width: 300px;" id="musers">|USERS|</div></td>
+    <td><div style="overflow: auto; max-height: 400px; width: 600px;" id="musers">|USERS|</div></td>
     <td align="center" valign="top"><div>|CREATORS|</div></td>
   </tr>
   </tbody>
