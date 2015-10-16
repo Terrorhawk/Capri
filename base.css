@@ -314,6 +314,9 @@ a.micon:link, a.micon:active, a.micon:visited,
   border-top: none;
 }
 .panelBox .title {
+  background-position: right center;
+  background-repeat: repeat-x;
+  background-image: url(IMG_PBOX_BGR);  
   background-color: #165d8c;
   color: #fff;
   height: 27px;

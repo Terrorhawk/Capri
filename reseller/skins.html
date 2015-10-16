@@ -259,7 +259,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
      <td><strong>|SKIN|</strong></span></td>
   </tr>
   <tr>
-    <td>License status: </td>
+    <td>|LANG_LICENSE_STATUS|: </td>
     <td><span style="color: green;"><strong>Free Github Version</strong></span></td>
   </tr>
 
@@ -267,23 +267,20 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
     <td nowrap width="20%">|LANG_LOGO_URL|:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
       <input type class="combot" id="imagelogo" name="imagelogo" value="http://" style="width: 160px;" <?php  if(!$logochange) { echo 'disabled'; }?>>
-      <input name="Submit" type="submit" class="boton small" value="Submit" <?php  if(!$logochange) { echo 'disabled'; }?> /> 
-      <?php  if(file_exists("/usr/local/directadmin/data/skins/|SKIN|/images/logo.bak")) { ?>
-        <input name="restore" type="button" class="boton small" value="Restore" onClick="window.location.href='/CMD_SKINS?restorelogo=1';" /> 
-      
-      <?php  } ?>
+      <input name="Submit" type="submit" class="boton small" value="|LANG_SUBMIT|" <?php  if(!$logochange) { echo 'disabled'; }?> /> 
+      <input name="restore" type="button" class="boton small" value="|LANG_RESTORE|" onClick="window.location.href='/CMD_SKINS?restorelogo=1';" /> 
       <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
     </form></td>
   </tr>
   
   <tr>
-    <td nowrap width="20%">CSS color:</td>
+    <td nowrap width="20%">|LANG_CSS_COLOR|:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
      <?php if($csschange){ ?>  
        <select class="combot" id="colorset" name="colorset">
 <?php echo $css_select;?>
       </select> 
-      <input name="Submit" type="submit" class="boton small" value="Submit" /> 
+      <input name="Submit" type="submit" class="boton small" value="|LANG_SUBMIT|" /> 
      <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
     </form>
     <?php } ?>
@@ -292,7 +289,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   
   
   <tr>
-    <td nowrap width="20%">Resellers custom logo:</td>
+    <td nowrap width="20%">|LANG_RES_CUSTOM_LOGO|:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS" onsubmit="javascript:return customLogoForm(<?php  if(file_exists($path."/allowcustomlogo")) { echo "1"; } ?>);">
       <input type="hidden" name="resellerslogo" value="1">
       <input type="checkbox" id="resellerslogo" name="allow" value="1" <?php  if(file_exists($path."/allowcustomlogo")) { echo "checked"; } ?>>
@@ -301,20 +298,20 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
     </form></td>
   </tr>
   <tr>
-    <td nowrap width="20%">Installed skin build:</td>
+    <td nowrap width="20%">|LANG_INSTALLES_SKIN_BUILD|:</td>
     <td>|SVERSION|</td>
   </tr>
   <tr>
-    <td nowrap>Lastest skin build:</td>
+    <td nowrap>|LANG_AVA_SKIN_BUILD|:</td>
     <td><?php  echo  $ava_version?> <?php  if($upgradebutton==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
   <tr>
   <tr>
-    <td nowrap>Lastest version is Valid for DirectAdmin:</td>
+    <td nowrap>|LANG_LATEST_VALID_DA_VERSION|:</td>
     <td><?php  echo  $da_version?></td>
   </tr>
   <tr>
-    <td nowrap>Current DirectAdmin version:</td>
+    <td nowrap>|LANG_CURRENT_DA_VERSION|:</td>
     <td>|VERSION|</td>
   </tr>
   <?php
@@ -322,16 +319,16 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   ?>
  <thead>
   <tr>
-    <td colspan="2">Capri mail only</td>
+    <td colspan="2">|LANG_MAIL_ONLY_SKIN_STATUS|</td>
   </tr>
 </thead>
   
  <tr>
-    <td nowrap width="20%">Installed skin build:</td>
+    <td nowrap width="20%">|LANG_INSTALLES_SKIN_BUILD|:</td>
     <td><?php echo $versionmailonly ?></td>
   </tr>
   <tr>
-    <td nowrap>Lastest mail-only skin build:</td>
+    <td nowrap>|LANG_AVA_MAIL_ONLY_SKIN|:</td>
     <td><?php  echo  $ava2_version?> <?php  if($upgradebutton2==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=2';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
  
@@ -341,15 +338,15 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
     else{
     ?>
    <tr>
-    <td nowrap width="20%">Capri mail only:</td>
-    <td>Not Installed</td>
+    <td nowrap width="20%">|LANG_MAIL_ONLY_SKIN_STATUS|:</td>
+    <td>|LANG_NOT_INSTALLED|</td>
   </tr>   
     <?php
     }
   ?>
 
   <tr>
-    <th colspan=2 style="padding-top: 12px !important;">Troubleshooter</th>
+    <th colspan=2 style="padding-top: 12px !important;">|LANG_TROUBLESHOOTER|</th>
   </tr>
   <tr>
     <td colspan="2"><?php  if($troubles1!=''){echo $troubles1;}else{echo $troubles;}?></td>
@@ -412,8 +409,8 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
     <td nowrap width="20%">|LANG_LOGO_URL|:</td>
     <td><form id="form1" name="form1" method="GET" action="/CMD_SKINS">
       <input type class="combot" id="resellerlogo" name="resellerlogo" value="http://" style="width: 160px;" />
-      <input name="Submit" type="submit" class="boton small" value="Submit"  /> 
-      <input name="restore" type="button" class="boton small" value="Restore" oncClick="javascript:window.location='/CMD_SKINS?restorereslogo=1';" /> 
+      <input name="Submit" type="submit" class="boton small" value="|LANG_SUBMIT|"  /> 
+      <input name="restore" type="button" class="boton small" value="|LANG_RESTORE|" oncClick="javascript:window.location='/CMD_SKINS?restorereslogo=1';" /> 
       <span style="font-size: 12px; color: #00f;font-weight:bold;margin-left:5px;" title="|LANG_LOGO_HELP|">?</span>
     </form></td>
   </tr>
