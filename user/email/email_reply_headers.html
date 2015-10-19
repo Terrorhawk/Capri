@@ -1,0 +1,33 @@
+|*if CUSTOM_REPLY_HEADERS="1"|
+		<tr><td class=list>|LANG_SUBJECT_PREFIX|</td><td class=list><input type=text name=subject value="|REPLY_SUBJECT|" size=12>: <i>|LANG_ORIGINAL_SUBJECT|</i></td></tr>
+		<tr><td class=list>|LANG_REPLY_ENCODING|</td><td class=list>|REPLY_ENCODINGS|  &nbsp; (|LANG_BROWSER|: |LANG_ENCODING|)</td></tr>
+		<tr><td class=list>|LANG_CONTENT_TYPE|</td><td class=list>|REPLY_CONTENT_TYPES|</td></tr>
+		<tr><td class=list>|LANG_REPLY_FREQUENCY|</td><td class=list>|REPLY_ONCE_SELECT| |LANG_MIN_TIME_BEFORE_REPLY|</td></tr>
+
+<script type="text/javascript">
+<!-- // start preload code
+	var reply_encoding_select = document.getElementById('reply_encoding');
+	var opt = document.createElement('option');
+
+	var saved_charset = '|REPLY_CHARSET|';
+
+	var have_encoding = false;
+	for (i = 0; i < reply_encoding_select.length; i++)
+	{
+    	if (reply_encoding_select.options[i].value == '|LANG_ENCODING|')
+    		have_encoding = true;
+	}
+	if (!have_encoding)
+	{
+		opt.value = '|LANG_ENCODING|';
+		opt.innerHTML = '|LANG_ENCODING| - |LANG_BROWSER_ENCODING|';;
+		reply_encoding_select.appendChild(opt);
+	}
+
+	if (saved_charset == '')
+	{
+		reply_encoding_select.value = '|LANG_ENCODING|';
+	}
+// done with preload code -->
+</script>
+|*endif|

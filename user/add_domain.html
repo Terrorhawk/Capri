@@ -79,7 +79,24 @@ function submitForm(){
   
 |*if USERPHP="ON"|
   <tr><th>|LANG_PHP| |LANG_ACCESS|:</th><td><input type="checkbox" name=php value="ON" checked><label></label></td></tr>
-  |*endif|
+|*endif|
+
+|*if CUSTOM_ITEM_1|
+    <tr><td class=list>|CUSTOM_ITEM_1_STR|</td> <td class=list align=center>|CUSTOM_ITEM_1|</td><td class=list>|CUSTOM_ITEM_1_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_2|
+    <tr><td class=list>|CUSTOM_ITEM_2_STR|</td>   <td class=list align=center>|CUSTOM_ITEM_2|</td><td class=list>|CUSTOM_ITEM_2_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_3|
+    <tr><td class=list>|CUSTOM_ITEM_3_STR|</td> <td class=list align=center>|CUSTOM_ITEM_3|</td><td class=list>|CUSTOM_ITEM_3_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_4|
+    <tr><td class=list>|CUSTOM_ITEM_4_STR|</td>   <td class=list align=center>|CUSTOM_ITEM_4|</td><td class=list>|CUSTOM_ITEM_4_DESC|</td></tr>
+|*endif|
+|*if CUSTOM_ITEM_5|
+    <tr><td class=list>|CUSTOM_ITEM_5_STR|</td> <td class=list align=center>|CUSTOM_ITEM_5|</td><td class=list>|CUSTOM_ITEM_5_DESC|</td></tr>
+|*endif|
+
   </tbody>
   <tfoot>
   <tr><td colspan=3><input type=button name=create value="|LANG_CREATE|" onclick="if (formOK()) {submitForm();}" class="boton"></td></tr>
