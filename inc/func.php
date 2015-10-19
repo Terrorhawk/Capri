@@ -1,7 +1,7 @@
 <?php //need for optimisation functions.php
 
 class skclass{
-	public function api_get($cmd, $post = false) {
+	private function getApi($cmd, $post = false) {
 		//var_dump($_SERVER);
 		global $disable_api_on_ssl;
 		if (is_array($post)) {
@@ -86,8 +86,8 @@ class skclass{
 		return false;
 	}
 
-	public function load_average($color = false) {
-		$loads = urldecode($this->api_get("/CMD_API_LOAD_AVERAGE"));
+	public function getLoadAverage() {
+		$loads = urldecode($this->getApi("/CMD_API_LOAD_AVERAGE"));
 		parse_str($loads);
 		settype($one, "float");
 		settype($five, "float");
@@ -97,7 +97,7 @@ class skclass{
 	}
 
 	public function getServices() {
-		$str = $this->api_get("/CMD_API_SHOW_SERVICES", $post = false);
+		$str = $this->getApi("/CMD_API_SHOW_SERVICES", $post = false);
 		if (strpos($str, "httpd") === false){
 			return false;
 		}
@@ -106,11 +106,11 @@ class skclass{
 		return $servArr;
 	}
 
-	public function getDomainsList() {
+	public function getAllDomainsList() {
 		$ret = array();
-		$r = $this->api_get("/CMD_API_DOMAIN_OWNERS");
-		$domainsOwn = @urldecode($r);
-		@parse_str($domainsOwn, $domains);
+		$r = $this->getApi("/CMD_API_DOMAIN_OWNERS");
+		$domainsOwn = urldecode($r);
+		parse_str($domainsOwn, $domains);
 		if (is_array($domains) && count($domains) > 0) {
 			foreach($domains as $domain => $ouwner) {
 				$ret[str_replace("_", ".", $domain) ] = $ouwner;
@@ -118,6 +118,85 @@ class skclass{
 		}
 		return $ret;
 	}
+
+	public function getUserDomainsList() {
+		$r = $this->getApi("/CMD_API_SHOW_DOMAINS");
+		$domainsOwn = urldecode($r);
+		parse_str($domainsOwn, $domains);
+		return $domains;
+	}
+
+	public function getAdminStats() {
+		$r = $this->getApi("/CMD_API_ADMIN_STATS");
+		$stats = urldecode($r);
+		parse_str($stats, $statsArr);
+		return $statsArr;
+	}
+
+	public function getUserStats() {
+		$r = $this->getApi("/CMD_API_SHOW_USER_USAGE");
+		$stats = urldecode($r);
+		parse_str($stats, $statsArr);
+		return $statsArr;
+	}
+
+	public function getMailQuota($domain) {
+		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
+		$r = $this->getApi("/CMD_API_POP", $post);
+		$res = urldecode($r);
+		parse_str($res, $accounts);
+		return $accounts;
+	}
+
+	public function changeLang($lang) {
+		$post = array("language"=>1, "lvalue"=>$lang);
+		$r = $this->getApi('/CMD_API_CHANGE_INFO', $post);
+		parse_str($r, $resultArray);
+  		$output = $this->jsonEncode($resultArray);
+		return $output;
+	}
+
+	private function jsonEncode($arr) {
+	    $parts = array();
+	    $is_list = false;
+
+	    //Find out if the given array is a numerical array
+	    $keys = array_keys($arr);
+	    $max_length = count($arr)-1;
+	    if(($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
+	        $is_list = true;
+	        for($i=0; $i<count($keys); $i++) { //See if each key correspondes to its position
+	            if($i != $keys[$i]) { //A key fails at position check.
+	                $is_list = false; //It is an associative array.
+	                break;
+	            }
+	        }
+	    }
+
+	    foreach($arr as $key=>$value) {
+	        if(is_array($value)) { //Custom handling for arrays
+	            if($is_list) $parts[] = array2json($value); /* :RECURSION: */
+	            else $parts[] = '"' . $key . '":' . array2json($value); /* :RECURSION: */
+	        } else {
+	            $str = '';
+	            if(!$is_list) $str = '"' . $key . '":';
+
+	            //Custom handling for multiple data types
+	            if(is_numeric($value)) $str .= $value; //Numbers
+	            elseif($value === false) $str .= 'false'; //The booleans
+	            elseif($value === true) $str .= 'true';
+	            else $str .= '"' . addslashes($value) . '"'; //All other things
+	            // :TODO: Is there any more datatype we should be in the lookout for? (Object?)
+
+	            $parts[] = $str;
+	        }
+	    }
+	    $json = implode(',',$parts);
+	    
+	    if($is_list) return '[' . $json . ']';//Return numerical JSON
+	    return '{' . $json . '}';//Return associative JSON
+	}
+
 }
 
 class logoclass{

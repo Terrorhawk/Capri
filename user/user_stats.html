@@ -25,13 +25,10 @@
     <div class="tip">|LANG_NOTE|</div>
 |$|SK_PHP|
 <?php  
-include |SK_ROOT| . "inc/functions.php";
+include |SK_ROOT| . "inc/func.php";
 $disable_api_on_ssl="|DISABLES_API_ON_SSL|";
 
-$admistats=$sk->api_get("/CMD_API_SHOW_USER_USAGE");
-$admistats = urldecode($admistats);
-parse_str($admistats, $statsArr);
-
+$statsArr = $sk->getUserStats();
 if($statsArr['bandwidth']) {
   $bw = $statsArr['bandwidth'];
   $dbQ = round($statsArr['db_quota']/(1024*1024),2);

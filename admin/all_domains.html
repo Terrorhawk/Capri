@@ -15,11 +15,11 @@
 |$|SK_PHP|
 <?php  
 include |SK_ROOT|."inc/func.php";
-$domains=$sk->getDomainsList();
+$domains=$sk->getAllDomainsList();
 
 parse_str($_SERVER['QUERY_STRING'], $GET);
 
-if($GET['sort']==1) {
+if(isset($GET['sort']) && $GET['sort']==1) {
   @asort($domains);
 $t1=<<<EOF
 <a class="listtitle" href="/HTM_ALL_DOMAINS">|LANG_DOMAIN|</a>
@@ -37,7 +37,7 @@ $t2=<<<EOF
 EOF;
 }
 
-if($GET['raw']==1) {
+if(isset($GET['raw']) && $GET['raw']==1) {
 
 ?>
       &nbsp;&raquo; <a href="/HTM_ALL_DOMAINS"><b>|LANG_TABLE_LIST|</b></a>

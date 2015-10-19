@@ -78,7 +78,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/base.css")) { $troubles1 .= '<span style="color:#f00;">base.css not writeble chmod to 777. color change disabled!</span><br>';$csschange=false;} 
-  if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/images/logo.gif not writeble chmod to 777. logo disabled!</span><br>';$logochange=false;} 
+  if(!is_writable(|SK_ROOT| . "/images/custom/")) { $troubles1 .= '<span style="color:#f00;">Folder /images/custom/ not writeble. chmod to 777. logo disabled!</span><br>';$logochange=false;} 
   
 
   if($path=="/usr/local/directadmin/data/skin_data/SKIN|/") {
@@ -194,9 +194,6 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
           }
         @unlink($file);
 }
-  
-  
-    $lstatus='<span style="color: green;"><strong>Github Version</strong></span>';
   
   
   if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri/master/version.txt")) {

@@ -24,12 +24,10 @@
 include |SK_ROOT| . "inc/func.php";
 $disable_api_on_ssl="|DISABLES_API_ON_SSL|";
 
-$admistats=$sk->api_get("/CMD_API_ADMIN_STATS");
-$admistats = urldecode($admistats);
-parse_str($admistats, $statsArr);
+$statsArr = $sk->getAdminStats();
 
 for($i=1;$i<7;$i++) {
- if($statsArr['disk'.$i]) {
+ if(isset($statsArr['disk'.$i])) {
    list($dname, $bytesTotal, $bytesUsed, $bytesFree, $usedPer, $mountPoint) = explode(':', $statsArr['disk'.$i]);
    $name = $dname;
    $used = $bytesUsed;

@@ -3,7 +3,6 @@
 <?php
 
 include |SK_ROOT|."inc/func.php";
-include |SK_ROOT|."inc/json.php";
 $disable_api_on_ssl="|DISABLES_API_ON_SSL|";
 
 if($_SERVER["QUERY_STRING"]) {
@@ -12,13 +11,8 @@ if($_SERVER["QUERY_STRING"]) {
   parse_str(getenv("QUERY_STRING"), $GET);
 }
 
-parse_str($_SERVER["QUERY_STRING"], $GET);
-
 if($GET['lang']) {
-  $post = array("language"=>1, "lvalue"=>$GET['lang']);
-  $result = $sk->api_get('/CMD_API_CHANGE_INFO', $post);
-  parse_str($result, $resultArray);
-  echo $output = _json_encode($resultArray);
+echo $output = $sk->changeLang($GET['lang']);
 }
 
 ?>
