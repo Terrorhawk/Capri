@@ -26,17 +26,17 @@
         <div class="title">|LANG_MODIFY_BACKUP|</div>
         <div class="cont">
         
-          <div style="float: left;width:300px">
+          <div style="float: left;width:320px">
             <div>|LANG_STEP_1|: <b>|LANG_WHO|</b></div>
             <div class="topsel"><input type=radio name=who id=who1 value="all" |WHO_ALL_CHECKED|><label for="who1">|LANG_ALL_USERS|</label><br />
             <input type=radio name=who id=who3 value="except" |WHO_EXCEPT_CHECKED|><label for="who3">|LANG_ALL_USERS| |LANG_EXCEPT_USERS|</label><br />
-            <input type=radio name=who id=who2 value="selected" |WHO_SELECT_CHECKED|><label for="who2">|LANG_SELECTED_USERS| |CREATOR_SELECT| &amp; Users 
-            <input type=button class="boton small" value="Select" onclick="addReseller(document.tableform1.selectcreator.value)"></label><br />
+            <input type=radio name=who id=who2 value="selected" |WHO_SELECT_CHECKED|><label for="who2">|LANG_SELECTED_USERS| |CREATOR_SELECT|
+            <input type=button class="boton small" value="|LANG_SELECT|" onclick="addReseller(document.tableform1.selectcreator.value)"></label><br />
             <input type=checkbox name="skip_suspended" id="skip_suspended" value="yes" |SKIP_SUSPENDED_CHECKED|><label for="skip_suspended">|LANG_SKIP_SUSPENDED|</label></div>
-            <div style="overflow: auto; height: 322px; width: 300px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
+            <div style="overflow: auto; height: 495px; width: 320px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
           </div>
           
-          <div style="float: left;width:190px;margin: 0 10px;">
+          <div style="float: left;width:135px;margin: 0 10px;">
             <div>|LANG_STEP_2|: <b>|LANG_WHEN|</b></div>
             <div class="topsel"><input type=radio id=when2 name=when value="cron" checked><label for="when1">|LANG_CRON_SCHED|</label></div>
             <div class="table100">
@@ -52,7 +52,7 @@
             </div>
           </div>
           
-          <div style="float: left;width:236px">
+          <div style="float: left;width:275px">
             <div>|LANG_STEP_3|: <b>|LANG_WHERE|</b></div>
             <div class="topsel"><input type=radio name=where id=where1 value="local" |LOCAL_CHECKED|><label for="where1">|LANG_LOCAL|: <input type=text class="combot" style="width:166px" name="local_path" value="|local_path|"></label><br />
             <input type=radio name=where id=where2 value="ftp" |FTP_CHECKED|><label for="where2">|LANG_FTP|</label></div>
@@ -78,7 +78,7 @@
             </div>
           </div>
           
-          <div style="float: left;width:436px;margin: 20px 0 0 10px;">
+          <div style="float: left;width:420px;margin: 20px 0 0 10px;">
             <div>|LANG_STEP_4|: <b>|LANG_WHAT|</b></div>
             <div class="topsel"><input type=radio name=what id="what_all" value="all" |ALL_DATA_CHECKED|><label for="what_all">|LANG_ALL_DATA|</label>
             <br />

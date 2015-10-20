@@ -65,12 +65,12 @@ $(function(){
   $("table.list tr.Suspended").each(function(){
     var user = $(this).find("td:first").text()
     var url = "'/CMD_SELECT_USERS?location=CMD_ALL_USER_SHOW&dounsuspend=1&select0="+user+"'";
-    $(this).find("td:last").prepend('<img src="IMG_USER_SUSPENDED" class="userSuspended" title="|LANG_UNSUSPEND_USER|" onclick="javascript:window.location='+url+'">');
+    $(this).find("td:last").prepend('<img src="IMG_USER_NOSUSPENDED" class="userSuspended" title="|LANG_UNSUSPEND_USER|" onclick="javascript:window.location='+url+'">');
   });
   $("table.list tr.noSuspended").each(function(){
     var user = $(this).find("td:first").text();
     var url = "'/CMD_SELECT_USERS?location=CMD_ALL_USER_SHOW&dosuspend=1&select0="+user+"'";
-    $(this).find("td:last").prepend('<img src="IMG_USER_NOSUSPENDED" class="usernoSuspended" title="|LANG_SUSPEND_USER|" onclick="javascript:window.location='+url+'">');
+    $(this).find("td:last").prepend('<img src="IMG_USER_SUSPENDED" class="usernoSuspended" title="|LANG_SUSPEND_USER|" onclick="javascript:window.location='+url+'">');
   });
   $("table.list tr.Suspended td:last, table.list tr.noSuspended td:last").attr("nowrap", "nowrap").attr("width", "1%").css("white-space","nowrap");
   $('table.list tr, img').ToolTip({className: 'tooltip', position: 'mouse'});
