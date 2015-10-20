@@ -27,7 +27,7 @@ if(strstr($all,'success') || strstr($all,'created') || strstr($all,'restores') |
 
 echo '<div id="result" class="'.$type.'"><a class=tree href="'.$refferr.'">'.$text.'</a></div></a>';
 
-if($res) { echo '<div id="resultDetails" class="'.$type.'">'.$res.'</div>'; }
+if(isset($res)) { echo '<div id="resultDetails" class="'.$type.'">'.$res.'</div>'; }
 
 ?>
 DONE|
