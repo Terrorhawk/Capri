@@ -5,6 +5,7 @@
 <div id="widthphp" style="display: none;">
 |$|SK_PHP|
 <?php
+
 $text = <<<EOF
 |TEXT|
 EOF;
@@ -16,6 +17,7 @@ if(strlen($result)>3) {
   $res = $result;
 }
 
+$type="";
 $all = strtolower($text.$result);
 if(strstr($all,'error') || strstr($all,'not')) {
  $type="error";

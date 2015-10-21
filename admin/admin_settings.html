@@ -46,9 +46,7 @@
         <tr><th>|LANG_MAX_UPLOAD|</th><td><input type="text" class="combot" name="maxfilesize" value="|MAXFILE|" size="32"></td></tr>
         <tr><th>|LANG_KEEP_LOGS|</th><td><input type="text" class="combot" name="logs_to_keep" value="|LOGSTOKEEP|" size="32"></td></tr>
         <tr><th>|LANG_SKIN_DOC_ROOT|</th><td><input type="text" class="combot" name="demodocsroot" value="|DEMODOCSROOT|" size="32"></td></tr>
-        <tr>
-          <td>|LANG_WARN_ADMINS_AT| <input type=text name=partition_usage_threshold size=2 value="|PART_THRESH|" class="combot">|LANG_PERC_PARTITION_USAGE|</td>
-          <td>|LANG_CHECK_EVERY|: &nbsp;<input type=radio name=check_partitions value="1" |PARTMINUTECHECKED|>|LANG_MINUTE| &nbsp;<input type=radio name=check_partitions value="2" |PARTDAYCHECKED|>|LANG_DAY| &nbsp;<input type=radio name=check_partitions value="0" |PARTNEVERCHECKED|>|LANG_NEVER|</td>
+        <tr><th>|LANG_WARN_ADMINS_AT| <input type=text name=partition_usage_threshold size=2 value="|PART_THRESH|" class="combot">|LANG_PERC_PARTITION_USAGE|</th><td>|LANG_CHECK_EVERY|: &nbsp;<input type=radio name=check_partitions value="1" |PARTMINUTECHECKED|>|LANG_MINUTE| &nbsp;<input type=radio name=check_partitions value="2" |PARTDAYCHECKED|>|LANG_DAY| &nbsp;<input type=radio name=check_partitions value="0" |PARTNEVERCHECKED|>|LANG_NEVER|</td>
         </tr>
       </tbody>
       <tfoot>
@@ -85,40 +83,40 @@
         </tr>
         
         <tr>
-          <td class="list top-border">|LANG_PARSE_FOR_BFA|</td>
+          <th class="list top-border">|LANG_PARSE_FOR_BFA|</th>
           <td class="list top-border"><input type=radio name=brute_force_log_scanner value="yes" |BRUTEFORCELOGSCANNER_YES|>|LANG_YES|&nbsp;&nbsp;&nbsp;<input type=radio name=brute_force_log_scanner value="no" |BRUTEFORCELOGSCANNER_NO|>|LANG_NO|
           &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1227">(?)</a>&nbsp;&nbsp;<a href="CMD_BRUTE_FORCE_MONITOR">|LANG_VIEW_LOG|</a></td>
         </tr>
         
         <tr>
-				<td class="list top-border">|LANG_SCAN_APACHE_LOGS|</td>
-				<td class="list top-border">
-					<input type=radio name=brute_force_scan_apache_logs value="2" |BF_SCAN_APACHE_LOGS_2|>|LANG_ALL_LOGS|&nbsp;&nbsp;
-					<input type=radio name=brute_force_scan_apache_logs value="1" |BF_SCAN_APACHE_LOGS_1|>|LANG_MANUAL|&nbsp;&nbsp;
-					<input type=radio name=brute_force_scan_apache_logs value="0" |BF_SCAN_APACHE_LOGS_0|>|LANG_NO|
-					&nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1695">(?)</a>
-				</td>
-		</tr>
+            <th class="list top-border">|LANG_SCAN_APACHE_LOGS|</td>
+            <td class="list top-border">
+                    <input type=radio name=brute_force_scan_apache_logs value="2" |BF_SCAN_APACHE_LOGS_2|>|LANG_ALL_LOGS|&nbsp;&nbsp;
+                    <input type=radio name=brute_force_scan_apache_logs value="1" |BF_SCAN_APACHE_LOGS_1|>|LANG_MANUAL|&nbsp;&nbsp;
+                    <input type=radio name=brute_force_scan_apache_logs value="0" |BF_SCAN_APACHE_LOGS_0|>|LANG_NO|
+                    &nbsp;&nbsp;<a target=_blank href="http://www.directadmin.com/features.php?id=1695">(?)</a>
+            </td>
+        </tr>
         <tr>
-          <td class=list>|LANG_NOTIFY_AFTER_IP|</td>
+          <th class=list>|LANG_NOTIFY_AFTER_IP|</th>
           <td class=list><input type=text name=ip_brutecount value="|IP_LOGIN_FAILURE_THRESHOLD|" size=4> |LANG_LOGIN_FAIL_USER|</td>
         </tr>
         <tr>
-          <td class=list>|LANG_NOTIFY_ADMIN_USER|</td>
+          <th class=list>|LANG_NOTIFY_ADMIN_USER|</th>
           <td class=list><input type=text name=user_brutecount value="|USER_LOGIN_FAILURE_THRESHOLD|" size=4> |LANG_LOGIN_FAIL_IP|</td>
         </tr>
 |*if HAVE_BF_UNBLOCK_AFTER_TIME="1"|
         <tr>
-          <td class=list>|LANG_REMOVE_IP_AFTER|</td>
+          <th class=list>|LANG_REMOVE_IP_AFTER|</th>
           <td class=list><input type=text name=unblock_brute_ip_time value="|UNBLOCK_BRUTE_IP_TIME|" size=4> |LANG_ZERO_NEVER|</td>
         </tr>
 |*endif|
         <tr>
-          <td class=list>|LANG_RESET_COUNT_AFTER|</td>
+          <th class=list>|LANG_RESET_COUNT_AFTER|</th>
           <td class=list><input type=text name=clear_brute_log_time value="|CLEAR_BRUTE_LOG_TIME|" size=4> |LANG_HOURS_AFTER_LAST|</td>
         </tr>
         <tr>
-          <td class=list> |LANG_CLEAR_BF_FROM_LOG|</td>
+          <th class=list> |LANG_CLEAR_BF_FROM_LOG|</th>
           <td class=list><input type=text name=clear_brute_log_entry_time value="|CLEAR_BRUTE_LOG_ENTRY_TIME|" size=4> |LANG_DAYS_AFTER_ENTRY|</td>
         </tr>
 
