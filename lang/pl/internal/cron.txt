@@ -11,3 +11,5 @@
 11=Zmień
 12=Usuń
 13=Wybierz
+14=Użytkownik
+15=Niepoprawny adres e-mail. Można również użyć nazwy użytkownika DirectAdmin.

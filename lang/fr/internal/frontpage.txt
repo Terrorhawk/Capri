@@ -1,0 +1,10 @@
+1=Vous avez besoin d'un mot de passe
+2=Ce n'est pas le mot de passe de votre système
+3=est un lien symbolique.<br />Activé frontpage sur ce domaine peut-être un risque au niveau sécurité
+4=Domaine et mot de passse sont requis
+5=Frontpage installé avec succès sur
+6=Activé
+7=Désactivé
+8=Activer
+9=Désactiver
+10=Fontpage n'est pas installé

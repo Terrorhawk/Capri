@@ -1,0 +1,17 @@
+1=Debe ingresar la ruta origen de la redirecci&oacute;n (ejmplo: /redireccion) y la URL de destino (ejemplo: www.redireccion.com)
+2=La URL local o la URL de destino no son v&aacute;lidas.
+3=no es uno de los tipos de redirecciones listados
+4=Ruta URL Local
+5=Tipo
+6=URL Redirecci&oacute;n
+7=Eliminar
+8=El dominio ingresado es inv&aacute;lido. Debe ser de la forma 'dominio.com'
+9=Ese dominio est&aacute; en la lista de dominios prohibidos
+10=No puede utilizar ese dominio como puntero. Este ya existe en el servidor
+11=Salida del Script
+12=Dominio origen
+13=Tipo
+14=DNS
+15=Seleccionar
+16=El puntero de dominio %s para el dominio %s para el usuario %s ya existe
+17=No se puede agregar el puntero %s, Ud. ha llegado al l&iacute;mite de punteros asignados de %s

@@ -23,3 +23,11 @@
 23=Nie możesz włączyć dostępu anonimowego do ftp
 24=Należy określić domenę
 25=Nie można przywrócić konta dla %s. Osiągnąłeś już swój limit (%s).
+26=Wyjście skryptu
+27=Nie można uzyskać blokady na %s
+28=Użytkownik zawiera separtor ftp (%c), które nie może występować w nazwie użytkownika.
+29=Zawieszone
+30=Odwieś
+31=Zawieś
+32=Tak
+33=Nie

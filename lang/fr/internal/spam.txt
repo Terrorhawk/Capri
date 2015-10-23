@@ -1,0 +1,5 @@
+1=Spamd ne fonctionne pas sur votre système.
+2=Cliquer ici
+3=pour savoir comment l'activer
+4=Erreur lors de la configuration du filtre anti-spam
+5=Sortie du script

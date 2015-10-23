@@ -1,0 +1,30 @@
+1=%s nie istnieje.
+2=Nie można odczytać danych z %s
+3=Nie udało się pobrać blokady %s
+4=Błąd podczas zapisu %s: %s
+5=%s%s jest zablokowany przez %s w celu uniknięcia dostępu do konta w przyszłości.
+6=Ostrzeżenie: %s podał prawidłowe hasło do %s ale kod dwustopniowego uwierzytelnienia został podany błędnie %s razy.
+7=Adres IP %s dostarczył prawidłowe hasło do konta %s.%cJednak po %s próbach, nie został podany poprawny kod dwustopniowego uwierzytelnienia więc dostęp nie został przyznany.%cJeżeli to nie jest Twój adres IP należy zmienić hasło.%s
+8=Tajny klucz dwustopniowego uwierzytelnienia nie został ustawiony.
+9=<b>Podaj kod dwustopniowego uwierzytelnienia</b>
+10=Wyślij
+11=Kod
+12=%sTwój adres IP jest na czarnej liście
+13=Niepoprawny kod dwustopniowego uwierzytelnienia
+14=Kody zdrapki
+15=Data utworzenia
+16=Wybierz
+17=Usuń
+18=Dodaj kody
+19=Nowy tajny klucz: <span class=code_edit>%s</span><br>Pamiętej, aby ponownie zeskanować kod QR oraz, że wszystkie stare kody stają się nieważne.
+20=Ważny
+21=Przepisz kod ze swojej aplikacji w telefonie lub użyj kodu zapasowego ze zdrapki.
+22=Nigdy
+23=Dni: %s
+24=Tygodni: %s
+25=Miesięcy: %s
+26=Wygasa
+27=Niepoprawne znaki z nazwie. Dozwolone to %s
+28=Drukuj
+29=Kod jest ważny, ale o innym czasie.<br>Sprawdź czas zarówno na serwerze jak i w telefonie.<br>Rozbieżność czasu = %d<br>
+30=%s Ufaj temu urządzeniu przez %d dni

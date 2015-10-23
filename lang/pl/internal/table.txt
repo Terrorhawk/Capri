@@ -1,10 +1,10 @@
 1=Wyczyść filtr wyszukiwania
 2=Sortuj zaznaczona kolumnę w 
-3=Kolejności
-4=Rosnącej
-5=Malejącej
+3=kolejności
+4=rosnącej
+5=malejącej
 6=Dodatkowo sortuj zaznaczoną kolumnę w
-7=Kolejności (kiedy pierwsze sortowane wartości będą takie same)
+7=kolejności (kiedy pierwsze sortowane wartości będą takie same)
 8=Wszystkie
 9=Wyników na stronę
 10=Szukaj

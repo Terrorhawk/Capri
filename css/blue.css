@@ -29,7 +29,7 @@ form { margin: 0; }
   background-color: #f9ffea;
 }
 div#mail_frame {
-  width: 1000px;
+  width: 1100px;
   text-align: left;
   background-color: #fff;
   position: relative;
@@ -189,7 +189,7 @@ div#leftPanel {
 div#rightPanel {
   display: block;
   float: left;
-  width: 770px;
+  width: 870px;
   padding: 10px 10px 25px 0;
 }
 div#centerPanel {
@@ -316,7 +316,7 @@ a.micon:link, a.micon:active, a.micon:visited,
 .panelBox .title {
   background-position: right center;
   background-repeat: repeat-x;
-  background-image: url(IMG_PBOX_BGR);
+  background-image: url(IMG_PBOX_BGR);  
   background-color: #165d8c;
   color: #fff;
   height: 27px;
@@ -368,7 +368,7 @@ a.micon:link, a.micon:active, a.micon:visited,
 }
 .panelBox ul li {
   background-image: url(IMG_DOT_L);
-  background-position: 2px center;
+  background-position: 2px 6px;
   background-repeat: no-repeat;
   list-style: none;
   list-style-type: none;
@@ -590,7 +590,7 @@ table.list .footer .boton, input.boton {
 } 
 table.list .footer .boton.small, input.boton.small {
   font-size: 10px ! important;
-  padding: 0px 8px ! important;
+  /*padding: 0px 8px ! important;*/
 }
 /* config table ******************************/
 label {
@@ -910,4 +910,43 @@ textarea.combo {
 
 .selectclass.combo {
     max-width: 150px;
+}
+progress{
+    height: 6px;
+    vertical-align: middle;
+    width: 90%;
+    float: right;
+    margin: 0 5px;
+    background: #28343b; 
+    background: -moz-linear-gradient(top, #fff 0%, #e5e5e5 76%, #f1f1f1 100%);
+    background: -webkit-linear-gradient(top, #fff 0%, #e5e5e5 77%, #f1f1f1  100%); 
+    background: -o-linear-gradient(top, #fff 0%, #e5e5e5 77%,#f1f1f1  100%); 
+    border: 1px solid #a7a7a7;
+    border-radius: 20px;
+    /*overflow: hidden;*/
+}
+
+progress::-moz-progress-bar {
+    background: #b3dced; 
+    background: -moz-linear-gradient(top, #bde2ff 0%, #32b5ff 70%, #50b6fc 100%);
+    background: -webkit-linear-gradient(top, #bde2ff 0%, #32b5ff 70%, #50b6fc 100%);
+    background: -o-linear-gradient(top, #bde2ff 0%, #32b5ff 0%, #50b6fc 100%);
+}
+progress::-webkit-progress-bar {
+    background-color: #b3dced; 
+    background-image: -webkit-linear-gradient(top, #fff 0%, #e5e5e5 50%, #f1f1f1 100%);
+}
+progress::-webkit-progress-value {
+    background: #b3dced; 
+    background-image: -webkit-linear-gradient(top, #bde2ff 0%, #32b5ff 70%, #50b6fc 100%); 
+}
+
+.count_notice {
+    background: #32b5ff none repeat scroll 0 0;
+    border: 1px outset #58b761;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #bde2ff;
+    color: white;
+    margin-left: 5px;
+    padding: 1px 5px;
 }

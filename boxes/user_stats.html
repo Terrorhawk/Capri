@@ -1,113 +1,41 @@
 |HTM_CONFIG|
-|$|SK_PHP|
 
 |?HD=`USERQUOTA`|
 |?HDMAX=`USERQUOTAMAX`|
-|?HDUNIT=MB|
+|?HDUNIT=Mb|
 |?BW=`USERBANDWIDTH`|
 |?BWMAX=`USERBANDWIDTHMAX`|
-|?BWUNIT=MB|
+|?BWUNIT=Mb|
 
 |*if USERQUOTAMAX>"1024"|
 |?HD=`USERQUOTAGIG`|
 |?HDMAX=`USERQUOTAMAXGIG`|
-|?HDUNIT=GB|
+|?HDUNIT=Gb|
 |*endif|
 
 |*if USERBANDWIDTHMAX>"1024"|
 |?BW=`USERBANDWIDTHGIG`|
 |?BWMAX=`USERBANDWIDTHMAXGIG`|
-|?BWUNIT=GB|
+|?BWUNIT=Gb|
 |*endif|
 
       <div class="panelBox">
         <div class="title"><span>|LANG_ACCOUNT_SUMMARY|</span></div>
         <ul>
-
-|*if USERQUOTAMAX!="unlimited"|
-<?php 
-
-$hdper = intval((|HD| * 100) / |HDMAX|);
-if($hdper>100) $hdper=100;
-$Shdper = number_format($hdper,0);
-$hdbar = round( ($hdper * 130) / 100);
-if($hdbar>160) $hdbar=160;
-
-?>
-          <li><span>|LANG_DISK_SPACE|:</span> |HD| / |HDMAX| |HDUNIT| <br>
-            <div class="usagebar">
-              <div class="per"><?php  echo  $hdper?>%</div>
-              <div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $hdbar?>" style="width: 1px"></div></div>
-            </div>
-            <div class="cf"></div>
-          </li>
-|*else|
-          <li><span>|LANG_DISK_SPACE|:</span> |HD| |HDUNIT|</li>
-|*endif|
-
-|*if USERBANDWIDTHMAX!="unlimited"|
-<?php
-
-$bwper = intval((|BW| * 100) / |BWMAX| );
-if($bwper>100) $bwper=100;
-$Sbwper = number_format($bwper,0);
-$bwbar = round( ($bwper * 130) / 100);
-if($bwbar>160) $bwbar=160;
-
-?>
-        <li><span>|LANG_BANDWIDTH|:</span> |BW| / |BWMAX| |BWUNIT| <br>
-          <div class="usagebar">
-            <div class="per"><?php  echo  $bwper?>%</div>
-            <div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $bwbar?>" style="width: 1px"></div></div>
-          </div>
-          <div class="cf"></div>
-        </li>
-|*else|
-        <li><span>|LANG_BANDWIDTH|:</span>|BW| |BWUNIT| </li>
-|*endif|
-
-|*if NDOMAINSMAX="unlimited"|
-	<li><span>|LANG_DOMAINS|:</span>|NDOMAINS|</li>
-|*else|
-	<li><span>|LANG_DOMAINS|:</span>|NDOMAINS| / |NDOMAINSMAX|</li>
-|*endif|
-
-|*if USERDATABASEMAX="unlimited"|
-        <li><span>|LANG_DATABASES|:</span>|USERDATABASE|</li>
-|*else|
-        <li><span>|LANG_DATABASES|:</span>|USERDATABASE| / |USERDATABASEMAX|</li>
-|*endif|
-
-|*if USERFTPMAX="unlimited"|
-	<li><span>|LANG_FTP_ACCOUNTS|:</span>|USERFTP|</li>
-|*else|
-	<li><span>|LANG_FTP_ACCOUNTS|:</span>|USERFTP| / |USERFTPMAX|</li>
-|*endif|
-
-|*if USEREMAILMAX="unlimited"|
-	<li><span>|LANG_EMAILS|:</span>|USEREMAIL|</li>
-|*else|
-	<li><span>|LANG_EMAILS|:</span>|USEREMAIL| / |USEREMAILMAX|</li>
-|*endif|
-
-|*if NUSERSUBDOMAINSMAX="unlimited"|
-	<li><span>|LANG_SUBDOMAINS|:</span>|NUSERSUBDOMAINS|</li>
-|*else|
-	<li><span>|LANG_SUBDOMAINS|:</span>|NUSERSUBDOMAINS| / |NUSERSUBDOMAINSMAX|</li>
-|*endif|
-
-|*if USERPOINTERSMAX="unlimited"|
-	<li><span>|LANG_POINTERS|:</span>|USERPOINTERS|</li>
-|*else|
-	<li><span>|LANG_POINTERS|:</span>|USERPOINTERS| / |USERPOINTERSMAX|</li>
-|*endif|
-
+          <li><span>|LANG_DISK_SPACE|:</span> <progress value="|HD|" max="|HDMAX|"></progress><div class="stats"> |HD| / |HDMAX| |HDUNIT|</div></li>
+          <li><span>|LANG_BANDWIDTH|:</span> <progress value="|BW|" max="|BWMAX|"></progress><div class="stats"> |BW| / |BWMAX| |BWUNIT| </div></li>
+          <li><span>|LANG_DOMAINS|:</span><progress value="|NDOMAINS|" max="|NDOMAINSMAX|"></progress><div class="stats">|NDOMAINS| / |NDOMAINSMAX|</div></li>
+          <li><span>|LANG_DATABASES|:</span><progress value="|USERDATABASE|" max="|USERDATABASEMAX|"></progress><div class="stats">|USERDATABASE| / |USERDATABASEMAX|</div></li>
+          <li><span>|LANG_FTP_ACCOUNTS|:</span><progress value="|USERFTP|" max="|USERFTPMAX|"></progress><div class="stats">|USERFTP| / |USERFTPMAX|</div></li>
+          <li><span>|LANG_EMAILS|:</span><progress value="|USEREMAIL|" max="|USEREMAILMAX|"></progress><div class="stats">|USEREMAIL| / |USEREMAILMAX|</div></li>
+          <li><span>|LANG_SUBDOMAINS|:</span><progress value="|NUSERSUBDOMAINS|" max="|NUSERSUBDOMAINSMAX|"></progress><div class="stats">|NUSERSUBDOMAINS| / |NUSERSUBDOMAINSMAX|</div></li>
+          <li><span>|LANG_POINTERS|:</span><progress value="|USERPOINTERS|" max="|USERPOINTERSMAX|"></progress><div class="stats">|USERPOINTERS| / |USERPOINTERSMAX|</div></li>
 |*if HAVE_INODE="yes"|
-	<li><span>|LANG_INODES|:</span>|USERINODE| / |USERINODEMAX|</li>
+          <li><span>|LANG_INODES|:</span><progress value="|USERINODE|" max="|USERINODEMAX|"></progress><div class="stats">|USERINODE| / |USERINODEMAX|</div></li>
 |*endif|
         </ul>
       </div>
-DONE|
+
 <script language="JavaScript" type="text/javascript">
 <!--
 $(function(){$("body").find(".bbar").each(function(){$(this).animate({width:$(this).attr("ancho")+"px"},2000).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200);});});

@@ -1,0 +1,17 @@
+1=Script output
+2=Unable to create directory
+3=Secured Home of
+4=Welcome to
+5=To change this page, upload a new index.html to your private_html folder
+6=Domain Created Successfully
+7=Error Creating Domain
+8=Invalid subdomain name
+9=Subdomain already exists
+10=This is a placeholder for the subdomain
+11='s config files have been removed
+12=Domains directory created successfully
+13=Domains directory created successfully in user's home
+14=Users's domains directory removed.
+15=Unable to delete users's domains directory
+16=That domain is suspended.  Unsuspend it before changing it's name
+17=The domain %s does not belong to you.

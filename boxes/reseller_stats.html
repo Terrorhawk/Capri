@@ -1,98 +1,34 @@
 |HTM_CONFIG|
-|$|SK_PHP|
 
 |?HD=`RESELLERQUOTA`|
 |?HDMAX=`RESELLERQUOTAMAX`|
-|?HDUNIT=MB|
+|?HDUNIT=Mb|
 |?BW=`RESELLERBANDWIDTH`|
 |?BWMAX=`RESELLERBANDWIDTHMAX`|
-|?BWUNIT=MB|
+|?BWUNIT=Mb|
 
 
 |*if RESELLERBANDWIDTH>"1024"|
 |?BW=`RESELLERBANDWIDTHGIG`|
 |?BWMAX=`RESELLERBANDWIDTHMAXGIG`|
-|?BWUNIT=GB|
+|?BWUNIT=Gb|
 |*endif|
 
 
       <div class="panelBox">
         <div class="title"><span>|LANG_ACCOUNT_SUMMARY|</span></div>
         <ul>
-|*if RESELLERQUOTAMAX!="unlimited"|
-<?php
-
-$hdper = round((|HD| * 100) / |HDMAX|);
-if($hdper>100) $hdper=100;
-$Shdper = number_format($hdper,0);
-$hdbar = round( ($hdper * 130) / 100);
-if($hdbar>130) $hdbar=130;
-
-?>
-        <li><span>|LANG_DISK_SPACE|:</span> |HD| / |HDMAX| |HDUNIT| <br>
-          <div class="usagebar"><div class="per"><?php  echo  $hdper?>%</div><div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $hdbar?>" style="width: 1px"></div></div></div>
-        </li>
-|*else|
-        <li><span>|LANG_DISK_SPACE|:</span> |HD| |HDUNIT| </li>
-|*endif|
-
-|*if RESELLERBANDWIDTHMAX!="unlimited"|
-<?php
-
-$bwper = round((|BW| * 100) / |BWMAX|);
-if($bwper>100) $bwper=100;
-$Sbwper = number_format($bwper,0);
-$bwbar = round( ($bwper * 130) / 100);
-if($bwbar>130) $bwper=130;
-
-?>
-        <li><span>|LANG_BANDWIDTH|:</span> |BW| / |BWMAX| |BWUNIT| <br>
-          <div class="usagebar"><div class="per"><?php  echo  $bwper?>%</div><div class="out" align="left"><div class="in bbar" ancho="<?php  echo  $bwbar?>" style="width: 1px"></div></div></div>
-        </li>
-|*else|
-        <li><span>|LANG_BANDWIDTH|:</span> |BW| |BWUNIT| </li>
-|*endif|
-
-|*if RESELLERDOMAINSMAX="unlimited"|
-	<li><span>|LANG_DOMAINS|:</span>|RESELLERDOMAINS|</li>
-|*else|
-	<li><span>|LANG_DOMAINS|:</span>|RESELLERDOMAINS| / |RESELLERDOMAINSMAX|</li>
-|*endif|
-
-	<li><span>|LANG_USERS|:</span>|RESELLERUSERS|</li>
-
-|*if RESELLERDATABASEMAX="unlimited"|
-	<li><span>|LANG_DATABASES|:</span>|RESELLERDATABASE|</li>
-|*else|
-	<li><span>|LANG_DATABASES|:</span>|RESELLERDATABASE| / |RESELLERDATABASEMAX|</li>
-|endif|
-
-|*if RESELLERFTPMAX="unlimited"|
-	<li><span>|LANG_FTP_ACCOUNTS|:</span>|RESELLERFTP|</li>
-|*else|
-	<li><span>|LANG_FTP_ACCOUNTS|:</span>|RESELLERFTP| / |RESELLERFTPMAX|</li>
-|*endif|
-
-|*if RESELLEREMAILMAX="unlimited"|
-	<li><span>|LANG_EMAILS|:</span>|RESELLEREMAIL|</li>
-|*else|
-	<li><span>|LANG_EMAILS|:</span>|RESELLEREMAIL| / |RESELLEREMAILMAX|</li>
-|*endif|
-
-|*if RESELLERSUBDOMAINSMAX="unlimited"|
-	<li><span>|LANG_SUBDOMAINS|:</span>|RESELLERSUBDOMAINS|</li>
-|*else|
-	<li><span>|LANG_SUBDOMAINS|:</span>|RESELLERSUBDOMAINS| / |RESELLERSUBDOMAINSMAX|</li>
-|*endif|
-
-|*if RESELLERPOINTERSMAX="unlimited"|
-	<li><span>|LANG_POINTERS|:</span>|RESELLERPOINTERS|</li>
-|*else|
-	<li><span>|LANG_POINTERS|:</span>|RESELLERPOINTERS| / |RESELLERPOINTERSMAX|</li>
-|*endif|
+          <li><span>|LANG_DISK_SPACE|:</span><progress max="|HDMAX|" value="|HD|"></progress><div class="stats"> |HD| / |HDMAX| |HDUNIT|</div></li>
+          <li><span>|LANG_BANDWIDTH|:</span><progress max="|BWMAX|" value="|BW|"></progress><div class="stats">|BW| / |BWMAX| |BWUNIT|</div></li>
+          <li><span>|LANG_DOMAINS|:</span><progress max="|RESELLERDOMAINSMAX|" value="|RESELLERDOMAINS|"></progress><div class="stats">|RESELLERDOMAINS| / |RESELLERDOMAINSMAX|<div></li>
+          <li><span>|LANG_USERS|:</span>|RESELLERUSERS|</li>
+          <li><span>|LANG_DATABASES|:</span><progress max="|RESELLERDATABASEMAX|" value="|RESELLERDATABASE|"></progress><div class="stats">|RESELLERDATABASE| / |RESELLERDATABASEMAX|</div></li>
+          <li><span>|LANG_FTP_ACCOUNTS|:</span><progress max="|RESELLERFTPMAX|" value="|RESELLERFTP|"></progress><div class="stats">|RESELLERFTP| / |RESELLERFTPMAX|</div></li>
+          <li><span>|LANG_EMAILS|:</span><progress max="|RESELLEREMAILMAX|" value="|RESELLEREMAIL|"></progress><div class="stats">|RESELLEREMAIL| / |RESELLEREMAILMAX|</div></li>
+          <li><span>|LANG_SUBDOMAINS|:</span><progress max="|RESELLERSUBDOMAINSMAX|" value="|RESELLERSUBDOMAINS|"></progress><div class="stats">|RESELLERSUBDOMAINS| / |RESELLERSUBDOMAINSMAX|</div></li>
+          <li><span>|LANG_POINTERS|:</span><progress max="|RESELLERPOINTERSMAX|" value="|RESELLERPOINTERS|"></progress><div class="stats">|RESELLERPOINTERS| / |RESELLERPOINTERSMAX|</div></li>
         </ul>
       </div>
-DONE|
 <script language="JavaScript" type="text/javascript">
 <!--
 $(function(){$("body").find(".bbar").each(function(){$(this).animate({width:$(this).attr("ancho")+"px"},2000).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200).animate({opacity:"toggle"},200);});});

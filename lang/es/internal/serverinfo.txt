@@ -1,0 +1,14 @@
+1=Unable to read system uptime
+2=%d D&iacute;as, %d Horas y %d Minutos
+3=Corriendo
+4=*** Detenido ***
+5=Nombre
+6=Valor
+7=Procesador
+8=ID del fabricante
+9=Velocidad (MHz)
+10=Memoria Total
+11=Memoria Libre
+12=Memoria de intercambio (Swap) Total
+13=Memoria de intercambio (Swap) Libre
+14=Uptime del sistema
