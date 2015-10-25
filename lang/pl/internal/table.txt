@@ -11,7 +11,7 @@
 11=Strona
 12=Pierwsza
 13=Ostatnia
-14=Szukanie zaawansowane
+14=Advanced Search
 15=Brak danych do wyświetlenia
 16=równe
 17=co najmniej

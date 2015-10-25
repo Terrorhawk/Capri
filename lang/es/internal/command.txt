@@ -63,7 +63,7 @@
 63=Bandwidth
 64=Uso de disco
 65=Dominios
-66=Suspendido
+66=Suspended
 67=IP
 68=Dominio(s)
 69=Selec.

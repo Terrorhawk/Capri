@@ -63,7 +63,7 @@
 63=Transfer
 64=Zajętość
 65=# domeny
-66=Zawieszone
+66=Suspended
 67=IP
 68=Domena(y)
 69=Zaznacz

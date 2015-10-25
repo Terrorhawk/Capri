@@ -11,7 +11,7 @@
 11=P&aacute;gina
 12=Primera p&aacute;gina
 13=&Uacute;ltima p&aacute;gina
-14=B&uacute;squeda avanzada
+14=Advanced Search
 15=No hay registros que mostrar
 16=igual
 17=por lo menos
