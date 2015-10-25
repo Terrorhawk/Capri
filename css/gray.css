@@ -953,3 +953,20 @@ progress::-webkit-progress-value {
     margin-left: 5px;
     padding: 1px 5px;
 }
+.good_twostep_auth_code, .bad_twostep_auth_code
+{
+	display: inline-block;
+	text-align: center;
+
+	background-repeat: no-repeat;
+	background-position: bottom;
+
+	min-width: 50px;
+	padding-bottom: 50px;
+}
+.good_twostep_auth_code {
+	background-image: url(IMG_CHECKBOX);
+}
+.bad_twostep_auth_code {
+	background-image: url(IMG_INCORRECT);
+}
