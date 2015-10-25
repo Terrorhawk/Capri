@@ -7,15 +7,15 @@
 7=The IP %s has provided the correct password for the %s account.%cHowever, after %s attempts, they were not able to provide a valid Two-Step Authentication code, so no access was granted.%cIf this is not your IP, change your password.%s
 8=Two-Step Auth secret is not set.
 9=<b>Enter your Two-Step Authentication Code</b>
-10=Submit
-11=Code
+10=Отправить
+11=Код
 12=%sYour IP will be blacklisted
 13=Invalid Two-Step Auth code
-14=Scratch Codes
-15=Date Created
-16=Select
-17=Delete
-18=Add Codes
+14=Скретч коды
+15=Дата создания
+16=Выбрать
+17=Удалить
+18=Добавить коды
 19=New Secret Set: <span class=code_edit>%s</span><br>Be sure to re-scan the QR code, as all old codes become invalid.
 20=Valid
 21=Get the code from your phone's app, or use a backup scratch code.
@@ -25,6 +25,6 @@
 25=%s Month(s)
 26=Expires
 27=Invalid characters in description.  Allowed %s
-28=Print
+28=Напечатать
 29=The code is valid, but for a different time.<br>Check the time on both your server and your phone.<br>Time slice discrepancy = %d<br>
 30=%s Trust this device for %d days
