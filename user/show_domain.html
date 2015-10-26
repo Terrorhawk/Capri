@@ -102,6 +102,9 @@
 |*if USERDNSCONTROL="ON"|
       <a href="/CMD_DNS_MX?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_MX_RECORDS|</a>
 |*endif|
+|*if LOGIN_KEYS_ENABLED="0"|
+|?USERLOGINKEYS=OFF|
+|*endif|
 |*if USERLOGINKEYS="ON"|
       <a href="/CMD_LOGIN_KEYS"><img src="/IMG_IC_LOGINKEYS"><br>|LANG_LOGIN_KEYS|</a>
 |*endif|
