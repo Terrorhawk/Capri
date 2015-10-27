@@ -1,30 +1,30 @@
-1=%s does not exist.
+1=%s не найден.
 2=Unable to read data from %s
 3=Unable to get lock on %s
-4=Error writing %s: %s
+4=Ошибка записи %s: %s
 5=%s%s has been blocked in %s to prevent further attempts on the account.
 6=Warning: %s has a valid password for %s but failed the Two-Step Authentication code %s times.
 7=The IP %s has provided the correct password for the %s account.%cHowever, after %s attempts, they were not able to provide a valid Two-Step Authentication code, so no access was granted.%cIf this is not your IP, change your password.%s
 8=Two-Step Auth secret is not set.
-9=<b>Enter your Two-Step Authentication Code</b>
+9=<b>Введите код двухфакторной аутентификации</b>
 10=Отправить
 11=Код
-12=%sYour IP will be blacklisted
-13=Invalid Two-Step Auth code
+12=%sВаш IP находится в Черном списке
+13=Недействительный код
 14=Скретч коды
 15=Дата создания
 16=Выбрать
 17=Удалить
 18=Добавить коды
-19=New Secret Set: <span class=code_edit>%s</span><br>Be sure to re-scan the QR code, as all old codes become invalid.
-20=Valid
-21=Get the code from your phone's app, or use a backup scratch code.
+19=Установлен новый секретный ключ: <span class=code_edit>%s</span><br>Обязательно пересканируйте новый QR-код в приложении, так как все старые коды будут недействительными.
+20=Действительный код
+21=Введите код с приложения вашего телефона, или используйте резервный скрейтч-код.
 22=Никогда
-23=%s Day(s)
-24=%s Week(s)
-25=%s Month(s)
+23=%s День(Дня)
+24=%s Неделя(Недель)
+25=%s Месяц(Месяцев)
 26=Истекает
-27=Invalid characters in description.  Allowed %s
+27=Недолпустимые символы в описании. Допускаются только %s
 28=Напечатать
 29=The code is valid, but for a different time.<br>Check the time on both your server and your phone.<br>Time slice discrepancy = %d<br>
-30=%s Trust this device for %d days
+30=%s Доверять этому устройству %d дней
