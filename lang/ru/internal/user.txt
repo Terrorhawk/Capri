@@ -77,7 +77,7 @@
 77=Удалить
 78=ID
 79=или
-80=Set to
+80=Изменить на
 81=Добавить новый Контрольный Вопрос
 82=Добавить
 83=Cannot find any security questions from security_questions.txt
@@ -99,7 +99,7 @@
 99=%sThe question was:%c'%s'%swith the incorrect answer of:%c'%s'
 100=hidden
 101=С учетом регистра
-102=Inodes
+102=Иноды
 103=Group %s already exists. Please chose a different username.
 104=Too short
 105=Too long

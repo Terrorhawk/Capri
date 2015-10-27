@@ -1,6 +1,6 @@
 LANG_LOGIN_KEYS=Ключи входа в систему
 LANG_CREATE_NEW_LOGIN_KEY=Создать новый ключ
-LANG_LOGIN_KEY_EXPLANATION=Login keys allow you to create extra passwords for your account.<br>However, these password have attributes, such as the ability to expire, usage limit, and can be limited to certain functions.<br>Note that the Login Keys are one-way encrypted, just like passwords.  They cannot be retrieved if you forget them.<br>
+LANG_LOGIN_KEY_EXPLANATION=Ключи входа в систему позволяют создавать дополнительные пароли для вашей учетной записи.<br>Однако, эти пароли имеют указанные атрибуты, такие как время жизни ключа, количество использований и возможность настроить доступ только к заданным функциям.<br>Обратите внимание, что ключи входа в систему используют обдносторонее шифрование, как и пароли. Поэтому они не могут быть востановленны, если вы забудете их.<br>
 LANG_KEY_NAME=Имя ключа
 LANG_KEY_VALUE=Значение ключа
 LANG_RE_ENTER_KEY=Повторите значение ключа
@@ -12,12 +12,12 @@ LANG_CURRENT_PASSWORD=Текущий пароль
 LANG_COMMANDS=Команды
 LANG_ALLOWED_IPS=Разрешенные IP
 LANG_IPS_EXPLANATION=Один IP в строке.<br>Допускается диапазон вида: 1.2.3.4-5<br>Оставить пустым для разрешения любому IP.
-LANG_LOGIN_KEYS_RULES=If no commands are checked (allow and deny), all commands are allowed.<br>The priorities for allow and deny are <a target=_blank href="http://www.directadmin.com/features.php?id=1171">listed here</a>.<br>The ALL_USER type commands are replaced with all commands the User is allowed, at that level.
+LANG_LOGIN_KEYS_RULES=Если не указанны команды (разрешить и запретить), то все команды будут разрешенны.<br>Подробнее о приоритетах вы можете посмотреть <a target=_blank href="http://www.directadmin.com/features.php?id=1171">здесь</a>.<br>Тип команды ALL_USER соответствует всем доступным командам уровня пользователя.
 LANG_MODIFY_LOGIN_KEY=Изменить ключи входа в систему
 LANG_LEAVE_BLANK_FOR_NO_CHANGE=Leave key values blank for no change
 LANG_CLEAR_KEY=Удалять ключи
 LANG_AUTO_DELETE=Автоматически удалять ключи по истечению или если закочились.
 LANG_KEY_DEFINITION=Это метка для управления ключами.  Это не является логином пользователя.
 LANG_ALLOW_HTM=Разрешить HTM
-LANG_ALLOW_HTM_EXPLANATION=Allows browsing of the DA interface to HTM, IMG and CSS files.
-LANG_ALL_USER_WARNING=<b>Please Note</b> that if a key is allowed to access ALL_USER, CMD_LOGIN_KEYS, or CMD_API_LOGIN_KEYS,<br>that key will have sufficient privileges to create another key of higher privilege.<br>Please keep this is mind when chosing a key's privileges.
+LANG_ALLOW_HTM_EXPLANATION=Разрешить доступ к HTM, IMG и CSS файлам интерфейса directadmin.
+LANG_ALL_USER_WARNING=<b>Обратите внимание</b>, что если вы разрешаете команды ALL_USER, CMD_LOGIN_KEYS, или CMD_API_LOGIN_KEYS,<br>то созданный ключ имеет права для создания других ключей с более высокими превилегиями.<br>Пожалуйста, имейте это ввиду указывая права на команды.
