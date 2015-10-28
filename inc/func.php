@@ -1,93 +1,62 @@
 <?php //need for optimisation functions.php
 
 class skclass{
-	private function getApi($cmd, $post = false) {
-		//var_dump($_SERVER);
-		global $disable_api_on_ssl;
-		if (is_array($post)) {
-			$is_post = true;
-			$str = "";
-			foreach($post as $var => $value) {
-				if (strlen($str) > 0) $str.= "&";
-				$str.= $var . "=" . urlencode($value);
-			}
-
-			$post = $str;
-		}
-		else {
-			$is_post = false;
-		}
-		if( isset( $_SERVER["SERVER_NAME"] ) ) {
-		    $_SERVER_PORT = $_SERVER["SERVER_PORT"];
-		} else {
-		    $_SERVER_PORT = $_ENV["SERVER_PORT"];
-		}
-		//if (!$_ENV["SERVER_PORT"] && $_SERVER["SERVER_PORT"]) $_SERVER_PORT = $_SERVER["SERVER_PORT"];
-		if( isset( $_SERVER["SESSION_KEY"] ) ) {
-		    $_SESSION_KEY = $_SERVER["SESSION_KEY"];
-		} else {
-		    $_SESSION_KEY = $_ENV["SESSION_KEY"];
-		}    
-		//if (!$_ENV["SESSION_KEY"] && $_SERVER["SESSION_KEY"]) $_SESSION_KEY = $_SERVER["SESSION_KEY"];
-		if( isset( $_SERVER["SESSION_ID"] ) ) {
-		    $_SESSION_ID = $_SERVER["SESSION_ID"];
-		} else {
-		    $_SESSION_ID = $_ENV["SESSION_ID"];
-		}
-		//if (!$_ENV["SESSION_ID"] && $_SERVER["SESSION_ID"]) $_SESSION_ID = $_SERVER["SESSION_ID"];
+	private function getApi($cmd, $arrData = false) {
+		// Check if we have Curl installed. else return
+		if (!function_exists('curl_version')){return false;}
+		
+		// Check for ssl 
 		if( isset( $_SERVER["SESSION_ID"] ) ) {
 		    $SSL = $_SERVER["SSL"];
 		} else {
 		    $SSL = $_ENV["SSL"];
 		}
-		//if (!$_ENV["SSL"] && $_SERVER["SSL"]) $SSL = $_SERVER["SSL"];
-		if ($disable_api_on_ssl == 1) return false;
-		
-		$headers = array();
-		$headers["Host"] = "127.0.0.1:" . $_SERVER_PORT;
-		$headers["Cookie"] = "session=" . $_SESSION_ID . "; key=" . $_SESSION_KEY;
-		if ($is_post) {
-			$headers["Content-type"] = "application/x-www-form-urlencoded";
-			$headers["Content-length"] = strlen($post);
-		}
-
-		$send = ($is_post ? "POST " : "GET ") . $cmd . " HTTP/1.1\r\n";
-		foreach($headers as $var => $value) $send.= $var . ": " . $value . "\r\n";
-		$send.= "\r\n";
-		if ($is_post && strlen($post) > 0) $send.= $post . "\r\n\r\n";
 		if ($SSL == 1){
-			$sIP = "ssl://127.0.0.1";
+			$sIP = "https://127.0.0.1:2222";
 		}
 		else {
-			$sIP = "127.0.0.1";
+			$sIP = "http://127.0.0.1:2222";
 		}
-
-		// connect
-		$res = @fsockopen($sIP, '2222', $sock_errno, $sock_errstr, 1);
-		if($sock_errno || $sock_errstr) {
+		
+		$url = $sIP.$cmd;
+		// make the magic headers
+		$headers = array(
+		"Accept: */*" ,
+		"Connection: Close",
+		"Cookie: session={$_SERVER['SESSION_ID']}; key={$_SERVER['SESSION_KEY']}",
+		"Content-Type: application/x-www-form-urlencoded",
+		);
+		// Making the post vars
+		$pairs = array();
+		foreach ( $arrData as $key => $value )
+		{
+			$pairs[] = "$key=".urlencode($value);
+		}
+		$content = join('&',$pairs);
+		unset($pairs);
+		
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+		curl_setopt($ch, CURLOPT_VERBOSE, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($chr, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
+		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+		$retxml = curl_exec($ch);
+		if (curl_errno($ch)) {
 			return false;
 		}
-		// send query
-		@fputs($res, $send, strlen($send));
-		// get reply
+		curl_close($ch);
+			return $retxml;
+}
 
-		$result = '';
-		while(!feof($res)) {
-			$result .= fgets($res, 32768);
-		}
-		@fclose($res);
-		// remove header
-		$data = explode("\r\n\r\n", $result, 2);
-
-		if(count($data) == 2) {
-			return $data[1];
-		}
-
-		return false;
-	}
-
-	public function getLoadAverage() {
-		$loads = urldecode($this->getApi("/CMD_API_LOAD_AVERAGE"));
+public function getLoadAverage() {
+		if (!$str = $this->getApi("/CMD_API_LOAD_AVERAGE")){return false;}
+		
+		$loads = urldecode($str);
 		parse_str($loads);
 		settype($one, "float");
 		settype($five, "float");
@@ -95,20 +64,17 @@ class skclass{
 		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
 		return $load;
 	}
-
 	public function getServices() {
-		$str = $this->getApi("/CMD_API_SHOW_SERVICES", $post = false);
+		if (!$str = $this->getApi("/CMD_API_SHOW_SERVICES", $post = false)){return false;}
 		if (strpos($str, "httpd") === false){
 			return false;
 		}
-
 		parse_str(urldecode($str) , $servArr);
 		return $servArr;
 	}
-
 	public function getAllDomainsList() {
 		$ret = array();
-		$r = $this->getApi("/CMD_API_DOMAIN_OWNERS");
+		if (!$r = $this->getApi("/CMD_API_DOMAIN_OWNERS")){return false;}
 		$domainsOwn = urldecode($r);
 		parse_str($domainsOwn, $domains);
 		if (is_array($domains) && count($domains) > 0) {
@@ -118,48 +84,41 @@ class skclass{
 		}
 		return $ret;
 	}
-
 	public function getUserDomainsList() {
-		$r = $this->getApi("/CMD_API_SHOW_DOMAINS");
+		if (!$r = $this->getApi("/CMD_API_SHOW_DOMAINS")){return false;}
 		$domainsOwn = urldecode($r);
 		parse_str($domainsOwn, $domains);
 		return $domains;
 	}
-
 	public function getAdminStats() {
-		$r = $this->getApi("/CMD_API_ADMIN_STATS");
+		if (!$r = $this->getApi("/CMD_API_ADMIN_STATS")){return false;}
 		$stats = urldecode($r);
 		parse_str($stats, $statsArr);
 		return $statsArr;
 	}
-
 	public function getUserStats() {
-		$r = $this->getApi("/CMD_API_SHOW_USER_USAGE");
+		if (!$r = $this->getApi("/CMD_API_SHOW_USER_USAGE")){ return false;}
 		$stats = urldecode($r);
 		parse_str($stats, $statsArr);
 		return $statsArr;
 	}
-
 	public function getMailQuota($domain) {
 		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
-		$r = $this->getApi("/CMD_API_POP", $post);
+		if (!$r = $this->getApi("/CMD_API_POP", $post)){return false;}
 		$res = urldecode($r);
 		parse_str($res, $accounts);
 		return $accounts;
 	}
-
 	public function changeLang($lang) {
 		$post = array("language"=>1, "lvalue"=>$lang);
-		$r = $this->getApi('/CMD_API_CHANGE_INFO', $post);
+		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
 		parse_str($r, $resultArray);
   		$output = $this->jsonEncode($resultArray);
 		return $output;
 	}
-
 	private function jsonEncode($arr) {
 	    $parts = array();
 	    $is_list = false;
-
 	    //Find out if the given array is a numerical array
 	    $keys = array_keys($arr);
 	    $max_length = count($arr)-1;
@@ -172,7 +131,6 @@ class skclass{
 	            }
 	        }
 	    }
-
 	    foreach($arr as $key=>$value) {
 	        if(is_array($value)) { //Custom handling for arrays
 	            if($is_list) $parts[] = array2json($value); /* :RECURSION: */
@@ -180,14 +138,12 @@ class skclass{
 	        } else {
 	            $str = '';
 	            if(!$is_list) $str = '"' . $key . '":';
-
 	            //Custom handling for multiple data types
 	            if(is_numeric($value)) $str .= $value; //Numbers
 	            elseif($value === false) $str .= 'false'; //The booleans
 	            elseif($value === true) $str .= 'true';
 	            else $str .= '"' . addslashes($value) . '"'; //All other things
 	            // :TODO: Is there any more datatype we should be in the lookout for? (Object?)
-
 	            $parts[] = $str;
 	        }
 	    }
@@ -196,9 +152,7 @@ class skclass{
 	    if($is_list) return '[' . $json . ']';//Return numerical JSON
 	    return '{' . $json . '}';//Return associative JSON
 	}
-
 }
-
 class logoclass{
 	public function addCustomLogoConf($user, $logopath, $skroot) { 
 		$content = ""; 
@@ -216,18 +170,13 @@ class logoclass{
             else if($elem=="") $content .= $key." = \n"; 
             else $content .= $key."=".$elem."\n"; 
         } 
-
-
 	    if (!$handle = fopen($confpath, 'w')) { 
 	        return false; 
 	    }
-
 	    $success = fwrite($handle, $content);
 	    fclose($handle); 
-
 	    return $success;
 	}
-
 	public function uploadLogoUrl($logourl, $user, $skroot) {
 		$imgcheck = getimagesize ($logourl);
 		list($w, $h, $t, $x) = $imgcheck;
@@ -237,7 +186,6 @@ class logoclass{
 	        $logopath = "images/custom/". $user . $extfile;
 	        $fullLogoPath = $skroot . "/" . $logopath;
 	        file_put_contents($fullLogoPath, $logodata);
-
 	        if(!$this->addCustomLogoConf($user, $logopath, $skroot)) {
 	          @unlink($fullLogoPath);
 	          return 1;
@@ -248,9 +196,7 @@ class logoclass{
 	        return 2;
 	    }
 	}
-
 }
-
 class fileclass{
 	public function openfile($file) {
 		if (file_exists($file)) {
@@ -263,7 +209,6 @@ class fileclass{
 			return false;
 		}
 	}
-
 	public function whitefile($str, $file) {
 		if ($al = @fopen($file, "w")) {
 			if (@is_writable($file)) {
@@ -272,18 +217,13 @@ class fileclass{
 			} else {
 				return false;
 			}
-
 			@fclose($al);
 		} else {
 			return false;
 		}
 	}
-
-
 }
-
 $sk = new skclass();
 $logo = new logoclass();
 $fl = new fileclass();
-
 ?>
