@@ -113,15 +113,10 @@ public function getLoadAverage() {
 	}
 	public function getMailQuota($domain) {
 		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
-		$r = $this->getApi("/CMD_API_POP", $post);
+		if (!$r = $this->getApi("/CMD_API_POP", $post)){ return false;}
 		parse_str($r, $accounts);
 		return $accounts;
 	}
-	
-	
-	
-	
-	
 	public function changeLang($lang) {
 		$post = array("language"=>1, "lvalue"=>$lang);
 		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
