@@ -83,12 +83,12 @@ $disable_api_on_ssl="|DISABLES_API_ON_SSL|";
  
 // email quotas
 $accounts=$sk->getMailQuota('|DOMAIN|');
-
 $_Accounts = array();
+
 if(is_array($accounts) && count($accounts)>0) {
   foreach($accounts as $account  => $val) {
       parse_str(urldecode($val), $values);
-      $_Cuentas[$account]=$values;
+      $_Accounts[$account]=$values;
   }
 }
 

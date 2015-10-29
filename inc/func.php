@@ -6,16 +6,22 @@ class skclass{
 		if (!function_exists('curl_version')){return false;}
 		
 		// Check for ssl 
-		if( isset( $_SERVER["SESSION_ID"] ) ) {
+		if( isset( $_SERVER["SSL"] ) ) {
 		    $SSL = $_SERVER["SSL"];
 		} else {
 		    $SSL = $_ENV["SSL"];
 		}
+		if( isset( $_SERVER["SERVER_NAME"] ) ) {
+		    $SERVER_PORT = $_SERVER["SERVER_PORT"];
+		} else {
+		    $SERVER_PORT = $_ENV["SERVER_PORT"];
+		}
+		
 		if ($SSL == 1){
-			$sIP = "https://127.0.0.1:2222";
+			$sIP = "https://127.0.0.1:".$SERVER_PORT;
 		}
 		else {
-			$sIP = "http://127.0.0.1:2222";
+			$sIP = "http://127.0.0.1:".$SERVER_PORT;
 		}
 		
 		$url = $sIP.$cmd;
@@ -45,17 +51,20 @@ class skclass{
 		curl_setopt($chr, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
 		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+		curl_setopt($ch, CURLOPT_ENCODING,  '');
+		curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
 		$retxml = curl_exec($ch);
 		if (curl_errno($ch)) {
+		//	echo "<!--API CALL ERROR $cmd  -->";
 			return false;
 		}
 		curl_close($ch);
+		//echo "<!--API CALL $cmd  -->";
 			return $retxml;
 }
 
 public function getLoadAverage() {
 		if (!$str = $this->getApi("/CMD_API_LOAD_AVERAGE")){return false;}
-		
 		$loads = urldecode($str);
 		parse_str($loads);
 		settype($one, "float");
@@ -104,16 +113,20 @@ public function getLoadAverage() {
 	}
 	public function getMailQuota($domain) {
 		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
-		if (!$r = $this->getApi("/CMD_API_POP", $post)){return false;}
-		$res = urldecode($r);
-		parse_str($res, $accounts);
+		$r = $this->getApi("/CMD_API_POP", $post);
+		parse_str($r, $accounts);
 		return $accounts;
 	}
+	
+	
+	
+	
+	
 	public function changeLang($lang) {
 		$post = array("language"=>1, "lvalue"=>$lang);
 		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
 		parse_str($r, $resultArray);
-  		$output = $this->jsonEncode($resultArray);
+		$output = $this->jsonEncode($resultArray);
 		return $output;
 	}
 	private function jsonEncode($arr) {
