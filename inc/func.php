@@ -33,6 +33,7 @@ class skclass{
 		"Content-Type: application/x-www-form-urlencoded",
 		);
 		// Making the post vars
+		if ($arrData){
 		$pairs = array();
 		foreach ( $arrData as $key => $value )
 		{
@@ -40,15 +41,16 @@ class skclass{
 		}
 		$content = join('&',$pairs);
 		unset($pairs);
+		}
 		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+		if ($arrData) {curl_setopt($ch, CURLOPT_POSTFIELDS, $content);}
 		curl_setopt($ch, CURLOPT_VERBOSE, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($chr, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
 		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 		curl_setopt($ch, CURLOPT_ENCODING,  '');
