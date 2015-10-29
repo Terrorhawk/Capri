@@ -65,14 +65,9 @@ class skclass{
 			return $retxml;
 }
 
-public function getLoadAverage() {
-		if (!$str = $this->getApi("/CMD_API_LOAD_AVERAGE")){return false;}
-		$loads = urldecode($str);
-		parse_str($loads);
-		settype($one, "float");
-		settype($five, "float");
-		settype($fifteen, "float");
-		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
+	public function getLoadAverage() {
+		$load = sys_getloadavg();
+		$load = number_format($load[0], 2, ".", "") . ", " . number_format($load[1], 2, ".", "") . ", " . number_format($load[2], 2, ".", "");
 		return $load;
 	}
 	public function getServices() {
