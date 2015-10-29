@@ -11,7 +11,7 @@ class skclass{
 		} else {
 		    $SSL = $_ENV["SSL"];
 		}
-		if( isset( $_SERVER["SERVER_NAME"] ) ) {
+		if( isset( $_SERVER["SERVER_PORT"] ) ) {
 		    $SERVER_PORT = $_SERVER["SERVER_PORT"];
 		} else {
 		    $SERVER_PORT = $_ENV["SERVER_PORT"];
