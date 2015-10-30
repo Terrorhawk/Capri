@@ -1,6 +1,50 @@
 <?php //need for optimisation functions.php
-
 class skclass{
+
+	public function init_connection(){
+		if( isset( $_SERVER["SSL"] ) ) {
+		    $SSL = $_SERVER["SSL"];
+		} else {
+		    $SSL = $_ENV["SSL"];
+		}
+		
+		if( isset( $_SERVER["SERVER_PORT"] ) ) {
+		    $SERVER_PORT = $_SERVER["SERVER_PORT"];
+		} else {
+		    $SERVER_PORT = $_ENV["SERVER_PORT"];
+		}
+		
+		if ($SSL == 1){
+			$sIP = "http://127.0.0.1:".$SERVER_PORT;
+		}
+		else {
+			return true;
+		}
+		$headers = array(
+		"Accept: */*" ,
+		"Connection: Close",
+		"Cookie: session={$_SERVER['SESSION_ID']}; key={$_SERVER['SESSION_KEY']}",
+		"Content-Type: application/x-www-form-urlencoded",
+		);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0);
+		curl_setopt($ch, CURLOPT_URL, $sIP.'/CMD_API_ADMIN_STATS');
+		curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+		curl_exec($ch);
+		$info = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+		if ($info != 200){return false;}
+		return true;
+		
+		
+
+	}
+
+
 	private function getApi($cmd, $arrData = false) {
 		// Check if we have Curl installed. else return
 		if (!function_exists('curl_version')){return false;}
@@ -17,7 +61,8 @@ class skclass{
 		    $SERVER_PORT = $_ENV["SERVER_PORT"];
 		}
 		
-		if ($SSL == 1){
+		
+		if ($SSL == 1 && !$this->init_connection()){
 			$sIP = "https://127.0.0.1:".$SERVER_PORT;
 		}
 		else {
@@ -65,14 +110,9 @@ class skclass{
 			return $retxml;
 }
 
-public function getLoadAverage() {
-		if (!$str = $this->getApi("/CMD_API_LOAD_AVERAGE")){return false;}
-		$loads = urldecode($str);
-		parse_str($loads);
-		settype($one, "float");
-		settype($five, "float");
-		settype($fifteen, "float");
-		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
+	public function getLoadAverage() {
+		$load = sys_getloadavg();
+		$load = number_format($load[0], 2, ".", "") . ", " . number_format($load[1], 2, ".", "") . ", " . number_format($load[2], 2, ".", "");
 		return $load;
 	}
 	public function getServices() {

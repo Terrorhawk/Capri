@@ -11,6 +11,23 @@
     </div>
 
 	<div id="rightPanel">
+
+|$|SK_PHP|
+<?php  
+
+		include |SK_ROOT| . "inc/func.php";
+		$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
+		if (!$sk->init_connection()){
+			echo '<div class="tip" id=tip">SSL is enabled but ssl_ignore_when_local is not active<br>Please add "ssl_ignore_when_local =  1" to your directadmin.conf to improve skin loading speed.</div>';
+		}
+		else {
+		}
+
+?>
+
+DONE|
+	
+	
 		<div style="float:left;width:400px;margin-right: 40px;">
 			<fieldset class="buttons-box"><legend>|LANG_USERS_ADMINISTRATION|</legend>
 				<a href="/CMD_ALL_USER_SHOW"><img src="/IMG_IC_LIST_ALL_USERS"><br>|LANG_SHOW_ALL_USERS|</a>
