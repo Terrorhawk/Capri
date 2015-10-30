@@ -1,5 +1,20 @@
 <?php //need for optimisation functions.php
+
+
 class skclass{
+	
+	public function StartSession($sessionid) { 
+		session_id($sessionid);
+		session_start();
+    }
+    public function ShowSslTip(){
+    	if ($_SESSION['SSL_IGNORE_WHEN_LOCAL'] == 0){
+       return "<div class=\"tip\" id=\"tip\">SSL is enabled but ssl_ignore_when_local is not active<br>Please add \"ssl_ignore_when_local =  1\" to your directadmin.conf to improve skin loading speed.</div>";
+       }
+       else {
+       return false;
+		}	
+    }
 
 	public function init_connection(){
 		if( isset( $_SERVER["SSL"] ) ) {
@@ -18,6 +33,7 @@ class skclass{
 			$sIP = "http://127.0.0.1:".$SERVER_PORT;
 		}
 		else {
+			//$_SESSION['SSL_IGNORE_WHEN_LOCAL'] = 1;
 			return true;
 		}
 		$headers = array(
@@ -34,10 +50,11 @@ class skclass{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0);
 		curl_setopt($ch, CURLOPT_URL, $sIP.'/CMD_API_ADMIN_STATS');
-		curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 		curl_exec($ch);
-		$info = curl_getinfo($ch,CURLINFO_HTTP_CODE);
-		if ($info != 200){return false;}
+		$info = curl_getinfo($ch);
+		if ($info['http_code'] !=200){$_SESSION['SSL_IGNORE_WHEN_LOCAL'] = 0 ;return false;}
+		$_SESSION['SSL_IGNORE_WHEN_LOCAL'] = 1;
 		return true;
 		
 		
@@ -62,7 +79,7 @@ class skclass{
 		}
 		
 		
-		if ($SSL == 1 && !$this->init_connection()){
+		if ($SSL == 1 && $_SESSION['SSL_IGNORE_WHEN_LOCAL'] == 0){
 			$sIP = "https://127.0.0.1:".$SERVER_PORT;
 		}
 		else {
@@ -97,7 +114,7 @@ class skclass{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
-		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_ENCODING,  '');
 		curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
 		$retxml = curl_exec($ch);
