@@ -27,6 +27,7 @@ $restorelogo='';
 $upgrade='';
 $error='';
 $show_options = false;
+$BETA=false;
 if("|USERCREATOR|"=="root") $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
 
@@ -79,11 +80,11 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/base.css")) { $troubles1 .= '<span style="color:#f00;">base.css not writeble chmod to 777. color change disabled!</span><br>';$csschange=false;} 
   if(!is_writable(|SK_ROOT| . "/images/custom/")) { $troubles1 .= '<span style="color:#f00;">Folder /images/custom/ not writeble. chmod to 777. logo disabled!</span><br>';$logochange=false;} 
-  
-
   if($path=="/usr/local/directadmin/data/skin_data/SKIN|/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
   }
+/*CHECK IF WE USE THE BETA*/
+if (file_exists("/usr/local/directadmin/data/skin_data/|SKIN|/BETA")){$BETA=true;}
   
   // updater *****************************************************************************************************
   
@@ -149,7 +150,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
 
 
   if($upgrade && $upgrade==1) {
-      $remotefile = 'https://github.com/Terrorhawk/Capri/archive/master.zip';
+      $remotefile = 'https://github.com/Terrorhawk/Capri/archive/'.($BETA? 'Beta.zip':'master.zip'); 
       $file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
       $dir = "/usr/local/directadmin/data/skins/|SKIN|/";
       file_put_contents($file, file_get_contents($remotefile));
@@ -158,7 +159,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
       if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
           while($zip_entry = zip_read($zip)) {
               $entry = zip_entry_open($zip,$zip_entry);
-              $filename = str_replace('Capri-master/','/',zip_entry_name($zip_entry));
+              $filename = str_replace(($BETA? 'Capri-Beta':'Capri-master'),'/',zip_entry_name($zip_entry));
               $target_dir = $dir.dirname($filename);
               $filesize = zip_entry_filesize($zip_entry);
               if (is_dir($target_dir) || mkdir($target_dir,0777)) {
@@ -257,7 +258,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   </tr>
   <tr>
     <td>|LANG_LICENSE_STATUS|: </td>
-    <td><span style="color: green;"><strong>Free Github Version</strong></span></td>
+    <td><span style="color: green;"><strong>Free Github Version</strong></span><?=($BETA? "<span style=\"color:red;font-weight: bold;\"> USING BETA BRANCH!</span> ":"")?></td>
   </tr>
 
   <tr>
@@ -300,7 +301,7 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   </tr>
   <tr>
     <td nowrap>|LANG_AVA_SKIN_BUILD|:</td>
-    <td><?php  echo  $ava_version?> <?php  if($upgradebutton==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
+    <td><?php  echo  ($BETA? "<span style=\"color:red;\"> USING BETA BRANCH!</span>":"$ava_version");?> <?php  if($upgradebutton==true || $BETA==true && $upgradeenable==true) { ?><input onclick="javascript:window.location='/CMD_SKINS?upgrade=1';" type="button" class="boton small" value="Update"  style="margin-left:40px;" /><?php  } ?></td>
   </tr>
   <tr>
   <tr>
