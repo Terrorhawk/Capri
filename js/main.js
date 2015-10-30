@@ -38,7 +38,7 @@ var score=0;if(password.length>6){score++;}if((password.match(/[a-z]/) ) && ( pa
 if(password.match(/\d+/)){score++;}if(password.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)){score++;}if(password.length>12){score++;}return score;
 }
 function randPass(){
-  charsl="abcdefghijklmnopqrstuvwxyz";charsu="ABCDEFGHIJKLMNOPQRSTUVWXYZ";nums="1234567890";simb="!@#$%^*()_-=";
+  charsl="abcdefghijklmnopqrstuvwxyz";charsu="ABCDEFGHIJKLMNOPQRSTUVWXYZ";nums="1234567890";simb="!@#$%^*_-";
   pass="";
   i=Math.floor(Math.random()*26); pass += charsl.charAt(i);
   i=Math.floor(Math.random()*26); pass += charsu.charAt(i);
