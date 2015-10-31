@@ -171,6 +171,7 @@ if (file_exists("/usr/local/directadmin/data/skin_data/|SKIN|/BETA")){$BETA=true
               }
           }
         @unlink($file);
+        echo "<script> window.location.replace(\"CMD_SKINS\");</script>";
 }
    if($upgrade && $upgrade==2) {
       $remotefile = 'https://github.com/Terrorhawk/Capri-mailonly/archive/master.zip';
@@ -194,6 +195,7 @@ if (file_exists("/usr/local/directadmin/data/skin_data/|SKIN|/BETA")){$BETA=true
               }
           }
         @unlink($file);
+        echo "<script> window.location.replace(\"CMD_SKINS\");</script>";
 }
   
   
