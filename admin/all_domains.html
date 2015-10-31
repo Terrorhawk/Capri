@@ -15,6 +15,7 @@
 |$|SK_PHP|
 <?php  
 include |SK_ROOT|."inc/func.php";
+$sk->StartSession('|SESSION_ID|');
 $domains=$sk->getAllDomainsList();
 
 parse_str($_SERVER['QUERY_STRING'], $GET);
