@@ -56,40 +56,41 @@ class skclass{
 		if($sock_errno || $sock_errstr) {
 			return false;
 		}
-		if ($res) { ]
+		if ($res) {
+                    stream_set_blocking($res, TRUE);
                     stream_set_timeout($res,$timeout);
+                    $info = stream_get_meta_data($res);
                     // send query
                     @fputs($res, $send, strlen($send));
                     // get reply
-
                     $result = '';
                     while(!feof($res) && (!$info['timed_out'])) {
                             $result .= fgets($res, 32768);
-                            $info = stream_get_meta_data($fp);
+                            $info = stream_get_meta_data($res);
                     }
                     
                     @fclose($res);
                     
                     if ($info['timed_out']) {
-                        echo "Connection Timed Out!";
+                        //echo "Connection Timed Out!";
+                        return false;
                     } else {
-                        echo $data;
-                    } 
-                    
-                    // remove header
-                    $data = explode("\r\n\r\n", $result, 2);
+                        // remove header
+                        $data = explode("\r\n\r\n", $result, 2);
 
-                    if(count($data) == 2) {
+                        if(count($data) == 2) {
                             return $data[1];
-                    }
-                } else {
-                    return false;
-                }
+                        } else {
+                            return false;
+                        }
+                    } 
+                }    
+ 
 	}
 
 	public function getLoadAverage() {
 		$load = sys_getloadavg();
-		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
+		$load = number_format($load[0], 2, ".", "") . ", " . number_format($load[1], 2, ".", "") . ", " . number_format($load[2], 2, ".", "");
 		return $load;
 	}
 
@@ -113,21 +114,21 @@ class skclass{
 	}
 
 	public function getUserDomainsList() {
-		if (!$r = $this->getApi("/CMD_API_SHOW_DOMAINS"){return false;}
+		if (!$r = $this->getApi("/CMD_API_SHOW_DOMAINS")){return false;}
 		$domainsOwn = urldecode($r);
 		parse_str($domainsOwn, $domains);
 		return $domains;
 	}
 
 	public function getAdminStats() {
-		if (!$r = $this->getApi("/CMD_API_ADMIN_STATS"){return false;}
+		if (!$r = $this->getApi("/CMD_API_ADMIN_STATS")){return false;}
 		$stats = urldecode($r);
 		parse_str($stats, $statsArr);
 		return $statsArr;
 	}
 
 	public function getUserStats() {
-		if (!$r = $this->getApi("/CMD_API_SHOW_USER_USAGE"){return false;}
+		if (!$r = $this->getApi("/CMD_API_SHOW_USER_USAGE")){return false;}
 		$stats = urldecode($r);
 		parse_str($stats, $statsArr);
 		return $statsArr;
@@ -135,7 +136,7 @@ class skclass{
 
 	public function getMailQuota($domain) {
 		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
-		if (!$r = $this->getApi("/CMD_API_POP", $post){return false;}
+		if (!$r = $this->getApi("/CMD_API_POP", $post)){return false;}
 		$res = urldecode($r);
 		parse_str($res, $accounts);
 		return $accounts;
@@ -143,7 +144,7 @@ class skclass{
 
 	public function changeLang($lang) {
 		$post = array("language"=>1, "lvalue"=>$lang);
-		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post){return false;}
+		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
 		parse_str($r, $resultArray);
   		$output = $this->jsonEncode($resultArray);
 		return $output;
