@@ -3,7 +3,8 @@
 class skclass{
 	private function getApi($cmd, $post = false) {
 		//var_dump($_SERVER);
-		global $disable_api_on_ssl;
+		// Timeout in seconds
+                $timeout = 5; 
 		if (is_array($post)) {
 			$is_post = true;
 			$str = "";
@@ -17,31 +18,23 @@ class skclass{
 		else {
 			$is_post = false;
 		}
-		if( isset( $_SERVER["SERVER_NAME"] ) ) {
+		if( isset( $_SERVER["SERVER_PORT"] ) ) {
 		    $_SERVER_PORT = $_SERVER["SERVER_PORT"];
 		} else {
 		    $_SERVER_PORT = $_ENV["SERVER_PORT"];
 		}
-		//if (!$_ENV["SERVER_PORT"] && $_SERVER["SERVER_PORT"]) $_SERVER_PORT = $_SERVER["SERVER_PORT"];
+
 		if( isset( $_SERVER["SESSION_KEY"] ) ) {
 		    $_SESSION_KEY = $_SERVER["SESSION_KEY"];
 		} else {
 		    $_SESSION_KEY = $_ENV["SESSION_KEY"];
 		}    
-		//if (!$_ENV["SESSION_KEY"] && $_SERVER["SESSION_KEY"]) $_SESSION_KEY = $_SERVER["SESSION_KEY"];
+
 		if( isset( $_SERVER["SESSION_ID"] ) ) {
 		    $_SESSION_ID = $_SERVER["SESSION_ID"];
 		} else {
 		    $_SESSION_ID = $_ENV["SESSION_ID"];
 		}
-		//if (!$_ENV["SESSION_ID"] && $_SERVER["SESSION_ID"]) $_SESSION_ID = $_SERVER["SESSION_ID"];
-		if( isset( $_SERVER["SESSION_ID"] ) ) {
-		    $SSL = $_SERVER["SSL"];
-		} else {
-		    $SSL = $_ENV["SSL"];
-		}
-		//if (!$_ENV["SSL"] && $_SERVER["SSL"]) $SSL = $_SERVER["SSL"];
-		if ($disable_api_on_ssl == 1) return false;
 		
 		$headers = array();
 		$headers["Host"] = "127.0.0.1:" . $_SERVER_PORT;
@@ -55,60 +48,60 @@ class skclass{
 		foreach($headers as $var => $value) $send.= $var . ": " . $value . "\r\n";
 		$send.= "\r\n";
 		if ($is_post && strlen($post) > 0) $send.= $post . "\r\n\r\n";
-		if ($SSL == 1){
-			$sIP = "ssl://127.0.0.1";
-		}
-		else {
-			$sIP = "127.0.0.1";
-		}
+
+                $sIP = "127.0.0.1";
 
 		// connect
-		$res = @fsockopen($sIP, '2222', $sock_errno, $sock_errstr, 1);
+		$res = @fsockopen($sIP, $_SERVER_PORT, $sock_errno, $sock_errstr, $timeout);
 		if($sock_errno || $sock_errstr) {
 			return false;
 		}
-		// send query
-		@fputs($res, $send, strlen($send));
-		// get reply
+		if ($res) { ]
+                    stream_set_timeout($res,$timeout);
+                    // send query
+                    @fputs($res, $send, strlen($send));
+                    // get reply
 
-		$result = '';
-		while(!feof($res)) {
-			$result .= fgets($res, 32768);
-		}
-		@fclose($res);
-		// remove header
-		$data = explode("\r\n\r\n", $result, 2);
+                    $result = '';
+                    while(!feof($res) && (!$info['timed_out'])) {
+                            $result .= fgets($res, 32768);
+                            $info = stream_get_meta_data($fp);
+                    }
+                    
+                    @fclose($res);
+                    
+                    if ($info['timed_out']) {
+                        echo "Connection Timed Out!";
+                    } else {
+                        echo $data;
+                    } 
+                    
+                    // remove header
+                    $data = explode("\r\n\r\n", $result, 2);
 
-		if(count($data) == 2) {
-			return $data[1];
-		}
-
-		return false;
+                    if(count($data) == 2) {
+                            return $data[1];
+                    }
+                } else {
+                    return false;
+                }
 	}
 
 	public function getLoadAverage() {
-		$loads = urldecode($this->getApi("/CMD_API_LOAD_AVERAGE"));
-		parse_str($loads);
-		settype($one, "float");
-		settype($five, "float");
-		settype($fifteen, "float");
+		$load = sys_getloadavg();
 		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
 		return $load;
 	}
 
 	public function getServices() {
-		$str = $this->getApi("/CMD_API_SHOW_SERVICES", $post = false);
-		if (strpos($str, "httpd") === false){
-			return false;
-		}
-
+		if (!$str = $this->getApi("/CMD_API_SHOW_SERVICES")){return false;}
 		parse_str(urldecode($str) , $servArr);
 		return $servArr;
 	}
 
 	public function getAllDomainsList() {
 		$ret = array();
-		$r = $this->getApi("/CMD_API_DOMAIN_OWNERS");
+		if (!$r = $this->getApi("/CMD_API_DOMAIN_OWNERS")){return false;}
 		$domainsOwn = urldecode($r);
 		parse_str($domainsOwn, $domains);
 		if (is_array($domains) && count($domains) > 0) {
@@ -120,21 +113,21 @@ class skclass{
 	}
 
 	public function getUserDomainsList() {
-		$r = $this->getApi("/CMD_API_SHOW_DOMAINS");
+		if (!$r = $this->getApi("/CMD_API_SHOW_DOMAINS"){return false;}
 		$domainsOwn = urldecode($r);
 		parse_str($domainsOwn, $domains);
 		return $domains;
 	}
 
 	public function getAdminStats() {
-		$r = $this->getApi("/CMD_API_ADMIN_STATS");
+		if (!$r = $this->getApi("/CMD_API_ADMIN_STATS"){return false;}
 		$stats = urldecode($r);
 		parse_str($stats, $statsArr);
 		return $statsArr;
 	}
 
 	public function getUserStats() {
-		$r = $this->getApi("/CMD_API_SHOW_USER_USAGE");
+		if (!$r = $this->getApi("/CMD_API_SHOW_USER_USAGE"){return false;}
 		$stats = urldecode($r);
 		parse_str($stats, $statsArr);
 		return $statsArr;
@@ -142,7 +135,7 @@ class skclass{
 
 	public function getMailQuota($domain) {
 		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
-		$r = $this->getApi("/CMD_API_POP", $post);
+		if (!$r = $this->getApi("/CMD_API_POP", $post){return false;}
 		$res = urldecode($r);
 		parse_str($res, $accounts);
 		return $accounts;
@@ -150,7 +143,7 @@ class skclass{
 
 	public function changeLang($lang) {
 		$post = array("language"=>1, "lvalue"=>$lang);
-		$r = $this->getApi('/CMD_API_CHANGE_INFO', $post);
+		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post){return false;}
 		parse_str($r, $resultArray);
   		$output = $this->jsonEncode($resultArray);
 		return $output;

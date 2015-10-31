@@ -60,3 +60,7 @@ wget -O capri.sh https://raw.githubusercontent.com/Terrorhawk/Capri/master/insta
 chmod +x capri.sh
 ./capri.sh
 ```
+**Note.** if you use SSL for Directadmin than need add next option to your directadmin.conf for improve skin loading speed.
+```bash
+ssl_ignore_when_local=1
+```
