@@ -33,7 +33,7 @@ class skclass{
 			$sIP = "http://127.0.0.1:".$SERVER_PORT;
 		}
 		else {
-			//$_SESSION['SSL_IGNORE_WHEN_LOCAL'] = 1;
+			$_SESSION['SSL_IGNORE_WHEN_LOCAL'] = 1;
 			return true;
 		}
 		$headers = array(
