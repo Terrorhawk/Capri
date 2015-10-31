@@ -31,6 +31,66 @@ $BETA=false;
 if("|USERCREATOR|"=="root") $show_options = true;
 if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
 
+  if($_SERVER["QUERY_STRING"]) {
+    parse_str($_SERVER["QUERY_STRING"]);
+  } else {
+    parse_str(getenv("QUERY_STRING"));
+  }
+  
+
+// Updater *****************************************************************************************************
+
+
+  if($upgrade && $upgrade==1) {
+      $remotefile = 'https://github.com/Terrorhawk/Capri/archive/'.($BETA? 'Beta.zip':'master.zip'); 
+      $file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
+      $dir = "/usr/local/directadmin/data/skins/|SKIN|/";
+      file_put_contents($file, file_get_contents($remotefile));
+      if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
+      $zip = zip_open($file);
+      if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
+          while($zip_entry = zip_read($zip)) {
+              $entry = zip_entry_open($zip,$zip_entry);
+              $filename = str_replace(($BETA? 'Capri-Beta':'Capri-master'),'/',zip_entry_name($zip_entry));
+              $target_dir = $dir.dirname($filename);
+              $filesize = zip_entry_filesize($zip_entry);
+              if (is_dir($target_dir) || mkdir($target_dir,0777)) {
+                if ($filesize > 0) {
+                      $contents = zip_entry_read($zip_entry, $filesize);
+                      file_put_contents($dir.$filename,$contents);
+                      @chmod($dir.$filename, 0777);
+                  }
+              }
+          }
+        @unlink($file);
+        echo "<script> window.location.replace(\"CMD_SKINS\");</script>";
+}
+   if($upgrade && $upgrade==2) {
+      $remotefile = 'https://github.com/Terrorhawk/Capri-mailonly/archive/master.zip';
+      $file = "/usr/local/directadmin/data/skins/|SKIN|-mail/upgrade.zip";
+      $dir = "/usr/local/directadmin/data/skins/|SKIN|-mail/";
+      file_put_contents($file, file_get_contents($remotefile));
+      if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
+      $zip = zip_open($file);
+      if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
+          while($zip_entry = zip_read($zip)) {
+              $entry = zip_entry_open($zip,$zip_entry);
+              $filename = str_replace('Capri-mailonly-master/','/',zip_entry_name($zip_entry));
+              $target_dir = $dir.dirname($filename);
+              $filesize = zip_entry_filesize($zip_entry);
+              if (is_dir($target_dir) || mkdir($target_dir,0777)) {
+                if ($filesize > 0) {
+                      $contents = zip_entry_read($zip_entry, $filesize);
+                      file_put_contents($dir.$filename,$contents);
+                      @chmod($dir.$filename, 0777);
+                  }
+              }
+          }
+        @unlink($file);
+        echo "<script> window.location.replace(\"CMD_SKINS\");</script>";
+}
+  
+
 
 ?>
 <style type="text/css">
@@ -62,14 +122,6 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
 
   /**** message ****/
   $msg = $fl->openfile($path."results");
-  /**** message ****/
-  
-  if($_SERVER["QUERY_STRING"]) {
-    parse_str($_SERVER["QUERY_STRING"]);
-  } else {
-    parse_str(getenv("QUERY_STRING"));
-  }
-  
   
   // Check for errors
   $status=array();
@@ -145,59 +197,6 @@ if (file_exists("/usr/local/directadmin/data/skin_data/|SKIN|/BETA")){$BETA=true
 
     $msg = "|LANG_LOGO_RESTORED|";
   }
-  
-  // Updater *****************************************************************************************************
-
-
-  if($upgrade && $upgrade==1) {
-      $remotefile = 'https://github.com/Terrorhawk/Capri/archive/'.($BETA? 'Beta.zip':'master.zip'); 
-      $file = "/usr/local/directadmin/data/skins/|SKIN|/upgrade.zip";
-      $dir = "/usr/local/directadmin/data/skins/|SKIN|/";
-      file_put_contents($file, file_get_contents($remotefile));
-      if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
-      $zip = zip_open($file);
-      if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
-          while($zip_entry = zip_read($zip)) {
-              $entry = zip_entry_open($zip,$zip_entry);
-              $filename = str_replace(($BETA? 'Capri-Beta':'Capri-master'),'/',zip_entry_name($zip_entry));
-              $target_dir = $dir.dirname($filename);
-              $filesize = zip_entry_filesize($zip_entry);
-              if (is_dir($target_dir) || mkdir($target_dir,0777)) {
-                if ($filesize > 0) {
-                      $contents = zip_entry_read($zip_entry, $filesize);
-                      file_put_contents($dir.$filename,$contents);
-                      @chmod($dir.$filename, 0777);
-                  }
-              }
-          }
-        @unlink($file);
-        echo "<script> window.location.replace(\"CMD_SKINS\");</script>";
-}
-   if($upgrade && $upgrade==2) {
-      $remotefile = 'https://github.com/Terrorhawk/Capri-mailonly/archive/master.zip';
-      $file = "/usr/local/directadmin/data/skins/|SKIN|-mail/upgrade.zip";
-      $dir = "/usr/local/directadmin/data/skins/|SKIN|-mail/";
-      file_put_contents($file, file_get_contents($remotefile));
-      if (!file_exists($file)){$troubles = '<span style="color:#f00;">Error downloading zip file</span><br>';}
-      $zip = zip_open($file);
-      if(!$zip){ $troubles = '<span style="color:#f00;">Error reading zip file</span><br>';}
-          while($zip_entry = zip_read($zip)) {
-              $entry = zip_entry_open($zip,$zip_entry);
-              $filename = str_replace('Capri-mailonly-master/','/',zip_entry_name($zip_entry));
-              $target_dir = $dir.dirname($filename);
-              $filesize = zip_entry_filesize($zip_entry);
-              if (is_dir($target_dir) || mkdir($target_dir,0777)) {
-                if ($filesize > 0) {
-                      $contents = zip_entry_read($zip_entry, $filesize);
-                      file_put_contents($dir.$filename,$contents);
-                      @chmod($dir.$filename, 0777);
-                  }
-              }
-          }
-        @unlink($file);
-        echo "<script> window.location.replace(\"CMD_SKINS\");</script>";
-}
-  
   
   if($versions = @file_get_contents("https://raw.githubusercontent.com/Terrorhawk/Capri/master/version.txt")) {
     list($ava_version, $da_version) = explode('-', $versions);
