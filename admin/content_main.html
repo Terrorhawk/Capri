@@ -1,7 +1,6 @@
 |LF_STANDARD|
 |LF_PROC_MON|
 |HTM_CONFIG|
-|?ssltip=|
 |*if AJAX="1"|
 	<script type="text/javascript" src="JS_CREATION_CHECK"></script>
 |*endif|
@@ -12,7 +11,6 @@
 <?php  
 		include |SK_ROOT| . "inc/func.php";
 		$sk->StartSession('|SESSION_ID|');
-		$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
 		if (!isset($_SESSION['SSL_IGNORE_WHEN_LOCAL'])){
 			$sk->init_connection();
 		}

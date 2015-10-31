@@ -2,30 +2,28 @@
 |$|SK_PHP|
 <?php  include |SK_ROOT| . "inc/func.php";
 $sk->StartSession('|SESSION_ID|');
-$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
-
 if($domains = $sk->getUserDomainsList()) {
+		if(is_array($domains)) {
+			?>
+				  <div class="panelBox">
+					<div class="title"><span>|LANG_DOMAINS|</span></div>
+					<ul>
+			<?php
+			foreach($domains['list'] as $domain) {
+			  if(trim($domain)!=''){
+				echo '<li onClick="javascript:window.location=\'/CMD_SHOW_DOMAIN?domain='.$domain.'\';" style="cursor:pointer;">';
 
-if(is_array($domains)) {
-?>
-      <div class="panelBox">
-        <div class="title"><span>|LANG_DOMAINS|</span></div>
-        <ul>
-<?php
-foreach($domains['list'] as $domain) {
-  if(trim($domain)!=''){
-    echo '<li onClick="javascript:window.location=\'/CMD_SHOW_DOMAIN?domain='.$domain.'\';" style="cursor:pointer;">';
+				if($domain=="|domain|") echo '<b>'.$domain.'</b>';
+				else echo $domain;
 
-    if($domain=="|domain|") echo '<b>'.$domain.'</b>';
-    else echo $domain;
-
-    echo '</li>';
-  }
-}
-?>
-         </ul>
-      </div>
-<?php  }
+				echo '</li>';
+			  }
+			}
+			?>
+					 </ul>
+				  </div>
+			<?php  
+		}
 
 }
 ?>
