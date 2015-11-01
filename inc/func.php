@@ -146,7 +146,7 @@ class skclass{
 		$post = array("language"=>1, "lvalue"=>$lang);
 		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
 		parse_str($r, $resultArray);
-  		$output = $this->json_encode($resultArray);
+  		$output = json_encode($resultArray);
 		return $output;
 	}
 
