@@ -3,8 +3,6 @@
 class skclass{
 	private function getApi($cmd, $post = false) {
 		//var_dump($_SERVER);
-		// Timeout in seconds
-                $timeout = 5; 
 		if (is_array($post)) {
 			$is_post = true;
 			$str = "";
@@ -52,40 +50,42 @@ class skclass{
                 $sIP = "127.0.0.1";
 
 		// connect
-		$res = @fsockopen($sIP, $_SERVER_PORT, $sock_errno, $sock_errstr, $timeout);
+		$res = @fsockopen($sIP, $_SERVER_PORT, $sock_errno, $sock_errstr, 5);
 		if($sock_errno || $sock_errstr) {
 			return false;
 		}
 		if ($res) {
-                    stream_set_blocking($res, TRUE);
-                    stream_set_timeout($res,$timeout);
-                    $info = stream_get_meta_data($res);
                     // send query
                     @fputs($res, $send, strlen($send));
                     // get reply
                     $result = '';
-                    while(!feof($res) && (!$info['timed_out'])) {
+                    while(!feof($res)) {
                             $result .= fgets($res, 32768);
-                            $info = stream_get_meta_data($res);
                     }
                     
                     @fclose($res);
                     
-                    if ($info['timed_out']) {
-                        //echo "Connection Timed Out!";
-                        return false;
-                    } else {
-                        // remove header
-                        $data = explode("\r\n\r\n", $result, 2);
+                    // remove header
+                    $data = explode("\r\n\r\n", $result, 2);
 
-                        if(count($data) == 2) {
-                            return $data[1];
-                        } else {
-                            return false;
-                        }
-                    } 
-                }    
+                    if(count($data) == 2) {
+                        return $data[1];
+                     } else {
+                        return false;
+                     }
+
+        } else {
+        	return false;
+        }
  
+	}
+        
+    public function checkLocalSsl() {
+    	if(( $_SERVER["SSL"] == 1 ) && (strstr($this->getApi("/CMD_API_LOAD_AVERAGE"), "use https"))) {
+		    return true;
+		} else {
+		    return false; 
+		}
 	}
 
 	public function getLoadAverage() {
@@ -146,10 +146,11 @@ class skclass{
 		$post = array("language"=>1, "lvalue"=>$lang);
 		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
 		parse_str($r, $resultArray);
-  		$output = $this->jsonEncode($resultArray);
+  		$output = $this->json_encode($resultArray);
 		return $output;
 	}
 
+	// is deprecaded and be removed after tests (now use native json_encode)
 	private function jsonEncode($arr) {
 	    $parts = array();
 	    $is_list = false;

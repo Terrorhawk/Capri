@@ -9,29 +9,6 @@
 |TREE|
 </div>
 
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/func.php";
-
-$path=|SK_ROOT|. "/inc";
-$upgradeenable=true;
-$upgradebutton=false;
-$MAILONLYINSTALL=false;
-$csschange=true;
-$logochange=true;
-$resellerlogo='';
-$imagelogo='';
-$colorset=false;
-$resellerslogo='';
-$restorelogo='';
-$upgrade='';
-$error='';
-$show_options = false;
-if("|USERCREATOR|"=="root") $show_options = true;
-if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
-
-
-?>
 <style type="text/css">
 <!--
 .serverskin { font-size: 11px; }
@@ -57,7 +34,27 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
       </tfoot>
     </table>
   </form>
-<?php  if($show_options==true) { 
+|$|SK_PHP|
+<?php
+include |SK_ROOT| . "inc/func.php";
+
+$path=|SK_ROOT|. "/inc";
+$upgradeenable=true;
+$upgradebutton=false;
+$MAILONLYINSTALL=false;
+$csschange=true;
+$logochange=true;
+$resellerlogo='';
+$imagelogo='';
+$colorset=false;
+$resellerslogo='';
+$restorelogo='';
+$upgrade='';
+$error='';
+$show_options = false;
+if("|USERCREATOR|"=="root") $show_options = true;
+if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true; 
+if($show_options==true) { 
 
   /**** message ****/
   $msg = $fl->openfile($path."results");
@@ -74,12 +71,11 @@ if("|FORCE_SKIN_OPTIONS|"=="1") $show_options = true;
   $status=array();
   $troubles = '<span style="color:#127500;">Everything seems to be ok </span>';
   $troubles1 = '';
-//  if(!file_exists('/usr/bin/git')) { $troubles1 .= '<span style="color:#f00;">Git command not found on server. make sure its in /usr/bin/git. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/")) { $troubles1 .= '<span style="color:#f00;">/usr/local/directadmin/data/skins/|SKIN|/ not writeble chmod to 777. Upgrade disabled!</span><br>';$upgradeenable=false;} 
   if(!function_exists('zip_open')){$troubles1 .= '<span style="color:#f00;">php function PROC_OPEN is disabled. Upgrade disabled!</span><br>';$upgradeenable=false;}
   if(!is_writable("/usr/local/directadmin/data/skins/|SKIN|/base.css")) { $troubles1 .= '<span style="color:#f00;">base.css not writeble chmod to 777. color change disabled!</span><br>';$csschange=false;} 
   if(!is_writable(|SK_ROOT| . "/images/custom/")) { $troubles1 .= '<span style="color:#f00;">Folder /images/custom/ not writeble. chmod to 777. logo disabled!</span><br>';$logochange=false;} 
-  
+  if($sk->checkLocalSsl()) { $troubles1 .= '<span style="color:#f00;">You use SSL without "ssl_ignore_when_local=1" in you directadmin.conf. All api calls is disable. For enable please set "ssl_ignore_when_local=1" in you directadmin.conf.</span><br>';}
 
   if($path=="/usr/local/directadmin/data/skin_data/SKIN|/") {
     if(ini_get("allow_url_fopen")==0 || ini_get("allow_url_fopen")=="off") { $troubles1 .= '<span style="color:#f00;">allow_url_fopen is disabled in your php.ini. You can not update logos until you enable it.</span><br>'; }
