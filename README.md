@@ -64,3 +64,5 @@ chmod +x capri.sh
 ```bash
 ssl_ignore_when_local=1
 ```
+For full localization need add/change next option in your directadmin.conf to "internal_lang=/usr/local/directadmin/data/skins/**capri**/lang" (check for valid path)
+more information - ![http://www.directadmin.com/features.php?id=927](http://www.directadmin.com/features.php?id=927)

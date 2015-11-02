@@ -47,7 +47,7 @@ class skclass{
 		$send.= "\r\n";
 		if ($is_post && strlen($post) > 0) $send.= $post . "\r\n\r\n";
 
-                $sIP = "127.0.0.1";
+		    $sIP = "127.0.0.1";
 
 		// connect
 		$res = @fsockopen($sIP, $_SERVER_PORT, $sock_errno, $sock_errstr, 5);
@@ -55,33 +55,32 @@ class skclass{
 			return false;
 		}
 		if ($res) {
-                    // send query
-                    @fputs($res, $send, strlen($send));
-                    // get reply
-                    $result = '';
-                    while(!feof($res)) {
-                            $result .= fgets($res, 32768);
-                    }
+		    // send query
+		    @fputs($res, $send, strlen($send));
+		    // get reply
+		    $result = '';
+		    while(!feof($res)) {
+		            $result .= fgets($res, 32768);
+		    }
                     
-                    @fclose($res);
-                    
-                    // remove header
-                    $data = explode("\r\n\r\n", $result, 2);
+		    @fclose($res);
 
-                    if(count($data) == 2) {
-                        return $data[1];
-                     } else {
-                        return false;
-                     }
+		    // remove header
+		    $data = explode("\r\n\r\n", $result, 2);
 
-        } else {
-        	return false;
-        }
+		    if(count($data) == 2) {
+		        return $data[1];
+		     } else {
+		        return false;
+		     }
+		} else {
+                    return false;
+		}
  
 	}
         
-    public function checkLocalSsl() {
-    	if(( $_SERVER["SSL"] == 1 ) && (strstr($this->getApi("/CMD_API_LOAD_AVERAGE"), "use https"))) {
+        public function checkLocalSsl() {
+                if(( $_SERVER["SSL"] == 1 ) && (strstr($this->getApi("/CMD_API_LOAD_AVERAGE"), "use https"))) {
 		    return true;
 		} else {
 		    return false; 
@@ -148,48 +147,6 @@ class skclass{
 		parse_str($r, $resultArray);
   		$output = json_encode($resultArray);
 		return $output;
-	}
-
-	// is deprecaded and be removed after tests (now use native json_encode)
-	private function jsonEncode($arr) {
-	    $parts = array();
-	    $is_list = false;
-
-	    //Find out if the given array is a numerical array
-	    $keys = array_keys($arr);
-	    $max_length = count($arr)-1;
-	    if(($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
-	        $is_list = true;
-	        for($i=0; $i<count($keys); $i++) { //See if each key correspondes to its position
-	            if($i != $keys[$i]) { //A key fails at position check.
-	                $is_list = false; //It is an associative array.
-	                break;
-	            }
-	        }
-	    }
-
-	    foreach($arr as $key=>$value) {
-	        if(is_array($value)) { //Custom handling for arrays
-	            if($is_list) $parts[] = array2json($value); /* :RECURSION: */
-	            else $parts[] = '"' . $key . '":' . array2json($value); /* :RECURSION: */
-	        } else {
-	            $str = '';
-	            if(!$is_list) $str = '"' . $key . '":';
-
-	            //Custom handling for multiple data types
-	            if(is_numeric($value)) $str .= $value; //Numbers
-	            elseif($value === false) $str .= 'false'; //The booleans
-	            elseif($value === true) $str .= 'true';
-	            else $str .= '"' . addslashes($value) . '"'; //All other things
-	            // :TODO: Is there any more datatype we should be in the lookout for? (Object?)
-
-	            $parts[] = $str;
-	        }
-	    }
-	    $json = implode(',',$parts);
-	    
-	    if($is_list) return '[' . $json . ']';//Return numerical JSON
-	    return '{' . $json . '}';//Return associative JSON
 	}
 
 }
