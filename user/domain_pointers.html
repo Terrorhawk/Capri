@@ -30,18 +30,8 @@
 </form>
 
 <div class="table100">
-|HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$table = <<<EOF
+
 |DOMAINPOINTERS|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
-DONE|
 </div>
 |HTM_USER_BOTTOM|

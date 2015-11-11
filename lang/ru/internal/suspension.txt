@@ -20,5 +20,5 @@
 20=Спам
 21=Другое
 22=-- Причина:
-23=Inactive
-24=Account %s was suspended by an Admin and you only have Reseller access. You cannot unsuspend this account.
+23=Неактивный
+24=Учетная запись %s была заблокированна администратором, но вы имеете права реселлера и не можете разблокировать эту учетную запись.

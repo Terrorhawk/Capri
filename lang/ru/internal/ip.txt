@@ -34,5 +34,5 @@
 34=Сбросить с DNS
 35=Перезаписать Apache
 36=Применить к существующим доменам
-37=Variable 'ip' is missing from the submission
-38=Couldn't find any IPs of any type to give User.  Ensure the Reseller's ip.list has some usable IPs.
+37=Переменная 'ip' отсутствует в представлении
+38=Не удалось найти IP-адресс Для назначения пользователю. Убедитесь, что ip.list реселлера имеет несколько IP-адресов.

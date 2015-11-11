@@ -1,11 +1,11 @@
 1=%s не найден.
-2=Unable to read data from %s
-3=Unable to get lock on %s
+2=Невозможно прочитать данные с %s
+3=Не удается получить блокировку на %s
 4=Ошибка записи %s: %s
-5=%s%s has been blocked in %s to prevent further attempts on the account.
-6=Warning: %s has a valid password for %s but failed the Two-Step Authentication code %s times.
-7=The IP %s has provided the correct password for the %s account.%cHowever, after %s attempts, they were not able to provide a valid Two-Step Authentication code, so no access was granted.%cIf this is not your IP, change your password.%s
-8=Two-Step Auth secret is not set.
+5=%s%s был заблокирован в %s для предотвращения попыток получения доступа к учетной записи.
+6=Предупреждение: %s имеет действительный пароль для %s, но код двухфакторной авторизации был введен неверно %s раз.
+7=С IP-адресса %s был введен корректный пароль для учетной записи %s.%cОднако, после %s попыток не был указан верный код двухвакторной авторизации, следовательно в доступе к системе было отказанно.%cЕсли указанный IP-адресс не ваш, то рекомендуем изменить ваш пароль.%s
+8=Секретный ключ двухфакторной авторизации не был задан.
 9=<b>Введите код двухфакторной аутентификации</b>
 10=Отправить
 11=Код
@@ -26,5 +26,5 @@
 26=Истекает
 27=Недолпустимые символы в описании. Допускаются только %s
 28=Напечатать
-29=The code is valid, but for a different time.<br>Check the time on both your server and your phone.<br>Time slice discrepancy = %d<br>
+29=Код действителен, но для другого времени.<br>Сверьте время на вашем сервере и телефоне.<br>Несоответствие периода времени = %d<br>
 30=%s Доверять этому устройству %d дней
