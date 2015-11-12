@@ -539,10 +539,10 @@
 539=UserDir: %s
 540=DNSSEC is not enabled
 541=Error generating zone keys
-542=Zone keys generated
+542=Зона ключей сгенерирована
 543=Error signing zone
-544=Zone signed
-545=Back
+544=Зона подписана
+545=Назад
 546=Cannot manage zone
 547=Zone is of type DNSSEC. Edit the zone on the master server.<br>%sClick Here%s to view the local raw zone data
 548=MySQL is not enabled on this server

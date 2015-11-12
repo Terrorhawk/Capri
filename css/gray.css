@@ -504,7 +504,7 @@ table.list td.list2, table.list td.list, table.list td.listwrap {
   padding: 4px 5px;
   background-color: #fff;
   /*word-break: break-all;*/
-  max-width: 250px;
+  /*max-width: 250px;*/
   /*overflow:hidden;*/
 }
 table.list td.bold {
@@ -894,9 +894,9 @@ td.message_info
 	COLOR: #777777;
 }
 
-.trList .selectclass.combo, .trList .inputclass.combo{
+/*.trList .selectclass.combo, .trList .inputclass.combo{
     max-width: 70px;
-}
+}*/
 
 table#blockedipstable {
     width:100% !important;
@@ -910,9 +910,9 @@ textarea.combo {
    max-width: 800px;
 }
 
-.selectclass.combo {
+/*.selectclass.combo {
     max-width: 150px;
-}
+}*/
 
 progress{
     height: 6px;

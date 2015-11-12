@@ -27,8 +27,11 @@
 |*endif|
       <a href="/CMD_SITE_BACKUP?domain=|domain|"><img src="/IMG_IC_BACKUP"><br>|LANG_CREATE_RESTORE_BACKUPS|</a>
       <a href="/CMD_PROTECTED_DIRECTORIES?domain=|domain|"><img src="/IMG_IC_PASSDIRS"><br>|LANG_PASS_PROC_DIRS|</a>
-|*if USERDNSCONTROL="ON"|
-      <a href="/CMD_DNS_CONTROL?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_DNS_MANAGEMENT|</a>
+|*if HAVE_SECURITY_QUESTIONS="yes"|
+      <a href="/CMD_SECURITY_QUESTIONS"><img src="/IMG_IC_SECURITY_QUESIONS"><br>|LANG_MANAGE_SECURITY_QUESTIONS|</a>
+|*endif|
+|*if HAVE_TWOSTEP_AUTH="yes"|
+      <a href="/CMD_TWOSTEP_AUTH"><img src="/IMG_IC_2STEP_AUTH"><br>|LANG_TWO_STEP_AUTH|</a>
 |*endif|
     </fieldset>
     <fieldset class="buttons-box"><legend>|LANG_TIT_DOMAIN|</legend>
@@ -47,6 +50,9 @@
       <a href="/CMD_REDIRECT?domain=|domain|"><img src="/IMG_IC_SITEREDIRECT"><br>|LANG_SITE_REDIRECTION|</a>
 |*if ALLOWED_CMD_DOMAIN!="no"|
       <a href="/CMD_ADDITIONAL_DOMAINS?domain=|domain|"><img src="/IMG_IC_DOMAIN_SETUP"><br>|LANG_DOMAIN_SETUP|</a>
+|*endif|
+|*if USERDNSCONTROL="ON"|
+      <a href="/CMD_DNS_CONTROL?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_DNS_MANAGEMENT|</a>
 |*endif|
     </fieldset>
 </div>
