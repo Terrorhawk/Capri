@@ -44,7 +44,10 @@ function selectAllDNS()
   <td class=listtitle align=center ><a class=listtitle href="javascript:selectAllDNS();">|LANG_SELECT|</a></td >
   </tr>
   |DNS_ROWS|
-  <tr><td class=listtitle align=right colspan=4><input type=submit value='|LANG_DELETE_SELECTED|' name=delete class="boton" ></td></tr>
+  <tr>
+  <td class="footer"><input type=submit value='|LANG_RESET_DEFAULTS|' name=reset onClick="return confirm('|LANG_RESET_WARNING|');"></td>
+  <td class="footer" align="right" colspan="4"><input type=submit value='|LANG_DELETE_SELECTED|' name=delete class="boton" ></td>
+  </tr>
   <input type=hidden name=action value=select>
   </form>
   
