@@ -212,7 +212,11 @@
         <div class="title">|LANG_BACKUP_SETTINGS|</div>
         <div class="cont table100">
           <input type=checkbox name=message value="yes" |SEND_MESSAGE| id="sgd5"><label for="sgd5">|LANG_SEND_MESSAGE|</label><br />
-          <input type=checkbox name="local_ns" value="yes" |LOCAL_NS| id="dfj7"><label for="dfj7">|LANG_LOCAL_NS|</label>
+          <input type=checkbox name="local_ns" value="yes" |LOCAL_NS| id="dfj7"><label for="dfj7">|LANG_LOCAL_NS|</label><br />
+          <input type=checkbox name="restore_spf" value="yes" |RESTORE_SPF| id="spf8"><label for="spf8">|LANG_RESTORE_SPF|</label><br />
+|*if CLUSTER_ENABLED="1"|
+          <input type=checkbox name="confirm_with_domainowners" value="yes" |CONFIRM_WITH_DOMAINOWNERS| id="cdo9"><label for="cdo9">|LANG_CONFIRM_WITH_DOMAINOWNERS|</label>
+|*endif|
         </div>
         <div align="right" style="padding: 4px 0;text-align:right;"><input type=submit value="|LANG_SAVE|" class="boton"></div>
       </form>
