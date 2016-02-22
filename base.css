@@ -171,3 +171,7 @@ progress::-webkit-progress-value {background: #b3dced;background-image: -webkit-
 .good_twostep_auth_code, .bad_twostep_auth_code {display: inline-block;text-align: center;background-repeat: no-repeat;background-position: bottom;min-width: 50px;padding-bottom: 50px;}
 .good_twostep_auth_code {background-image: url(IMG_CHECKBOX);}
 .bad_twostep_auth_code {background-image: url(IMG_INCORRECT);}
+.expand_toggle_neg{padding-left: 5px;padding-right: 5px;}
+.expand_toggle_plus{padding-left: 3px;padding-right: 3px;}
+.expand_toggle_neg:active, .expand_toggle_plus:active{background: #666e8a;border: 1px inset #c5cff1;box-shadow: none;}
+.expand_toggle_neg, .expand_toggle_plus{background: #44678c;color: white;margin-right: 10px;#padding:1px;border-radius: 3px;border: 1px outset #103963;box-shadow: 1px 1px 3px #969696;cursor:pointer;}
