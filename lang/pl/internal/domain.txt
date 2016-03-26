@@ -23,3 +23,16 @@
 23=%s nie znajduje się na Twojej liście adresów IP
 24=Nie możesz usunąć wszystkich swoich adresów IP
 25=Błąd podczas usuwania adresu(ów) IP z %s
+26=Nie mogę zneleźć %s
+27=Właścicielem %s nie jest %s
+28=Więcej informacji na http://www.directadmin.com/features.php?id=925
+29=php1_select i php2_select muszą mieć wartość 1 lub 2
+30=Wybór wersji PHP
+31=Uchwyt
+32=Rozszerzenie
+33=Zapisz
+34=Pierwsze PHP
+35=Drugie PHP
+36=Subdomena '%s' jest już utworzona w domenie %s.
+37=Włączona
+38=Wyłączona

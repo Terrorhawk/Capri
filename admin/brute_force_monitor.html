@@ -6,7 +6,6 @@
 
 <div id="centerPanel">
 
-|$|SK_PHP|
 <div class="pageTit"><span>|LANG_BRUTE_FORCE_MONITOR|</span>
 |TREE|
 </div>
@@ -60,10 +59,7 @@
 <a href='?sort1=-1'>|LANG_CLEAR_SEARCH_FILTER|</a>
 |*endif|
 
-<?php
-$table = <<<EOF
 |LOGINFAILURES|
-
 
 <script language="Javascript">
 <!--
@@ -83,28 +79,12 @@ function validate_seek()
 |LANG_BLE_IS| |BRUTE_LOG_SIZE|. &nbsp;&nbsp;
 |LANG_ONLY_READ| <input size=6 type=text placeholder="|LANG_ZERO_OR_NEG|" title="|LANG_ZERO_OR_NEG|" id="seek_value" name="seek_value" value="|*if seek_value||seek_value||*else|0|*endif|" onchange="if (!validate_seek()) { this.value=0; } else { location.href='CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value='+this.value; }"> |LANG_BYTES_FROM_THE_END|</form>
 
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
-
 <br><br>
 
 <br>
 <b>|LANG_SKIP_LIST|</b>
-<?php
-$table = <<<EOF
+
 |SKIPLIST|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
 
 </div>
 
@@ -119,7 +99,7 @@ echo $table;
     </div>
 |*endif|
 |*if HAVE_UNBLOCK_SH="1"|
-    <table id="blockbuttontable" class=list style='width: 50%' cellpadding=3 cellspacing=1>
+    <table id="blockbuttontable" class=list style='width: 100%' cellpadding=3 cellspacing=1>
       <tr><td class=listtitle align='right' colspan='5'> <input type='submit' value='|LANG_UNBLOCK|' name=unblock></td ></tr>
     </table>
   </form>
@@ -150,5 +130,4 @@ echo $table;
 |*endif|
 </div>
 
-DONE|
 |HTM_ADMIN_BOTTOM|

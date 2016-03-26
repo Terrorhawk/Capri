@@ -14,7 +14,7 @@
 	|?HAVE_ATMAIL=no|
 |*endif|
 
-<div style="float:left;width:350px;margin-right: 40px;">
+<div style="float:left;width:400px;margin-right: 40px;">
     <fieldset class="buttons-box"><legend>|LANG_MENU_ACCOUNT|</legend>
       <a href="/CMD_USER_STATS?domain=|domain|"><img src="/IMG_IC_STATS"><br>|LANG_SITE_SUM_STATS_LOGS|</a>
       <a href="/CMD_FILE_MANAGER?domain=|domain|"><img src="/IMG_IC_FILEMAN"><br>|LANG_FILE_MANAGER|</a>
@@ -27,8 +27,11 @@
 |*endif|
       <a href="/CMD_SITE_BACKUP?domain=|domain|"><img src="/IMG_IC_BACKUP"><br>|LANG_CREATE_RESTORE_BACKUPS|</a>
       <a href="/CMD_PROTECTED_DIRECTORIES?domain=|domain|"><img src="/IMG_IC_PASSDIRS"><br>|LANG_PASS_PROC_DIRS|</a>
-|*if USERDNSCONTROL="ON"|
-      <a href="/CMD_DNS_CONTROL?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_DNS_MANAGEMENT|</a>
+|*if HAVE_SECURITY_QUESTIONS="yes"|
+      <a href="/CMD_SECURITY_QUESTIONS"><img src="/IMG_IC_SECURITY_QUESIONS"><br>|LANG_MANAGE_SECURITY_QUESTIONS|</a>
+|*endif|
+|*if HAVE_TWOSTEP_AUTH="yes"|
+      <a href="/CMD_TWOSTEP_AUTH"><img src="/IMG_IC_2STEP_AUTH"><br>|LANG_TWO_STEP_AUTH|</a>
 |*endif|
     </fieldset>
     <fieldset class="buttons-box"><legend>|LANG_TIT_DOMAIN|</legend>
@@ -48,13 +51,19 @@
 |*if ALLOWED_CMD_DOMAIN!="no"|
       <a href="/CMD_ADDITIONAL_DOMAINS?domain=|domain|"><img src="/IMG_IC_DOMAIN_SETUP"><br>|LANG_DOMAIN_SETUP|</a>
 |*endif|
+|*if USERDNSCONTROL="ON"|
+      <a href="/CMD_DNS_CONTROL?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_DNS_MANAGEMENT|</a>
+|*endif|
     </fieldset>
 </div>
 
-<div style="float:left;width:350px">
+<div style="float:left;width:400px">
     <fieldset class="buttons-box"><legend>|LANG_MENU_EMAIL|</legend>
 |*if USEREMAILMAX!="0"|
       <a href="/CMD_EMAIL_POP?domain=|domain|"><img src="/IMG_IC_EMAIL"><br>|LANG_POP_EMAIL_ACCOUNTS|</a>
+|*endif|
+|*if USERCATCHALL="ON"|
+      <a href="/CMD_EMAIL_CATCH_ALL?domain=|domain|"><img src="/IMG_IC_EMAIL_CATCH"><br>|LANG_CATCH_ALL_EMAIL|</a>
 |*endif|
 |*if USERFORWARDERMAX!="0"|
       <a href="/CMD_EMAIL_FORWARDER?domain=|domain|"><img src="/IMG_IC_EMAIL_FOR"><br>|LANG_FORWARDERS|</a>
@@ -98,6 +107,9 @@
       <a href="/CMD_PERL_MODULES?domain=|domain|"><img src="/IMG_IC_PERLMODS"><br>|LANG_INSTALLED_PERL_MODULES|</a>
 |*if USERDNSCONTROL="ON"|
       <a href="/CMD_DNS_MX?domain=|domain|"><img src="/IMG_IC_DNS"><br>|LANG_MX_RECORDS|</a>
+|*endif|
+|*if LOGIN_KEYS_ENABLED="0"|
+|?USERLOGINKEYS=OFF|
 |*endif|
 |*if USERLOGINKEYS="ON"|
       <a href="/CMD_LOGIN_KEYS"><img src="/IMG_IC_LOGINKEYS"><br>|LANG_LOGIN_KEYS|</a>

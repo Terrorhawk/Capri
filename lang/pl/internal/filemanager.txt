@@ -53,8 +53,8 @@
 54=Musisz podać nazwę katalogu. np.: obrazy
 55=Katalog prywatny
 56=Nazwa użytkownika
-57=Należy podać nazwę zapytania o dostęp do chronionego katalogu. eg: Obszar użytkownika
-58=Nazwa chronionego katalogu zawiera nieprawidłowe znaki.
+57=Należy podać nazwę zapytania o dostęp do chronionego katalogu. np: Obszar użytkownika
+58=Komuniktau chronionego katalogu zawiera nieprawidłowe znaki.
 59=Nazwa użytkownika jest niepoprawna. Używaj tylko znaków z zakresu a-z0-9
 60=Hasło z obu polach jest wymagane
 61=Podane hasła nie pasują do siebie lub są niepoprawne
@@ -72,3 +72,6 @@
 73=Rekursywnie
 74=Plik  %s ma co najmniej jedno twarde dowiązanie
 75=Plik %s ma ustawiona grupę na apache, ale użytkownik nie jest apache
+76=Upewnij się że, %s istnieje i ma ustawiony chmod na 1777.
+77=Żadne pliki nie zostały wybrane do przesłania.
+78=Właścicielem katalogu %s jest 'apache'.  Użyj funkcji 'Resetuj właściciela' i spróbuj ponownie.

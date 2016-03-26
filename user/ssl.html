@@ -22,12 +22,12 @@ else elements[i].disabled = true;
 <b>|RESULT|</b><br />
 
 |*if SSL_ON="no"|
-<div style="margin-bottom: 20px;padding:10px;border:1px solid #b00;color:#a00;background:#ffefee;">|LANG_SSL_DISABLED|<br />
-<a href="/CMD_ADDITIONAL_DOMAINS?action=view&domain=|domain|">|LANG_SSL_HERE|</a>
+<div style="margin-bottom: 20px;padding:10px;border:1px solid #b00;color:#a00;background:#ffefee;">|LANG_SSL_DISABLED|
+<a href="/CMD_ADDITIONAL_DOMAINS?action=view&domain=|domain|">|LANG_SSL_HERE|.</a>
 </div>
 |*else|
-<div style="margin-bottom: 20px;padding:10px;border:1px solid #b00;color:#a00;background:#ffefee;">SSL is currently <b>enabled</b> for this domain.  You can disable it 
-<a href="/CMD_ADDITIONAL_DOMAINS?action=view&domain=|domain|">here</a>
+<div style="margin-bottom: 20px;padding:10px;border:1px solid #009600;color:#008800;background:#C9F5CC;">|LANG_SSL_ENABLED| 
+<a href="/CMD_ADDITIONAL_DOMAINS?action=view&domain=|domain|">|LANG_SSL_HERE|.</a>
 </div>
 |*endif|
 
@@ -48,8 +48,18 @@ else elements[i].disabled = true;
 
   <tr class="clear" style="padding-top: 12px !important;font-weight:bold;">
     <td align=center><input type=radio name=type value="create" onclick="setRequest('on');"></td>
-    <td colspan=2><input type=radio name=request value="no" checked disabled id=asa1><label for="asa1">|LANG_CREATE_SELF_SIGNED|</label><input style="margin-left:60px;" type=radio name=request value="yes" disabled id=asa2><label for="asa2">|LANG_CREATE_CSR|</label></td>
+    <td colspan=2>|LANG_GENERATE_CERT|</td>
   </tr>
+  <tr><td>&nbsp;</td><td colspan=2>|LANG_CHECK_TYPE_CERT|:</td></tr>
+  <tr><td>&nbsp;</td><td colspan=2>
+    <div style="border: 1px double #999">
+        <input type=radio name=request value="no" checked disabled id=asa1><label for="asa1">|LANG_CREATE_SELF_SIGNED|</label>
+        <input style="margin-left:30px;" type=radio name=request value="yes" disabled id=asa2><label for="asa2">|LANG_CREATE_CSR|</label>
+|*if LETSENCRYPT="1"|
+        <input style="margin-left:30px;" type=radio name=request value="letsencrypt" disabled id=asa3><label for="asa3">|LANG_FREE_LETS_ENCRYPT| <a class='listtitle' target=_blank href="https://letsencrypt.org/">Let's Encrypt</a></label> 
+|*endif|
+    </div>
+  </td></tr>
   <tr><td>&nbsp;</td><td>|LANG_COUNTRY|</td><td><input type=text class=combot name=country size=2 maxlength=2></td></tr>
   <tr><td>&nbsp;</td><td>|LANG_STATE|</td><td><input type=text class=combot size=18 name=province></td></tr>
   <tr><td>&nbsp;</td><td>|LANG_CITY|</td><td><input type=text class=combot size=18 name=city></td></tr>
@@ -57,26 +67,28 @@ else elements[i].disabled = true;
   <tr><td>&nbsp;</td><td>|LANG_COMPANY_DIV|</td><td><input type=text class=combot size=18 name=division></td></tr>
   <tr><td>&nbsp;</td><td>|LANG_COMMON_NAME|</td><td><input type=text class=combot size=20 name=name value="www.|DOMAIN|"></td></tr>
   <tr><td>&nbsp;</td><td>|LANG_EMAIL|</td><td><input type=text class=combot name=email size=30></td></tr>
-  <tr><td>&nbsp;</td><td>Key Size (bits)</td><td><select  class="combot selectclass" name="keysize"><option selected="selected">2048</option></select></td></tr>
-  
+  <tr><td>&nbsp;</td><td>|LANG_KEYSIZE|</td><td><select  class="combot selectclass" name="keysize"><option selected="selected">2048</option><option selected>4096</option></select></td></tr>
+  <tr><td class=list>&nbsp;</td><td class=list>|LANG_CERT_TYPE|</td><td class=list><select class=selectclass name=encryption><option value="rsa">SHA1</option><option value="sha256" selected>SHA256</option></select></td></tr>
+	<tr><td class=list align=center><input type=radio name=type value="paste" |PASTECHECKED| onClick="setRequest('off');"></td><td class=listtitle colspan=2>|LANG_PASTE|</td></tr>
   <tr style="padding-top: 12px !important;font-weight:bold;">
     <td align=center><input type=radio name=type value="paste" |PASTECHECKED| onclick="setRequest('off');"></td>
     <td colspan=2>|LANG_PASTE|</td>
   </tr>
   <tr><td>&nbsp;</td>
     <td colspan=2>
-      <textarea style="font-family: courier new; width: 610px;" name=certificate rows=16 class=combot>|KEY||CERTIFICATE|</textarea>
+      <textarea style="font-family: courier new; width: 100%;" name=certificate rows=16 class=combot>|KEY||CERTIFICATE|</textarea>
     </td>
   </tr>
+  <tr><td>&nbsp;</td><td><a href="/CMD_SSL?DOMAIN=|DOMAIN|&view=cacert">|LANG_CLICK_HERE|</a></td></tr>
+|*if LETSENCRYPT_RENEWAL_DAYS!=""|  
+  <tr><td>&nbsp;</td><td><div style='font-weight: bold;'>|LANG_LETSENCRYPT_IN_USE_AUTO_RENEWAL| |LETSENCRYPT_RENEWAL_DAYS| |LANG_LETSENCRYPT_DAYS|.</div></td></tr>
+|*endif|
   </tbody>
   <tfoot>
   <tr><td colspan=3 align=right><input type=submit name=submit value="|LANG_SAVE|"></td></tr>
   </tfoot>
 </table>
 </form>
-
-<br />
-<a href="/CMD_SSL?DOMAIN=|DOMAIN|&view=cacert">|LANG_CLICK_HERE|<br /><br />
 
 <div class="tip" style="margin-top:15px;">|LANG_NOTE|</div>
 |HTM_USER_BOTTOM|

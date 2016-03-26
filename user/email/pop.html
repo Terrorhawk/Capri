@@ -79,12 +79,9 @@ $(function(){
 <?php
 
 include |SK_ROOT| . "inc/func.php";
-$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
  
 // email quotas
-$post = array('action'=>'list', 'type'=>'quota', 'domain'=>'|DOMAIN|');
-$result=$sk->api_get("/CMD_API_POP", $post);
-parse_str($result, $accounts);
+$accounts=$sk->getMailQuota('|DOMAIN|');
 
 $_Accounts = array();
 if(is_array($accounts) && count($accounts)>0) {

@@ -4,21 +4,11 @@
 |HTM_HEADER|
 |HTM_CONFIG|
 <div id="centerPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_LOG_VIEWER|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_LOG_VIEWER|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_LOG_VIEWER');
-
-?>
-DONE|
 <form action="/CMD_LOG_VIEWER" method="GET">
   <table class="config" cellspacing="0" style="margin-bottom: 10px;">
     <thead>

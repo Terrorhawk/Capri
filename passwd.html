@@ -3,21 +3,11 @@
 |?HELP_SECTION=`USER_HELPER`/gettingstarted.html#password|
 |HTM_USER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_CHANGE_YOUR_PASS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_CHANGE_YOUR_PASS|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
 <center>
 <form action="CMD_PASSWD" method="post">
 <input type=hidden name="options" value="yes">
@@ -39,7 +29,11 @@ DONE|
 </table>
 |*if HAVE_SECURITY_QUESTIONS="yes"|
 <br>
-<a href="CMD_SECURITY_QUESTIONS">Manage Security Questions</a>
+<a href="CMD_SECURITY_QUESTIONS">|LANG_MANAGE_SECURITY_QUESTIONS|</a>
+|*endif|
+|*if HAVE_TWOSTEP_AUTH="yes"|
+<br>
+<a href="CMD_TWOSTEP_AUTH">|LANG_TWO_STEP_AUTH|</a>
 |*endif|
 </form>
 </center>

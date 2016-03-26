@@ -7,15 +7,22 @@
       <div class="panelBox">
         <div class="title"><span>|LANG_OPTIONS|</span></div>
 
+|?ENABLEADD=0|
 |*if NDOMAINS<NDOMAINSMAX|
+|?ENABLEADD=1|
+|*endif|
 
+|*if NDOMAINSMAX="unlimited"|
+|?ENABLEADD=1|
+|*endif|
+
+|*if ENABLEADD="1"|
         <a href="/HTM_ADD_DOMAIN"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
-
 |*else|
-        <a href="javascript:;" onclick="alert('LANG_NO_DOMAINS_AVAILABLE')"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
+        <a href="javascript:;" onclick="alert('|LANG_NO_DOMAINS_AVAILABLE|')"><img src="/IMG_IC_ADDDOMAIN"><br />|LANG_ADD_DOMAIN|</a>
 |*endif|
           
-        <a href="/CMD_CHANGE_DOMAIN"><img src="/IMG_IC_CHANGEDOMAIN"><br />|LANG_CHANGE_DOMAIN| <?php=echo "test";?> </a>
+        <a href="/CMD_CHANGE_DOMAIN"><img src="/IMG_IC_CHANGEDOMAIN"><br />|LANG_CHANGE_DOMAIN|</a>
         <div class="cf cleft"></div>
       </div>
   |HTM_BOX_USER_STATS|
@@ -24,7 +31,7 @@
 <div class="pageTit"><span>|LANG_ADDITIONAL_DOMAINS|</span>
 |TREE|
 </div>
-<div class="table75">
+<div class="table100">
 |DOMAINS|
 </div>
 <div style="margin-top:15px;padding: 2px 6px;border:1px solid #ccc;background-color:#f6f6f6;">|LANG_DOMAINS_CURRENT_USAGE|: <b>|NDOMAINS|/|NDOMAINSMAX|</b></div>

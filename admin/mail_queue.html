@@ -4,28 +4,13 @@
 |HTM_HEADER|
 |HTM_CONFIG|
 <div id="centerPanel" class="table100">
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_MAIL_QUEUE_ADMIN|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_MAIL_QUEUE_ADMIN|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_MAIL_QUEUE');
-
-$table = <<< EOF
 |TABLE|
-EOF;
 
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-?>
-|TABLE|
-DONE|
 </div>
 |HTM_FOOTER|
 

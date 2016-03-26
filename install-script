@@ -1,0 +1,188 @@
+#!/bin/sh
+
+SKINFNAME="Capri"
+SKINDIRNAME="capri"
+SOURCEPATH="https://github.com/terrorhawk/Capri"
+#PLUGINPATH="/usr/local/directadmin/data/skin_data/$SKINDIRNAME"
+THISPATH=$PWD
+
+
+# install the skin
+doInstall()
+{
+  echo ""
+  echo -e "\e[1;37mThis script will install and setup $SKINFNAME Skin for DirectAdmin Control panel."
+  
+  
+  echo -e "\e[40;37m\e[0m"
+  echo ""
+  if [ "$SKNAME" = "" ]; then
+    echo -n "Please choose a skin name or press enter to use default [$SKINFNAME]: "
+    read SKNAME
+  fi
+  
+  if [ "$SKNAME" = "" ]; then
+    SKNAME="$SKINFNAME"
+  fi
+  
+  SKINPATH="/usr/local/directadmin/data/skins/$SKINDIRNAME"
+  
+  echo -e "Skin name will be:\e[1;37m $SKNAME \e[40;37m\e[0m"
+  echo ""
+
+  
+  echo ""
+  echo "Capri skin also have a email-only version for users who have a email services."
+  echo -n "Would you like to install a second email-only skin (will be called $SKNAME-mail)? (y/n) [n]: "
+  read SKMAILONLY
+  echo ""
+  
+  
+  
+  if [ "$OVERWRITE" = "" ]; then
+    if [ -d "$SKINPATH" ]; then
+      echo -n "Directory $SKINPATH already exists. Do you want to delete it? (y/n) [y]: "
+      read ACT1
+      echo
+      if [ "$ACT1" = "n" ]; then
+        echo "Instalation aborted by user.";
+        exit 0;
+      else
+        rm -fr $SKINPATH/*
+        rmdir $SKINPATH
+      fi
+    fi
+  fi
+  
+  if [ ! -d "$SKINPATH" ]; then
+    mkdir $SKINPATH
+    echo "Create $SKINPATH"
+  fi
+  chmod 777 $SKINPATH
+  chown diradmin:diradmin $SKINPATH
+  
+  
+  cd $SKINPATH
+  echo -n "Downloading skin files to $SKINPATH...            "
+  wget -q -O $SKINPATH/$SKINDIRNAME.zip https://github.com/Terrorhawk/Capri/archive/master.zip --no-check-certificate
+  
+  # aca chequeo si el archivo se descargo
+  if [ ! -f "$SKINPATH/$SKINDIRNAME.zip" ]; then
+    echo -e "\e[1;31m Failed \e[40;37m\e[0m"; echo""
+    echo -e "*** An error occur while downloading files. Please try again or contact support."
+    echo ""
+    cd $THISPATH
+    exit 0;
+  fi
+  
+  # Check the size 150k
+  if [ `du -k $SKINPATH/$SKINDIRNAME.zip |awk '{print $1}'` -lt 200 ]; then
+    
+    # Si se descargo otra cosa, borro y termino
+    rm -f $SKINPATH/$SKINDIRNAME.zip
+    echo -e "\e[1;31m Failed \e[40;37m\e[0m"; echo""
+    echo -e "*** An error occur while downloading files. Cannot reach source download URL. Please try again or contact support."
+    echo ""
+    cd $THISPATH
+    exit 0;
+  fi
+  
+  echo -e "\e[1;32m Done \e[40;37m\e[0m "
+  
+  echo -n "Decompressing skin files...          "
+  
+  unzip $SKINPATH/$SKINDIRNAME.zip -d $SKINPATH
+  mv $SKINPATH/Capri-master/* $SKINPATH
+  rm -rf $SKINPATH/Capri-master/
+  
+  if [ ! -f "$SKINPATH/files_admin.conf" ]; then
+    echo -e "\e[1;31m Failed \e[40;37m\e[0m"; echo""
+    echo -e "*** An error occur while decompressing files. Please try again or contact support."
+    echo ""
+    rm -fr $SKINPATH/*
+    rmdir $SKINPATH
+    cd $THISPATH
+    exit 0;
+  fi
+  
+  echo -e "\e[1;32m Done \e[40;37m\e[0m "
+  
+  
+  # instalo mail only skin
+  if [ "$SKMAILONLY" = "y" ]; then
+  
+    if [ ! -d "$SKINPATH-mail" ]; then
+      mkdir $SKINPATH-mail
+    fi
+    chmod 777 $SKINPATH-mail
+    chown diradmin:diradmin $SKINPATH-mail
+    cd $SKINPATH-mail
+    
+    echo -n "Installing email-only skin...        "
+    wget -q -O $SKINPATH-mail/$SKINDIRNAME-mail.zip https://github.com/Terrorhawk/Capri-mailonly/archive/master.zip --no-check-certificate
+    
+    if [ ! -f "$SKINPATH-mail/$SKINDIRNAME-mail.zip" ]; then
+      echo -e "\e[1;31m Failed \e[40;37m\e[0m"; echo""
+      echo -e "*** An error occur while downloading files. Please try again or contact support."
+      echo ""
+      cd $THISPATH
+    else
+      if [ `du -k $SKINPATH-mail/$SKINDIRNAME-mail.zip |awk '{print $1}'` -lt 50 ]; then
+        rm -f $SKINPATH-mail/$SKINDIRNAME-mail.zip
+        rm -f $SKINPATH-mail/*
+        rmdir $SKINPATH-mail
+        echo -e "\e[1;31m Failed \e[40;37m\e[0m";
+        echo -e "*** An error occur while downloading email-only skin files. Mail-only skin not installed."
+        cd $THISPATH
+      else
+          unzip $SKINPATH-mail/$SKINDIRNAME-mail.zip -d $SKINPATH-mail
+          mv $SKINPATH-mail/Capri-mailonly-master/* $SKINPATH-mail
+          rm -rf $SKINPATH-mail/Capri-mailonly-master/
+          
+        cd $THISPATH
+      fi
+    fi
+  fi
+  
+  
+
+
+  echo -n "Setting permissions...               "
+  chown -R diradmin:diradmin $SKINPATH/*
+  find $SKINPATH/ -type f -exec chmod 755 {} \;
+  chown diradmin:diradmin $SKINPATH
+  chmod -R 777 $SKINPATH/
+    
+  if [ -f "$SKINPATH-mail/header.html" ]; then
+    find $SKINPATH-mail/ -type f -exec chmod 755 {} \;
+    chown -R diradmin:diradmin $SKINPATH-mail/*
+    chown diradmin:diradmin $SKINPATH-mail
+    chmod -R 777 $SKINPATH-mail/
+  fi
+  
+  
+  echo -e "\e[1;32m Done \e[40;37m\e[0m "
+  
+  # finalizo la instalacion
+  echo "";echo ""
+  echo -e "\e[1;37mCongratulations! $SKINFNAME has been installed. Log in you control panel and switch to $SKNAME skin.\e[40;37m\e[0m"
+  echo "Now login you control panel as admin go to skin manager page, switch to $SKNAME skin in the skin manager box."
+  echo ""
+  
+  exit 0;
+}
+
+####################################################################################################################################################
+type unzip >/dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed.  Aborting."; exit 1; }
+
+echo -n "Do you want to make a fresh install? (y/n) [y]: "
+        read FRESHINSTALL
+        echo
+        
+        if [ "$FRESHINSTALL" != "n" ]; then
+          doInstall
+        else
+          echo "Nothing to do. Good bye!"
+        fi
+
+exit 0;

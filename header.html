@@ -35,13 +35,22 @@ setTimeout('log_me_out();', |SESSION_MINUTES|*60*1000);
         |LANG_WELCOME| <b>|USERNAME|</b>
       </div>
       <div id="top_logo" 
+      
 |$|SK_PHP|
-      <?php
-      echo 'style="background-image: url(';
-      include |SK_ROOT| . "inc/functions.php";
-      echo $sk->getLogo("|USERCREATOR|", "|USERNAME|"); 
-      echo ');"';
-      ?>
+<?php
+
+$icpath_usr = glob(|SK_ROOT| . "/images/custom/|USERNAME|.*");
+$icpath_creator = glob(|SK_ROOT| . "/images/custom/|USERCREATOR|.*");
+$logo = "/IMG_SKIN_HEADER";
+if (count($icpath_usr) > 0) {
+	$logo = "IMG_RESLOGO_|USERNAME|"; 
+} elseif (count($icpath_creator) > 0) {
+	$logo="IMG_RESLOGO_|USERCREATOR|";
+}
+
+echo 'style="background-image: url(' . $logo . ');"';
+
+?>
 DONE|
       ></div>
     </div>

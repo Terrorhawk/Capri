@@ -46,6 +46,7 @@ elements[i].checked = check;
 |*if LOGIN_AS_DNSCONTROL="ON"|
 <span class="warning" style="color:red;">DNS Control is disabled for this User. You can edit the zone because your master account has DNS Control.</span>
 |*endif|
+<style> td.list {word-break: break-all;max-width:250px;} </style>
 
 <table class=list cellspacing=0 width="100%">
 <form name=tableform action='/CMD_DNS_CONTROL' method='POST'>
@@ -159,8 +160,6 @@ elements[i].checked = check;
 |?DNS_SPF="no"|
 |*endif|
 
-
-
 |*if DNS_SPF="yes"|
 <form action='/CMD_DNS_CONTROL' method='POST'>
 	<input type=hidden name=action value=add>
@@ -171,7 +170,6 @@ elements[i].checked = check;
 	<td class=list2 align=center><input type=submit name=add value="|LANG_ADD|" |DNS_DISABLED|></td></tr>
 </form>
 |*endif|
-
 
 |*if DNS_DS="yes"|
 <form action='/CMD_DNS_CONTROL' method='POST'>
@@ -184,19 +182,22 @@ elements[i].checked = check;
 </form>
 |*endif|
 
-
 |*if ALLOW_TTL_OVERRIDE="yes"|
 <form action='/CMD_DNS_CONTROL' method='POST'>
 	<input type=hidden name=action value=ttl>
 	<input type=hidden name=domain value="|domain|">
 	<tr>
-	<td class=list>Override TTL Value</td>
+	<td class=list>|LANG_OVERRIDE_TTL_VAL|</td>
 	<td class=list align=center>TTL</td>
-	<td class=list><input type=radio name=ttl_select value="custom" |TTL_CUSTOM_SELECTED|><input type=text name=ttl size=6 value="|TTL_VALUE|">&nbsp; <input type=radio name=ttl_select value="default" |TTL_DEFAULT_SELECTED|>Use Default</td>
-	<td class=list align=center><input type=submit value="Save"></td>
+	<td class=list><input type=radio name=ttl_select value="custom" |TTL_CUSTOM_SELECTED|><input type=text name=ttl size=6 value="|TTL_VALUE|">&nbsp; <input type=radio name=ttl_select value="default" |TTL_DEFAULT_SELECTED|>|LANG_USE_DEFAULT|</td>
+	<td class=list align=center><input type=submit value="|LANG_SAVE|"></td>
 	</tr>
 </form>
 |*endif|
 </table >
+
+|DNSSEC_TABLE|
+
 </div>
+
 |HTM_FOOTER|

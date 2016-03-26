@@ -12,20 +12,11 @@
       |HTM_BOX_RESELLER_STATS|
     </div>
     <div id="rightPanel">
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_MANAGE_USER_BACKUPS|: |LANG_MODIFY_BACKUP|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_MANAGE_USER_BACKUPS|: |LANG_MODIFY_BACKUP|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
       <div class="bk_container Backup">
       <form name=tableform1 action="/CMD_USER_BACKUP" method="post">
       <input type=hidden name=action value="modify">
@@ -33,15 +24,15 @@ DONE|
         <div class="title">|LANG_MODIFY_BACKUP|</div>
         <div class="cont">
         
-          <div style="float: left;width:300px">
+          <div style="float: left;width:360px">
             <div>|LANG_STEP_1|: <b>|LANG_WHO|</b></div>
             <div class="topsel"><input type=radio name=who id=who1 value="all" |WHO_ALL_CHECKED|><label for="who1">|LANG_ALL_USERS|</label><br />
             <input type=radio name=who id=who3 value="except" |WHO_EXCEPT_CHECKED|><label for="who3">All Users Except Selected Users</label><br />
             <input type=radio name=who id=who2 value="selected" |WHO_SELECT_CHECKED><label for="who2">|LANG_SELECTED_USERS|</label></div>
-            <div style="overflow: auto; height: 160px; width: 300px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
+            <div style="overflow: auto; height: 160px; width: 358px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
           </div>
           
-          <div style="float: left;width:190px;margin: 0 10px;">
+          <div style="float: left;width:170px;margin: 0 10px;">
             <div>|LANG_STEP_2|: <b>|LANG_WHEN|</b></div>
             <div class="topsel"><input type=radio id=when2 name=when value="cron" checked><label for="when1">|LANG_CRON_SCHED|</label></div>
             <div class="table100">
@@ -57,7 +48,7 @@ DONE|
             </div>
           </div>
           
-          <div style="float: left;width:236px">
+          <div style="float: left;width:300px">
             <div>|LANG_STEP_3|: <b>|LANG_WHERE|</b></div>
             <div class="topsel"><input type=radio name=where id=where1 value="local" |LOCAL_CHECKED|><label for="where1">|LANG_LOCAL|: ~/|USERNAME|/|USER_BACKUPS_DIR|/</label><br />
             <input type=radio name=where id=where2 value="ftp" |FTP_CHECKED|><label for="where2">|LANG_FTP|</label></div>
@@ -69,6 +60,7 @@ DONE|
                 <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
                 <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
                 <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
+                <tr><td align=right class=listtitle>|LANG_SECURE_FTP|:</td><td class=listtitle>|FTP_SECURE_SELECT|</td></tr>
                 </tbody>
               </table>
             </div>

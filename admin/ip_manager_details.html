@@ -4,19 +4,10 @@
 |?HELP_SECTION=`ADMIN_HELPER`/ipman.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_IP_MANAGER|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_IP_MANAGER|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_MANAGER');
-
-?>
+</div>
 
 <div class="table75">
 <table class="config" cellspacing="0" style="margin-bottom: 10px;">
@@ -54,5 +45,4 @@ $tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_IP_MANAGER');
 <br>
 |LANG_APPLY_TO_DOMAINS|
 
-DONE|
 |HTM_ADMIN_BOTTOM|

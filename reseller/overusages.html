@@ -10,30 +10,13 @@
 |HTM_BOX_RESELLER_STATS|
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php  
 
-include |SK_ROOT|."inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-$pagetit = <<<EOF
-|LANG_OVERUSES|
-EOF;
-
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_OVERUSES|</span>
 |TREE|
-EOF;
+</div>
 
-echo pagetit($pagetit, $tree);
-
-
-?>
     </div>
-<?php  
-parse_str($_SERVER["QUERY_STRING"], $GET);
-if(!$GET['view']) {
-?>
+
 <script language="JavaScript" type="text/javascript">
 <!--
 $(function(){
@@ -41,6 +24,5 @@ $(function(){
 });
 //-->
 </script>
-<?php  } ?>
-DONE|
+
 |HTM_FOOTER|

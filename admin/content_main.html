@@ -1,6 +1,9 @@
 |LF_STANDARD|
 |LF_PROC_MON|
 |HTM_CONFIG|
+|*if AJAX="1"|
+	<script type="text/javascript" src="JS_CREATION_CHECK"></script>
+|*endif|
     <div id="leftPanel">
 |HTM_BOX_ADMIN_SEARCH|
 |HTM_BOX_SERVER_STATS|
@@ -8,7 +11,7 @@
     </div>
 
 	<div id="rightPanel">
-		<div style="float:left;width:350px;margin-right: 40px;">
+		<div style="float:left;width:400px;margin-right: 40px;">
 			<fieldset class="buttons-box"><legend>|LANG_USERS_ADMINISTRATION|</legend>
 				<a href="/CMD_ALL_USER_SHOW"><img src="/IMG_IC_LIST_ALL_USERS"><br>|LANG_SHOW_ALL_USERS|</a>
 				<a href="/CMD_USER_SHOW"><img src="/IMG_IC_LIST_USERS"><br>|LANG_ADM_USERS|</a>
@@ -31,7 +34,7 @@
 				<a href="/CMD_PROCESS_MONITOR?sort1=-9"><img src="/IMG_IC_PROCESS"><br>|LANG_PROCESS_MONITOR|</a>
 			</fieldset>
 		</div>
-		<div style="float:left;width:350px">
+		<div style="float:left;width:400px">
 			<fieldset class="buttons-box"><legend>|LANG_ADMINISTRATIVE_TOOLS|</legend>
 				<a href="/CMD_ADMIN_BACKUP"><img src="/IMG_IC_BACKUP"><br>|LANG_ADMIN_BACKUP|</a>
 				<a href="/CMD_SYSTEM_BACKUP"><img src="/IMG_IC_BACKUP"><br>|LANG_SYS_BACKUP|</a>
@@ -49,6 +52,7 @@
 				<a href="/CMD_CUSTOM_HTTPD"><img src="/IMG_IC_CUSTHHPTD"><br>|LANG_CUSTOM_HTTPD|</a>
 				<a href="/CMD_PHP_SAFE_MODE"><img src="/IMG_IC_SAFEMODE"><br>|LANG_PHP_SAFEMODE|</a>
 				<a href="/CMD_BRUTE_FORCE_MONITOR?sort1=-1&seek_value=-500000"><img src="/IMG_IC_BRUTE"><br>|LANG_BRUTE_FORCE_MONITOR|</a>
+				<a href="/HTM_ALL_DOMAINS"><img src="/IMG_IC_DOMPTR"><br>|LANG_SHOW_ALL_DOMAINS|</a>
 
 |PLUGIN_0_ADMIN_IMG|
 |PLUGIN_1_ADMIN_IMG|

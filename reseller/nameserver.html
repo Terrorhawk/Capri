@@ -3,21 +3,11 @@
 |?HELP_SECTION=`RESELLER_HELPER`/nameserver.html|
 |HTM_RESELLER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_NAME_SERVERS|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_NAME_SERVERS|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_NAME_SERVER');
-
-?>
-DONE|
 <div class="table100">|IPS|</div>
 
 <form action="/CMD_NAME_SERVER" method="post">

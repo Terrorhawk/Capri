@@ -73,22 +73,11 @@ function start_timer(autoloaded){
 |*endif|
 }
 </script>
-|$|SK_PHP|
-<?php 
-$pagetit = <<<EOF
-|LANG_PROCESS_MONITOR|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_PROCESS_MONITOR|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-echo pagetit($pagetit, $tree);
-
-?>
 <form name="reloadform" action="/CMD_PROCESS_MONITOR" method=POST>
   <table class=list cellpadding=3 cellspacing=1>
     <tr><td class=listtitle colspan=4>|LANG_PROCESS_MONITOR|</td></tr>
@@ -116,16 +105,12 @@ echo pagetit($pagetit, $tree);
 <br>
 
 <div style='font-family: "Courier new", courier; border: 1px solid;padding:3px 5px;font-size: 12px;text-align:left;color: #cecece;background-color:#000;'>
-<?php
-$BOXINFO = <<<END
-|BOXINFO|
-END;
 
-echo str_replace(' ', '&nbsp;', $BOXINFO);
-?>
+|BOXINFO|
+
 </div><br>
 
-DONE|
+
 <div class="table100">
 |PROCESSES|
 </div>

@@ -1,14 +1,13 @@
 |HTM_CONFIG|
 |$|SK_PHP|
 <?php  include |SK_ROOT| . "inc/func.php"; 
-$disable_api_on_ssl="|DISABLES_API_ON_SSL|";
 
 $servArr=$sk->getServices();
 ?>
       <div class="panelBox">
         <div class="title"><span>|LANG_SERVER_STATUS|</span></div>
         <ul>
-          <li style="background-image:url(IMG_LOAD14);"><span>|LANG_LOAD_AVERAGE|:</span><?php  echo $sk->load_average(true); ?></li>
+          <li style="background-image:url(IMG_LOAD14);"><span>|LANG_LOAD_AVERAGE|:</span><?php  echo $sk->getLoadAverage(); ?></li>
 <?php
 if(is_array($servArr) && count($servArr)>1) {
  foreach($servArr as $service => $val) {

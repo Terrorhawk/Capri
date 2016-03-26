@@ -4,21 +4,14 @@
 |?HELP_SECTION=`RESELLER_HELPER`/messagesystem.html|
 |HTM_RESELLER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_MANAGE_TICKETS|: |LANG_VIEW_CLOSED|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_MANAGE_TICKETS|: |LANG_VIEW_CLOSED|</span>
 |TREE|
-EOF;
-
-$tpl->pagetit($pagetit, $tree);
-?>
+</div>
 
 <div class="table100">
+
+|$|SK_PHP|
 <?php
 $table = <<<EOF
 |TICKETS|

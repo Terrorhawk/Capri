@@ -27,17 +27,17 @@
         <div class="title">|LANG_CREATE_BACKUP|</div>
         <div class="cont">
         
-          <div style="float: left;width:300px">
+          <div style="float: left;width:360px">
             <div>|LANG_STEP_1|: <b>|LANG_WHO|</b></div>
             <div class="topsel"><input type=radio name=who id=who1 value="all"><label for="who1">|LANG_ALL_USERS|</label><br />
             <input type=radio name=who id=who3 value="except" checked><label for="who3">|LANG_ALL_USERS| |LANG_EXCEPT_USERS|</label><br />
-            <input type=radio name=who id=who2 value="selected" checked><label for="who2">|LANG_SELECTED_USERS|</label> |CREATOR_SELECT|<label for="who2"> &amp; Users </label>
-            <input type=button class="boton small" value="Select" onclick="addReseller(document.tableform1.selectcreator.value)"><br />
+            <input type=radio name=who id=who2 value="selected" checked><label for="who2">|LANG_SELECTED_USERS|</label> |CREATOR_SELECT|
+            <input type=button class="boton small" value="|LANG_SELECT|" onclick="addReseller(document.tableform1.selectcreator.value)"><br />
             <input type=checkbox name="skip_suspended" id="skip_suspended" value="yes" |SKIP_SUSPENDED_CHECKED|><label for="skip_suspended">|LANG_SKIP_SUSPENDED|</label></div>
-            <div style="overflow: auto; height: 322px; width: 300px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
+            <div style="overflow: auto; height: 495px; width: 358px;border: 1px solid #ddd" class="table100 tboverf">|USERS|</div>
           </div>
           
-          <div style="float: left;width:190px;margin: 0 10px;">
+          <div style="float: left;width:170px;margin: 0 10px;">
             <div>|LANG_STEP_2|: <b>|LANG_WHEN|</b></div>
             <div class="topsel"><input type=radio name=when id=when1 value="now" checked><label for="when1">|LANG_NOW|</label><br />
             <input type=radio id=when2 name=when value="cron"><label for="when1">|LANG_CRON_SCHED|</label></div>
@@ -54,7 +54,7 @@
             </div>
           </div>
           
-          <div style="float: left;width:236px">
+          <div style="float: left;width:300px">
             <div>|LANG_STEP_3|: <b>|LANG_WHERE|</b></div>
             <div class="topsel"><input type=radio name=where id=where1 value="local" |LOCAL_CHECKED|><label for="where1">|LANG_LOCAL|: </label><input type=text class="combot" style="width:166px;vertical-align:3px;" name="local_path" value="|local_path|"><br />
             <input type=radio name=where id=where2 value="ftp" |FTP_CHECKED|><label for="where2">|LANG_FTP|</label></div>
@@ -66,20 +66,20 @@
                 <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
                 <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
                 <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
-				<tr><td align=right class=listtitle>|LANG_APPEND_TO_PATH|:</td><td class=listtitle>|PATH_APPEND|</td>
-				</tr>
-				<tr class="|CUSTOM_PATH_CLASS|" id="custom_path"><td align=right>|LANG_CUSTOM_APPEND|:</td>
-					<td class=list>
-						&nbsp;/&nbsp;<input type=text name="custom_append" value="|CUSTOM_APPEND_VALUE|" size="15" class="combot">
-						<a target=_blank href="http://help.directadmin.com/item.php?id=539">(?)</a>&nbsp;
-					</td>
-				</tr>
+                <tr><td align=right class=listtitle>|LANG_SECURE_FTP|:</td><td class=listtitle>|FTP_SECURE_SELECT|</td></tr>
+				        <tr><td align=right class=listtitle>|LANG_APPEND_TO_PATH|:</td><td class=listtitle>|PATH_APPEND|</td></tr>
+        				<tr class="|CUSTOM_PATH_CLASS|" id="custom_path"><td align=right>|LANG_CUSTOM_APPEND|:</td>
+        					<td class=list>
+        						&nbsp;/&nbsp;<input type=text name="custom_append" value="|CUSTOM_APPEND_VALUE|" size="15" class="combot">
+        						<a target=_blank href="http://help.directadmin.com/item.php?id=539">(?)</a>&nbsp;
+        					</td>
+        				</tr>
                 </tbody>
               </table>
             </div>
           </div>
           
-          <div style="float: left;width:436px;margin: 20px 0 0 10px;">
+          <div style="float: left;width:480px;margin: 20px 0 0 10px;">
             <div>|LANG_STEP_4|: <b>|LANG_WHAT|</b></div>
             <div class="topsel"><input type=radio name=what id="what_all" value="all" checked><label for="what_all">|LANG_ALL_DATA|</label>
             <br />
@@ -144,7 +144,7 @@
         <div class="title">|LANG_RESTORE_BACKUP|</div>
         <div class="cont">
         
-          <div style="float: left;width:236px">
+          <div style="float: left;width:300px">
             <form action="/CMD_ADMIN_BACKUP" method="post">
             <input type=hidden name=action value="update_files">
               <div>|LANG_STEP_1|: <b>|LANG_FROM_WHERE|</b></div>
@@ -158,6 +158,7 @@
                   <tr><td align=right>|LANG_PASSWORD|:</td><td><input type="password" size="15" class="combot" name=ftp_password value="|ftp_password|"></td></tr>
                   <tr><td align=right>|LANG_REMOTE_PATH|:</td><td><input type="text" size="15" class="combot" name=ftp_path value="|ftp_path|"></td></tr>
                   <tr><td align=right>|LANG_PORT|:</td><td><input type="text" size="8" class="combot" name=ftp_port value="|ftp_port|"></td></tr>
+                  <tr><td align=right class=listtitle>|LANG_SECURE_FTP|:</td><td class=listtitle>|FTP_SECURE_SELECT|</td></tr>
                   <tr><td align=right colspan="2"><input class="boton small" type=submit value="|LANG_UPDATE_FILES|"></td></tr>
                   </tbody>
                 </table>
@@ -174,6 +175,7 @@
           <input type=hidden name=ftp_password value="|ftp_password|">
           <input type=hidden name=ftp_path value="|ftp_path|">
           <input type=hidden name=ftp_port value="|ftp_port|">
+          <input type=hidden name=ftp_secure value="|ftp_secure|">
 
           <div style="float: left;width:220px;margin: 0 10px;">
             <div>|LANG_STEP_2|: <b>|LANG_SELECT_IP|</b></div>
@@ -185,10 +187,10 @@
             </div>
           </div>
           
-          <div style="float: left;width:270px">
+          <div style="float: left;width:310px">
             <div>|LANG_STEP_3|: <b>|LANG_SELECT_FILES|</b></div>
             <div class="topsel">|LANG_LOCATION|: <b>|FILES_LOCATION|</b></div>
-            <div style="overflow: auto; height: 160px; width: 270px;border: 1px solid #ddd" class="table100 tboverf">|FILES|</div>
+            <div style="overflow: auto; height: 160px; width: 268px;border: 1px solid #ddd" class="table100 tboverf">|FILES|</div>
           </div>
           
           </form>
@@ -210,7 +212,11 @@
         <div class="title">|LANG_BACKUP_SETTINGS|</div>
         <div class="cont table100">
           <input type=checkbox name=message value="yes" |SEND_MESSAGE| id="sgd5"><label for="sgd5">|LANG_SEND_MESSAGE|</label><br />
-          <input type=checkbox name="local_ns" value="yes" |LOCAL_NS| id="dfj7"><label for="dfj7">|LANG_LOCAL_NS|</label>
+          <input type=checkbox name="local_ns" value="yes" |LOCAL_NS| id="dfj7"><label for="dfj7">|LANG_LOCAL_NS|</label><br />
+          <input type=checkbox name="restore_spf" value="yes" |RESTORE_SPF| id="spf8"><label for="spf8">|LANG_RESTORE_SPF|</label><br />
+|*if CLUSTER_ENABLED="1"|
+          <input type=checkbox name="confirm_with_domainowners" value="yes" |CONFIRM_WITH_DOMAINOWNERS| id="cdo9"><label for="cdo9">|LANG_CONFIRM_WITH_DOMAINOWNERS|</label>
+|*endif|
         </div>
         <div align="right" style="padding: 4px 0;text-align:right;"><input type=submit value="|LANG_SAVE|" class="boton"></div>
       </form>

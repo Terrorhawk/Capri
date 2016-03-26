@@ -36,3 +36,23 @@
 36=Niski
 37=Średni
 38=Wysoki
+39=Porządkuj system wiadomości
+40=Usuń
+41=Temat zawiera
+42=Kiedy
+43=-- zawsze --
+44=nowsze niż
+45=starsze niż
+46=dzień/dni
+47=Brak wiadomości z tematem clear_message_system_list
+48=Temat nie może zawierać znaku nowej linii
+49=subject_select != %d, ale temat nie jest ustawiony. To nie powinno się wydarzyć.
+50='Kiedy' powinno być starsze, nowsze lub zawsze
+51=Niepoprawna liczba dni: %s. Powinna być dodatnią liczbą całkowitą.
+52=Niepoprawna liczba dni: %s. Jest za duża.  Max = 
+53=wiadomość
+54=zgłoszenie
+55=Niepoprawne delete_messages_days lub delete_tickets_days. Powinno wynosić 0 lub być dodatnią liczbą całkowitą.
+56=Niepoprawne delete_messages_days lub delete_tickets_days. Jest za duże.  Max = 
+57=Nie można odczytać pliku konfiguracji Systemu Wiadomości
+58=Nie można zapisać konfiguracji Systemu Wiadomości

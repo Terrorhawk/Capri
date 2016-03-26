@@ -1,10 +1,8 @@
-<?php
-//need for optimisation functions.php
+<?php //need for optimisation functions.php
 
 class skclass{
-	function api_get($cmd, $post = false) {
-		
-		global $disable_api_on_ssl;
+	private function getApi($cmd, $post = false) {
+		//var_dump($_SERVER);
 		if (is_array($post)) {
 			$is_post = true;
 			$str = "";
@@ -18,16 +16,23 @@ class skclass{
 		else {
 			$is_post = false;
 		}
+		if( isset( $_SERVER["SERVER_PORT"] ) ) {
+		    $_SERVER_PORT = $_SERVER["SERVER_PORT"];
+		} else {
+		    $_SERVER_PORT = $_ENV["SERVER_PORT"];
+		}
 
-		$_SERVER_PORT = $_ENV["SERVER_PORT"];
-		if (!$_ENV["SERVER_PORT"] && $_SERVER["SERVER_PORT"]) $_SERVER_PORT = $_SERVER["SERVER_PORT"];
-		$_SESSION_KEY = $_ENV["SESSION_KEY"];
-		if (!$_ENV["SESSION_KEY"] && $_SERVER["SESSION_KEY"]) $_SESSION_KEY = $_SERVER["SESSION_KEY"];
-		$_SESSION_ID = $_ENV["SESSION_ID"];
-		if (!$_ENV["SESSION_ID"] && $_SERVER["SESSION_ID"]) $_SESSION_ID = $_SERVER["SESSION_ID"];
-		$SSL = $_ENV["SSL"];
-		if (!$_ENV["SSL"] && $_SERVER["SSL"]) $SSL = $_SERVER["SSL"];
-		if ($disable_api_on_ssl == 1) return false;
+		if( isset( $_SERVER["SESSION_KEY"] ) ) {
+		    $_SESSION_KEY = $_SERVER["SESSION_KEY"];
+		} else {
+		    $_SESSION_KEY = $_ENV["SESSION_KEY"];
+		}    
+
+		if( isset( $_SERVER["SESSION_ID"] ) ) {
+		    $_SESSION_ID = $_SERVER["SESSION_ID"];
+		} else {
+		    $_SESSION_ID = $_ENV["SESSION_ID"];
+		}
 		
 		$headers = array();
 		$headers["Host"] = "127.0.0.1:" . $_SERVER_PORT;
@@ -41,59 +46,196 @@ class skclass{
 		foreach($headers as $var => $value) $send.= $var . ": " . $value . "\r\n";
 		$send.= "\r\n";
 		if ($is_post && strlen($post) > 0) $send.= $post . "\r\n\r\n";
-		if ($SSL == 1){
-			$sIP = "ssl://127.0.0.1";
-		}
-		else {
-			$sIP = "127.0.0.1";
-		}
+
+		    $sIP = "127.0.0.1";
 
 		// connect
-		$res = @fsockopen($sIP, '2222', $sock_errno, $sock_errstr, 1);
+		$res = @fsockopen($sIP, $_SERVER_PORT, $sock_errno, $sock_errstr, 5);
 		if($sock_errno || $sock_errstr) {
 			return false;
 		}
-		// send query
-		@fputs($res, $send, strlen($send));
-		// get reply
+		if ($res) {
+		    // send query
+		    @fputs($res, $send, strlen($send));
+		    // get reply
+		    $result = '';
+		    while(!feof($res)) {
+		            $result .= fgets($res, 32768);
+		    }
+                    
+		    @fclose($res);
 
-		$result = '';
-		while(!feof($res)) {
-			$result .= fgets($res, 32768);
+		    // remove header
+		    $data = explode("\r\n\r\n", $result, 2);
+
+		    if(count($data) == 2) {
+		        return $data[1];
+		     } else {
+		        return false;
+		     }
+		} else {
+                    return false;
 		}
-		@fclose($res);
-		// remove header
-		$data = explode("\r\n\r\n", $result, 2);
-
-		if(count($data) == 2) {
-			return $data[1];
+ 
+	}
+        
+        public function checkLocalSsl() {
+                if(( $_SERVER["SSL"] == 1 ) && (strstr($this->getApi("/CMD_API_LOAD_AVERAGE"), "use https"))) {
+		    return true;
+		} else {
+		    return false; 
 		}
-
-		return false;
 	}
 
-	function load_average($color = false) {
-		$loads = urldecode($this->api_get("/CMD_API_LOAD_AVERAGE"));
-		parse_str($loads);
-		settype($one, "float");
-		settype($five, "float");
-		settype($fifteen, "float");
-		$load = number_format($one, 2, ".", "") . ", " . number_format($five, 2, ".", "") . ", " . number_format($fifteen, 2, ".", "");
+	public function getLoadAverage() {
+		$load = sys_getloadavg();
+		$load = number_format($load[0], 2, ".", "") . ", " . number_format($load[1], 2, ".", "") . ", " . number_format($load[2], 2, ".", "");
 		return $load;
 	}
 
-	function getServices() {
-		$str = $this->api_get("/CMD_API_SHOW_SERVICES", $post = false);
-		if (strpos($str, "httpd") === false){
-			return false;
-		}
-
+	public function getServices() {
+		if (!$str = $this->getApi("/CMD_API_SHOW_SERVICES")){return false;}
 		parse_str(urldecode($str) , $servArr);
 		return $servArr;
 	}
+
+	public function getAllDomainsList() {
+		$ret = array();
+		if (!$r = $this->getApi("/CMD_API_DOMAIN_OWNERS")){return false;}
+		$domainsOwn = urldecode($r);
+		parse_str($domainsOwn, $domains);
+		if (is_array($domains) && count($domains) > 0) {
+			foreach($domains as $domain => $ouwner) {
+				$ret[str_replace("_", ".", $domain) ] = $ouwner;
+			}
+		}
+		return $ret;
+	}
+
+	public function getUserDomainsList() {
+		if (!$r = $this->getApi("/CMD_API_SHOW_DOMAINS")){return false;}
+		$domainsOwn = urldecode($r);
+		parse_str($domainsOwn, $domains);
+		return $domains;
+	}
+
+	public function getAdminStats() {
+		if (!$r = $this->getApi("/CMD_API_ADMIN_STATS")){return false;}
+		$stats = urldecode($r);
+		parse_str($stats, $statsArr);
+		return $statsArr;
+	}
+
+	public function getUserStats() {
+		if (!$r = $this->getApi("/CMD_API_SHOW_USER_USAGE")){return false;}
+		$stats = urldecode($r);
+		parse_str($stats, $statsArr);
+		return $statsArr;
+	}
+
+	public function getMailQuota($domain) {
+		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
+		if (!$r = $this->getApi("/CMD_API_POP", $post)){return false;}
+		$res = urldecode($r);
+		parse_str($res, $accounts);
+		return $accounts;
+	}
+
+	public function changeLang($lang) {
+		$post = array("language"=>1, "lvalue"=>$lang);
+		if (!$r = $this->getApi('/CMD_API_CHANGE_INFO', $post)){return false;}
+		parse_str($r, $resultArray);
+  		$output = json_encode($resultArray);
+		return $output;
+	}
+
+}
+
+class logoclass{
+	public function addCustomLogoConf($user, $logopath, $skroot) { 
+		$content = ""; 
+		$confpath = $skroot . "/files_custom.conf";
+		$customLogoArr = parse_ini_file($confpath);
+		$customLogoArr["IMG_RESLOGO_" . $user] = $logopath;
+		foreach ($customLogoArr as $key=>$elem) { 
+            if(is_array($elem)) 
+            { 
+                for($i=0;$i<count($elem);$i++) 
+                { 
+                    $content .= $key."[]=".$elem[$i]."\n"; 
+                } 
+            } 
+            else if($elem=="") $content .= $key." = \n"; 
+            else $content .= $key."=".$elem."\n"; 
+        } 
+
+
+	    if (!$handle = fopen($confpath, 'w')) { 
+	        return false; 
+	    }
+
+	    $success = fwrite($handle, $content);
+	    fclose($handle); 
+
+	    return $success;
+	}
+
+	public function uploadLogoUrl($logourl, $user, $skroot) {
+		$imgcheck = getimagesize ($logourl);
+		list($w, $h, $t, $x) = $imgcheck;
+	    if(($t==1  || $t==2 || $t==3) && $w<=300 && $h<=60) {
+	        $extfile = image_type_to_extension($imgcheck[2]);
+	        $logodata = file_get_contents($logourl);
+	        $logopath = "images/custom/". $user . $extfile;
+	        $fullLogoPath = $skroot . "/" . $logopath;
+	        file_put_contents($fullLogoPath, $logodata);
+
+	        if(!$this->addCustomLogoConf($user, $logopath, $skroot)) {
+	          @unlink($fullLogoPath);
+	          return 1;
+	        } else {
+	          return 0;
+	        }
+	    } else {
+	        return 2;
+	    }
+	}
+
+}
+
+class fileclass{
+	public function openfile($file) {
+		if (file_exists($file)) {
+			if ($data = @file_get_contents($file)) {
+				return $data;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public function whitefile($str, $file) {
+		if ($al = @fopen($file, "w")) {
+			if (@is_writable($file)) {
+				@fwrite($al, $str);
+				return true;
+			} else {
+				return false;
+			}
+
+			@fclose($al);
+		} else {
+			return false;
+		}
+	}
+
+
 }
 
 $sk = new skclass();
-
+$logo = new logoclass();
+$fl = new fileclass();
 
 ?>

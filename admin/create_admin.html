@@ -3,20 +3,11 @@
 |?HELP_SECTION=`ADMIN_HELPER`/createa.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_CREATE_ADMIN|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_CREATE_ADMIN|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/HTM_ACCOUNT_ADMIN_CREATE');
-
-?>
-DONE|
 
 |*if AJAX="1"|
 	|?CHECK_NAME=ajax_checkName()|

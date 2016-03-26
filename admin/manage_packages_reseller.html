@@ -2,22 +2,24 @@
 |?HELP_SECTION=`ADMIN_HELPER`/rpackages.html|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_MANAGE_RES_PACK|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_MANAGE_RES_PACK|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_MANAGE_RESELLER_PACKAGES');
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="list">
+    <tbody>
+        <tr><td height="22" style="padding-left:3px;" class="listtitle"><b>|LANG_OPTIONS|</b></td></tr>
+        <tr class="trList"><td class="list">
+        <table cellspacing="0" cellpadding="0" border="0" align="center">
+            <tbody>
+                <tr><td width="20%" align="center"><a class="subitem" href="CMD_SHOW_RESELLER_PACKAGE"><img width="32" border="0" height="32" src="/IMG_IC_ADDPACKAGE"><br>|LANG_MANAGE_RES_PACK|</a>
+                </td></tr>
+            </tbody>
+        </table>
+        </td></tr>
+    </tbody>
+</table>
 
-$items[] = array('img' => '/IMG_IC_ADDPACKAGE', 'link' => 'CMD_SHOW_RESELLER_PACKAGE', 'txt' => '|LANG_MANAGE_RES_PACK|');
-$sk->submenu('|LANG_OPTIONS|',$items);
-
-?>
-DONE|
 |PACKAGES|
 |HTM_ADMIN_BOTTOM|

@@ -1,32 +1,25 @@
 |HTM_HEADER|
 |LF_STANDARD|
-|?TREE=&raquo; <a class=tree href="/HOME_MEMORY">`LANG_HOME`</a> &raquo; <a class=tree href="/HTM_ALL_DOMAINS">`LANG_ALL_DOMAINS_LIST`</a>|
+|?TREE=&raquo; <a class=tree href="/">`LANG_HOME`</a> &raquo; <a class=tree href="/HTM_ALL_DOMAINS">`LANG_ALL_DOMAINS_LIST`</a>|
 |HTM_CONFIG|
     <div id="leftPanel">
 |HTM_BOX_ADMIN_SEARCH|
 |HTM_BOX_SERVER_STATS|
     </div>
     <div id="rightPanel">
+
+<div class="pageTit"><span>|LANG_ALL_DOMAINS_LIST|</span>
+|TREE|
+</div>
+
 |$|SK_PHP|
 <?php  
-include |SK_ROOT|."inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-$pagetit = <<<EOF
-|LANG_ALL_DOMAINS_LIST|
-EOF;
-
-$tree = <<<EOF
-|TREE|
-EOF;
-
-echo pagetit($pagetit, $tree);
-$domains=getDomainsList();
+include |SK_ROOT|."inc/func.php";
+$domains=$sk->getAllDomainsList();
 
 parse_str($_SERVER['QUERY_STRING'], $GET);
 
-if($GET['sort']==1) {
+if(isset($GET['sort']) && $GET['sort']==1) {
   @asort($domains);
 $t1=<<<EOF
 <a class="listtitle" href="/HTM_ALL_DOMAINS">|LANG_DOMAIN|</a>
@@ -44,10 +37,11 @@ $t2=<<<EOF
 EOF;
 }
 
-if($GET['raw']==1) {
+if(isset($GET['raw']) && $GET['raw']==1) {
 
 ?>
-      <div style="line-height:16px;">
+      &nbsp;&raquo; <a href="/HTM_ALL_DOMAINS"><b>|LANG_TABLE_LIST|</b></a>
+      <div style="line-height:16px; margin-top: 10px;">
         <textarea style="width:100%; height: 335px;" readonly readonly="readonly">
 <?php  if(is_array($domains) && count($domains)>0) {
      foreach($domains as $domain => $ouwner) {
@@ -60,7 +54,7 @@ if($GET['raw']==1) {
 } else {
 ?>
       &nbsp;&raquo; <a href="/HTM_ALL_DOMAINS?raw=1"><b>|LANG_RAW_LIST|</b></a>
-      <table class="list" cellpadding="3" cellspacing="0" width="600" style="margin-top: 10px;">
+      <table class="list" cellpadding="3" cellspacing="0" width="100%" style="margin-top: 10px;">
         <tr>
           <td class="listtitle"><?php  echo  $t1?></td>
           <td class="listtitle"><?php  echo  $t2?></a></td>

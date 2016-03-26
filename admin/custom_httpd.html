@@ -3,31 +3,15 @@
 |?HELP_SECTION=`ADMIN_HELPER`|
 |HTM_ADMIN_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_CUSTOM_HTTPD|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_CUSTOM_HTTPD|</span>
 |TREE|
-EOF;
-
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/CMD_CUSTOM_HTTPD');
-
-?>
-<div class="table75">
-<?php
-$table = <<<EOF
-|DOMAINS|
-EOF;
-
-preg_match_all("/<tr ><td align=([\"']*)right([\"']*) colspan=([\"']*)([1-9]+)([\"']*)>Page: ([^<\/td]|.*)<\/td ><\/tr >/", $table, $matches);
-echo str_replace("toptext", "pagerText", $matches[6][0]);
-
-echo $table;
-?>
 </div>
-DONE|
+
+<div class="table75">
+
+|DOMAINS|
+
+</div>
 |HTM_ADMIN_BOTTOM|
 

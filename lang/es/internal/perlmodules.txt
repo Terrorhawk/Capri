@@ -1,0 +1,2 @@
+1=Error ejecutando Perl
+2=Modulos Perl Instalados

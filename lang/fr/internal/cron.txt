@@ -1,0 +1,15 @@
+1=Pour ajouter une tâche Cron, vous avez besoin de toutes les caractéristiques suivantes : minute, heure, jourdumois, mois, jourdelasemaine et commande
+2=Le temps doit être formaté par une des options suivantes (ex. heure, pas d'espace):<br />*<br />1<br />1-5<br />0-23/2<br />1,2,3,13,22<br />0-4,8-12
+3=La commande ne doit contenir aucune nouvelle ligne de caractères
+4=Minute
+5=Heure
+6=Jour du<br />mois
+7=Mois
+8=Jour de la<br />semaine
+9=Commande
+10=Sauvegarder
+11=Editer
+12=Effacer
+13=Select
+14=User
+15=Invalid E-Mail address. DirectAdmin login username also allowed

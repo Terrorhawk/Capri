@@ -3,20 +3,11 @@
 |?HELP_SECTION=`RESELLER_HELPER`/userpass.html|
 |HTM_RESELLER_TOP|
 |HTM_CONFIG|
-|$|SK_PHP|
-<?php
-$pagetit = <<<EOF
-|LANG_CHANGE_PASS|
-EOF;
-$tree = <<<EOF
+
+<div class="pageTit"><span>|LANG_CHANGE_PASS|</span>
 |TREE|
-EOF;
+</div>
 
-include |SK_ROOT| . "inc/functions.php";
-$tpl->pagetit($pagetit, $tree, $pagetit, '/HTM_USER_PASSWD');
-
-?>
-DONE|
 <center>
 <form action="CMD_USER_PASSWD" method="post">
   <table class="config" cellspacing="0">

@@ -1,0 +1,18 @@
+|HTM_CONFIG|
+|$|SK_PHP|
+<?php
+
+include |SK_ROOT|."inc/func.php";
+
+if($_SERVER["QUERY_STRING"]) {
+  parse_str($_SERVER["QUERY_STRING"], $GET);
+} else {
+  parse_str(getenv("QUERY_STRING"), $GET);
+}
+
+if($GET['lang']) {
+echo $output = $sk->changeLang($GET['lang']);
+}
+
+?>
+DONE|

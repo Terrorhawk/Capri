@@ -13,21 +13,11 @@
       |HTM_BOX_RESELLER_STATS|
     </div>
     <div id="rightPanel">
-|$|SK_PHP|
-<?php
-include |SK_ROOT| . "inc/functions.php";
 
-$pagetit = <<<EOF
-|LANG_STATS_FOR| |USERNAME|
-EOF;
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_STATS_FOR| |USERNAME|</span>
 |TREE|
-EOF;
+</div>
 
-$tpl->pagetit($pagetit, $tree);
-
-?>
-DONE|
       <div class="table75"> 
         |STATS|
       </div>

@@ -1,0 +1,29 @@
+1=No options were selected
+2=Script output
+3=User password changed, however the account is still suspended
+4=Invalid Username
+5=That username is a reserved system name
+6=User %s already exists.  Please chose a different username.
+7=Unix User created successfully
+8=Error creating User
+9=Unable to create user's data directory
+10=User's data directory created successfully
+11=User added to ssh config file.
+12=Unable to add user to ssh config file
+13=User removed from SSH
+14=Unix User removed from the server
+15=<b>Unable to remove Unix User</b>. Continuing with the other files.
+16=User's config files deleted
+17=User's data directory removed.
+18=Removed user from %s's list
+19=Left user on %s's list
+20=Error with system Quotas
+21=Debug Guide
+22=User's System Quotas set
+23=You must provide a valid ip
+24=You didn't chose a different ip, no changes have been made
+25=has been updated with the new ip
+26=Apache config file re-written with new ip
+27=Ftp IPs successfully swapped
+
+

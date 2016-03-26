@@ -1,0 +1,5 @@
+1=User added to named.conf file successfully
+2=Script output
+3=Domain has already been deleted. It wasn't in the named.conf file
+4=Unable to read zone file to increase serial
+5=Unable to write zone file to increase serial

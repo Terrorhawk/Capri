@@ -19,45 +19,27 @@
       </div>
     </div>
     <div id="rightPanel" class="table100">
-|$|SK_PHP|
-<?php  
+    <style> t.trList .selectclass.combo, .trList .inputclass.combo{max-width: 70px;} </style>
 
-include |SK_ROOT|."inc/functions.php";
-include |SK_ROOT|."inc/tables.php";
-include |SK_ROOT|."inc/layout.php";
-
-$pagetit = <<<EOF
-|LANG_SHOW_ALL_USERS|
-EOF;
-
-$tree = <<<EOF
+<div class="pageTit"><span>|LANG_SHOW_ALL_USERS|</span>
 |TREE|
-EOF;
+</div>
 
-echo pagetit($pagetit, $tree);
+|$|SK_PHP|
+<?php 
 
-$tabla = <<< EOF
+$table = <<< EOF
 |TABLE|
 EOF;
 
-echo CMD_ALL_USER_SHOW($tabla);
-
-$lang_del_user = <<< EOF
-|LANG_DELETE_USER|
-EOF;
-$lang_del_user = addslashes($lang_del_user);
-
-$lang_user_susp = <<< EOF
-|LANG_USER_SUSPENDED|
-EOF;
-$lang_user_susp = addslashes($lang_user_susp);
+$table = str_replace(' / unlimited', '', $table);
+echo $table;
 
 ?>
+DONE|
+
     </div>
-<?php  
-parse_str($_SERVER["QUERY_STRING"], $GET);
-if(!$GET['view']) {
-?>
+
 <script language="JavaScript" type="text/javascript">
 <!--
 $(function(){
@@ -73,26 +55,25 @@ $(function(){
   $("table.list tr td.list, table.list tr td.list2").parent().each(function(){
     var user = $(this).find("td:first").text();
     var clas = $(this).find("td:eq(2)").attr("class");
-    $(this).append('<td class="'+clas+'"><a href="CMD_SELECT_USERS?select0='+user+'&delete=Delete&location=CMD_USER_SHOW?sort1=1"><img src="IMG_SK_OFF" title="<?php  echo  $lang_del_user?> '+user+'" border="0"></a></td>');
+    $(this).append('<td class="'+clas+'"><a href="CMD_SELECT_USERS?select0='+user+'&delete=Delete&location=CMD_USER_SHOW?sort1=1"><img src="IMG_SK_OFF" title="|LANG_DELETE_USER| '+user+'" border="0"></a></td>');
   });
   $("table.list tr:first").append('<td class="listtitle">&nbsp;</td>');
   $("table.list tr.Suspended").each(function(){
     var user = $(this).find("td:first").text()
     var url = "'/CMD_SELECT_USERS?location=CMD_USER_SHOW&dounsuspend=1&select0="+user+"'";
-    $(this).find("td:last").prepend('<img src="IMG_USER_SUSPENDED" class="userSuspended" title="Unsuspend user" onclick="javascript:TB_load;window.location='+url+'">');
+    $(this).find("td:last").prepend('<img src="IMG_USER_NOSUSPENDED" class="userSuspended" title="|LANG_UNSUSPEND_USER|" onclick="javascript:TB_load;window.location='+url+'">');
   });
   $("table.list tr.noSuspended").each(function(){
     var user = $(this).find("td:first").text();
     var url = "'/CMD_SELECT_USERS?location=CMD_USER_SHOW&dosuspend=1&select0="+user+"'";
-    $(this).find("td:last").prepend('<img src="IMG_USER_NOSUSPENDED" class="usernoSuspended" title="Suspend user" onclick="javascript:TB_load;window.location='+url+'">');
+    $(this).find("td:last").prepend('<img src="IMG_USER_SUSPENDED" class="usernoSuspended" title="|LANG_SUSPEND_USER|" onclick="javascript:TB_load;window.location='+url+'">');
   });
   $("table.list tr.Suspended td:last, table.list tr.noSuspended td:last").attr("nowrap", "nowrap").attr("width", "1%").css("white-space","nowrap");
   $('table.list tr, img').ToolTip({className: 'tooltip', position: 'mouse'});
 });
 //-->
 </script>
-<?php  } ?>
-DONE|
+
 |HTM_FOOTER|
 
 
