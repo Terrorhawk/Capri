@@ -1,9 +1,13 @@
 |LF_STANDARD|
 |?TREE=&raquo; <a class=tree href="/CMD_CUSTOM_HTTPD">`LANG_CUST_HTTPD_CONF`</a> &raquo; <a class=tree href="/CMD_CUSTOM_HTTPD?user=`user`&php-fpm=`php-fpm`">php-fpm `php-fpm`</a>|
 |?HELP_SECTION=`ADMIN_HELPER`|
+|HTM_ADMIN_TOP|
+|HTM_CONFIG|
 
-|HTM_HEADER|
-|HTM_HEADER_WIDE|
+<div class="pageTit"><span>|LANG_CUST_FOR| |user| <b>php-fpm |php-fpm|</span>
+|TREE|
+</div>
+
 
 |*if CONFIG_ERROR="1"|
 <center>
@@ -31,7 +35,72 @@
 		<br><br>
 	</td>
 </tr>
-<script type="text/javascript" src="JS_VISIBILITY"></script>
+<script language="Javascript">
+function set_expand_visible(toggle_name, vis_name)
+{
+	var vis_element = document.getElementById(vis_name);
+	var toggle_element = document.getElementById(toggle_name);
+
+	vis_element.style.display = '';
+	toggle_element.innerHTML = "-";
+	toggle_element.className = "expand_toggle_neg";
+}
+function set_expand_hidden(toggle_name, vis_name)
+{
+	var vis_element = document.getElementById(vis_name);
+	var toggle_element = document.getElementById(toggle_name);
+
+	vis_element.style.display = 'none';
+	toggle_element.innerHTML = "+";
+	toggle_element.className = "expand_toggle_plus";
+}
+
+function toggle_expand(toggle_name, vis_name)
+{
+	var vis_element = document.getElementById(vis_name);
+	if (vis_element.style.display == 'none')
+	{
+		set_expand_visible(toggle_name, vis_name);
+	}
+	else
+	{
+		set_expand_hidden(toggle_name, vis_name);
+	}
+}
+function show_additional_custom_tokens()
+{
+	document.getElementById('addition_custom_tokens').style.display = 'none';
+	for (i=1; i<=4; i++)
+	{
+		document.getElementById('custom'+i+'_toggle_tr').style.display = '';
+	}
+
+}
+function toggle_custom(x)
+{
+	show_additional_custom_tokens();
+
+	var toggle_name="custom"+x+"_toggle";
+	var tr_name="custom"+x+"_tr";
+
+	toggle_expand(toggle_name, tr_name);
+}
+function trigger_toggle()
+{
+|*if CUSTOM1!=""|
+	toggle_custom(1);
+|*endif|
+|*if CUSTOM2!=""|
+	toggle_custom(2);
+|*endif|
+|*if CUSTOM3!=""|
+	toggle_custom(3);
+|*endif|
+|*if CUSTOM4!=""|
+	toggle_custom(4);
+|*endif|
+}
+</script>
 <tr><td class=list colspan=2><span class=expand_toggle_plus id=tokens_toggle onclick="toggle_expand('tokens_toggle', 'tokens_visibility');">+</span> |LANG_AVAIL_TOKENS|</td></tr>
 <tr id=tokens_visibility style="display: none;">
 	<td class=list align=center>

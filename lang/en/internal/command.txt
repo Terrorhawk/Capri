@@ -569,3 +569,6 @@
 569=%s Removed
 570=Trust cookie has been cleared
 571=Sent E-mails
+572=%sSave Nameservers%s
+573=Error saving Nameservers
+574=Nameservers have been change

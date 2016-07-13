@@ -38,6 +38,10 @@
 |*if internal="N"|
         <tr><th nowrap>|LANG_LTYPE|</th><td>|LANG_EXTERNAL|</td></tr>
 |*endif|
+|*if da_needs_restart="yes"|
+        <tr><th nowrap>*** <b>|LANG_DA_NOT_RESTARTED|</b> ***<br>
+        <a href="CMD_SERVICE?action=restart&service=directadmin">|LANG_RESTART_DA|</a></th></tr>
+|*endif|
       </tbody>
     </table>
 

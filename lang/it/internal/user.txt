@@ -110,3 +110,5 @@
 110=Domain exists on %s
 111=Domain is forbidden
 112=You cannot delete yourself (%s)
+113=ns1 or ns2 are not valid nameservers
+114=No changes have been made
