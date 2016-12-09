@@ -77,6 +77,9 @@
 |*if USERSPAM="ON"|
       <a href="/CMD_SPAMASSASSIN?domain=|domain|"><img src="/IMG_IC_SPAM"><br>|LANG_SPAMASSASSIN|</a>
 |*endif|
+|*if USEREMAILMAX!="0"|
+<a href="/CMD_EMAIL_FILTER?domain=|domain|"><img src="/IMG_IC_EMAIL_FIL"><br>|LANG_EMAIL_FILTERS|</a>
+|*endif|
 |*if USERMLISTMAX!="0"|
       <a href="/CMD_EMAIL_LIST?domain=|domain|"><img src="/IMG_IC_MAILING"><br>|LANG_MAILING_LISTS|</a>
       <a href="/CMD_EMAIL_FILTER?domain=|domain|"><img src="/IMG_IC_EMAIL_FIL"><br>|LANG_SPAM_FILTERS|</a>
