@@ -30,6 +30,7 @@ $(function(){
   $("input.domss").bind("keyup change",function(){$(this).val(toLowerCase($(this).val()));});
   
 });
+function switchRtrans(){$(".rtr").toggle();}
 function TB_load(){$("#pageloading:hidden").slideDown("fast");}
 function TB_unload(){$("#pageloading:visible").slideUp("fast");}
 function getPage(page, destination){$.ajax({type: "get", url: page, dataType: 'html', success: function(html){$("#"+destination).html(html);}});}

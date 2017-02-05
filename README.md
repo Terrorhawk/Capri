@@ -66,3 +66,12 @@ ssl_ignore_when_local=1
 ```
 For full localization need add/change next option in your directadmin.conf to "internal_lang=/usr/local/directadmin/data/skins/**capri**/lang" (check for valid path)
 more information - ![http://www.directadmin.com/features.php?id=927](http://www.directadmin.com/features.php?id=927)
+
+**UPDATE CRONJOB.**
+Since version 1.41 we provide a update.php.
+U can add a cronjob everyday or every week so the skin will alway's have the latest version.
+
+```bash
+30 4 * * * /usr/local/bin/php -q -f /usr/local/directadmin/data/skin/Capri/update.php
+```
+Make sure u have the correct path to the update.php in the cronjob. The cron can best be run as root

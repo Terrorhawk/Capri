@@ -76,10 +76,10 @@
             <td colspan="2"><input type=checkbox name="BIND_BK" value="yes" |BIND_BK|><label>|LANG_BACKUP_BIND_CONFIG|</label></td>
           </tr>
           <tr>
-            <td colspan="2"><input id="filesAndDirs" onclick="javascript:switchFilesDirs();" type=checkbox name="CUSTOM_BK" value="yes" |CUSTOM_BK|><label for="filesAndDirs">|LANG_BACKUP_DIRS_FILES|</label></td>
+            <td colspan="2"><input id="filesAndDirs" type=checkbox name="CUSTOM_BK" value="yes" |CUSTOM_BK|><label for="filesAndDirs">|LANG_BACKUP_DIRS_FILES|</label></td>
           </tr>
           <tr>
-            <td colspan="2"><input id="rtrans" onclick="javascript:switchRtrans();" type=checkbox name="USE_RTRANS" value="yes" |USE_RTRANS|><label for="rtrans"><b>|LANG_USE_REMOTE_TRANSFER|</b></label></td>
+            <td colspan="2"><input id="rtrans"  type=checkbox name="USE_RTRANS" value="yes" |USE_RTRANS|><label for="rtrans"><b>|LANG_USE_REMOTE_TRANSFER|</b></label></td>
           </tr>
           
           <tr class="rtr" style="display:none;"><td colspan="2">|LANG_REMOTE_TRANSFER_METHOD|: |RTRANS_SELECT| &nbsp;&nbsp;&nbsp;&nbsp;<a href="/CMD_SYSTEM_BACKUP/id_dsa.pub">|LANG_DOWNLOAD_ID_DSA|</a></td></tr>
@@ -126,23 +126,32 @@
 <script language="JavaScript" type="text/javascript">
 <!--
 $(function(){
-  switchFilesDirs();
-  switchRtrans();
+  switchFilesDirs($('#filesAndDirs'));
+  switchRtrans($('#rtrans'));
   $("#filesDirs").find("table.list").css({"border":"none"});
 });
-function switchFilesDirs(){
-  if($("#filesAndDirs").attr("checked")==true) {
-    $("#filesDirs").show();
-  } else {
-    $("#filesDirs").hide();
-  }
+
+$('#filesAndDirs').click(function(e){
+  switchFilesDirs($(this));
+});
+
+$('#rtrans').click(function(e){
+  switchRtrans($(this));
+});
+
+function switchFilesDirs(e){
+   if(e.prop('checked') == true) {
+     $("#filesDirs").show();
+   } else {
+     $("#filesDirs").hide();
+   }
 }
-function switchRtrans(){
-  if($("#rtrans").attr("checked")==true) {
-    $(".rtr").show();
-  } else {
-    $(".rtr").hide();
-  }
+function switchRtrans(e){
+   if(e.prop('checked') == true) {
+     $(".rtr").show();
+   } else {
+     $(".rtr").hide();
+   }
 }
 //-->
 </script>
