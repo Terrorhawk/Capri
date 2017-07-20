@@ -136,8 +136,7 @@ class skclass{
 	public function getMailQuota($domain) {
 		$post = array('action'=>'list', 'type'=>'quota', 'domain'=>$domain);
 		if (!$r = $this->getApi("/CMD_API_POP", $post)){return false;}
-		$res = urldecode($r);
-		parse_str($res, $accounts);
+		parse_str($r, $accounts);
 		return $accounts;
 	}
 
