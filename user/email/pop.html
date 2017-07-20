@@ -87,7 +87,7 @@ $_Accounts = array();
 if(is_array($accounts) && count($accounts)>0) {
   foreach($accounts as $account  => $val) {
       parse_str(urldecode($val), $values);
-      $_Cuentas[$account]=$values;
+      $_Accounts[$account]=$values;
   }
 }
 
